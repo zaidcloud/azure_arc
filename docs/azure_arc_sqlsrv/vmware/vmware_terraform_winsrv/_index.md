@@ -5,7 +5,7 @@ weight: 1
 description: >-
 ---
 
-# Onboard a VMware vSphere-based Windows Server with SQL to Azure Arc
+# Overview
 
 The following README will guide you on how to use the provided [Terraform](https://www.terraform.io/) plan to deploy a Windows Server installed with Microsoft SQL Server 2019 (Developer edition) in a VMware vSphere virtual machine and connect it as an Azure Arc enabled SQL server resource.
 

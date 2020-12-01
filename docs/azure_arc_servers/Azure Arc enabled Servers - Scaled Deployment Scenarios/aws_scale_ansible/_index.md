@@ -5,7 +5,7 @@ weight: 3
 description: >
 ---
 
-# Scaled Onboarding AWS EC2 instances to Azure Arc using Ansible
+# Overview
 
 The following README will guide you on how to automatically perform scaled onboarding of AWS EC2 instances to Azure Arc by using [Ansible](https://www.ansible.com/). 
 

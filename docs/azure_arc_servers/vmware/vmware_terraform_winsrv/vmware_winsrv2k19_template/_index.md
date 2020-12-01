@@ -5,7 +5,7 @@ weight: 1
 description: >
 ---
 
-# Create a VMware vSphere template for Windows Server 2019
+# Overview
 
 The following README will guide you on how to create a Windows Server 2019 VMware vSphere virtual machine template. 
 
