@@ -27,7 +27,7 @@ In this guide, you will enable and configure Standard tier ASC on your Azure sub
 - **[VMware Ubuntu VM](../../vmware/vmware_terraform_ubuntu/) / [VMware Windows Server VM](../../vmware/vmware_terraform_winsrv)**
 - **[Local Ubuntu VM](../../vagrant/local_vagrant_ubuntu/) / [Local Windows VM](../../vagrant/local_vagrant_windows)**
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -67,7 +67,7 @@ In this guide, you will enable and configure Standard tier ASC on your Azure sub
     
   **Note**: It is optional but highly recommended to scope the SP to a specific [Azure subscription and Resource Group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest).
 
-# Onboarding Azure Security Center
+## Onboarding Azure Security Center
 
 * Data collected by Security Center is stored in a Log Analytics workspace, you can either use the default one created by ASC or a custom one created by you. If you want to create a dedicated workspace, you can automate the deployment by editing the ARM template [parameters file](https://github.com/microsoft/azure_arc/blob/master/azure_arc_servers_jumpstart/securitycenter/arm/log_analytics-template.parameters.json), provide a name and location for your workspace:
 
@@ -102,7 +102,7 @@ In this guide, you will enable and configure Standard tier ASC on your Azure sub
     ```
 
 
-# Azure Arc and Azure Security Center Integration
+## Azure Arc and Azure Security Center Integration
 
 Now that you have successfully onboarded ASC, you will get recommendations to help you protect your resources, including your Azure Arc enabled Machines. ASC will then periodically analyze the security state of your Azure resources to identify potential security vulnerabilities.
 
@@ -131,7 +131,7 @@ Now that you have successfully onboarded ASC, you will get recommendations to he
 
     ![](./09.png)
 
-# Clean up environment
+## Clean up environment
 
 Complete the following steps to clean up your environment.
 

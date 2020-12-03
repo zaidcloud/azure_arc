@@ -9,7 +9,7 @@ description: >
 
 The following README will guide you on how to create an Ubuntu Server 18.04 VMware vSphere virtual machine template. 
 
-# Prerequisites
+## Prerequisites
 
 **Note:** This guide assumes that you have some VMware vSphere familiarity. It is also does not designed to go over either VMware and/or Ubuntu best-practices. 
 
@@ -19,9 +19,9 @@ The following README will guide you on how to create an Ubuntu Server 18.04 VMwa
 
 * Although it can be used locally, for faster deployment, it is recommended to upload the file to a vSphere datastore or to vCenter Content Library. 
 
-# Creating Ubuntu 18.04 VM Template
+## Creating Ubuntu 18.04 VM Template
 
-## Deploying & Installing Ubuntu
+### Deploying & Installing Ubuntu
 
 ![](./01.png)
 
@@ -91,7 +91,7 @@ Power-on the VM and start the Ubuntu installation. No specific instructions here
 
 ![](./30.png)
 
-## Post-installation 
+### Post-installation 
 
 Before converting the VM to a template, few actions are needed.
 
@@ -123,7 +123,7 @@ Before converting the VM to a template, few actions are needed.
     sudo shutdown now
     ```
 
-## Convert to Template
+### Convert to Template
 
 Reduce the CPU & Memory resources to the minimum and convert the VM to template.
 

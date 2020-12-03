@@ -1,11 +1,11 @@
 ---
-title: "Onboard K8s"
-linkTitle: "Onboard K8s"
+title: "Connect an existing Kubernetes cluster to Azure Arc"
+linkTitle: "Connect an existing Kubernetes cluster to Azure Arc"
 weight: 1
 description: >
 ---
 
-## Overview
+# Connect an existing Kubernetes cluster to Azure Arc
 
 The following README will guide you on how to connect an existing Kubernetes cluster to Azure Arc using a simple shell script.
 

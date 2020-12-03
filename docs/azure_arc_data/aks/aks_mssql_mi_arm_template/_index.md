@@ -1,6 +1,6 @@
 ---
 title: "Azure SQL Managed Instance Deployment on AKS (ARM Template)"
-linkTitle: "AKS MSSQL MI"
+linkTitle: "Azure SQL Managed Instance Deployment on AKS (ARM Template)"
 weight: 2
 description: >
 ---
@@ -200,7 +200,7 @@ Now that both the AKS cluster and the Windows Server client VM are created, it i
 
     ![](./15.png)
 
-# Re-Deploy Azure Arc Data Controller & SQL MI
+## Re-Deploy Azure Arc Data Controller & SQL MI
 
 In case you deleted the Azure Arc Data Controller and the SQL MI from the Kubernetes cluster, you can re-deploy it by running the *MSSQL_MI_Deploy.ps1* Powershell script located in *C:\tmp* on the Windows Client VM. **The Deploy script run time is approximately 15min long**.
 

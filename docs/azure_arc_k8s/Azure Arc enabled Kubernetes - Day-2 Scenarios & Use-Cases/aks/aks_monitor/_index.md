@@ -1,13 +1,11 @@
 ---
 title: "Integrate Azure Monitor for Containers with AKS as an Azure Arc Connected Cluster"
-linkTitle: "AKS Monitor"
+linkTitle: "Integrate Azure Monitor for Containers with AKS as an Azure Arc Connected Cluster"
 weight: 3
 description: >
 ---
 
 # Integrate Azure Monitor for Containers with AKS as an Azure Arc Connected Cluster
-
-## Overview
 
 The following README will guide you on how to onboard an Azure Kubernetes Service (AKS) cluster which is projected an Azure Arc connected cluster resource on to [Azure Monitor for Containers](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview).
 

@@ -53,7 +53,7 @@ By the end of the guide, you will have an AWS EC2 instance installed with Window
 
     **Note**: It is optional but highly recommended to scope the SP to a specific [Azure subscription and Resource Group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest)
 
-### Create a new AWS IAM Role & Key
+## Create a new AWS IAM Role & Key
 
 Create AWS User IAM Key. An access key grants programmatic access to your resources which we will be using later on in this guide.
 

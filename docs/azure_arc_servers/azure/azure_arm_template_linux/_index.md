@@ -15,7 +15,7 @@ However, **for demo purposes only**, the below guide will allow you to use and o
 
 **Note: It is not expected for an Azure VM to be projected as an Azure Arc enabled server. The below scenario is unsupported and should ONLY be used for demo and testing purposes.**
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -55,7 +55,7 @@ However, **for demo purposes only**, the below guide will allow you to use and o
 
 > [!Note] It is optional, but highly recommended, to scope the SP to a specific [Azure subscription and Resource Group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest).
 
-# Automation Flow
+## Automation Flow
 
 For you to get familiar with the automation and deployment flow, below is an explanation.
 
@@ -82,7 +82,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
     > [!NOTE] The [*install_arc_agent.sh*](https://github.com/microsoft/azure_arc/blob/master/azure_arc_servers_jumpstart/azure/linux/arm_template/scripts/install_arc_agent.sh) shell script will enable the OS firewall and set up new rules for incoming and outgoing connections. By default all incoming and outgoing traffic will be allowed, except blocking Azure IMDS outbound traffic to the *169.254.169.254* Remote Address. 
 
-# Deployment
+## Deployment
 
 As mentioned, this deployment will leverage ARM templates. You will deploy a single template, responsible for creating all the Azure resources in a single Resource Group as well onboarding the created VM to Azure Arc. 
 
@@ -121,7 +121,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
     ![](./02.png)
 
 
-# Linux Login & Post Deployment
+## Linux Login & Post Deployment
 
 * Now that the Linux VM is created, it is time to login to it. Using it's public IP, SSH to the VM.
 
@@ -143,7 +143,7 @@ Let the script to run its course and **do not close** the SSH session, this will
 
 ![](./08.png)
 
-# Cleanup
+## Cleanup
 
 To delete the entire deployment, simply delete the Resource Group from the Azure portal.
 

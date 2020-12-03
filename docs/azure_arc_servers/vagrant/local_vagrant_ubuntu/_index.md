@@ -9,7 +9,7 @@ description: >
 
 The following README will guide you on how to deploy a local "Ready to Go" **Ubuntu** virtual machine using [Vagrant](https://www.vagrantup.com/) and connect it as an Azure Arc enabled server resource.
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -69,7 +69,7 @@ The following README will guide you on how to deploy a local "Ready to Go" **Ubu
     * resourceGroup=Azure Resource Group Name
     * location=Azure Region
 
-# Deployment
+## Deployment
 
 Like any Vagrant deployment, a [*Vagrantfile*](https://github.com/microsoft/azure_arc/blob/master/azure_arc_servers_jumpstart/local/vagrant/ubuntu/Vagrantfile) and a [Vagrant Box](https://www.vagrantup.com/docs/boxes.html) is needed. At a high-level, the deployment will:
 
@@ -90,7 +90,7 @@ Upon completion, you will have a local Ubuntu VM deployed, connected as a new Az
 
 ![](./04.png)
 
-# Semi-Automated Deployment (Optional)
+## Semi-Automated Deployment (Optional)
 
 As you may noticed, the last step of the run is to register the VM as a new Azure Arc enabled server resource. 
 
@@ -112,7 +112,7 @@ In a case you want to demo/control the actual registration process, to the follo
 
 ![](./09.png)
 
-# Delete the deployment
+## Delete the deployment
 
 To delete the entire deployment, run the ```vagrant destroy -f``` command. The Vagrantfile includes a *before: destroy* Vagrant trigger which will run a script to delete the Azure Resource Group before destroying the actual VM. That way, you will be starting fresh next time. 
 

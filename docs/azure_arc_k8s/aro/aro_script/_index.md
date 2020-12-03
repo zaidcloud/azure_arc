@@ -1,13 +1,11 @@
 ---
-title: "ARO Script"
-linkTitle: "ARO Script"
+title: "Deploy Azure Redhat Openshift Cluster and connect it to Azure Arc using automation"
+linkTitle: "Deploy Azure Redhat Openshift Cluster and connect it to Azure Arc using automation"
 weight: 1
 description: >-
 ---
 
-# ARO Script
-
-## Overview
+# Deploy Azure Redhat Openshift Cluster and connect it to Azure Arc using automation
 
 The following is a guide on how to use the Azure Cloud Shell to deploy an [Azure Red Hat OpenShift](https://azure.microsoft.com/en-us/services/openshift/) 4 cluster and have it as a connected Azure Arc Kubernetes resource.
 

@@ -1,11 +1,11 @@
 ---
-title: "Rancher K3s Azure Terraform"
-linkTitle: "Rancher K3s Azure Terraform"
+title: "Deploy Rancher k3s on an Azure VM and connect it to Azure Arc using Terraform"
+linkTitle: "Deploy Rancher k3s on an Azure VM and connect it to Azure Arc using Terraform"
 weight: 2
 description: >
 ---
 
-## Overview
+# Deploy Rancher k3s on an Azure VM and connect it to Azure Arc using Terraform
 
 The following README will guide you on how to use the provided [Terraform](https://www.terraform.io/) plan to deploy a "Ready to Go" Azure virtual machine installed with single-master Rancher K3s Kubernetes cluster and connected it as an Azure Arc cluster resource.
 

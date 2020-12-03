@@ -9,7 +9,7 @@ description: >
 
 The following README will guide you on how to connect an Linux server to Azure Arc using a simple shell script.
 
-# Prerequisites
+## Prerequisites
 
 * [Install or update Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). **Azure CLI should be running version 2.7** or later. Use ```az --version``` to check your current installed version.
 
@@ -54,7 +54,7 @@ The following README will guide you on how to connect an Linux server to Azure A
 
 ![](./03.png)
 
-# Deployment
+## Deployment
 
 Run the script using the ```. ./az_connect_linux.sh``` command. 
 
@@ -68,7 +68,7 @@ Upon completion, you will have your Linux server, connected as a new Azure Arc r
 
 ![](./06.png)
 
-# Delete the deployment
+## Delete the deployment
 
 The most straightforward way is to delete the server via the Azure Portal, just select server and delete it. 
 

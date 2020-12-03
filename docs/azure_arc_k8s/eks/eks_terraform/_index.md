@@ -1,11 +1,11 @@
 ---
-title: "EKS Terraform"
-linkTitle: "EKS Terraform"
+title: "Deploy EKS cluster and connect it to Azure Arc using Terraform"
+linkTitle: "Deploy EKS cluster and connect it to Azure Arc using Terraform"
 weight: 1
 description: >
 ---
 
-## Overview
+# Deploy EKS cluster and connect it to Azure Arc using Terraform
 
 The following README will guide you on how to use the provided [Terraform](https://www.terraform.io/) plan to deploy an Amazon Web Services (AWS) [Kubernetes Engine cluster](https://aws.amazon.com/eks/) and connected it as an Azure Arc cluster resource.
 

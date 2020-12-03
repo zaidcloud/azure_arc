@@ -11,7 +11,7 @@ The following README will guide you on how to use the provided [VMware PowerCLI]
 
 This guide assumes you already have an exiting inventory of VMware Virtual Machines and will leverage the PowerCLI PowerShell module to automate the onboarding process of the VMs to Azure Arc. 
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -70,7 +70,7 @@ This guide assumes you already have an exiting inventory of VMware Virtual Machi
 
     **Note**: It is optional but highly recommended to scope the SP to a specific [Azure subscription and Resource Group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest)
 
-# Automation Flow
+## Automation Flow
 
 Below you can find the automation flow for this scenario:
 
@@ -80,7 +80,7 @@ Below you can find the automation flow for this scenario:
 
 3. The *install_arc_agent.ps1* PowerCLI script will run on the VM guest OS and will install the "Azure Arc Connected Machine Agent" in order to onboard the VM to Azure Arc
 
-# Pre-Deployment
+## Pre-Deployment
 
 To demonstrate the before & after for this scenario, the below screenshots shows a dedicated, empty Azure Resources Group, a vCenter VM folder with candidate VMs and the "Apps & features" view in Windows showing no agent is installed.
 
@@ -90,7 +90,7 @@ To demonstrate the before & after for this scenario, the below screenshots shows
 
 ![](./03.png)
 
-# Deployment
+## Deployment
 
 Before running the PowerCLI script, you must set the [environment variables](https://github.com/microsoft/azure_arc/blob/master/azure_arc_servers_jumpstart/vmware/scale_deploy/powercli/windows/vars.ps1) which will be used by the *install_arc_agent.ps1* script. These variables are based on the Azure Service Principal you've just created, your Azure subscription and tenant, and your VMware vSphere credentials and data.
 

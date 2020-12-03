@@ -9,7 +9,7 @@ description: >
 
 The following README will guide you on how to use the provided [Terraform](https://www.terraform.io/) plan to deploy an Ubuntu Server GCP virtual machine and connect it as an Azure Arc enabled server resource.
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -25,7 +25,7 @@ The following README will guide you on how to use the provided [Terraform](https
 
 * [Install Terraform >=0.12](https://learn.hashicorp.com/terraform/getting-started/install.html)
 
-# Create a new GCP Project
+## Create a new GCP Project
 
 * Browse to https://console.developers.google.com and login with your Google Cloud account. Once logged in, [create a new project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) named "Azure Arc Demo". After creating it, be sure to copy down the project id as it is usually different then the project name.
 
@@ -72,7 +72,7 @@ The following README will guide you on how to use the provided [Terraform](https
 
     **Note**: It is optional but highly recommended to scope the SP to a specific [Azure subscription and Resource Group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest)
 
-# Deployment
+## Deployment
 
 Before executing the Terraform plan, you must export the environment variables which will be used by the plan. These variables are based on the Azure Service Principal you've just created, your Azure subscription and tenant, and the GCP project name.
 
@@ -103,7 +103,7 @@ Before executing the Terraform plan, you must export the environment variables w
 
     ![](./18.png)
 
-# Semi-Automated Deployment (Optional)
+## Semi-Automated Deployment (Optional)
 
 As you may have noticed, the last step of the run is to register the VM as a new Azure Arc enabled server resource.
     ![](./10.png)
@@ -134,7 +134,7 @@ If you want to demo/control the actual registration process, do the following:
 
 6. When complete, your VM will be registered with Azure Arc and visible in the resource group inside Azure Portal.
 
-# Delete the deployment<a name="teardown"></a>
+## Delete the deployment<a name="teardown"></a>
 
 To delete all the resources you created as part of this demo use the ```terraform destroy --auto-approve``` command as shown below.
 

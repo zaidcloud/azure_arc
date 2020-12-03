@@ -1,6 +1,6 @@
 ---
 title: "Azure PostgreSQL Hyperscale Deployment on AKS (ARM Template)"
-linkTitle: "AKS Postgres HS"
+linkTitle: "Azure PostgreSQL Hyperscale Deployment on AKS (ARM Template)"
 weight: 3
 description: >
 ---
@@ -147,7 +147,7 @@ az aks get-versions -l "<Your Azure Region>"
 
     ![](./02.png)
 
-# Windows Login & Post Deployment
+## Windows Login & Post Deployment
 
 Now that both the AKS cluster and the Windows Server client VM are created, it is time to login the Client VM. 
 

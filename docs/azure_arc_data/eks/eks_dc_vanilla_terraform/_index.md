@@ -1,6 +1,6 @@
 ---
 title: "Azure Arc Data Controller Vanilla Deployment on EKS (Terraform)"
-linkTitle: "EKS DC Vanilla"
+linkTitle: "Azure Arc Data Controller Vanilla Deployment on EKS (Terraform)"
 weight: 1
 description: >
 ---

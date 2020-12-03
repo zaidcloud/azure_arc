@@ -9,7 +9,7 @@ description: >
 
 The following README will guide you on how to use the provided [Terraform](https://www.terraform.io/) plan to deploy an AWS Amazon Linux 2 virtual machine and connect it as an Azure Arc enabled server resource.
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -25,7 +25,7 @@ The following README will guide you on how to use the provided [Terraform](https
 
 * [Install Terraform >=0.12](https://learn.hashicorp.com/terraform/getting-started/install.html)
 
-# Create Azure Service Principal (SP)   
+## Create Azure Service Principal (SP)   
 
 * To connect the AWS virtual machine to Azure Arc, an Azure Service Principal assigned with the "Contributor" role is required. To create it, login to your Azure account run the following commands:
 
@@ -49,7 +49,7 @@ The following README will guide you on how to use the provided [Terraform](https
 
     **Note**: It is optional but highly recommended to scope the SP to a specific [Azure subscription and Resource Group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest)
 
-# Create an AWS identity
+## Create an AWS identity
 
 In order for Terraform to create resources in AWS, we will need to create a new AWS IAM role with appropriate permissions and configure Terraform to use it.
 
@@ -85,7 +85,7 @@ In order for Terraform to create resources in AWS, we will need to create a new 
 
     ![](./08.png)
 
-# Configure Terraform
+## Configure Terraform
 
 Before executing the Terraform plan, you must export the environment variables which will be used by the plan. These variables are based on your Azure subscription and tenant, the Azure Service Principal, and the AWS IAM user and keys you just created.
 
@@ -114,7 +114,7 @@ Before executing the Terraform plan, you must export the environment variables w
 
     ![](./09.png)
 
-# Deployment
+## Deployment
 
 * Run the ```terraform apply --auto-approve``` command and wait for the plan to finish. Upon completion, you will have an AWS Amazon Linux 2 VM deployed and connected as a new Azure Arc enabled server inside a new Resource Group.
 
@@ -122,7 +122,7 @@ Before executing the Terraform plan, you must export the environment variables w
 
     ![](./10.png)
 
-# Semi-Automated Deployment (Optional)
+## Semi-Automated Deployment (Optional)
 
 As you may have noticed, the last step of the run is to register the VM as a new Azure Arc enabled server resource.
     ![](./11.png)
@@ -154,7 +154,7 @@ If you want to demo/control the actual registration process, do the following:
 
 6. When complete, your VM will be registered with Azure Arc and visible in the resource group inside Azure Portal.
 
-# Delete the deployment
+## Delete the deployment
 
 To delete all the resources you created as part of this demo use the ```terraform destroy --auto-approve``` command as shown below.
     ![](./17.png)

@@ -9,7 +9,7 @@ description: >
 
 The following README will guide you on how to use the provided [Terraform](https://www.terraform.io/) plan to deploy a Windows Server, VMware vSphere virtual machine and connect it as an Azure Arc enabled server resource.
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -50,7 +50,7 @@ The following README will guide you on how to use the provided [Terraform](https
 
     **Note**: It is optional but highly recommended to scope the SP to a specific [Azure subscription and Resource Group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest)
 
-## Preparing a Window Server VMware vSphere VM Template
+### Preparing a Window Server VMware vSphere VM Template
 
 Before using the below guide to deploy a Windows Server VM and connect it to Azure Arc, a VMware vSphere Template is required. [The following README](./vmware_winsrv2k19_template) will instruct you how to easily create such a template using VMware vSphere 6.5 and above. 
 
@@ -58,7 +58,7 @@ Before using the below guide to deploy a Windows Server VM and connect it to Azu
 
 **Note:** If you already have a Windows Server VM template it is still recommended to use the guide as a reference. 
 
-# Deployment
+## Deployment
 
 Before executing the Terraform plan, you must set the environment variables which will be used by the plan. These variables are based on the Azure Service Principal you've just created, your Azure subscription and tenant, and your VMware vSphere credentials.
 
@@ -104,7 +104,7 @@ Once the Terraform deployment is completed, a new Windows Server VM will be up &
 
 ![](./06.png)
 
-# Delete the deployment
+## Delete the deployment
 
 The most straightforward way is to delete the Azure Arc resource via the Azure Portal, just select the resource and delete it. In addition, delete the VMware vSphere VM.
 

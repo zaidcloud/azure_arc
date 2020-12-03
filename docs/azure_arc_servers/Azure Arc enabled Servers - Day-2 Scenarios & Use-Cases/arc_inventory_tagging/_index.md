@@ -1,11 +1,11 @@
 ---
-title: "Tagging and querying server inventory across multiple clouds using Resource Graph Explorer"
+title: "Arc Inventory Tagging"
 linkTitle: "Arc Inventory Tagging"
 weight: 1
 description: >
 ---
 
-# Tagging and querying server inventory across multiple clouds using Resource Graph Explorer
+# Arc Inventory Tagging
 
 The following README will guide you on how to use Azure Arc enabled servers to provide server inventory management capabilities across hybrid multi-cloud and on-premises environments.
 
@@ -17,7 +17,7 @@ In this guide, we will use [Resource Graph Explorer](https://docs.microsoft.com/
 * [GCP Ubuntu VM](../../gcp/gcp_terraform_ubuntu/)
 * [AWS Ubuntu VM](../../aws/aws_terraform_ubuntu/)
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -29,7 +29,7 @@ In this guide, we will use [Resource Graph Explorer](https://docs.microsoft.com/
 
 * Resources projected into Azure via Azure Arc from AWS and/or GCP.
 
-# Verify that your Arc connected servers are ready for tagging
+## Verify that your Arc connected servers are ready for tagging
 
 We will be using Resource Graph Explorer during this exercise to query and view resources in Azure. 
 
@@ -50,7 +50,7 @@ We will be using Resource Graph Explorer during this exercise to query and view 
 
     ![](./11.png)
 
-# Create a basic Azure tag taxonomy
+## Create a basic Azure tag taxonomy
 
 * Open AZ CLI and run the following commands to create a basic taxonomy structure that will allow us to easily query and report on where our server resources are hosted (i.e., Azure vs AWS vs GCP vs On-premises). For more guidance on building out a tag taxonomy please review the [Resource naming and tagging decision guide](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/decision-guides/resource-tagging/).
 
@@ -64,11 +64,11 @@ We will be using Resource Graph Explorer during this exercise to query and view 
 
     ![](./05.png)
 
-# Tag Arc resources
+## Tag Arc resources
 
 Now that we have created a basic taxonomy structure, we will apply tags to our Arc server resources. In this guide, we will demonstrate tagging resources in both AWS and GCP. If you only have resources in one of these providers, you can skip to the appropriate section for AWS or GCP.
 
-## Tag Arc-connected AWS Ubuntu server
+### Tag Arc-connected AWS Ubuntu server
 
 * In AZ CLI, run the following commands to apply the "Hosting Platform : AWS" tag to your Arc AWS servers. 
 
@@ -84,7 +84,7 @@ Now that we have created a basic taxonomy structure, we will apply tags to our A
 
     ![](./07.png)
 
-## Tag Arc-connected GCP Ubuntu server
+### Tag Arc-connected GCP Ubuntu server
 
 * In AZ CLI, run the following commands to apply the "Hosting Platform : GCP" tag to your Arc GCP servers. 
 
@@ -100,7 +100,7 @@ Now that we have created a basic taxonomy structure, we will apply tags to our A
 
     ![](./08.png)
 
-# Query resources by tag using Resource Graph Explorer
+## Query resources by tag using Resource Graph Explorer
 
 Now that we have applied tags to our resources that are hosted in multiple clouds, we can use Resource Graph Explorer to query them and get insight into our multi-cloud landscape.
 
@@ -123,7 +123,7 @@ Now that we have applied tags to our resources that are hosted in multiple cloud
 
     ![](./13.png)
 
-# Clean up environment
+## Clean up environment
 
 Complete the following steps to clean up your environment.
 

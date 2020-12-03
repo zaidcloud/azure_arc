@@ -26,7 +26,7 @@ In this guide, you will enable and configure Azure Sentinel on your Azure subscr
 - **[VMware Ubuntu VM](../../vmware/vmware_terraform_ubuntu/) / [VMware Windows Server VM](../../vmware/vmware_terraform_winsrv)**
 - **[Local Ubuntu VM](../../vagrant/local_vagrant_ubuntu/) / [Local Windows VM](../../vagrant/local_vagrant_windows)**
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -66,7 +66,7 @@ In this guide, you will enable and configure Azure Sentinel on your Azure subscr
     
   **Note**: It is optional but highly recommended to scope the SP to a specific [Azure subscription and Resource Group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest).
 
-# Onboarding Azure Sentinel
+## Onboarding Azure Sentinel
 
 Azure Sentinel uses the Log Analytics agent to collect Windows and Linux server's log files and forwards them to Azure Sentinel, the data collected is stored in a Log Analytics workspace. Since you cannot use the default workspace created by Azure Security Center (ASC), a custom one is required and you could have raw events and alerts for ASC within the same custom workspace as Sentinel.
 
@@ -87,7 +87,7 @@ For example:
    ![](./04.png)
 
 
-# Azure Arc enabled VMs onboarding on Azure Sentinel 
+## Azure Arc enabled VMs onboarding on Azure Sentinel 
 
 Once you have deployed Azure Sentinel on your Log Analytics workspace, you will need to connect data sources to it. 
 
@@ -103,7 +103,7 @@ For servers and VMs, you can install the Microsoft Monitoring Agent (MMA) agent 
 
     Using this approach, you will assign an Azure Policy to audit if the Azure Arc enabled Server has the MMA agent installed. If the agent is not installed, you will use the Extensions feature to automatically deploy it to the VM using a Remediation task, an enrollment experience that levels to Azure VMs. 
 
-# Clean up environment
+## Clean up environment
 
 Complete the following steps to clean up your environment.
 

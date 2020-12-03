@@ -9,7 +9,7 @@ description: >
 
 The following README will guide you on how to connect an Windows machine to Azure Arc using a simple Powershell script.
 
-# Prerequisites
+## Prerequisites
 
 * [Install or update Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). **Azure CLI should be running version 2.7** or later. Use ```az --version``` to check your current installed version.
 
@@ -50,7 +50,7 @@ The following README will guide you on how to connect an Windows machine to Azur
 
 ![](./02.png)
 
-# Deployment
+## Deployment
 
 On the designated machine, Open Powershell ISE **as Administrator** and run the script. Note the script is using *$env:ProgramFiles* as the agent installation path so make sure **you are not using Powershell ISE (x86)**.
 
@@ -66,7 +66,7 @@ Upon completion, you will have your Windows server, connected as a new Azure Arc
 
 ![](./07.png)
 
-# Delete the deployment
+## Delete the deployment
 
 The most straightforward way is to delete the server via the Azure Portal, just select server and delete it. 
 

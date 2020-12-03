@@ -24,7 +24,7 @@ You can use the Azure Portal, an ARM template or PowerShell script to assign pol
 Please review the [Azure Monitor Supported OS documentation](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/vminsights-enable-overview#supported-operating-systems) and ensure that the VMs you will use for this exercise are supported. For Linux VMs, check both the Linux distro and kernel to ensure you are using a supported configuration.
 
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -76,7 +76,7 @@ Please review the [Azure Monitor Supported OS documentation](https://docs.micros
     --parameters <The *log_analytics-template.parameters.json* template file location>
   ```
 
-# Azure Policies on Azure Arc connected machines
+## Azure Policies on Azure Arc connected machines
 
 * Now that you have all the prerequisites set, you can assign policies to our Arc connected machines. Edit the [parameters file](https://github.com/microsoft/azure_arc/blob/master/azure_arc_servers_jumpstart/policies/arm/policy.json) to provide your subscription ID as well as the Log Analytics Workspace.
 
@@ -112,7 +112,7 @@ Please review the [Azure Monitor Supported OS documentation](https://docs.micros
 
   ![](./09.png)
 
-# Clean up environment
+## Clean up environment
 
 Complete the following steps to clean up your environment.
 

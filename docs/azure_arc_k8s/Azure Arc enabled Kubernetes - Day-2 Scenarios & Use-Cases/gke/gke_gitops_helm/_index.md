@@ -1,13 +1,11 @@
 ---
 title: "Deploy GitOps configurations and perform Helm-based GitOps flow on GKE as an Azure Arc Connected Cluster"
-linkTitle: "GKE GitOps Helm"
+linkTitle: "Deploy GitOps configurations and perform Helm-based GitOps flow on GKE as an Azure Arc Connected Cluster"
 weight: 2
 description: >
 ---
 
 # Deploy GitOps configurations and perform Helm-based GitOps flow on GKE as an Azure Arc Connected Cluster
-
-## Overview
 
 The following README will guide you on how to create [Helm](https://helm.sh/)-based GitOps configuration on a Google Kubernetes Engine (GKE) cluster which is projected as an Azure Arc connected cluster resource.
 

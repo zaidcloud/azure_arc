@@ -1,13 +1,11 @@
 ---
 title: "Apply GitOps configurations on AKS as an Azure Arc Connected Cluster using Azure Policy for Kubernetes"
-linkTitle: "AKS Policy"
+linkTitle: "Apply GitOps configurations on AKS as an Azure Arc Connected Cluster using Azure Policy for Kubernetes"
 weight: 4
 description: >
 ---
 
 # Apply GitOps configurations on AKS as an Azure Arc Connected Cluster using Azure Policy for Kubernetes
-
-## Overview
 
 The following README will guide you on how to enable [Azure Policy for Kubernetes](https://docs.microsoft.com/en-us/azure/governance/policy/concepts/policy-for-kubernetes#:~:text=Azure%20Policy%20extends%20Gatekeeper%20v3,Kubernetes%20clusters%20from%20one%20place.) on an Azure Kubernetes Service (AKS) cluster that is projected as an Azure Arc connected cluster as well as how to create GitOps policy to apply on the cluster. 
 

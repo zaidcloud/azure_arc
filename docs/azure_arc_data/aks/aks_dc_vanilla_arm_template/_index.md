@@ -1,6 +1,6 @@
 ---
 title: "Azure Arc Data Controller Vanilla Deployment on AKS (ARM Template)"
-linkTitle: "AKS DC Vanilla"
+linkTitle: "Azure Arc Data Controller Vanilla Deployment on AKS (ARM Template)"
 weight: 1
 description: >
 ---

@@ -1,13 +1,11 @@
 ---
 title: "Integrate Azure Monitor for Containers with GKE as an Azure Arc Connected Cluster"
-linkTitle: "GKE Monitor"
+linkTitle: "Integrate Azure Monitor for Containers with GKE as an Azure Arc Connected Cluster"
 weight: 3
 description: >
 ---
 
 # Integrate Azure Monitor for Containers with GKE as an Azure Arc Connected Cluster
-
-## Overview
 
 The following README will guide you on how to enable [Azure Monitor for Containers](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview) for a Google Kubernetes Engine (GKE) cluster that is projected as an Azure Arc connected cluster.
 

@@ -9,7 +9,7 @@ description: >
 
 The following README will guide you on how to use the provided [Terraform](https://www.terraform.io/) plan to deploy a Windows Server GCP virtual machine and connect it as an Azure Arc enabled server resource.
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -58,7 +58,7 @@ The following README will guide you on how to use the provided [Terraform](https
 
     **Note**: It is optional but highly recommended to scope the SP to a specific [Azure subscription and Resource Group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest)
 
-# Create a new GCP Project
+## Create a new GCP Project
 
 * Browse to https://console.cloud.google.com and login with your Google Cloud account. Once logged in, [create a new project](https://cloud.google.com/resource-manager/docs/creating-managing-projects) named "Azure Arc Demo". After creating it, be sure to copy down the project id as it is usually different then the project name.
 
@@ -76,7 +76,7 @@ The following README will guide you on how to use the provided [Terraform](https
 
     ![](./05.png)
 
-# Deployment
+## Deployment
 
 Before executing the Terraform plan, you must set and then export the environment variables which will be used by the plan. These variables are based on the Azure Service Principal you've just created, your Azure subscription and tenant, and the GCP project name.
 
@@ -109,7 +109,7 @@ Before executing the Terraform plan, you must set and then export the environmen
 
     ![](./33.png)
 
-# Semi-Automated Deployment (Optional)
+## Semi-Automated Deployment (Optional)
 
 The Terraform plan automatically installs the Azure Arc agent and connects the VM to Azure as a managed resource by executing a Powershell script when the VM is first booted.
     ![](./12.png)
@@ -140,7 +140,7 @@ If you want to demo/control the actual registration process, do the following:
 
     ![](./19.png)
 
-# Delete the deployment<a name="teardown"></a>
+## Delete the deployment<a name="teardown"></a>
 
 To delete all the resources you created as part of this demo use the ```terraform destroy --auto-approve``` command as shown below.
     ![](./11.png)

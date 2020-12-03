@@ -1,11 +1,11 @@
 ---
-title: "Rancher K3s Azure Arm Template"
-linkTitle: "Rancher K3s Azure Arm Template"
+title: "Deploy Rancher k3s on an Azure VM and connect it to Azure Arc using Azure ARM template"
+linkTitle: "Deploy Rancher k3s on an Azure VM and connect it to Azure Arc using Azure ARM template"
 weight: 1
 description: >
 ---
 
-## Overview
+# Deploy Rancher k3s on an Azure VM and connect it to Azure Arc using Azure ARM template
 
 The following README will guide you on how to use the provided [Azure ARM Template](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview) to deploy a "Ready to Go" Azure virtual machine installed with single-master Rancher K3s Kubernetes cluster and connected it as an Azure Arc cluster resource.
 

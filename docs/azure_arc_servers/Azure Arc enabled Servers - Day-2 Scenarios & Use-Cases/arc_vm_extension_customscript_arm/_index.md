@@ -19,7 +19,7 @@ You can use the Azure Portal, Azure CLI, an ARM template, PowerShell or Linux sh
 - **[VMware Ubuntu VM](../../vmware/vmware_terraform_ubuntu/) / [VMware Windows Server VM](../../vmware/vmware_terraform_winsrv)**
 - **[Local Ubuntu VM](../../vagrant/local_vagrant_ubuntu/) / [Local Windows VM](../../vagrant/local_vagrant_windows)**
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -63,7 +63,7 @@ You can use the Azure Portal, Azure CLI, an ARM template, PowerShell or Linux sh
     - [*Linux*](https://github.com/microsoft/azure_arc/blob/master/azure_arc_servers_jumpstart/scripts/custom_script_linux.sh): The script will modify the message of the day (MOTD) on the operating system. 
     - [*Windows*](https://github.com/microsoft/azure_arc/blob/master/azure_arc_servers_jumpstart/scripts/custom_script_windows.ps1): The script will installs Windows Terminal, Microsoft Edge, 7zip and Visual Studio Code [Chocolaty](https://chocolatey.org/) packages on the VM.
 
-# Azure Arc enabled Servers Custom Script Extension Deployment
+## Azure Arc enabled Servers Custom Script Extension Deployment
 
 * Edit the extensions parameters file for [*Windows*](https://github.com/microsoft/azure_arc/blob/master/azure_arc_servers_jumpstart/extensions/arm/customscript-templatewindows.parameters.json) or for[*Linux*](https://github.com/microsoft/azure_arc/blob/master/azure_arc_servers_jumpstart/extensions/arm/customscript-templatelinux.parameters.json)
 
@@ -120,7 +120,7 @@ You can use the Azure Portal, Azure CLI, an ARM template, PowerShell or Linux sh
 
     ![](./09.png)
 
-# Clean up environment
+## Clean up environment
 
 Complete the following steps to clean up your environment.
 

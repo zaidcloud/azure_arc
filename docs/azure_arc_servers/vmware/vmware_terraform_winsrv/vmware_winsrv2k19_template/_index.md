@@ -9,7 +9,7 @@ description: >
 
 The following README will guide you on how to create a Windows Server 2019 VMware vSphere virtual machine template. 
 
-# Prerequisites
+## Prerequisites
 
 **Note:** This guide assumes that you have some VMware vSphere familiarity and you have knowledge on how to install Windows Server. It is also does not designed to go over either VMware and/or Windows best-practices. 
 
@@ -19,9 +19,9 @@ The following README will guide you on how to create a Windows Server 2019 VMwar
 
 * Although it can be used locally, for faster deployment, it is recommended to upload the file to a vSphere datastore or to vCenter Content Library. 
 
-# Creating Windows Server 2019 VM Template
+## Creating Windows Server 2019 VM Template
 
-## Deploying & Installing Windows Server
+### Deploying & Installing Windows Server
 
 ![](./01.png)
 
@@ -61,7 +61,7 @@ Power-on the VM and start the Windows Server installation.
 
 ![](./16.png)
 
-## Post-installation 
+### Post-installation 
 
 Before converting the VM to a template, few actions needs to be taken.
 
@@ -105,7 +105,7 @@ Before converting the VM to a template, few actions needs to be taken.
 
     - Install all baseline apps you may want to include in your template.
 
-## Convert to Template
+### Convert to Template
 
 Reduce the CPU & Memory resources, switch the CD/DVD drive to client device as well disconnect it and convert the VM to template.
 

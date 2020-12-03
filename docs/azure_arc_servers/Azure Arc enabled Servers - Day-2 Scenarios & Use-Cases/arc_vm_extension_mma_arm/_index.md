@@ -23,7 +23,7 @@ You can use the Azure Portal, Azure CLI, an ARM template, PowerShell script or A
 
 Please review the [Azure Monitor Supported OS documentation](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/vminsights-enable-overview#supported-operating-systems) and ensure that the VMs you will use for this exercise are supported. For Linux VMs, check both the Linux distro and kernel to ensure you are using a supported configuration.
 
-# Prerequisites
+## Prerequisites
 
 * Clone this repo
 
@@ -75,7 +75,7 @@ To deploy the ARM template, navigate to the "deployment folder"-***../extensions
     --parameters <The *log_analytics-template.parameters.json* template file location>
   ```
 
-# Azure Arc enabled Servers Microsoft Monitoring Agent Extension Deployment
+## Azure Arc enabled Servers Microsoft Monitoring Agent Extension Deployment
 
 * Edit the [*extensions parameters file*](https://github.com/microsoft/azure_arc/blob/master/azure_arc_servers_jumpstart/extensions/arm/mma-template.parameters.json) 
 
@@ -114,7 +114,7 @@ To deploy the ARM template, navigate to the "deployment folder"-***../extensions
 
     ![](./11.png)
 
-# Clean up environment
+## Clean up environment
 
 Complete the following steps to clean up your environment.
 
