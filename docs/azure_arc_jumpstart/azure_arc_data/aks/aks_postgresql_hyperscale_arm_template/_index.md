@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure PostgreSQL Hyperscale Deployment on AKS (ARM Template)"
 linkTitle: "Azure PostgreSQL Hyperscale Deployment on AKS (ARM Template)"
 weight: 3

@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Contributing"
 linkTitle: "Contributing"
 weight: 5

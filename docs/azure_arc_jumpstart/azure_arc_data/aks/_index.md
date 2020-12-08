@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Data Services on Azure Kubernetes Service (AKS)"
 linkTitle: "Data Services on Azure Kubernetes Service (AKS)"
 weight: 1

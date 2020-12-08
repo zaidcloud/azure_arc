@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure SQL Managed Instance Deployment on AKS (ARM Template)"
 linkTitle: "Azure SQL Managed Instance Deployment on AKS (ARM Template)"
 weight: 2

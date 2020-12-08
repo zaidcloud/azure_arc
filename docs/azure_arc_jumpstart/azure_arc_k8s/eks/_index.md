@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Amazon Elastic Kubernetes Service (EKS)"
 linkTitle: "Amazon Elastic Kubernetes Service (EKS)"
 weight: 3

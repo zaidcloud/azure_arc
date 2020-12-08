@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Onboard an Azure Windows Server VM with Azure Arc"
 linkTitle: "Onboard an Azure Windows Server VM with Azure Arc"
 weight: 2

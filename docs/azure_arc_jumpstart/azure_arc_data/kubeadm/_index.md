@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Data Services on Upstream Kubernetes (Kubeadm)"
 linkTitle: "Data Services on Upstream Kubernetes (Kubeadm)"
 weight: 4

@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "VMware"
 linkTitle: "VMware"
 weight: 6

@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Google Cloud Platform (GCP)"
 linkTitle: "Google Cloud Platform (GCP)"
 weight: 5

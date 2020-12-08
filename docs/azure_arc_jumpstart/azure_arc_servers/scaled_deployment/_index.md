@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Arc enabled servers - Scaled Deployment Scenarios"
 linkTitle: "Azure Arc enabled servers - Scaled Deployment Scenarios"
 weight: 8

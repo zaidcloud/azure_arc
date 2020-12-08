@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Arc Overview"
 linkTitle: "Azure Arc Overview"
 weight: 1

@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Arc enabled data services"
 linkTitle: "Azure Arc enabled data services"
 weight: 4

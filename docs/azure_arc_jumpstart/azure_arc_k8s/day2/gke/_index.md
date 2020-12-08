@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "GKE"
 linkTitle: "GKE"
 weight: 2

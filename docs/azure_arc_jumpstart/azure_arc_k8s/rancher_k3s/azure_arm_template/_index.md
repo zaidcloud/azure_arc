@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Deploy Rancher k3s on an Azure VM and connect it to Azure Arc using Azure ARM template"
 linkTitle: "Deploy Rancher k3s on an Azure VM and connect it to Azure Arc using Azure ARM template"
 weight: 1

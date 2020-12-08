@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Data Services on AWS Elastic Kubernetes Service (EKS)"
 linkTitle: "Data Services on AWS Elastic Kubernetes Service (EKS)"
 weight: 2

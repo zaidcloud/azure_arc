@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Deploy GitOps configurations and perform Helm-based GitOps flow on kind as an Azure Arc Connected Cluster"
 linkTitle: "Deploy GitOps configurations and perform Helm-based GitOps flow on kind as an Azure Arc Connected Cluster"
 weight: 1

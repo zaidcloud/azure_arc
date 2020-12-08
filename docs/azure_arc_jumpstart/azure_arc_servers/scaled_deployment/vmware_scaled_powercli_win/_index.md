@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Scaled Onboarding VMware vSphere Windows Server VMs to Azure Arc"
 linkTitle: "Scaled Onboarding VMware vSphere Windows Server VMs to Azure Arc"
 weight: 1

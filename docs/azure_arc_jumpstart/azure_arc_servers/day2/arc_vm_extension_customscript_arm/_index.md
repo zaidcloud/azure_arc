@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Arc Server Custom Script Extension"
 linkTitle: "Arc Server Custom Script Extension"
 weight: 3

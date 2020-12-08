@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Google Kubernetes Engine (GKE)"
 linkTitle: "Google Kubernetes Engine (GKE)"
 weight: 4

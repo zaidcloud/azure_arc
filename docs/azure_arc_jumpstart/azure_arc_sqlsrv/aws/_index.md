@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Amazon Web Services (AWS)"
 linkTitle: "Amazon Web Services (AWS)"
 weight: 2

@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Vagrant"
 linkTitle: "Vagrant"
 weight: 3

@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Arc Data Controller Vanilla Deployment on Kubeadm Azure VM (ARM Template)"
 linkTitle: "Azure Arc Data Controller Vanilla Deployment on Kubeadm Azure VM (ARM Template)"
 weight: 1

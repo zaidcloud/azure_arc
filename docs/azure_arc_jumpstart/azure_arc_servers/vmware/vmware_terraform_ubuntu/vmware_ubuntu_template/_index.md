@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Create a VMware vSphere template for Ubuntu Server 18.04"
 linkTitle: "Create a VMware vSphere template for Ubuntu Server 18.04"
 weight: 1

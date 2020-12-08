@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Data Services on GCP Google Kubernetes Engine (GKE)"
 linkTitle: "Data Services on GCP Google Kubernetes Engine (GKE)"
 weight: 3

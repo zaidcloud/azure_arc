@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Rancher K3s"
 linkTitle: "Rancher K3s"
 weight: 5

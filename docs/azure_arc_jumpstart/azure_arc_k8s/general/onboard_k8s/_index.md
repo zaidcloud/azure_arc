@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Connect an existing Kubernetes cluster to Azure Arc"
 linkTitle: "Connect an existing Kubernetes cluster to Azure Arc"
 weight: 1

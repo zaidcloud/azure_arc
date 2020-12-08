@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Deploy GitOps configurations and perform basic GitOps flow on GKE as an Azure Arc Connected Cluster"
 linkTitle: "Deploy GitOps configurations and perform basic GitOps flow on GKE as an Azure Arc Connected Cluster"
 weight: 1

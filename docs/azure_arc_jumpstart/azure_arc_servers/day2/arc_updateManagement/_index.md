@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Deploy Update Management on Azure Arc enabled servers"
 linkTitle: "Deploy Update Management on Azure Arc enabled servers"
 weight: 7

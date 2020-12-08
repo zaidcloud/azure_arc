@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Arc enabled SQL Server"
 linkTitle: "Azure Arc enabled SQL Server"
 weight: 2

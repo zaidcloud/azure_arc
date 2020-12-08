@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "MicroK8s"
 linkTitle: "MicroK8s"
 weight: 8

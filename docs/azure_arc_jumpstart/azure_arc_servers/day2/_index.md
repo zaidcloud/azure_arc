@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Arc enabled servers - Day-2 Scenarios & Use-Cases"
 linkTitle: "Azure Arc enabled servers - Day-2 Scenarios & Use-Cases"
 weight: 7

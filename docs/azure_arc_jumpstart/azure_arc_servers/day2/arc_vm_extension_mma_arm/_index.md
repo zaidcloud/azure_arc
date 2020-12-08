@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Arc enabled servers MMA Extension"
 linkTitle: "Azure Arc enabled servers MMA Extension"
 weight: 2

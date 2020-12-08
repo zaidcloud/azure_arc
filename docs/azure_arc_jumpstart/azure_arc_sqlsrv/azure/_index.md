@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Microsoft Azure"
 linkTitle: "Microsoft Azure"
 weight: 1

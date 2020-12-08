@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Manage Arc enabled servers with Azure Policy"
 linkTitle: "Manage Arc enabled servers with Azure Policy"
 weight: 4

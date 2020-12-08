@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Deploy GKE cluster and connect it to Azure Arc using Terraform"
 linkTitle: "Deploy GKE cluster and connect it to Azure Arc using Terraform"
 weight: 1

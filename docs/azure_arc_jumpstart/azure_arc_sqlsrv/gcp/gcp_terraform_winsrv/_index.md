@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Onboard a GCP VM instance with Windows Server & Microsoft SQL Server to Azure Arc"
 linkTitle: "Onboard a GCP VM instance with Windows Server & Microsoft SQL Server to Azure Arc"
 weight: 1

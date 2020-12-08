@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Arc enabled servers on Azure Sentinel"
 linkTitle: "Azure Arc enabled servers on Azure Sentinel"
 weight: 6

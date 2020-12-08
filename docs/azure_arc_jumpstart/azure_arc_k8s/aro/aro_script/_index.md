@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Deploy Azure Redhat Openshift Cluster and connect it to Azure Arc using automation"
 linkTitle: "Deploy Azure Redhat Openshift Cluster and connect it to Azure Arc using automation"
 weight: 1

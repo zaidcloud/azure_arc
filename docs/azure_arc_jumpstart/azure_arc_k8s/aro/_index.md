@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Red Hat OpenShift (ARO) V4"
 linkTitle: "Azure Red Hat OpenShift (ARO) V4"
 weight: 6

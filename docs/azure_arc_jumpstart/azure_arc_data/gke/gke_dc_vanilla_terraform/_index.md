@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Arc Data Controller Vanilla Deployment on GKE (Terraform)"
 linkTitle: "Azure Arc Data Controller Vanilla Deployment on GKE (Terraform)"
 weight: 1

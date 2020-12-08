@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Apply GitOps configurations on GKE as an Azure Arc Connected Cluster using Azure Policy for Kubernetes"
 linkTitle: "Apply GitOps configurations on GKE as an Azure Arc Connected Cluster using Azure Policy for Kubernetes"
 weight: 4

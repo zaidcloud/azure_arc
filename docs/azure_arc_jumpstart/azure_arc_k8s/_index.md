@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Arc enabled Kubernetes"
 linkTitle: "Azure Arc enabled Kubernetes"
 weight: 3

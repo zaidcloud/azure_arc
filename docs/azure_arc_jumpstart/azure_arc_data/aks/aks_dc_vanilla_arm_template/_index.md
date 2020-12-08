@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Azure Arc Data Controller Vanilla Deployment on AKS (ARM Template)"
 linkTitle: "Azure Arc Data Controller Vanilla Deployment on AKS (ARM Template)"
 weight: 1

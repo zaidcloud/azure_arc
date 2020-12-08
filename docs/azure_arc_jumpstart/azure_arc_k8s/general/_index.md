@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "General"
 linkTitle: "General"
 weight: 1

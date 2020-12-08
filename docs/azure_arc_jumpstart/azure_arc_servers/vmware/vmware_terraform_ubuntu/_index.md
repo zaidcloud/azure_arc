@@ -1,4 +1,5 @@
 ---
+type: docs
 title: "Onboard a VMware Ubuntu server with Azure Arc"
 linkTitle: "Onboard a VMware Ubuntu server with Azure Arc"
 weight: 1
