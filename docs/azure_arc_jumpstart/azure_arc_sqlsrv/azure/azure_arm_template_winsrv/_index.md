@@ -126,7 +126,7 @@ As mentioned, this deployment will use an ARM Template. You will deploy a single
     ```shell
     az group create --name Arc-SQL-Demo --location "East US" --tags "Project=jumpstart_azure_arc_sql"
     az deployment group create \
-    --resource-group Arc-Servers-Win-Demo \
+    --resource-group Arc-SQL-Demo \
     --name arcsqlsrvdemo \
     --template-uri https://raw.githubusercontent.com/microsoft/azure_arc/main/azure_arc_sqlsrv_jumpstart/azure/arm_template/azuredeploy.json \
     --parameters azuredeploy.parameters.json
