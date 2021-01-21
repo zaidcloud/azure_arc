@@ -17,15 +17,14 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 ## Deployment Process Overview
 
 * Create a Google Cloud Platform (GCP) project, IAM Role & Service Account
-* Download credentials file
+* Download GCP credentials file
 * Clone the Azure Arc Jumpstart repository
 * Edit *TF_VAR* variables values
-* Export *TF*VAR* values
+* Export *TFVAR* values
 * *terraform init*
 * *terraform apply*
 * Remote into Windows client VM and monitor automation scripts
 * Open Azure Data Studio and connect to SQL MI instance and sample database
-* Check health of data controller
 * Run cleanup PowerShell script
 * *terraform destroy*
 
@@ -136,32 +135,32 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 
 Read the below explanation to get familiar with the automation and deployment flow.
 
-* User is editing and exporting Terraform runtime environment variables, AKA *TF_VAR* (1-time edit). The variables values are being used throughout the deployment.
+* User edits and exports *TF_VAR* Terraform runtime environment variables (1-time edit). The variable values are used throughout the deployment.
 
-* User deploys the Terraform plan which will deploy the GKE cluster and the GCP compute instance VM as well as an Azure resource group. The Azure resource group is required to host the Azure Arc services you will deploy such as Azure SQL Managed Instance.
+* User deploys the Terraform plan which will deploy a GKE cluster and compute instance VM as well as an Azure resource group. The Azure resource group is required to host the Azure Arc services you will deploy such as Azure SQL Managed Instance.
 
-* In addition, the plan will copy the *local_ssd_sc.yaml* file which will be used to create a Kubernetes Storage Class backed by SSD disks that will be used by Azure Arc Data Controller to create [persistent volume claims (PVC)](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).
+* In addition, the plan will copy the *local_ssd_sc.yaml* file which will be used to create a Kubernetes Storage Class backed by SSD disks. These disks will be used by Azure Arc Data Controller to create [persistent volume claims (PVC)](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).
 
   > **Note: Depending on the GCP region, make sure you do not have any [SSD quota limit in the region](https://cloud.google.com/compute/quotas), otherwise, the Azure Arc Data Controller kubernetes resources will fail to deploy.**
 
-* As part of the Windows Server 2019 VM deployment, there are 4 scripts executions:
+* As part of the Windows Server 2019 VM deployment, there are 4 script executions:
 
-  1. *azure_arc.ps1* script will be created automatically as part of the Terraform plan runtime and is responsible for injecting the *TF_VAR* variable values and environment variables on the Windows instance which will then be used in both the *ClientTools* and the *LogonScript* scripts.
+  1. *azure_arc.ps1* script will be created automatically as part of the Terraform plan runtime and is responsible for injecting the *TF_VAR* variable values as environment variables on the Windows instance which will then be used in both the *ClientTools* and the *LogonScript* scripts.
 
-  2. *password_reset.ps1* script will be created automatically as part of the Terraform plan runtime and is responsible on creating the Windows username & password.
+  2. *password_reset.ps1* script will be created automatically as part of the Terraform plan runtime and is responsible for creating the Windows username and password.
 
-  3. *ClientTools.ps1* script will run at the Terraform plan runtime Runtime and will:
+  3. *ClientTools.ps1* script will run during Terraform plan runtime and will:
       * Create the *ClientTools.log* file  
       * Install the required tools – az cli, az cli Powershell module, kubernetes-cli, Visual C++ Redistributable (Chocolaty packages)
       * Download Azure Data Studio & Azure Data CLI
-      * Download the *DC_Cleanup* and *DC_Deploy* Powershell scripts
+      * Download the *MSSQL_MI_Cleanup* and *MSSQL_MI_Deploy* Powershell scripts
       * Disable Windows Server Manager
       * Create the logon script
-      * Create the Windows schedule task to run the logon script at first login
+      * Create the Windows scheduler task to run the logon script at first login
 
-  4. *LogonScript.ps1* script will run on user first logon to Windows and will:
+  4. *LogonScript.ps1* script will run on first login to Windows and will:
       * Create the *LogonScript.log* file
-      * Install the Azure Data Studio Azure Data CLI, Azure Arc & PostgreSQL extensions
+      * Install the Azure Data Studio Azure Data CLI, Azure Arc and PostgreSQL extensions
       * Create the Azure Data Studio desktop shortcut
       * Apply the *local_ssd_sc.yaml* file on the GKE cluster
       * Create the *azdata* config file in user Windows profile
@@ -169,7 +168,7 @@ Read the below explanation to get familiar with the automation and deployment fl
       * Create Arc Data Controller config file (*control.json*) to setup the use of the Storage Class and Kubernetes LoadBalancer service
       * Deploy the Arc Data Controller **"Directly Connected" mode** using the *TF_VAR* variables values
       * Execute a secondary *SQLConnectivity* script which will configure the SQL MI instance and download and install the sample Adventureworks database
-      * Unregister the logon script Windows schedule task so it will not run after first login
+      * Unregister the logon script Windows scheduler task so it will not run after first login
 
 ## Deployment
 
@@ -286,7 +285,7 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
   ![terraform destroy](./44.png)
 
-## Re-Deploy Azure Arc Data Controller
+## Re-Deploy Azure Arc Data Controller and SQL Managed Instance
 
 * In case you deleted the Azure Arc Data Controller from the GKE cluster, you can re-deploy it by running the *MSSQL_MI_Deploy.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. **The Deploy script run time is approximately ~3-4min long**.
 
