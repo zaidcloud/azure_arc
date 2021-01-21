@@ -260,6 +260,8 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
   ![PowerShell login script run](./35.png)
 
+  ![PowerShell login script run](./35a.png)
+
 * Initially, since the data controller was deployed in "Directly Connected" mode, only after the logon script run is will be completed, a new Azure resource for the controller will be created as well.
 
     ![Data Controller in a resource group](./36.png)
