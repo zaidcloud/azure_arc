@@ -258,45 +258,36 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
   ![PowerShell login script run](./34.png)
 
-  ![PowerShell login script run](./35.png)
-
-  ![PowerShell login script run](./35a.png)
-
-* Initially, since the data controller was deployed in "Directly Connected" mode, only after the logon script run is will be completed, a new Azure resource for the controller will be created as well.
+* Since the data controller was deployed in "Directly Connected" mode, after the logon script run is completed a new Azure resource for the controller will be created and visible in the Azure Portal.
 
     ![Data Controller in a resource group](./36.png)
 
     ![Data Controller resource](./37.png)
 
-* Using PowerShell, login to the Data Controller and check it's health using the below commands.
+* Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. Azure Data Studio will be opened automatically after the LoginScript is finished. In Azure Data Studio, you can connect to the SQL Managed Instance and see the Adventureworks sample database.
 
-    ```powershell
-    azdata login --namespace $env:ARC_DC_NAME
-    azdata arc dc status show
-    ```
-
-  ![azdata login](./38.png)
-
-* Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. Using the Desktop shortcut created for you, open Azure Data Studio and click the Extensions settings to see both extensions.
+  > **Note: To connect to the SQL managed instance use the AZDATA_USERNAME and AZDATA_PASSWORD values specified in the azuredeploy.parameters.json file. The “sa” login is disabled.**
 
   ![Azure Data Studio shortcut](./39.png)
 
   ![Azure Data Studio extension](./40.png)
 
-## Cleanup
+  ![Azure Data studio sample database](./41.png)
 
-* To delete the Azure Arc Data Controller and all of it's Kubernetes resources, run the *DC_Cleanup.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. At the end of it's run, the script will close all PowerShell sessions. **The Cleanup script run time is ~2-3min long**.
+  ![Azure Data studio sample database](./42.png)
 
-  ![DC_Cleanup PowerShell script run](./41.png)
-  
+## Cleanup and delete the deployment
+
+* To delete the SQL Managed Instance and Azure Arc Data Controller and all of it's Kubernetes resources, using Administrator rights run the *MSSQL_MI_Cleanup.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. At the end of its run, the script will close all PowerShell sessions. **The Cleanup script run time is ~2-3min long**.
+
+  ![DC_Cleanup PowerShell script run](./43.png)
+
+* To finish completely deletimg the environment, follow the below steps run the ```terraform destroy --auto-approve``` command which will delete all of the GCP resources as well as the Azure resource group. **The *terraform destroy* run time is approximately ~5-6min long**.
+
+  ![terraform destroy](./44.png)
+
 ## Re-Deploy Azure Arc Data Controller
 
-In case you deleted the Azure Arc Data Controller from the GKE cluster, you can re-deploy it by running the *DC_Deploy.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. **The Deploy script run time is approximately ~3-4min long**.
+* In case you deleted the Azure Arc Data Controller from the GKE cluster, you can re-deploy it by running the *MSSQL_MI_Deploy.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. **The Deploy script run time is approximately ~3-4min long**.
 
-  ![Re-Deploy Azure Arc Data Controller PowerShell script](./42.png)
-
-## Delete the deployment
-
-To completely delete the environment, follow the below steps run the ```terraform destroy --auto-approve``` command which will delete all of the GCP resources as well as the Azure resource group. **The *terraform destroy* run time is approximately ~5-6min long**.
-
-  ![terraform destroy](./43.png)
+  ![Re-Deploy Azure Arc Data Controller PowerShell script](./45.png)
