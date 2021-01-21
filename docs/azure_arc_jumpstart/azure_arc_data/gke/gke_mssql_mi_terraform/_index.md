@@ -59,7 +59,7 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
   For example:
 
   ```shell
-  az ad sp create-for-rbac -n "http://AzureArcK8s" --role contributor
+  az ad sp create-for-rbac -n "http://AzureArcData" --role contributor
   ```
 
   Output should look like this:
@@ -67,8 +67,8 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
   ```json
   {
   "appId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "displayName": "AzureArcK8s",
-  "name": "http://AzureArcK8s",
+  "displayName": "AzureArcData",
+  "name": "http://AzureArcData",
   "password": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "tenant": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
   }
@@ -134,19 +134,19 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 
 ## Automation Flow
 
-For you to get familiar with the automation and deployment flow, below is an explanation.
+Read the below explanation to get familiar with the automation and deployment flow.
 
 * User is editing and exporting Terraform runtime environment variables, AKA *TF_VAR* (1-time edit). The variables values are being used throughout the deployment.
 
-* User deploys the Terraform plan which will deploy the GKE cluster and the GCP compute instance VM as well as an Azure resource group. The Azure resource group is required to host the Azure Arc services you will be able to deploy such as Azure SQL Managed Instance and PostgreSQL Hyperscale.
+* User deploys the Terraform plan which will deploy the GKE cluster and the GCP compute instance VM as well as an Azure resource group. The Azure resource group is required to host the Azure Arc services you will deploy such as Azure SQL Managed Instance.
 
-* In addition, the plan will copy the *local_ssd_sc.yaml* file which will be used to create a Kubernetes Storage Class backed by SSD disks that will be used by Arc Data Controller to create [persistent volume claims (PVC)](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).
+* In addition, the plan will copy the *local_ssd_sc.yaml* file which will be used to create a Kubernetes Storage Class backed by SSD disks that will be used by Azure Arc Data Controller to create [persistent volume claims (PVC)](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).
 
   > **Note: Depending on the GCP region, make sure you do not have any [SSD quota limit in the region](https://cloud.google.com/compute/quotas), otherwise, the Azure Arc Data Controller kubernetes resources will fail to deploy.**
 
 * As part of the Windows Server 2019 VM deployment, there are 4 scripts executions:
 
-  1. *azure_arc.ps1* script will be created automatically as part of the Terraform plan runtime and is responsible on injecting the *TF_VAR* variables values on to the Windows instance which will then be used in both the *ClientTools* and the *LogonScript* scripts.
+  1. *azure_arc.ps1* script will be created automatically as part of the Terraform plan runtime and is responsible for injecting the *TF_VAR* variable values and environment variables on the Windows instance which will then be used in both the *ClientTools* and the *LogonScript* scripts.
 
   2. *password_reset.ps1* script will be created automatically as part of the Terraform plan runtime and is responsible on creating the Windows username & password.
 
@@ -168,11 +168,12 @@ For you to get familiar with the automation and deployment flow, below is an exp
       * Open another Powershell session which will execute a command to watch the deployed Azure Arc Data Controller Kubernetes pods
       * Create Arc Data Controller config file (*control.json*) to setup the use of the Storage Class and Kubernetes LoadBalancer service
       * Deploy the Arc Data Controller **"Directly Connected" mode** using the *TF_VAR* variables values
+      * Execute a secondary *SQLConnectivity* script which will configure the SQL MI instance and download and install the sample Adventureworks database
       * Unregister the logon script Windows schedule task so it will not run after first login
 
 ## Deployment
 
-As mentioned, the Terraform plan will deploy a GKE cluster, the Azure Arc Data Controller on that cluster and a Windows Server 2019 Client GCP compute instance.
+As mentioned, the Terraform plan will deploy a GKE cluster, the Azure Arc Data Controller on that cluster, a SQL Managed Instance with sample database, and a Windows Server 2019 Client GCP compute instance.
 
 * Before running the Terraform plan, edit the below *TF_VAR* values and export it (simply copy/paste it after you finished edit these). An example *TF_VAR* shell script file is located [here](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/gke/dc_vanilla/terraform/example/TF_VAR_example.sh)
 
@@ -186,7 +187,7 @@ As mentioned, the Terraform plan will deploy a GKE cluster, the Azure Arc Data C
   * *export TF_VAR_admin_username*='GKE cluster administrator username'
   * *export TF_VAR_admin_password*='GKE cluster administrator password'
   * *export TF_VAR_gke_cluster_node_count*='GKE cluster number of worker nodes'
-  * *export TF_VAR_windows_username*='Windows Server Client compute instance VM administrator username'
+  * *export TF_VAR_windows_username*='Windows Server Client compute instance VM administrator username' **Do not use 'Administrator'**
   * *export TF_VAR_windows_password*='Windows Server Client compute instance VM administrator password' (The password must be at least 8 characters long and contain characters from three of the following four sets: uppercase letters, lowercase letters, numbers, and symbols as well as **not containing** the user's account name or parts of the user's full name that exceed two consecutive characters)
   * *export TF_VAR_SPN_CLIENT_ID*='Your Azure service principal name'
   * *export TF_VAR_SPN_CLIENT_SECRET*='Your Azure service principal password'
@@ -202,7 +203,7 @@ As mentioned, the Terraform plan will deploy a GKE cluster, the Azure Arc Data C
 * Navigate to the folder that has Terraform binaries.
 
   ```shell
-  cd azure_arc_data_jumpstart/gke/dc_vanilla/terraform
+  cd azure_arc_data_jumpstart/gke/mssql_mi/terraform
   ```
 
 * Run the ```terraform init``` command which is used to initialize a working directory containing Terraform configuration files and load the required Terraform providers.
