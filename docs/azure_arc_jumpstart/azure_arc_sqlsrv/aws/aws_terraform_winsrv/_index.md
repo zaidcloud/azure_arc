@@ -21,7 +21,7 @@ By the end of the guide, you will have an AWS EC2 instance installed with Window
     git clone https://github.com/microsoft/azure_arc.git
     ```
 
-* [Install or update Azure CLI to version 2.7.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
+* [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
     ```shell
     az --version
@@ -59,6 +59,18 @@ By the end of the guide, you will have an AWS EC2 instance installed with Window
     ```
 
     > **Note: It is optional but highly recommended to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest)**
+
+* Enable subscription for the *Microsoft.AzureArcData* resource provider for Azure Arc enabled SQL Server. Registration is an asynchronous process, and registration may take approximately 10 minutes.
+
+  ```shell
+  az provider register --namespace Microsoft.AzureArcData
+  ```
+
+  You can monitor the registration process with the following commands:
+
+  ```shell
+  az provider show -n Microsoft.AzureArcData -o table
+  ```
 
 ## Create a new AWS IAM Role & Key
 

@@ -22,7 +22,7 @@ By the end of the guide, you will have a GCP VM instance installed with Windows 
     git clone https://github.com/microsoft/azure_arc.git
     ```
 
-* [Install or update Azure CLI to version 2.7.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
+* [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
   ```shell
   az --version
@@ -60,6 +60,18 @@ By the end of the guide, you will have a GCP VM instance installed with Windows 
     ```
 
     > **Note: It is optional but highly recommended to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest)**
+
+* Enable subscription for the *Microsoft.AzureArcData* resource provider for Azure Arc enabled SQL Server. Registration is an asynchronous process, and registration may take approximately 10 minutes.
+
+  ```shell
+  az provider register --namespace Microsoft.AzureArcData
+  ```
+
+  You can monitor the registration process with the following commands:
+
+  ```shell
+  az provider show -n Microsoft.AzureArcData -o table
+  ```
 
 ## Create a new GCP Project, IAM Role & Service Account
 
@@ -100,12 +112,6 @@ In order to deploy resources in GCP, we will create a new GCP Project as well as
   ![Screenshot showing creating a GCP service account key](./15.png)
 
   ![Screenshot GCP service account key saved to project folder in Visual Studio Code](./16.png)
-
-* Enable the Kubernetes Engine API for the project
-
-  ![Screenshot showing enabling the Kubernetes Engine API](./17.png)
-
-  ![Screenshot showing enabling the Kubernetes Engine API](./18.png)
 
 ## Automation Flow
 
@@ -160,9 +166,11 @@ Before executing the Terraform plan, you must set the environment variables whic
   export TF_VAR_gcp_zone='GCP zone where resource will be created'
   export TF_VAR_gcp_instance_name='GCP VM instance name'
   export TF_VAR_gcp_instance_machine_type='GCP VM instance type'
-  export TF_VAR_admin_user='Guest OS Admin Username'
+  export TF_VAR_admin_user='Guest OS Admin Username' # Note: do not set this to "Administrator" 
   export TF_VAR_admin_password='Guest OS Admin Password'
   ```
+
+  > **Note: Do not set the TF_VAR_admin_user variable to "Administrator". GCP Windows images have the administrator account [disabled by default](https://cloud.google.com/compute/docs/images/os-details#windows_server). Therefore, you must use a different username for your TF_VAR_admin_user (e.g., "arcdemo")**
 
   ![Screenshot showing exporting environment variables in shell](./19.png)
 

@@ -6,7 +6,7 @@ weight: 2
 description: >
 ---
 
-## Deploy an Azure SQL Managed Instance Deployment on AKS using an ARM Template
+## Deploy an Azure SQL Managed Instance on AKS using an ARM Template
 
 The following README will guide you on how to deploy a "Ready to Go" environment so you can start using Azure Arc Data Services and deploy Azure data services on [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes) cluster, using [Azure ARM Template](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview).
 
@@ -22,7 +22,7 @@ By the end of this guide, you will have an AKS cluster deployed with an Azure Ar
     git clone https://github.com/microsoft/azure_arc.git
     ```
 
-* [Install or update Azure CLI to version 2.7.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
+* [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
   ```shell
   az --version
@@ -32,7 +32,7 @@ By the end of this guide, you will have an AKS cluster deployed with an Azure Ar
 
 * Create Azure service principal (SP)
 
-    In order for you to deploy the AKS cluster using the ARM template, Azure service principal assigned with the "Contributor" role is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
+    To be able to complete the scenario and its related automation, Azure service principal assigned with the “Contributor” role is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
 
     ```shell
     az login
@@ -59,7 +59,7 @@ By the end of this guide, you will have an AKS cluster deployed with an Azure Ar
 
     > **Note: It is optional, but highly recommended, to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest).**
 
-* Enable subscription for the Microsoft.AzureArcData resource provider for Azure Arc enabled data services. Registration is an asynchronous process, and registration may take approximately 10 minutes.
+* Enable subscription for the *Microsoft.AzureArcData* resource provider for Azure Arc enabled data services. Registration is an asynchronous process, and registration may take approximately 10 minutes.
 
   ```shell
   az provider register --namespace Microsoft.AzureArcData

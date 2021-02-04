@@ -6,11 +6,11 @@ weight: 3
 description: >
 ---
 
-## Deploy an Azure PostgreSQL Hyperscale Deployment on AKS using an ARM Template
+## Deploy an Azure PostgreSQL Hyperscale on AKS using an ARM Template
 
 The following README will guide you on how to deploy a "Ready to Go" environment so you can start using Azure Arc Data Services with Azure PostgreSQL Hyperscale (Citus) deployed on [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes) cluster, using [Azure ARM Template](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview).
 
-By the end of this guide, you will have an AKS cluster deployed with an Azure Arc Data Controller, Azure PostgreSQL Hyperscale with a sample database and a Microsoft Windows Server 2019 (Datacenter) Azure VM, installed & pre-configured with all the required tools needed to work with Azure Arc Data Services.
+By the end of this guide, you will have an AKS cluster deployed with an Azure Arc Data Controller ([in "Directly Connected" mode](https://docs.microsoft.com/en-us/azure/azure-arc/data/connectivity)), Azure PostgreSQL Hyperscale with a sample database and a Microsoft Windows Server 2019 (Datacenter) Azure VM, installed & pre-configured with all the required tools needed to work with Azure Arc Data Services.
 
 > **Note: Currently, Azure Arc enabled data services is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes)**.
 
@@ -22,7 +22,7 @@ By the end of this guide, you will have an AKS cluster deployed with an Azure Ar
     git clone https://github.com/microsoft/azure_arc.git
     ```
 
-* [Install or update Azure CLI to version 2.7.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
+* [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
   ```shell
   az --version
@@ -32,7 +32,7 @@ By the end of this guide, you will have an AKS cluster deployed with an Azure Ar
 
 * Create Azure service principal (SP)
 
-    In order for you to deploy the AKS cluster using the ARM template, Azure service principal assigned with the "Contributor" role is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
+    To be able to complete the scenario and its related automation, Azure service principal assigned with the “Contributor” role is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
 
     ```shell
     az login
@@ -59,7 +59,7 @@ By the end of this guide, you will have an AKS cluster deployed with an Azure Ar
 
     > **Note: It is optional, but highly recommended, to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest).**
 
-* Enable subscription for the Microsoft.AzureArcData resource provider for Azure Arc enabled data services. Registration is an asynchronous process, and registration may take approximately 10 minutes.
+* Enable subscription for the *Microsoft.AzureArcData* resource provider for Azure Arc enabled data services. Registration is an asynchronous process, and registration may take approximately 10 minutes.
 
   ```shell
   az provider register --namespace Microsoft.AzureArcData
@@ -103,7 +103,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
     * Install the Azure Data Studio Azure Data CLI, Azure Arc & PostgreSQL extensions
     * Create the Azure Data Studio desktop shortcut
     * Open another PowerShell session which will execute the ```kubectl get pods -n <Arc Data Controller namespace> -w``` command
-    * Deploy the Arc Data Controller using the user parameters values
+    * Deploy the Arc Data Controller in **"Directly Connected" mode** using the user parameters values
     * Deploy Azure Postgres server group **(with 5 workers)** on the AKS cluster
     * Creating Postgres connectivity details using the Postgres Connectivity script
     * Unregister the logon script Windows schedule task so it will not run after first login
@@ -200,13 +200,19 @@ Now that both the AKS cluster and the Windows Server client VM are created, it i
 
     ![PowerShell logon script run](./08.jpg)
 
+* Initially, since the data controller was deployed in "Directly Connected" mode, only after the logon script run is will be completed, a new Azure resource for the controller will be created as well.
+
+    ![Data Controller in a resource group](./09.jpg)
+
+    ![Data Controller resource](./10.jpg)
+
 * Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. At the end of the logon script run, Azure Data Studio will automatically be open and connected to the Azure PostgreSQL Hyperscale server with the sample DB.
 
-  ![Azure Data Studio shortcut](./09.jpg)
+  ![Azure Data Studio shortcut](./11.jpg)
 
-  ![Azure Data Studio extension](./10.jpg)
+  ![Azure Data Studio extension](./12.jpg)
 
-  ![Azure PostgreSQL Hyperscale server with the sample DB](./11.jpg)
+  ![Azure PostgreSQL Hyperscale server with the sample DB](./13.jpg)
 
 * (Optional) In PowerShell, login to the Data Controller and check it's health using the below commands.
 
@@ -215,24 +221,24 @@ Now that both the AKS cluster and the Windows Server client VM are created, it i
     azdata arc dc status show
     ```
 
-  ![azdata login](./12.jpg)
+  ![azdata login](./14.jpg)
 
 ## Cleanup
 
 * To delete the Azure Arc Data Controller and all of it's Kubernetes resources as well as Postgres Hyperscale, run the *Postgres_Cleanup.ps1* PowerShell script located in *C:\tmp* on the Windows Client VM. At the end of it's run, the script will close all PowerShell sessions. **The Cleanup script run time is 5-10min long**.
 
-    ![Postgres_Cleanup PowerShell script run](./13.jpg)
+    ![Postgres_Cleanup PowerShell script run](./15.jpg)
 
 * If you want to delete the entire environment, simply delete the deployment resource group from the Azure portal.
 
-    ![Delete Azure resource group](./14.jpg)
+    ![Delete Azure resource group](./16.jpg)
 
 ## Re-Deploy Azure Arc Data Controller & Postgres
 
 In case you deleted the Azure Arc Data Controller and Postgres Hyperscale from the Kubernetes cluster, you can re-deploy it by running the *Postgres_Deploy.ps1* PowerShell script located in *C:\tmp* on the Windows Client VM. **The Deploy script run time is approximately 15min long**.
 
-![Re-Deploy Azure Arc Data Controller + PostgreSQL PowerShell script](./15.jpg)
-
-![Re-Deploy Azure Arc Data Controller + PostgreSQL PowerShell script](./16.jpg)
-
 ![Re-Deploy Azure Arc Data Controller + PostgreSQL PowerShell script](./17.jpg)
+
+![Re-Deploy Azure Arc Data Controller + PostgreSQL PowerShell script](./18.jpg)
+
+![Re-Deploy Azure Arc Data Controller + PostgreSQL PowerShell script](./19.jpg)

@@ -20,7 +20,7 @@ The following README will guide you on how to use the provided [Terraform](https
     git clone https://github.com/microsoft/azure_arc.git
     ```
 
-* [Install or update Azure CLI to version 2.7.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
+* [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
   ```shell
   az --version
@@ -32,7 +32,7 @@ The following README will guide you on how to use the provided [Terraform](https
 
 * Create Azure service principal (SP)
 
-    To connect a Kubernetes cluster to Azure Arc, Azure service principal assigned with the "Contributor" role is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
+    To be able to complete the scenario and its related automation, Azure service principal assigned with the “Contributor” role is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
 
     ```shell
     az login
@@ -123,7 +123,7 @@ The following README will guide you on how to use the provided [Terraform](https
 
   ![account.json](./15.png)
 
-* Enable the Compute Engine API for the project
+* Enable the Kubernetes Engine API for the project
 
   ![Enable the Kubernetes Engine API](./16.png)
 
@@ -187,7 +187,7 @@ The only thing you need to do before executing the Terraform plan is to export t
 
 ## Connecting to Azure Arc
 
-* Now that you have a running GKE cluster, retrieve your Azure subscription ID using the ```az account list``` command and edit the environment variables section in the included [az_connect_gke](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/gke/terraform/scripts/az_connect_gke.sh) shell script.
+* Now that you have a running GKE cluster, retrieve your Azure subscription ID using the ```az account list``` command and edit the environment variables section in the included [az_connect_gke](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/gke/dc_vanilla/terraform/scripts/az_connect_gke.sh) shell script.
 
   ![Export environment variables](./23.png)
 
