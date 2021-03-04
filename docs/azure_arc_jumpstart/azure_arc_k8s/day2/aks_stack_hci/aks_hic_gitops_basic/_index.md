@@ -38,12 +38,6 @@ In this guide, you will deploy & attach GitOps configuration to your cluster whi
 
     ![Existing Azure Arc enabled Kubernetes cluster](./02.png)
 
-* [Install Helm](https://helm.sh/docs/intro/install/). Use the below command to check your current installed version.
-
-  ```shell
-  helm version
-  ```
-
 * [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
   ```shell
