@@ -12,7 +12,7 @@ The following README will guide you on how to create GitOps configuration on an 
 
 In this guide, you will deploy & attach GitOps configuration to your cluster which will also include deploying an "Hello World" Azure Arc web application on your Kubernetes cluster. By doing so, you will be able to make real-time changes to the application and show how the GitOps flow takes effect.
 
-> **Note: This guide assumes you already deployed an AKS cluster on Azure Stack HCI and connected it to Azure Arc. If you haven't, this repository offers you a way to do so in an automated fashion using [PowerShell](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_k8s/aks_stack_hci/aks_hci_powershell/).
+> **Note: This guide assumes you already deployed an AKS cluster on Azure Stack HCI and connected it to Azure Arc. If you haven't, this repository offers you a way to do so in an automated fashion using [PowerShell](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_k8s/aks_stack_hci/aks_hci_powershell/).**
 
 ## Prerequisites
 
@@ -134,7 +134,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
   
 ## Azure Arc Kubernetes GitOps Configuration
 
-* Edit the environment variables in the [*az_k8sconfig_aks_hci*](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/aks_stack_hci/gitops/basic/az_k8sconfig_aks_hci.ps1) shell script to match your parameters and run it using the ```.\az_k8sconfig_aks_hci.ps1``` command.
+* Edit the environment variables in the [*az_k8sconfig_aks_hci*](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/aks_stack_hci/gitops/basic/az_k8sconfig_aks_hci.ps1) PowerShell script to match your parameters and run it using the ```.\az_k8sconfig_aks_hci.ps1``` command.
 
     > **Disclaimer: For the purpose of this guide, notice how the "*git-poll-interval 3s*" is set. The 3 seconds interval is useful for demo purposes since it will make the git-poll interval to rapidly track changes on the repository but it is recommended to have longer interval in your production environment (default value is 5min)**
 
@@ -150,7 +150,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 ## The "Hello Arc" Application & Components
 
-* Before kicking the GitOps flow, let's verify and zoom-in to the Kubernetes resources deployed by running few *kubectl* commands.
+* Before kicking the GitOps flow, let's review the Kubernetes resources deployed by running few *kubectl* commands.
 
   * ```kubectl get pods -n cluster-config``` - Will show the Flux operator and the Memcached pods.
     * ```kubectl get pods -n hello-arc``` - Will show 3 replicas of the "Hello Arc" application and the NGINX controller.
@@ -175,7 +175,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 * To show the above flow, open 2 (ideally 3) side-by-side browser windows:
 
-  * PowerShell open running the ```kubectl get pods -n hello-arc -w``` command
+  * Run ```kubectl get pods -n hello-arc -w``` command
 
     ![kubectl get pods -n hello-arc -w](./11.png)
 
