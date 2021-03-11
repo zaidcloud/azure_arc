@@ -38,16 +38,18 @@ In this guide, you will deploy & attach GitOps configuration to your cluster whi
 
     ![Existing Azure Arc enabled Kubernetes cluster](./02.png)
 
-* [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
-
-  ```shell
-  az --version
-  ```
-
 * [Install or update Azure PowerShell modules](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-5.6.0). Use the below command to check your current installed version.
 
   ```PowerShell
   Get-InstalledModule -Name Az -AllVersions | select Name,Version
+    ```
+
+  > **Note: This guide combines automations that uses both Azure PowerShell Az modules as well as Azure CLI, however both of them can and will be run from a PowerShell window.**
+
+* [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
+
+  ```shell
+  az --version
   ```
 
 * Create Azure service principal (SP)
