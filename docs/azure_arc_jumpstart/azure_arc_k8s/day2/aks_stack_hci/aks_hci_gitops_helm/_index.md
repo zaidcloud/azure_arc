@@ -248,4 +248,4 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 ## Cleanup
 
-To delete the GitOps configuration and it's respective Kubernetes resources, edit the environment variables to match the Azure Arc Kubernetes cluster and Resources in the [az_k8sconfig_helm_cleanup](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/aks/gitops/helm/az_k8sconfig_helm_cleanup.sh) script, run it using the ```.\az_k8sconfig_helm_cleanup.ps1``` command.
+To delete the GitOps configuration and it's respective Kubernetes resources, edit the environment variables to match the Azure Arc Kubernetes cluster and Resources in the [az_k8sconfig_helm_cleanup](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/aks_stack_hci/gitops/helm/az_k8sconfig_helm_cleanup.sh) script, run it using the ```.\az_k8sconfig_helm_cleanup.ps1``` command.
