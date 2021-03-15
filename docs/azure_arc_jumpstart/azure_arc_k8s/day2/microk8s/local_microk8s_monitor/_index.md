@@ -6,7 +6,7 @@ weight: 3
 description: >
 ---
 
-## Integrate Azure Monitor for Containers with AKS as an Azure Arc Connected Cluster
+## Integrate Azure Monitor for Containers with MicroK8s as an Azure Arc Connected Cluster
 
 The following README will guide you on how to onboard an microK8s cluster which is projected an Azure Arc connected cluster resource on to [Azure Monitor for Containers](https://docs.microsoft.com/en-us/azure/azure-monitor/insights/container-insights-overview).
 
