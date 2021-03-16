@@ -2,7 +2,7 @@
 type: docs
 title: "Integrate Azure Monitor for Containers with AKS as an Azure Arc Connected Cluster"
 linkTitle: "Integrate Azure Monitor for Containers with AKS as an Azure Arc Connected Cluster"
-weight: 3
+weight: 2
 description: >
 ---
 
