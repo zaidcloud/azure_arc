@@ -2,7 +2,7 @@
 type: docs
 title: "Contributing"
 linkTitle: "Contributing"
-weight: 5
+weight: 6
 ---
 
 # Contributing
@@ -94,4 +94,4 @@ This Code of Conduct is adapted from the [Contributor Covenant][homepage], versi
 available at [http://contributor-covenant.org/version/1/4][version]
 
 [homepage]: http://contributor-covenant.org
-[version]: http://contributor-covenant.org/version/1/4/
+[version]: http://contributor-covenant.org/version/1/4
