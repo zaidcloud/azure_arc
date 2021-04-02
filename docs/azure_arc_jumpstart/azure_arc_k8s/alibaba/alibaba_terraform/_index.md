@@ -6,7 +6,7 @@ weight: 1
 description: >
 ---
 
-## Deploy Alibaba Container Service for Kubernetes cluster and connect it to Azure Arc using Terraform
+## Deploy Alibaba Cloud Container Service for Kubernetes cluster and connect it to Azure Arc using Terraform
 
 The following README will guide you on how to use the provided [Terraform](https://www.terraform.io/) plan to deploy an Alibaba Cloud [Container Service for Kubernetes](https://www.alibabacloud.com/product/kubernetes) and connect it as an Azure Arc cluster resource.
 
@@ -14,9 +14,9 @@ The following README will guide you on how to use the provided [Terraform](https
 
 * Clone the Azure Arc Jumpstart repository
 
-    ```shell
-    git clone https://github.com/microsoft/azure_arc.git
-    ```
+  ```shell
+  git clone https://github.com/microsoft/azure_arc.git
+  ```
 
 * [Install or update Azure CLI to version 2.21.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
