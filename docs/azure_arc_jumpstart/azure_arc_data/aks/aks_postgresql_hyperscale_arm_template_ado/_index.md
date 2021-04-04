@@ -192,4 +192,4 @@ In this scenario, you will create a new Release pipeline to deploy the environme
 
     ![Screenshot of Azure resources](./27.jpg)
 
-* As mentioned, this scenario is focusing the Azure DevOps Release pipeline creation. At this point, now that you have the Azure resources created, continue to the next steps as [described on in the main bootstrap scenario](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/aks/aks_postgresql_hyperscale_arm_template/#windows-login--post-deployment).
+* As mentioned, this scenario is focusing on the Azure DevOps Release pipeline creation. At this point, now that you have the Azure resources created, continue to the next steps as [described on in the main bootstrap scenario](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/aks/aks_postgresql_hyperscale_arm_template/#windows-login--post-deployment).
