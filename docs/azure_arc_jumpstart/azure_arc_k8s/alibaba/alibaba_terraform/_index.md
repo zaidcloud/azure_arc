@@ -8,7 +8,7 @@ description: >
 
 ## Deploy Alibaba Cloud Container Service for Kubernetes cluster and connect it to Azure Arc using Terraform
 
-The following README will guide you on how to use the provided [Terraform](https://www.terraform.io/) plan to deploy an Alibaba Cloud [Container Service for Kubernetes](https://www.alibabacloud.com/product/kubernetes) and connect it as an Azure Arc cluster resource.
+The following README will guide you on how to use the provided [Terraform](https://www.terraform.io/) plan to deploy an Alibaba Cloud [Container Service for Kubernetes (ACK)](https://www.alibabacloud.com/product/kubernetes) and connect it as an Azure Arc cluster resource.
 
 ## Prerequisites
 
@@ -30,7 +30,7 @@ The following README will guide you on how to use the provided [Terraform](https
   helm version
   ```
 
-* optional: [Install or update Aliyun CLI to latest version 3.0.73 and above](https://github.com/aliyun/aliyun-cli). Use the below command to check your current installed version.
+* (Optional) [Install or update Aliyun CLI to latest version 3.0.73 and above](https://github.com/aliyun/aliyun-cli). Use the below command to check your current installed version.
 
   > Ālǐyún or Aliyun is actually the chinese name for Alibaba Cloud
 
@@ -117,7 +117,7 @@ The only thing you need to do before executing the Terraform plan is to export t
   export ALICLOUD_PROFILE="akProfile"
   export AZURE_SUBSCRIPTION_ID="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
   export AZURE_LOCATION="southeastasia"
-  export AZURE_RESOURCE_GROUP="Azure-Arc-Aliyun-K8S"
+  export AZURE_RESOURCE_GROUP="Azure-Arc-Aliyun-K8s"
   export AZURE_CLUSTER_NAME="azure-arc-aliyun"
   ```
 
@@ -131,17 +131,20 @@ The only thing you need to do before executing the Terraform plan is to export t
 
   ![terraform init output](./05.png)
 
-* Deploy cluster by running the ```terraform apply --auto-approve``` command. Wait for the plan to finish.
+* Deploy cluster by running the below command and wait for the plan to finish.
+
+  ```shell
+  terraform apply --auto-approve
+  ```
 
   ![terraform deploy output](./06.png)
-  ...
   ![terraform deploy output](./07.png)
 
-  sample cluster in Alibaba Cloud Resource Management view:
+  Sample cluster in Alibaba Cloud Resource Management view:
 
   ![Alibaba Cloud Resource Management](./08.png)
 
-* The plan will drop the created clusters configuration in users home directory `~/.kube/config` to be used with `kubectl` or `helm`. But to make it usable with `helm`, file permissions need to be reduced:
+* The plan will create the _kubeconfig_ file in the home directory `~/.kube/config` to be used with `kubectl` or `helm`.
 
    ```shell
    chmod go-r ~/.kube/config
@@ -149,48 +152,46 @@ The only thing you need to do before executing the Terraform plan is to export t
 
 ## Connecting to Azure Arc
 
-* Now that you have running cluster, based on the environment variables set and Azure environment prepared above, you can connect the Alibaba Cloud cluster to Azure Arc:
+* Now that you have a running cluster, based on the environment variables set and Azure environment prepared above, you can connect the Alibaba Cloud cluster to Azure Arc:
 
-   ```shell
-   az login
-   az account set -s $AZURE_SUBSCRIPTION_ID
-   az group create --location $AZURE_LOCATION --name $AZURE_RESOURCE_GROUP
-   ```
+  ```shell
+  az login
+  az account set -s $AZURE_SUBSCRIPTION_ID
+  az group create --location $AZURE_LOCATION --name $AZURE_RESOURCE_GROUP
+  ```
 
-   output should look like this:
+  Output should look like this:
 
-   ```json
-   {
-     "id": "/subscriptions/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX/resourceGroups/Azure-Arc-Aliyun-K8S",
-     "location": "southeastasia",
-     "managedBy": null,
-     "name": "Azure-Arc-Aliyun-K8S",
-     "properties": {
-       "provisioningState": "Succeeded"
-     },
-     "type": "Microsoft.Resources/resourceGroups"
-   }
-   ```
+  ```json
+  {
+    "id": "/subscriptions/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX/resourceGroups/Azure-Arc-Aliyun-K8S",
+    "location": "southeastasia",
+    "managedBy": null,
+    "name": "Azure-Arc-Aliyun-K8S",
+    "properties": {
+      "provisioningState": "Succeeded"
+    },
+    "type": "Microsoft.Resources/resourceGroups"
+  }
+  ```
 
-   connect the cluster:
+  connect the cluster:
 
-   ```shell
-   az connectedk8s connect --name $AZURE_CLUSTER_NAME --resource-group $AZURE_RESOURCE_GROUP --location $AZURE_LOCATION
-   ```
+  ```shell
+  az connectedk8s connect --name $AZURE_CLUSTER_NAME --resource-group $AZURE_RESOURCE_GROUP --location $AZURE_LOCATION
+  ```
 
-   sample output
+  ![Connect Alibaba cluster to Azure Arc](./09.png)
 
-   ![Connect Alibaba cluster to Azure Arc](./09.png)
-
-   sample cluster in Azure Portal
-
-   ![Connect Alibaba cluster to Azure Arc](./10.png)
+  ![Connect Alibaba cluster to Azure Arc](./10.png)
 
 ## Delete the deployment
 
 To delete the environment in Azure, the use *`az group delete --resource-group $AZURE_RESOURCE_GROUP -y`* command.
 
 To delete the environment in Alibaba Cloud, use the *`terraform refresh`* and *`terraform destroy --auto-approve`* commands.
+
+> **Note: `terraform refresh` will update the local state to that `terraform destroy` also handles automatically generated resources like _Elastic IP Address_ and/or _NAT Gateway_.**
 
 output:
 
