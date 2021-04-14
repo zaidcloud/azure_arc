@@ -101,7 +101,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
 * First login to AZ CLI using the ```az login``` command.
 
-* Now you will need to edit the [azuredeploy.parameters.json](./azuredeploy.parameters.json) ARM template parameters file and supply some values for your environment.
+* Now you will need to edit the [azuredeploy.parameters.json](../../azure_jumpstart_arcbox/azuredeploy.parameters.json) ARM template parameters file and supply some values for your environment.
 
   * *aksDnsPrefix* - AKS unique DNS prefix
   * *sshRSAPublicKey* - Your SSH public key
@@ -115,7 +115,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
     ![Screenshot showing example parameters](./parameters.png)
 
-* Now you will deploy the ARM template. Navigate to the local cloned [deployment folder](../) and run the below command:
+* Now you will deploy the ARM template. Navigate to the local cloned [deployment folder](../../azure_jumpstart_arcbox) and run the below command:
 
   ```shell
   az group create --name <Name of the Azure resource group> --location <Azure Region>
