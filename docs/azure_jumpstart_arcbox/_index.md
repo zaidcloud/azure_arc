@@ -28,6 +28,36 @@ ArcBox deploys an AKS cluster, which is then used to deploy an Azure Arc enabled
 
 ## Prerequisites
 
+
+
+## Automation flow
+
+![Deployment flow diagram](./deploymentflow.png)
+
+ArcBox uses an advanced automation flow to deploy and configure all necessary resources with minimal user interaction. The above diagram provides a high level overview of the deployment flow. A high level summary of the deployment is:
+
+* User deploys the primary ARM template (azuredeploy.json). This template contains several nested templates that will run simultaneously.
+  * ClientVM ARM template - deploys the Client Windows VM
+  * AKS ARM template - deploys AKS cluster which will be used to run Azure Arc enabled data services
+  * Rancher K3s template - deploys a Linux VM which will have Rancher (K3s) installed on it and connected as an Azure Arc enabled Kubernetes cluster
+  * Storage account template - used for staging files in automation scripts
+  * Management artifacts template - deploys Log Analytics workspace and solutions and Azure Policy artifacts
+* User remotes into Client Windows VM, which automatically kicks off multiple scripts that:
+  * Deploy and configure three (3) nested virtual machines in Hyper-V
+    * Windows VM - onboarded as Azure Arc enabled Server
+    * Ubuntu VM - onboarded as Azure Arc enabled Server
+    * Windows VM running SQL Server - onboarded as Azure Arc enabled SQL Server
+  * Deploy and configure Azure Arc enabled data services on the AKS cluster including a data controller, a SQL MI instance, and a Postgres instance. After deployment, Azure Data Studio opens automatically with connection entries for each database instance. Data services deployed by the script are:
+    * Data controller
+    * SQL MI instance
+    * Postgres instance
+
+## Deployment Option 1: Azure Portal
+
+* Click the [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Farcbox%2Fazure_jumpstart_arcbox%2Fazuredeploy.json) button and enter values for the the ARM template parameters.
+
+## Deployment Option 2: Azure CLI
+
 * Clone the Azure Arc Jumpstart repository
 
     ```shell
@@ -71,35 +101,7 @@ ArcBox deploys an AKS cluster, which is then used to deploy an Azure Arc enabled
 
     > **Note: It is optional but highly recommended to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest)**
 
-## Automation flow
-
-![Deployment flow diagram](./deploymentflow.png)
-
-ArcBox uses an advanced automation flow to deploy and configure all necessary resources with minimal user interaction. The above diagram provides a high level overview of the deployment flow. A high level summary of the deployment is:
-
-* User deploys the primary ARM template (azuredeploy.json). This template contains several nested templates that will run simultaneously.
-  * ClientVM ARM template - deploys the Client Windows VM
-  * AKS ARM template - deploys AKS cluster which will be used to run Azure Arc enabled data services
-  * Rancher K3s template - deploys a Linux VM which will have Rancher (K3s) installed on it and connected as an Azure Arc enabled Kubernetes cluster
-  * Storage account template - used for staging files in automation scripts
-  * Management artifacts template - deploys Log Analytics workspace and solutions and Azure Policy artifacts
-* User remotes into Client Windows VM, which automatically kicks off multiple scripts that:
-  * Deploy and configure three (3) nested virtual machines in Hyper-V
-    * Windows VM - onboarded as Azure Arc enabled Server
-    * Ubuntu VM - onboarded as Azure Arc enabled Server
-    * Windows VM running SQL Server - onboarded as Azure Arc enabled SQL Server
-  * Deploy and configure Azure Arc enabled data services on the AKS cluster including a data controller, a SQL MI instance, and a Postgres instance. After deployment, Azure Data Studio opens automatically with connection entries for each database instance. Data services deployed by the script are:
-    * Data controller
-    * SQL MI instance
-    * Postgres instance
-
-## Deployment Option 1: Azure Portal
-
-* Click the [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fdkirby-ms%2Farcbox%2Fmain%2Fazuredeploy.json) button and enter values for the the ARM template parameters.
-
-## Deployment Option 2: Azure CLI
-
-* First login to AZ CLI using the ```az login``` command.
+* Login to AZ CLI using the ```az login``` command.
 
 * Now you will need to edit the [azuredeploy.parameters.json](../../azure_jumpstart_arcbox/azuredeploy.parameters.json) ARM template parameters file and supply some values for your environment.
 
