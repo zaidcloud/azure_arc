@@ -26,10 +26,6 @@ ArcBox deploys an AKS cluster, which is then used to deploy an Azure Arc enabled
 
 ![ArcBox data services diagram](./dataservices.png)
 
-## Prerequisites
-
-
-
 ## Automation flow
 
 ![Deployment flow diagram](./deploymentflow.png)
