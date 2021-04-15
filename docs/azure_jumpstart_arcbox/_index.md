@@ -80,7 +80,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
     For example:
 
     ```shell
-    az ad sp create-for-rbac -n "http://AzureArcGCP" --role contributor
+    az ad sp create-for-rbac -n "http://AzureArcBox" --role contributor
     ```
 
     Output should look like this:
