@@ -70,7 +70,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
 * Create Azure service principal (SP)
 
-    To connect the GCP virtual machine to Azure Arc, an Azure service principal assigned with the "Contributor" role is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
+    To deploy ArcBox an Azure service principal assigned with the "Contributor" role is required. To create it login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
 
     ```shell
     az login
@@ -88,8 +88,8 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
     ```json
     {
     "appId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "displayName": "AzureArcGCP",
-    "name": "http://AzureArcGCP",
+    "displayName": "AzureArcBox",
+    "name": "http://AzureArcBox",
     "password": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     "tenant": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     }
