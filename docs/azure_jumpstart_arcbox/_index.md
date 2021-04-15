@@ -18,7 +18,7 @@ ArcBox includes three Azure Arc enabled server resources. These servers are host
 
 ![ArcBox Kubernetes diagram](./k8s.png)
 
-ArcBox deploys one Rancher (K3s) cluster running on an Azure virtual machine. This cluster is then connected to Azure as an Azure Arc enabled Kubernetes resource (ArcBox-K3s).
+ArcBox deploys one single-node Rancher K3s cluster running on an Azure virtual machine. This cluster is then connected to Azure as an Azure Arc enabled Kubernetes resource (_ArcBox-K3s_).
 
 ### Azure Arc enabled Data Services
 
