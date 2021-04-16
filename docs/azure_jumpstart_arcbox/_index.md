@@ -33,7 +33,7 @@ ArcBox deploys a 3-node Azure Kubernetes Services (AKS) cluster (_ArcBox-Data_),
 ArcBox uses an advanced automation flow to deploy and configure all necessary resources with minimal user interaction. The above diagram provides a high-level overview of the deployment flow. A high-level summary of the deployment is:
 
 * User deploys the primary ARM template (azuredeploy.json). This template contains several nested templates that will run simultaneously.
-  * ClientVM ARM template - deploys the Client Windows VM
+  * ClientVM ARM template - deploys the Client Windows VM. This is the Hyper-V host VM where all user interactions with the environment are made from. 
   * AKS ARM template - deploys AKS cluster which will be used to run Azure Arc enabled data services
   * Rancher K3s template - deploys a Linux VM which will have Rancher (K3s) installed on it and connected as an Azure Arc enabled Kubernetes cluster
   * Storage account template - used for staging files in automation scripts
