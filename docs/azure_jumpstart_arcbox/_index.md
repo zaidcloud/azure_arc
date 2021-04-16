@@ -12,7 +12,7 @@ Jumpstart ArcBox is a project that provides an easy to deploy sandbox for all th
 
 ![ArcBox servers diagram](./servers.png)
 
-ArcBox includes three Azure Arc enabled server resources. These servers are hosted using nested virtualization in Azure. As part of the deployment, a Hyper-V host (ArcBox-Client) is deployed with three guest virtual machines. These machines, _ArcBoxWin_, _ArcBoxUbuntu_, and _ArcBoxSQL_ are connected as Azure Arc enabled servers via the ArcBox automation.
+ArcBox includes three Azure Arc enabled server resources that are hosted using nested virtualization in Azure. As part of the deployment, a Hyper-V host (ArcBox-Client) is deployed with three guest virtual machines. These machines, _ArcBoxWin_, _ArcBoxUbuntu_, and _ArcBoxSQL_ are connected as Azure Arc enabled servers via the ArcBox automation.
 
 ### Azure Arc enabled Kubernetes
 
