@@ -22,7 +22,7 @@ ArcBox deploys one single-node Rancher K3s cluster running on an Azure virtual m
 
 ### Azure Arc enabled Data Services
 
-ArcBox deploys an AKS cluster, which is then used to deploy an Azure Arc enabled data services data controller.
+ArcBox deploys a 3-node Azure Kubernetes Services (AKS) cluster (_ArcBox-Data_), which is then being used to deploy an Azure Arc enabled data services data controller.
 
 ![ArcBox data services diagram](./dataservices.png)
 
