@@ -6,6 +6,13 @@
 
 Jumpstart ArcBox is a project that provides an easy to deploy sandbox for all things Azure Arc. ArcBox is designed to be completely self-contained within a single Azure subscription and resource group, which will make it easy for a user to get hands-on with all available Azure Arc technology with nothing more than an available Azure subscription.
 
+### Use cases
+
+* Sandbox environment for getting hands-on with Azure Arc technologies
+* Accelerator for Proof-of-concepts or pilots
+* Training tool for Azure Arc skills development
+* Demo environment for customer presentations or events
+
 ## Azure Arc capabilities available in ArcBox
 
 ### Azure Arc enabled Servers
@@ -51,6 +58,12 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 ## Deployment Option 1: Azure Portal
 
 * Click the [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Farcbox%2Fazure_jumpstart_arcbox%2Fazuredeploy.json) button and enter values for the the ARM template parameters.
+
+  ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeploy.png)
+
+  ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeployinprogress.png)
+
+  ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeployfinished.png)
 
 ## Deployment Option 2: Azure CLI
 
