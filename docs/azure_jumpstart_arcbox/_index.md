@@ -99,7 +99,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
 * Login to AZ CLI using the ```az login``` command.
 
-* Now you will need to edit the [azuredeploy.parameters.json](../../azure_jumpstart_arcbox/azuredeploy.parameters.json) ARM template parameters file and supply some values for your environment.
+* Edit the [azuredeploy.parameters.json](../../azure_jumpstart_arcbox/azuredeploy.parameters.json) ARM template parameters file and supply some values for your environment.
 
   * *aksDnsPrefix* - AKS unique DNS prefix
   * *sshRSAPublicKey* - Your SSH public key
