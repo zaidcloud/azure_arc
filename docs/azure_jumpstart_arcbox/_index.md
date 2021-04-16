@@ -42,7 +42,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
   * Deploy and configure three (3) nested virtual machines in Hyper-V
     * Windows VM - onboarded as Azure Arc enabled Server
     * Ubuntu VM - onboarded as Azure Arc enabled Server
-    * Windows VM running SQL Server - onboarded as Azure Arc enabled SQL Server
+    * Windows VM running SQL Server - onboarded as Azure Arc enabled SQL Server (as well as Azure Arc enabled Server)
   * Deploy and configure Azure Arc enabled data services on the AKS cluster including a data controller, a SQL MI instance, and a Postgres instance. After deployment, Azure Data Studio opens automatically with connection entries for each database instance. Data services deployed by the script are:
     * Data controller
     * SQL MI instance
