@@ -156,4 +156,4 @@ az group delete -n <name of your resource group>
 
 ## Known issues
 
-* Sample databases are not deployed into the MSSQL or Postgres instances at this time.
+* Sample databases are not deployed into the MSSQL or PostgreSQL instances at this time.
