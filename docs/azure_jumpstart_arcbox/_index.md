@@ -33,6 +33,12 @@ ArcBox deploys a 3-node Azure Kubernetes Services (AKS) cluster (_ArcBox-Data_),
 
 ![ArcBox data services diagram](./dataservices.png)
 
+### Hybrid Unified Operations
+
+ArcBox deploys several management and operations services that work with ArcBox's Azure Arc resources. These resources include an an Azure Automation account, an Azure Log Analytics workspace with the Update Management solution, Azure Policy assignments for deploying Log Analytics agents on Windows and Linux, Azure Policy assignment for adding tags to resources, and a storage account used for staging resources needed for the deployment automation.
+
+![ArcBox unified operations diagram](./unifiedops.png)
+
 ## Automation flow
 
 ![Deployment flow diagram](./deploymentflow.png)
@@ -148,14 +154,20 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
   ![Screenshot showing ArcBox-Client](./clientscript.png)
 
-## Example ArcBox usage scenarios
+## Using ArcBox
 
-ArcBox is a sandbox that can be used for a large variety of use cases, such as a sandbox environment for testing and training or kickstarter for proof of concept projects. Some suggested next steps for you to try in your ArcBox are:
+ArcBox is a sandbox that can be used for a large variety of use cases, such as a sandbox environment for testing and training or kickstarter for proof of concept projects. Ultimately, you are free to do whatever you wish with ArcBox. Some suggested next steps for you to try in your ArcBox are:
 
+* Login to the Azure Arc data controller using azdata and explore the functionality provided by the data controller
+* Deploy sample databases to the PostgreSQL Hyperscale instance or to the SQL Managed Instance
+* Use the included kubectx to switch contexts between the two Kubernetes clusters
 * Deploy GitOps configurations with Azure Arc enabled Kubernetes
 * Build policy initiatives that apply to your Azure Arc enabled resources
+* Write custom policies that apply to your Azure Arc enabled resources
 * Incorporate your own tooling and automation into the existing automation framework
 * Build a certificate/secret/key management strategy with your Azure Arc resources
+
+Do you have an interesting use case to share? Submit an issue on GitHub with your idea and we will consider it for future releases! 
 
 ## Clean up the deployment
 
