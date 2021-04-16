@@ -37,7 +37,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
   * AKS ARM template - deploys AKS cluster which will be used to run Azure Arc enabled data services
   * Rancher K3s template - deploys an Ubuntu Linux VM which will have Rancher (K3s) installed on it and connected as an Azure Arc enabled Kubernetes cluster
   * Storage account template - used for staging files in automation scripts
-  * Management artifacts template - deploys Log Analytics workspace and solutions and Azure Policy artifacts
+  * Management artifacts template - deploys Azure Log Analytics workspace and solutions and Azure Policy artifacts
 * User remotes into Client Windows VM, which automatically kicks off multiple scripts that:
   * Deploy and configure three (3) nested virtual machines in Hyper-V
     * Windows VM - onboarded as Azure Arc enabled Server
