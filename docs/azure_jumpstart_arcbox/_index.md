@@ -131,7 +131,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
   ![Screenshot showing az deployment group create](./deployedresources.png)
 
-* Open a remote desktop connection into ArcBox-Client. Upon logging in, multiple automated scripts will open and start running. These scripts will take 10-20 minutes to finish. Once completed, Azure Data Studio will start. At this point, the deployment is complete.
+* Open a remote desktop connection into _ArcBox-Client_. Upon logging in, multiple automated scripts will open and start running. These scripts will take 10-20 minutes to finish and once completed, Azure Data Studio will start. At this point, the deployment is complete.
 
   ![Screenshot showing ArcBox-Client](./clientscript.png)
 
