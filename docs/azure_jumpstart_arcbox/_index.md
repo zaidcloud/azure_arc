@@ -154,6 +154,8 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
   ![Screenshot showing ArcBox-Client](./clientscript.png)
 
+  ![Screenshot showing ArcBox resources in Azure Portal](./rgarc.png)
+
 ## Using ArcBox
 
 ArcBox is a sandbox that can be used for a large variety of use cases, such as a sandbox environment for testing and training or kickstarter for proof of concept projects. Ultimately, you are free to do whatever you wish with ArcBox. Some suggested next steps for you to try in your ArcBox are:
@@ -171,13 +173,15 @@ Do you have an interesting use case to share? Submit an issue on GitHub with you
 
 ## Clean up the deployment
 
-To clean up your deployment, simply delete the resource group.
+To clean up your deployment, simply delete the resource group using Azure CLI or Azure Portal.
 
 ```shell
 az group delete -n <name of your resource group>
 ```
 
 ![Screenshot showing az group delete](./azdelete.png)
+
+![Screenshot showing group delete from Azure Portal](./portaldelete.png)
 
 ## Known issues
 
