@@ -139,7 +139,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
 ArcBox is a sandbox that can be used for a large variety of use cases, such as a sandbox environment for testing and training or kickstarter for proof of concept projects. Some suggested next steps for you to try in your ArcBox are:
 
-* Deploy GitOps configurations on the K8s clusters
+* Deploy GitOps configurations with Azure Arc enabled Kubernetes
 * Build policy initiatives that apply to your Azure Arc enabled resources
 * Incorporate your own tooling and automation into the existing automation framework
 * Build a certificate/secret/key management strategy with your Azure Arc resources
