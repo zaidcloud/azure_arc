@@ -226,3 +226,4 @@ az group delete -n <name of your resource group>
 
 * Sample databases are not deployed into the MSSQL or PostgreSQL instances at this time.
 * Azure Arc enabled SQL Server assessment report not always visible in Azure Portal
+* MMA Agent on ArcBox-Ubuntu server not deploying properly via policy.
