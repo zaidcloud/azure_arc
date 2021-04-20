@@ -12,6 +12,7 @@ Jumpstart ArcBox is a project that provides an easy to deploy sandbox for all th
 * Accelerator for Proof-of-concepts or pilots
 * Training tool for Azure Arc skills development
 * Demo environment for customer presentations or events
+* Rapid integration testing platform
 
 ## Azure Arc capabilities available in ArcBox
 
@@ -74,23 +75,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 * Southeast Asia
 * Australia East
 
-## Deployment Option 1: Azure Portal
-
-* Click the <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Fmain%2Fazure_jumpstart_arcbox%2Fazuredeploy.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a> button and enter values for the the ARM template parameters.
-
-  ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeploy.png)
-
-  ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeployinprogress.png)
-
-  ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeploymentcomplete.png)
-
-## Deployment Option 2: Azure CLI
-
-* Clone the Azure Arc Jumpstart repository
-
-    ```shell
-    git clone https://github.com/microsoft/azure_arc.git
-    ```
+## Prerequisites
 
 * [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
@@ -98,7 +83,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
   az --version
   ```
 
-* [Generate SSH Key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/) (or use existing ssh key)
+* Login to AZ CLI using the ```az login``` command.
 
 * Create Azure service principal (SP)
 
@@ -129,7 +114,25 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
     > **Note: It is optional but highly recommended to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest)**
 
-* Login to AZ CLI using the ```az login``` command.
+* [Generate SSH Key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/) (or use existing ssh key)
+
+## Deployment Option 1: Azure Portal
+
+* Click the <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Fmain%2Fazure_jumpstart_arcbox%2Fazuredeploy.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a> button and enter values for the the ARM template parameters.
+
+  ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeploy.png)
+
+  ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeployinprogress.png)
+
+  ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeploymentcomplete.png)
+
+## Deployment Option 2: Azure CLI
+
+* Clone the Azure Arc Jumpstart repository
+
+    ```shell
+    git clone https://github.com/microsoft/azure_arc.git
+    ```
 
 * Edit the [azuredeploy.parameters.json](../../azure_jumpstart_arcbox/azuredeploy.parameters.json) ARM template parameters file and supply some values for your environment.
 
@@ -209,6 +212,15 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
 * Open Azure Data Studio and explore the SQL MI and PostgreSQL Hyperscale instances.
 
   ![Screenshot showing Azure Data Studio usage](./azdatastudio.png)
+
+### Included tools
+
+| Tool  | Location |
+| ----- | -------- |
+| Item1 | Location |
+| Item2 | Location |
+
+### Next steps
   
 ArcBox is a sandbox that can be used for a large variety of use cases, such as an environment for testing and training or kickstarter for proof of concept projects. Ultimately, you are free to do whatever you wish with ArcBox. Some suggested next steps for you to try in your ArcBox are:
 
@@ -217,7 +229,7 @@ ArcBox is a sandbox that can be used for a large variety of use cases, such as a
 * Use the included kubectx to switch contexts between the two Kubernetes clusters
 * Deploy GitOps configurations with Azure Arc enabled Kubernetes
 * Build policy initiatives that apply to your Azure Arc enabled resources
-* Write custom policies that apply to your Azure Arc enabled resources
+* Write and test custom policies that apply to your Azure Arc enabled resources
 * Incorporate your own tooling and automation into the existing automation framework
 * Build a certificate/secret/key management strategy with your Azure Arc resources
 
