@@ -43,7 +43,7 @@ By the end of this guide, you will have an EKS cluster deployed with an Azure Ar
 
 * [Create a free Amazon Web Services account](https://aws.amazon.com/free/) if you don't already have one.
 
-* [Install Terraform >=0.12](https://learn.hashicorp.com/terraform/getting-started/install.html)
+* [Install Terraform >=0.15](https://learn.hashicorp.com/terraform/getting-started/install.html)
 
 * Create Azure service principal (SP)
 
