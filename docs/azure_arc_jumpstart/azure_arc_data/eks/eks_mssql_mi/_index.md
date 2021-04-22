@@ -167,6 +167,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
       * Create the Azure Data Studio desktop shortcut
       * Open another Powershell session which will execute a command to watch the deployed Azure Arc Data Controller Kubernetes pods
       * Deploy the Arc Data Controller using the *TF_VAR* variables values
+      * Deploy the MSSQL managed instance onto the data controller
       * Unregister the logon script Windows schedule task so it will not run after first login
 
 ## Deployment
@@ -194,16 +195,16 @@ As mentioned, the Terraform plan will deploy an EKS cluster, the Azure Arc Data 
   * *export TF_VAR_ARC_DC_RG*='Azure resource group where all future Azure Arc resources will be deployed'
   * *export TF_VAR_ARC_DC_REGION*='Azure location where the Azure Arc Data Controller resource will be created in Azure' (Currently, supported regions supported are eastus, eastus2, centralus, westus2, westeurope, southeastasia)
 
-    > **Note: If you are running in a PowerShell environment, to set the Terraform environment variables, use the _Set-Item -Path env:_ prefix (see example below)**
+    > **Note: If you are running in a PowerShell environment, to set the Terraform environment variables see example below**
 
     ```powershell
-    Set-Item -Path env:TF_VAR_AWS_ACCESS_KEY_ID
+    $env:TF_VAR_AWS_ACCESS_KEY_ID=<value>
     ```
 
 * Navigate to the folder that has Terraform binaries.
 
   ```shell
-  cd azure_arc_data_jumpstart/eks/dc_vanilla/terraform
+  cd azure_arc_data_jumpstart/eks/dc_vanilla/terraform/
   ```
 
 * Run the ```terraform init``` command which is used to initialize a working directory containing Terraform configuration files and load the required Terraform providers.
@@ -266,11 +267,11 @@ Now that we have both the EKS cluster and the Windows Server Client instance cre
 
     ![PowerShell logon script run](./32.png)
 
-  <!-- > **Note: Currently, Azure Arc enabled data services is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes) and features are subject to change. As such, the release being used in this scenario does not support the projection of Azure Arc data services resources in the Azure portal**.
+  **Note: Currently, Azure Arc enabled data services is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes) and features are subject to change. As such, the release being used in this scenario does not support the projection of Azure Arc data services resources in the Azure portal**.
 
     ![Data Controller in a resource group](./33.png)
 
-    ![Data Controller resource](./34.png) -->
+    ![Data Controller resource](./34.png)
 
 * Using PowerShell, login to the Data Controller and check it's health using the below commands.
 
@@ -281,21 +282,17 @@ Now that we have both the EKS cluster and the Windows Server Client instance cre
 
   ![azdata login](./35.png)
 
-* Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. Using the Desktop shortcut created for you, open Azure Data Studio and click the Extensions settings to see both extensions.
-
-  ![Azure Data Studio shortcut](./36.png)
-
-  ![Azure Data Studio extension](./37.png)
+* Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. Azure Data Studio is automatically opened after the deployment finishes.
 
 ## Cleanup
 
-* To delete the Azure Arc Data Controller and all of it's Kubernetes resources, run the *DC_Cleanup.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. At the end of it's run, the script will close all PowerShell sessions. **The Cleanup script run time is ~2-3min long**.
+* To delete the Azure Arc Data Controller and all of it's Kubernetes resources, run the *MSSQL_MI_Cleanup.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. At the end of it's run, the script will close all PowerShell sessions. **The Cleanup script run time is ~2-3min long**.
 
-  ![DC_Cleanup PowerShell script run](./38.png)
+  ![MSSQL_MI_Cleanup PowerShell script run](./38.png)
 
 ## Re-Deploy Azure Arc Data Controller
 
-* In case you deleted the Azure Arc Data Controller from the EKS cluster, you can re-deploy it by running the *DC_Deploy.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. **The Deploy script run time is approximately ~3-4min long**.
+* In case you deleted the Azure Arc Data Controller from the EKS cluster, you can re-deploy it by running the *MSSQL_MI_Deploy.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. **The Deploy script run time is approximately ~3-4min long**.
 
   ![Re-Deploy Azure Arc Data Controller PowerShell script](./39.png)
 
