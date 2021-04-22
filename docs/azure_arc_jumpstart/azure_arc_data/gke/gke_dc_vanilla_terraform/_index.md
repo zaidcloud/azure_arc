@@ -101,8 +101,6 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 
   ![Add credentials](./06.png)
 
-  ![Add credentials](./07.png)
-
   ![Add credentials](./08.png)
 
   ![Add credentials](./09.png)
@@ -110,6 +108,8 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
   ![Add credentials](./10.png)
 
   ![Create private key](./11.png)
+
+  ![Create private key](./12_0.png)
 
   ![Create private key](./12.png)
 
