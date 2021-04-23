@@ -8,9 +8,9 @@ description: >
 
 ## Deploy an Azure Arc Data Controller (Vanilla) on EKS using Terraform
 
-The following README will guide you on how to deploy a "Ready to Go" environment so you can start using Azure Arc Data Services and deploy Azure data services on [Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/) cluster, using [Terraform](https://www.terraform.io/).
+The following README will guide you on how to deploy a "Ready to Go" environment so you can start using Azure Arc Data Services and deploy Azure data services with SQL Managed Instance on an [Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/) cluster using [Terraform](https://www.terraform.io/).
 
-By the end of this guide, you will have an EKS cluster deployed with an Azure Arc Data Controller and a Microsoft Windows Server 2019 (Datacenter) AWS EC2 instance VM, installed & pre-configured with all the required tools needed to work with Azure Arc Data Services.
+By the end of this guide, you will have an EKS cluster deployed with an Azure Arc Data Controller running a Microsoft SQL Server Managed Instance, and a Microsoft Windows Server 2019 (Datacenter) AWS EC2 instance VM, installed and pre-configured with all the required tools needed to work with Azure Arc Data Services.
 
 > **Note: Currently, Azure Arc enabled data services is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes)**.
 
@@ -22,6 +22,7 @@ By the end of this guide, you will have an EKS cluster deployed with an Azure Ar
 * Edit *TF_VAR* variables values
 * *terraform init*
 * *terraform apply*
+* Automation scripts run in Client VM
 * EKS cleanup
 * *terraform destroy*
 
@@ -140,7 +141,7 @@ Create AWS User IAM Key. An access key grants programmatic access to your resour
 
 For you to get familiar with the automation and deployment flow, below is an explanation.
 
-* User is editing and exporting Terraform runtime environment variables, AKA *TF_VAR* (1-time edit). The variables values are being used throughout the deployment.
+* User edits and exports Terraform runtime environment variables, AKA *TF_VAR* (1-time edit). The variables values are being used throughout the deployment.
 
 * User deploys the Terraform plan which will deploy the EKS cluster and the EC2 Windows Client instance as well as an Azure resource group. The Azure resource group is required to host the Azure Arc services you will be able to deploy such as Azure SQL Managed Instance and PostgreSQL Hyperscale.
 
@@ -168,7 +169,9 @@ For you to get familiar with the automation and deployment flow, below is an exp
       * Open another Powershell session which will execute a command to watch the deployed Azure Arc Data Controller Kubernetes pods
       * Deploy the Arc Data Controller using the *TF_VAR* variables values
       * Deploy the MSSQL managed instance onto the data controller
+      * Restore a sample AdventureWorks database onto the data controller
       * Unregister the logon script Windows schedule task so it will not run after first login
+      * Open Azure Data Studio
 
 ## Deployment
 
@@ -267,8 +270,6 @@ Now that we have both the EKS cluster and the Windows Server Client instance cre
 
     ![PowerShell logon script run](./32.png)
 
-  **Note: Currently, Azure Arc enabled data services is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes) and features are subject to change. As such, the release being used in this scenario does not support the projection of Azure Arc data services resources in the Azure portal**.
-
     ![Data Controller in a resource group](./33.png)
 
     ![Data Controller resource](./34.png)
@@ -294,7 +295,7 @@ Now that we have both the EKS cluster and the Windows Server Client instance cre
 
   ![MSSQL_MI_Cleanup PowerShell script run](./38.png)
 
-## Re-Deploy Azure Arc Data Controller
+## Re-Deploy Azure Arc Data Controller and SQL MI
 
 * In case you deleted the Azure Arc Data Controller from the EKS cluster, you can re-deploy it by running the *MSSQL_MI_Deploy.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. **The Deploy script run time is approximately ~3-4min long**.
 
