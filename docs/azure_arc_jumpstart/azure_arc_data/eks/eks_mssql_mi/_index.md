@@ -1,16 +1,16 @@
 ---
 type: docs
-title: "Data Controller Terraform plan"
-linkTitle: "Data Controller Terraform plan"
+title: "SQL Managed Instance Terraform plan"
+linkTitle: "SQL Managed Instance Terraform plan"
 weight: 1
 description: >
 ---
 
-## Deploy an Azure Arc Data Controller (Vanilla) on EKS using Terraform
+## Deploy a SQL Managed Instance on EKS using Terraform
 
-The following README will guide you on how to deploy a "Ready to Go" environment so you can start using Azure Arc Data Services and deploy Azure data services on [Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/) cluster, using [Terraform](https://www.terraform.io/).
+The following README will guide you on how to deploy a "Ready to Go" environment so you can start using Azure Arc Data Services and deploy Azure data services with SQL Managed Instance on an [Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/) cluster using [Terraform](https://www.terraform.io/).
 
-By the end of this guide, you will have an EKS cluster deployed with an Azure Arc Data Controller and a Microsoft Windows Server 2019 (Datacenter) AWS EC2 instance VM, installed & pre-configured with all the required tools needed to work with Azure Arc Data Services.
+By the end of this guide, you will have an EKS cluster deployed with an Azure Arc Data Controller running a Microsoft SQL Server Managed Instance, and a Microsoft Windows Server 2019 (Datacenter) AWS EC2 instance VM, installed and pre-configured with all the required tools needed to work with Azure Arc Data Services.
 
 > **Note: Currently, Azure Arc enabled data services is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes)**.
 
@@ -22,6 +22,7 @@ By the end of this guide, you will have an EKS cluster deployed with an Azure Ar
 * Edit *TF_VAR* variables values
 * *terraform init*
 * *terraform apply*
+* Automation scripts run in Client VM
 * EKS cleanup
 * *terraform destroy*
 
@@ -57,7 +58,7 @@ By the end of this guide, you will have an EKS cluster deployed with an Azure Ar
   For example:
 
   ```shell
-  az ad sp create-for-rbac -n "http://AzureArcK8s" --role contributor
+  az ad sp create-for-rbac -n "http://AzureArcData" --role contributor
   ```
 
   Output should look like this
@@ -65,8 +66,8 @@ By the end of this guide, you will have an EKS cluster deployed with an Azure Ar
   ```json
   {
   "appId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "displayName": "AzureArcK8s",
-  "name": "http://AzureArcK8s",
+  "displayName": "AzureArcData",
+  "name": "http://AzureArcData",
   "password": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "tenant": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
   }
@@ -140,7 +141,7 @@ Create AWS User IAM Key. An access key grants programmatic access to your resour
 
 For you to get familiar with the automation and deployment flow, below is an explanation.
 
-* User is editing and exporting Terraform runtime environment variables, AKA *TF_VAR* (1-time edit). The variables values are being used throughout the deployment.
+* User edits and exports Terraform runtime environment variables, AKA *TF_VAR* (1-time edit). The variables values are being used throughout the deployment.
 
 * User deploys the Terraform plan which will deploy the EKS cluster and the EC2 Windows Client instance as well as an Azure resource group. The Azure resource group is required to host the Azure Arc services you will be able to deploy such as Azure SQL Managed Instance and PostgreSQL Hyperscale.
 
@@ -154,7 +155,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
       * Create the *ClientTools.log* file  
       * Install the required tools – az cli, az cli Powershell module, kubernetes-cli, aws-iam-authenticator, Visual C++ Redistributable (Chocolaty packages)
       * Download Azure Data Studio & Azure Data CLI
-      * Download the *DC_Cleanup* and *DC_Deploy* Powershell scripts
+      * Download the *MSSQL_MI_Cleanup* and *MSSQL_MI_Deploy* Powershell scripts
       * Create the logon script
       * Create the Windows schedule task to run the logon script at first login
 
@@ -167,11 +168,14 @@ For you to get familiar with the automation and deployment flow, below is an exp
       * Create the Azure Data Studio desktop shortcut
       * Open another Powershell session which will execute a command to watch the deployed Azure Arc Data Controller Kubernetes pods
       * Deploy the Arc Data Controller using the *TF_VAR* variables values
+      * Deploy the MSSQL managed instance onto the data controller
+      * Restore a sample AdventureWorks database onto the data controller
       * Unregister the logon script Windows schedule task so it will not run after first login
+      * Open Azure Data Studio
 
 ## Deployment
 
-As mentioned, the Terraform plan will deploy an EKS cluster, the Azure Arc Data Controller on that cluster and an EC2 Windows Server 2019 Client instance.
+As mentioned, the Terraform plan will deploy an EKS cluster, the Azure Arc Data Controller on that cluster, a SQL Managed Instance with a sample database, and an EC2 Windows Server 2019 Client instance.
 
 * Before running the Terraform plan, edit the below *TF_VAR* values and export it (simply copy/paste it after you finished edit these). An example *TF_VAR* shell script file is located [here](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/eks/dc_vanilla/terraform/example/TF_VAR_example.sh)
 
@@ -194,16 +198,16 @@ As mentioned, the Terraform plan will deploy an EKS cluster, the Azure Arc Data 
   * *export TF_VAR_ARC_DC_RG*='Azure resource group where all future Azure Arc resources will be deployed'
   * *export TF_VAR_ARC_DC_REGION*='Azure location where the Azure Arc Data Controller resource will be created in Azure' (Currently, supported regions supported are eastus, eastus2, centralus, westus2, westeurope, southeastasia)
 
-    > **Note: If you are running in a PowerShell environment, to set the Terraform environment variables, use the _Set-Item -Path env:_ prefix (see example below)**
+    > **Note: If you are running in a PowerShell environment, to set the Terraform environment variables see example below**
 
     ```powershell
-    Set-Item -Path env:TF_VAR_AWS_ACCESS_KEY_ID
+    $env:TF_VAR_AWS_ACCESS_KEY_ID=<value>
     ```
 
 * Navigate to the folder that has Terraform binaries.
 
   ```shell
-  cd azure_arc_data_jumpstart/eks/dc_vanilla/terraform
+  cd azure_arc_data_jumpstart/eks/mssql_mi/terraform/
   ```
 
 * Run the ```terraform init``` command which is used to initialize a working directory containing Terraform configuration files and load the required Terraform providers.
@@ -281,30 +285,30 @@ Now that we have both the EKS cluster and the Windows Server Client instance cre
 
   ![azdata login](./35.png)
 
-* Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. Using the Desktop shortcut created for you, open Azure Data Studio and click the Extensions settings to see both extensions.
+* Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. Azure Data Studio is automatically opened after the deployment finishes.
 
-  ![Azure Data Studio shortcut](./36.png)
+* From Azure Data Studio, click on the MSSQL_MI instance and view the sample AdventureWorks database.
 
-  ![Azure Data Studio extension](./37.png)
+  ![Sample AdventureWorks database](./36.png)
 
 ## Cleanup
 
-* To delete the Azure Arc Data Controller and all of it's Kubernetes resources, run the *DC_Cleanup.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. At the end of it's run, the script will close all PowerShell sessions. **The Cleanup script run time is ~2-3min long**.
+* To delete the Azure Arc Data Controller and all of it's Kubernetes resources, run the *MSSQL_MI_Cleanup.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. At the end of it's run, the script will close all PowerShell sessions. **The Cleanup script run time is ~2-3min long**.
 
-  ![DC_Cleanup PowerShell script run](./38.png)
+  ![MSSQL_MI_Cleanup PowerShell script run](./37.png)
 
-## Re-Deploy Azure Arc Data Controller
+## Re-Deploy Azure Arc Data Controller and SQL MI
 
-* In case you deleted the Azure Arc Data Controller from the EKS cluster, you can re-deploy it by running the *DC_Deploy.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. **The Deploy script run time is approximately ~3-4min long**.
+* In case you deleted the Azure Arc Data Controller from the EKS cluster, you can re-deploy it by running the *MSSQL_MI_Deploy.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. **The Deploy script run time is approximately ~3-4min long**.
 
-  ![Re-Deploy Azure Arc Data Controller PowerShell script](./39.png)
+  ![Re-Deploy Azure Arc Data Controller PowerShell script](./38.png)
 
 ## Delete the deployment
 
 To completely delete the environment, follow the below steps:
 
-* on the Windows Client instance, run the *DC_Cleanup.ps1* PowerShell script.
+* On the Windows Client instance, run the *MSSQL_MI_Cleanup.ps1* PowerShell script.
 
 * Run the ```terraform destroy --auto-approve``` which will delete all of the AWS resources as well as the Azure resource group. **The *terraform destroy* run time is approximately ~5-10min long**.
 
-  ![terraform destroy](./40.png)
+  ![terraform destroy](./39.png)
