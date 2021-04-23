@@ -204,7 +204,7 @@ As mentioned, the Terraform plan will deploy an EKS cluster, the Azure Arc Data 
 * Navigate to the folder that has Terraform binaries.
 
   ```shell
-  cd azure_arc_data_jumpstart/eks/dc_vanilla/terraform/
+  cd azure_arc_data_jumpstart/eks/mssql_mi/terraform/
   ```
 
 * Run the ```terraform init``` command which is used to initialize a working directory containing Terraform configuration files and load the required Terraform providers.
@@ -284,6 +284,10 @@ Now that we have both the EKS cluster and the Windows Server Client instance cre
 
 * Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. Azure Data Studio is automatically opened after the deployment finishes.
 
+* From Azure Data Studio, click on the MSSQL_MI instance and view the sample AdventureWorks database.
+
+  ![Sample AdventureWorks database](./36.png)
+
 ## Cleanup
 
 * To delete the Azure Arc Data Controller and all of it's Kubernetes resources, run the *MSSQL_MI_Cleanup.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. At the end of it's run, the script will close all PowerShell sessions. **The Cleanup script run time is ~2-3min long**.
@@ -300,7 +304,7 @@ Now that we have both the EKS cluster and the Windows Server Client instance cre
 
 To completely delete the environment, follow the below steps:
 
-* on the Windows Client instance, run the *DC_Cleanup.ps1* PowerShell script.
+* On the Windows Client instance, run the *MSSQL_MI_Cleanup.ps1* PowerShell script.
 
 * Run the ```terraform destroy --auto-approve``` which will delete all of the AWS resources as well as the Azure resource group. **The *terraform destroy* run time is approximately ~5-10min long**.
 
