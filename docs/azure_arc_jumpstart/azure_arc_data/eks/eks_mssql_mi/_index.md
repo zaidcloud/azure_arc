@@ -1,12 +1,12 @@
 ---
 type: docs
-title: "Data Controller Terraform plan"
-linkTitle: "Data Controller Terraform plan"
+title: "SQL Managed Instance Terraform plan"
+linkTitle: "SQL Managed Instance Terraform plan"
 weight: 1
 description: >
 ---
 
-## Deploy an Azure Arc Data Controller (Vanilla) on EKS using Terraform
+## Deploy a SQL Managed Instance on EKS using Terraform
 
 The following README will guide you on how to deploy a "Ready to Go" environment so you can start using Azure Arc Data Services and deploy Azure data services with SQL Managed Instance on an [Elastic Kubernetes Service (EKS)](https://aws.amazon.com/eks/) cluster using [Terraform](https://www.terraform.io/).
 
@@ -155,7 +155,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
       * Create the *ClientTools.log* file  
       * Install the required tools – az cli, az cli Powershell module, kubernetes-cli, aws-iam-authenticator, Visual C++ Redistributable (Chocolaty packages)
       * Download Azure Data Studio & Azure Data CLI
-      * Download the *DC_Cleanup* and *DC_Deploy* Powershell scripts
+      * Download the *MSSQL_MI_Cleanup* and *MSSQL_MI_Deploy* Powershell scripts
       * Create the logon script
       * Create the Windows schedule task to run the logon script at first login
 
