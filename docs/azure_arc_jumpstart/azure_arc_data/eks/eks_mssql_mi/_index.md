@@ -66,8 +66,8 @@ By the end of this guide, you will have an EKS cluster deployed with an Azure Ar
   ```json
   {
   "appId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "displayName": "AzureArcK8s",
-  "name": "http://AzureArcK8s",
+  "displayName": "AzureArcData",
+  "name": "http://AzureArcData",
   "password": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
   "tenant": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
   }
