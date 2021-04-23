@@ -175,7 +175,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 ## Deployment
 
-As mentioned, the Terraform plan will deploy an EKS cluster, the Azure Arc Data Controller on that cluster and an EC2 Windows Server 2019 Client instance.
+As mentioned, the Terraform plan will deploy an EKS cluster, the Azure Arc Data Controller on that cluster, a SQL Managed Instance with a sample database, and an EC2 Windows Server 2019 Client instance.
 
 * Before running the Terraform plan, edit the below *TF_VAR* values and export it (simply copy/paste it after you finished edit these). An example *TF_VAR* shell script file is located [here](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/eks/dc_vanilla/terraform/example/TF_VAR_example.sh)
 
