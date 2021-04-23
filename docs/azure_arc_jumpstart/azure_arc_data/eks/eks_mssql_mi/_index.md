@@ -58,7 +58,7 @@ By the end of this guide, you will have an EKS cluster deployed with an Azure Ar
   For example:
 
   ```shell
-  az ad sp create-for-rbac -n "http://AzureArcK8s" --role contributor
+  az ad sp create-for-rbac -n "http://AzureArcData" --role contributor
   ```
 
   Output should look like this
