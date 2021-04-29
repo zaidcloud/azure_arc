@@ -105,7 +105,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
 ## Simulate a security alert
 
-To verify that Azure Defender is working properly and alerting on security threats, you can run this command to simulate an alert:
+To verify that Azure Defender is working properly and alerting on security threats, run the below command to simulate an alert:
 
 ```bash
 kubectl get pods --namespace=asc-alerttest-662jfi039n --kubeconfig <cluster-name>.kubeconfig
