@@ -83,7 +83,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
     ![Screenshot showing Azure Portal with Azure Arc enabled Kubernetes resource extensions](./02.png)
 
-* Edit the environment variables in the script to match your environment parameters. After that run it using the ```. ./azure_defender_k8s_extension.sh``` command.
+* Edit the environment variables in the script to match your environment parameters followed by running the ```. ./azure_defender_k8s_extension.sh``` command.
 
     > **Note: The extra dot is due to the shell script has an *export* function and needs to have the vars exported in the same shell session as the rest of the commands.**
 
