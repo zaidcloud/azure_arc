@@ -89,11 +89,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
     > **Note: The extra dot is due to the shell script has an *export* function and needs to have the vars exported in the same shell session as the rest of the commands.**
 
-    ![Screenshot showing Cluster API in Azure Portal](./04.png)
-
-    ![Screenshot showing Azure Arc connected cluster](./05.png)
-
-    The script will:
+   The script will:
 
   * Login to your Azure subscription using the SPN credentials
   * Add or Update your local _connectedk8s_ and _k8s-extension_ Azure CLI extensions
@@ -101,9 +97,19 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
 * You can see that Azure Defender is enabled once you visit the security tab section of the Azure Arc enabled Kubernetes cluster resource in Azure.
 
+![Screenshot extension deployment security tab](./04.png)
+
 * Also verify under the Extensions section of the Azure Arc enabled Kubernetes cluster that the Azure Defender extension is correctly installed.
 
-![Screenshot extension deployment](./06.png)
+![Screenshot extension deployment](./05.png)
+
+* You can also verify the deployment by running the command below:
+
+```bash
+kubectl get pods -n azuredefender --kubeconfig $CAPI_WORKLOAD_CLUSTER_NAME.kubeconfig
+```
+
+![Screenshot extension deployment on cluster](./06.png)
 
 ## Simulate a security alert
 
