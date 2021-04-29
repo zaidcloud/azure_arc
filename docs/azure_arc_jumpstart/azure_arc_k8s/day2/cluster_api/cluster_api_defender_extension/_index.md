@@ -95,7 +95,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
   * Login to your Azure subscription using the SPN credentials
   * Add or Update your local _connectedk8s_ and _k8s-extension_ Azure CLI extensions
-  * Create defender k8s extension instance
+  * Create Azure Defender k8s extension instance
 
 * You can see that Azure Defender is enabled once you visit the security tab section of the Azure Arc enabled Kubernetes cluster resource in Azure.
 
