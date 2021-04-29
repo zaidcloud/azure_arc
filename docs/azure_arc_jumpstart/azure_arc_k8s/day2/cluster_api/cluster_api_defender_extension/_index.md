@@ -71,7 +71,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 * User is veryfing the cluster is shown in Azure Defender and that the extension is deployed.
 
-* User is simulating a security alert on the Cluster API, Azure Defender detects this activity and triggers a security alert.
+* User is simulating a security alert on the Kubernetes cluster that will cause Azure Defender to detect this activity and trigger a security alert.
 
 ## Create Azure Defender extensions instance
 
