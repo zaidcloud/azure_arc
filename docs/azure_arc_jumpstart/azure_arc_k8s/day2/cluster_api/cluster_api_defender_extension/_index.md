@@ -65,7 +65,9 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 * User has deployed Kubernetes using Cluster API and has it connected as Azure Arc enabled Kubernetes cluster.
 
-* User is editing the environment variables on the Shell script file (1-time edit). These variables are being used throughout the extension deployment. User is running the shell script. The script will use the extension management feature of Azure Arc to theploy the Azure Defender extension on the Arc connected cluster.
+* User is editing the environment variables on the Shell script file (1-time edit) which then be used throughout the extension deployment. 
+
+* User is running the shell script. The script will use the extension management feature of Azure Arc to deploy the Azure Defender extension on the Azure Arc connected cluster.
 
 * User is veryfing the cluster is shown in Azure Defender and that the extension is deployed.
 
