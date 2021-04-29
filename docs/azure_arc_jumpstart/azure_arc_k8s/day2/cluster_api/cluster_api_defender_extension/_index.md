@@ -85,11 +85,13 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
 * Edit the environment variables in the script to match your environment parameters followed by running the ```. ./azure_defender_k8s_extension.sh``` command.
 
+    ![Screenshot parameter examples](./03.png)
+
     > **Note: The extra dot is due to the shell script has an *export* function and needs to have the vars exported in the same shell session as the rest of the commands.**
 
-    ![Screenshot showing Cluster API in Azure Portal](./03.png)
+    ![Screenshot showing Cluster API in Azure Portal](./04.png)
 
-    ![Screenshot showing Azure Arc connected cluster](./04.png)
+    ![Screenshot showing Azure Arc connected cluster](./05.png)
 
     The script will:
 
@@ -101,7 +103,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
 * Also verify under the Extensions section of the Azure Arc enabled Kubernetes cluster that the Azure Defender extension is correctly installed.
 
-![Screenshot extension deployment](./05.png)
+![Screenshot extension deployment](./06.png)
 
 ## Simulate a security alert
 
@@ -113,11 +115,11 @@ kubectl get pods --namespace=asc-alerttest-662jfi039n --kubeconfig <cluster-name
 
 Within 30 minutes Azure Defender will detect this event and trigger a security alert that you wil see in the Azure Portal under Azure Security Center's security alerts and also on the security tab of your Azure Arc enabled cluster.
 
-![Screenshot security alert in Azure Security Center](./06.png)
-
 ![Screenshot security alert in Azure Security Center](./07.png)
 
 ![Screenshot security alert in Azure Security Center](./08.png)
+
+![Screenshot security alert in Azure Security Center](./09.png)
 
 ### Delete extension instance
 
