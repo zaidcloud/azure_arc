@@ -139,7 +139,7 @@ In this guide (as explained in the CAPI Book docs), you will deploy a local [kin
 
 * Edit the environment variables to match your Azure subscription and SPN details created in the prerequisites section in this guide as well as the required workload cluster details.
 
-  * *KUBERNETES_VERSION*="Kubernetes version. For example: 1.18.14"
+  * *KUBERNETES_VERSION*="Kubernetes version. For example: 1.18.17"
   * *CONTROL_PLANE_MACHINE_COUNT*="Control Plane node count. For example: 1"
   * *WORKER_MACHINE_COUNT*="Workers node count. For example: 2"
   * *AZURE_LOCATION*="Azure region. For example: eastus"
