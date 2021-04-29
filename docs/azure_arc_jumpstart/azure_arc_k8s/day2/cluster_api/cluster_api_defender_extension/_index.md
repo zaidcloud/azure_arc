@@ -129,7 +129,7 @@ Within 30 minutes Azure Defender will detect this event and trigger a security a
 
 ### Delete extension instance
 
-The following command only deletes the extension instance, but doesn't delete the Log Analytics workspace or disables Azure Defender
+The following command only deletes the extension instance, but doesn't delete the Log Analytics workspace or disables Azure Defender.
 
 ```bash
 az k8s-extension delete --name microsoft.azuredefender.kubernetes --cluster-type connectedClusters --cluster-name <cluster-name> --resource-group <resource-group>
