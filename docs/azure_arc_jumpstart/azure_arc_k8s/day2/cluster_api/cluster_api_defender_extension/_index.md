@@ -106,7 +106,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 * You can also verify the deployment by running the command below:
 
 ```bash
-kubectl get pods -n azuredefender --kubeconfig $CAPI_WORKLOAD_CLUSTER_NAME.kubeconfig
+kubectl get pods -n azuredefender --kubeconfig <cluster-name>.kubeconfig
 ```
 
 ![Screenshot extension deployment on cluster](./06.png)
