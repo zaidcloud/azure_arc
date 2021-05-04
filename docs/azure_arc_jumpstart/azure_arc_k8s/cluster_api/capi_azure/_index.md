@@ -135,11 +135,11 @@ In this guide (as explained in the CAPI Book docs), you will deploy a local [kin
 
 * In the your directory of the cloned Jumpstart repository, navigate to where the [*arc_capi_azure*](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/cluster_api/capi_azure/arc_capi_azure.sh) bash script is located.
 
-  The script will transform the kind Kubernetes cluster to management cluster with the Azure Cluster API provisioner components that are needed. It will then deploy the workload cluster and it's Azure resources based on the environment variables you will edit in the next bullet. Once the deployment is completed, the cluster will be onboard as an Azure Arc enabled Kubernetes cluster.
+  The script will transform the kind Kubernetes cluster to a CAPI management cluster with the Azure Cluster API provisioned (CAPZ) components that are needed. It will then deploy the workload cluster and it's Azure resources based on the environment variables as described in the next bullet. Upon deployment completion, the cluster will be onboard as an Azure Arc enabled Kubernetes cluster.
 
 * Edit the environment variables to match your Azure subscription and SPN details created in the prerequisites section in this guide as well as the required workload cluster details.
 
-  * *KUBERNETES_VERSION*="Kubernetes version. For example: 1.18.10"
+  * *KUBERNETES_VERSION*="Kubernetes version. For example: 1.18.17"
   * *CONTROL_PLANE_MACHINE_COUNT*="Control Plane node count. For example: 1"
   * *WORKER_MACHINE_COUNT*="Workers node count. For example: 2"
   * *AZURE_LOCATION*="Azure region. For example: eastus"
