@@ -47,8 +47,8 @@ ArcBox deploys several management and operations services that work with ArcBox'
 ArcBox uses an advanced automation flow to deploy and configure all necessary resources with minimal user interaction. The above diagram provides a high-level overview of the deployment flow. A high-level summary of the deployment is:
 
 * User deploys the primary ARM template (azuredeploy.json). This template contains several nested templates that will run simultaneously.
-  * ClientVM ARM template - deploys the Client Windows VM. This is the Hyper-V host VM where all user interactions with the environment are made from. 
-  * AKS ARM template - deploys AKS cluster which will be used to run Azure Arc enabled data services
+  * ClientVM ARM template - deploys the Client Windows VM. This is the Hyper-V host VM where all user interactions with the environment are made from.
+  * CAPI ARM template - deploys an Ubuntu Linux VM which will have Rancher (K3s) installed and transformed into a Cluster API management cluster via the Azure CAPZ provider.
   * Rancher K3s template - deploys an Ubuntu Linux VM which will have Rancher (K3s) installed on it and connected as an Azure Arc enabled Kubernetes cluster
   * Storage account template - used for staging files in automation scripts
   * Management artifacts template - deploys Azure Log Analytics workspace and solutions and Azure Policy artifacts
@@ -57,7 +57,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
     * Windows VM - onboarded as Azure Arc enabled Server
     * Ubuntu VM - onboarded as Azure Arc enabled Server
     * Windows VM running SQL Server - onboarded as Azure Arc enabled SQL Server (as well as Azure Arc enabled Server)
-  * Deploy and configure Azure Arc enabled data services on the AKS cluster including a data controller, a SQL MI instance, and a PostgreSQL Hyperscale cluster. After deployment, Azure Data Studio opens automatically with connection entries for each database instance. Data services deployed by the script are:
+  * Deploy and configure Azure Arc enabled data services on the CAPI workload cluster including a data controller, a SQL MI instance, and a PostgreSQL Hyperscale cluster. After deployment, Azure Data Studio opens automatically with connection entries for each database instance. Data services deployed by the script are:
     * Data controller
     * SQL MI instance
     * Postgres instance
@@ -138,7 +138,6 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
 * Edit the [azuredeploy.parameters.json](../../azure_jumpstart_arcbox/azuredeploy.parameters.json) ARM template parameters file and supply some values for your environment.
 
-  * *aksDnsPrefix* - AKS unique DNS prefix
   * *sshRSAPublicKey* - Your SSH public key
   * *spnClientId* - Your Azure service principal id
   * *spnClientSecret* - Your Azure service principal secret
