@@ -4,7 +4,7 @@
 
 Jumpstart ArcBox is a project that provides an easy to deploy sandbox for all things Azure Arc. ArcBox is designed to be completely self-contained within a single Azure subscription and resource group, which will make it easy for a user to get hands-on with all available Azure Arc technology with nothing more than an available Azure subscription.
 
-![ArcBox architecture diagram](./arch.png)
+![ArcBox architecture diagram](./arch_capi.png)
 
 ### Use cases
 
@@ -261,6 +261,6 @@ az group delete -n <name of your resource group>
 * Azure Arc enabled SQL Server assessment report not always visible in Azure Portal
 * MMA Agent on nested _ArcBox-Ubuntu_ server not deploying properly via policy.
 * Currently, Azure Arc enabled data services are deployed in **indirectly connected** mode.
-* The [_custom-location_](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/custom-locations) feature required for Azure Arc enabled data services directly connected mode currently cannot be installed using service principal and will present an "Insufficient privileges" error as part of the data services logon script runtime that can be safely ignored for now.
+* The [_custom-location_](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/custom-locations) feature required for Azure Arc enabled data services directly connected mode currently cannot be installed using a service principal and will present an "Insufficient privileges" error as part of the data services logon script runtime that can be safely ignored for now.
 
     ![Screenshot showing custom location "Insufficient privileges" error](./customlocationerror.png)
