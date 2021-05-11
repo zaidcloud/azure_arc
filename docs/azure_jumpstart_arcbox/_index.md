@@ -4,7 +4,7 @@
 
 Jumpstart ArcBox is a project that provides an easy to deploy sandbox for all things Azure Arc. ArcBox is designed to be completely self-contained within a single Azure subscription and resource group, which will make it easy for a user to get hands-on with all available Azure Arc technology with nothing more than an available Azure subscription.
 
-![ArcBox architecture diagram](./arch.png)
+![ArcBox architecture diagram](./arch_capi.png)
 
 ### Use cases
 
@@ -30,9 +30,9 @@ ArcBox deploys one single-node Rancher K3s cluster running on an Azure virtual m
 
 ### Azure Arc enabled Data Services
 
-ArcBox deploys a 3-node Azure Kubernetes Services (AKS) cluster (_ArcBox-Data_), which is then being used to deploy an Azure Arc enabled data services data controller.
+ArcBox deploys one single-node Rancher K3s cluster (_ArcBox-CAPI-MGMT_), which is then transformed to a [Cluster API](https://cluster-api.sigs.k8s.io/user/concepts.html) management cluster with the Azure CAPZ provider, and a workload cluster is deployed onto the management cluster. The Azure Arc enabled data services and data controller are deployed onto this workload cluster via a PowerShell script that runs when first logging into ArcBox-Client virtual machine.
 
-![ArcBox data services diagram](./dataservices.png)
+![ArcBox data services diagram](./dataservices2.png)
 
 ### Hybrid Unified Operations
 
@@ -47,8 +47,8 @@ ArcBox deploys several management and operations services that work with ArcBox'
 ArcBox uses an advanced automation flow to deploy and configure all necessary resources with minimal user interaction. The above diagram provides a high-level overview of the deployment flow. A high-level summary of the deployment is:
 
 * User deploys the primary ARM template (azuredeploy.json). This template contains several nested templates that will run simultaneously.
-  * ClientVM ARM template - deploys the Client Windows VM. This is the Hyper-V host VM where all user interactions with the environment are made from. 
-  * AKS ARM template - deploys AKS cluster which will be used to run Azure Arc enabled data services
+  * ClientVM ARM template - deploys the Client Windows VM. This is the Hyper-V host VM where all user interactions with the environment are made from.
+  * CAPI ARM template - deploys an Ubuntu Linux VM which will have Rancher (K3s) installed and transformed into a Cluster API management cluster via the Azure CAPZ provider.
   * Rancher K3s template - deploys an Ubuntu Linux VM which will have Rancher (K3s) installed on it and connected as an Azure Arc enabled Kubernetes cluster
   * Storage account template - used for staging files in automation scripts
   * Management artifacts template - deploys Azure Log Analytics workspace and solutions and Azure Policy artifacts
@@ -57,7 +57,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
     * Windows VM - onboarded as Azure Arc enabled Server
     * Ubuntu VM - onboarded as Azure Arc enabled Server
     * Windows VM running SQL Server - onboarded as Azure Arc enabled SQL Server (as well as Azure Arc enabled Server)
-  * Deploy and configure Azure Arc enabled data services on the AKS cluster including a data controller, a SQL MI instance, and a PostgreSQL Hyperscale cluster. After deployment, Azure Data Studio opens automatically with connection entries for each database instance. Data services deployed by the script are:
+  * Deploy and configure Azure Arc enabled data services on the CAPI workload cluster including a data controller, a SQL MI instance, and a PostgreSQL Hyperscale cluster. After deployment, Azure Data Studio opens automatically with connection entries for each database instance. Data services deployed by the script are:
     * Data controller
     * SQL MI instance
     * Postgres instance
@@ -77,7 +77,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
 ## Prerequisites
 
-* Ensure you have sufficient vCPU cores available in your Azure subscription. ArcBox requires 44 cores.
+* ArcBox requires 52 vCPUs when deploying with default parameters such as VM series/size. Ensure you have sufficient vCPU quota available in your Azure subscription.
 
 * [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
@@ -138,13 +138,12 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
 * Edit the [azuredeploy.parameters.json](../../azure_jumpstart_arcbox/azuredeploy.parameters.json) ARM template parameters file and supply some values for your environment.
 
-  * *aksDnsPrefix* - AKS unique DNS prefix
   * *sshRSAPublicKey* - Your SSH public key
   * *spnClientId* - Your Azure service principal id
   * *spnClientSecret* - Your Azure service principal secret
   * *spnTenantId* - Your Azure tenant id
   * *windowsAdminUsername* - Client Windows VM Administrator name
-  * *windowsAdminPassword* - Client Windows VM administrator password
+  * *windowsAdminPassword* - Client Windows VM Administrator password
   * *myIpAddress* - Your local IP address. This is used to allow remote RDP and SSH connections to the Client Windows VM and K3s Rancher VM.
   * *logAnalyticsWorkspaceName* - Unique name for the ArcBox log analytics workspace
 
@@ -168,9 +167,9 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
   ![Screenshot showing az deployment group create](./deployedresources.png)
 
-* Open a remote desktop connection into _ArcBox-Client_. Upon logging in, multiple automated scripts will open and start running. These scripts will take 10-20 minutes to finish and once completed the script windows will close. At this point, the deployment is complete.
+* Open a remote desktop connection into _ArcBox-Client_. Upon logging in, multiple automated scripts will open and start running. These scripts usually take 10-20 minutes to finish and once completed the script windows will close. At this point, the deployment is complete.
 
-  ![Screenshot showing ArcBox-Client](./clientscript.png)
+  ![Screenshot showing ArcBox-Client](./automation5.png)
 
   ![Screenshot showing ArcBox resources in Azure Portal](./rgarc.png)
 
@@ -188,7 +187,7 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
 
   ```shell
   kubectx
-  kubectx ArcBox-Data
+  kubectx arcbox-capi
   kubectl get nodes
   kubectl get pods -n arcdatactrl
   kubectx arcboxk3s
@@ -221,7 +220,6 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
 | ---------------------------------------------------- | ------------- |
 | Azure Data Studio with Arc and PostgreSQL extensions | ArcBox-Client |
 | kubectl, kubectx, helm                               | ArcBox-Client |
-| PostgreSQL tools                                     | ArcBox-Client |
 | Chocolatey                                           | ArcBox-Client |
 | Visual Studio Code                                   | ArcBox-Client |
 | Putty                                                | ArcBox-Client |
@@ -258,6 +256,8 @@ az group delete -n <name of your resource group>
 
 ## Known issues
 
-* Sample databases are not deployed into the MSSQL or PostgreSQL instances at this time.
 * Azure Arc enabled SQL Server assessment report not always visible in Azure Portal
-* MMA Agent on ArcBox-Ubuntu server not deploying properly via policy.
+* Currently, Azure Arc enabled data services are deployed in **indirectly connected** mode.
+* The [_custom-location_](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/custom-locations) feature required for Azure Arc enabled data services directly connected mode currently cannot be installed using a service principal and will present an "Insufficient privileges" error as part of the data services logon script runtime that can be safely ignored for now.
+
+    ![Screenshot showing custom location "Insufficient privileges" error](./customlocationerror.png)
