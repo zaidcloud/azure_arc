@@ -167,7 +167,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
   ![Screenshot showing az deployment group create](./deployedresources.png)
 
-* Open a remote desktop connection into _ArcBox-Client_. Upon logging in, multiple automated scripts will open and start running. These scripts will take 10-20 minutes to finish and once completed the script windows will close. At this point, the deployment is complete.
+* Open a remote desktop connection into _ArcBox-Client_. Upon logging in, multiple automated scripts will open and start running. These scripts usually take 10-20 minutes to finish and once completed the script windows will close. At this point, the deployment is complete.
 
   ![Screenshot showing ArcBox-Client](./automation5.png)
 
@@ -257,7 +257,6 @@ az group delete -n <name of your resource group>
 ## Known issues
 
 * Azure Arc enabled SQL Server assessment report not always visible in Azure Portal
-* MMA Agent on nested _ArcBox-Ubuntu_ server not deploying properly via policy.
 * Currently, Azure Arc enabled data services are deployed in **indirectly connected** mode.
 * The [_custom-location_](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/custom-locations) feature required for Azure Arc enabled data services directly connected mode currently cannot be installed using a service principal and will present an "Insufficient privileges" error as part of the data services logon script runtime that can be safely ignored for now.
 
