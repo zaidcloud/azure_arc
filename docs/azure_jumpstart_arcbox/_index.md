@@ -169,7 +169,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
 * Open a remote desktop connection into _ArcBox-Client_. Upon logging in, multiple automated scripts will open and start running. These scripts will take 10-20 minutes to finish and once completed the script windows will close. At this point, the deployment is complete.
 
-  ![Screenshot showing ArcBox-Client](./clientscript.png)
+  ![Screenshot showing ArcBox-Client](./automation5.png)
 
   ![Screenshot showing ArcBox resources in Azure Portal](./rgarc.png)
 
@@ -187,7 +187,7 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
 
   ```shell
   kubectx
-  kubectx ArcBox-Data
+  kubectx arcbox-capi
   kubectl get nodes
   kubectl get pods -n arcdatactrl
   kubectx arcboxk3s
@@ -220,7 +220,6 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
 | ---------------------------------------------------- | ------------- |
 | Azure Data Studio with Arc and PostgreSQL extensions | ArcBox-Client |
 | kubectl, kubectx, helm                               | ArcBox-Client |
-| PostgreSQL tools                                     | ArcBox-Client |
 | Chocolatey                                           | ArcBox-Client |
 | Visual Studio Code                                   | ArcBox-Client |
 | Putty                                                | ArcBox-Client |
