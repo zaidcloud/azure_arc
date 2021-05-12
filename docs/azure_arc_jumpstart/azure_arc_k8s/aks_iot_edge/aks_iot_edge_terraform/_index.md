@@ -209,7 +209,7 @@ provisioning:
   dynamicReprovisioning: false
 ```
 
-* We will edit the environment variables section in the included [az_k8sconfig_helm_aks.sh](https://github.com/Manuss20/Kubernetes_edge/blob/main/deploy/scripts/helm/az_k8sconfig_helm_aks.sh) shell script. As in the previous steps we will upload the files to our Azure Cloud Shell.   
+* Edit the environment variables section in the included in the [_az_k8sconfig_helm_aks.sh_](https://github.com/main/Kubernetes_edge/blob/main/deploy/scripts/helm/az_k8sconfig_helm_aks.sh) shell script. As we did in the previous steps, upload the files to our Azure Cloud Shell.   
 
 ![Screenshot showing delete function in Azure Portal](./13.png)
 
