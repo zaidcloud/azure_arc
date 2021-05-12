@@ -8,9 +8,9 @@ description: >
 
 ## Deploy AKS cluster on Azure IoT Edge and connect it to Azure Arc using Terraform
 
-This scenario allows us to see how Azure IoT Edge and Azure Arc services complement each other in an easy and simple way, providing mechanisms for AKS cluster operators to configure the fundamental components of an AKS cluster and apply policies by monitoring its supervision. through Azure Arc. Furthermore, from Azure IoT Edge it enables application operators to remotely deploy and manage workloads at scale with convenient ingest from the cloud and in a bi-directional way. 
+This scenario allows us to see how Azure IoT Edge and Azure Arc services complement each other in an easy and simple way, providing mechanisms for AKS cluster operators to configure the fundamental components of an AKS cluster and apply policies by monitoring its supervision, through Azure Arc. Furthermore, from Azure IoT Edge, application operators can remotely deploy and manage workloads at scale with convenient ingest from the cloud and in a bi-directional way. 
 
-  > **Note: Azure Kubernetes Service is now in preview on Azure IoT Edge. You can find more details about this service at: [IoT Edge's support for Kubernetes](https://microsoft.github.io/iotedge-k8s-doc/)**
+  > **Note: Azure Kubernetes Service is now in preview on Azure IoT Edge. You can find more details about this service in the [IoT Edge's support for Kubernetes document](https://microsoft.github.io/iotedge-k8s-doc/)**
 
 The following README will guide you on how to use the provided [Terraform](https://www.terraform.io/) plan to deploy an [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes) cluster and connect it as an Azure Arc enabled Kubernetes resource.
 
