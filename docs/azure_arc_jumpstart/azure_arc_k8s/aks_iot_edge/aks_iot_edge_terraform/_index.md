@@ -95,7 +95,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 ## Deployment
 
-Before running the Terraform automation, you need to export the environment variables which will be used by the plan to customize your environment.
+Before running the Terraform automation, you need to export the environment variables that will be used by the plan to customize your environment.
 
 In addition, validate that the AKS Kubernetes version is available in your region using the below Azure CLI command.
 
