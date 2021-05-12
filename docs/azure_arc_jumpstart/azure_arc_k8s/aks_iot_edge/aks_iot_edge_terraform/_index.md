@@ -79,17 +79,18 @@ The following README will guide you on how to use the provided [Terraform](https
 
 For you to get familiar with the automation and deployment flow, below is an explanation.
 
-* In the first script ( [edge_azure_vm.sh](https://github.com/Manuss20/Kubernetes_edge/blob/main/deploy/scripts/edge/edge_azure_vm.sh) ) that you use specifically to provision the necessary components in the VM to be able to deploy our "simulated" edge device:
+* First bash script ([_edge_azure_vm.sh_](https://github.com/main/Kubernetes_edge/blob/main/deploy/scripts/edge/edge_azure_vm.sh)) - Used specifically for provisioning the necessary components in the VM to be able to deploy our "simulated" edge device:
 
-  * Download Install the required tools moby-engine
-  * Download & install the Azure aziot-edge
-  * Creation of a new configuration file for aziot-edge (/etc/aziot/config.toml)
+  * Download Install the required tools _moby-engine_
+  * Download & install the Azure _aziot-edge_
+  * Creation of a new configuration file for aziot-edge (_/etc/aziot/config.toml_)
 
-* In this second bash script ( [az_k8sconfig_helm_aks.sh](https://github.com/Manuss20/Kubernetes_edge/blob/main/deploy/scripts/helm/az_k8sconfig_helm_aks.sh) ) it will allow us to deploy our IoT Edge solution for AKS, configure our and associate our AKS cluster with Azure Arc, for this: 
+* Second bash script ([_az_k8sconfig_helm_aks.sh_](https://github.com/main/Kubernetes_edge/blob/main/deploy/scripts/helm/az_k8sconfig_helm_aks.sh)) Allow us to deploy our IoT Edge solution for AKS, configure our and associate our AKS cluster with Azure Arc, for this: 
+
   * Log in to Azure with Service Principal & Getting AKS credentials (kubeconfig)
   * Associate our AKS with Azure Arc
-  * Create Namespace iotedge in AKS
-  * Generate secret that contains the connectionstring of our edge device.
+  * Create Namespace _iotedge_ in AKS
+  * Generate a secret that contains the connection string of our edge device.
   * Create Cluster-level GitOps-Config for deploying IoT Edge workload
 
 ## Deployment
