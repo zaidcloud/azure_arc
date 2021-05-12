@@ -199,7 +199,7 @@ sudo iotedge list
 
 * Now download the [values.yaml](https://github.com/Azure/iotedge/blob/preview/iiot/kubernetes/charts/edge-kubernetes/values.yaml) file for IoT Edge Helm chart and replace the deviceConnectionString placeholder at the end of the file with the connection string you noted earlier.
 
-```shell
+```yaml
 # Manual provisioning configuration using a connection string
 provisioning:
   source: "manual"
