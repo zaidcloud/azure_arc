@@ -218,7 +218,7 @@ We can use the following commands to check it:
 kubectl get pods -n iotedge
 ```
 ```shell
-kubectl logs -n iotedge replace-with-iot-edge-pod-name simulatedtemperaturesensor
+kubectl logs -n iotedge <replace-with-iot-edge-pod-name> simulatedtemperaturesensor
 ```
 ## Delete the deployment
 
