@@ -183,11 +183,9 @@ sudo iotedge config apply
 az iot edge set-modules --hub-name k8sedgejumpstart --device-id "EdgeDeviceSim" --content ./deployment.json
 ```
 
-* Now we go to the Azure portal -> K8sEdgeJumpStart and look for our IoT Hub instance -> k8sedgejumpstart: 
+* From the Azure portal, select the IoT Hub instance under _K8sEdgeJumpStart_. By selecting our IoT Edge device, we can see all the information about the modules it is running and If everything has been successful we will see that the "SimulatedTemperatureSensor" module is running correctly.
 
 ![Screenshot showing IoT Edge device in IoT Hub](./10.png)
-
-* By selecting on our IoT Edge device we can see all the information about the modules it is running. If everything has been successful we will see that the "SimulatedTemperatureSensor" module is running correctly.
 
 ![Screenshot showing IoT Edge device in IoT Hub](./11.png)
 
