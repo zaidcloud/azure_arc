@@ -177,7 +177,7 @@ sudo iotedge config apply
 
 * Once the file is uploaded, we will launch the following command: 
 
-> **Note: You can see an example of the [deployment.json](https://github.com/Manuss20/Kubernetes_edge/blob/main/deploy/scripts/edge/deployment.json) file that we use.**
+> **Note: You can see an example of the [deployment.json](https://github.com/main/Kubernetes_edge/blob/main/deploy/scripts/edge/deployment.json) file that we use.**
 
 ```shell
 az iot edge set-modules --hub-name k8sedgejumpstart --device-id "EdgeDeviceSim" --content ./deployment.json
