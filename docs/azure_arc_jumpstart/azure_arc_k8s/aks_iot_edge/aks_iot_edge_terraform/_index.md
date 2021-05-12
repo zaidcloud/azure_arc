@@ -175,7 +175,7 @@ sudo iotedge config apply
 
 ![Screenshot showing sync config IoT Edge device in VM](./09.png)
 
-* Once the file is uploaded, we will launch the following command: 
+* Once the file is uploaded, execute the following command: 
 
 > **Note: You can see an example of the [deployment.json](https://github.com/main/Kubernetes_edge/blob/main/deploy/scripts/edge/deployment.json) file that we use.**
 
