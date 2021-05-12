@@ -171,7 +171,7 @@ sudo iotedge config apply
 
 ![Screenshot showing sync config IoT Edge device in VM](./08.png)
 
-* Finally we will return to the Azure Cloud Shell where we will assign to our new device a module to simulate a temperature sensor. For this we will upload the file through the Azure Cloud Shell interface:  
+* Once completed the above steps, return to the Azure Cloud Shell where we will assign to our new device a module to simulate a temperature sensor. For this we will upload the file through the Azure Cloud Shell interface:  
 
 ![Screenshot showing sync config IoT Edge device in VM](./09.png)
 
