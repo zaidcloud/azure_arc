@@ -1,8 +1,8 @@
 ---
 type: docs
-title: "AKS on Azure IoT Edge Terraform plan"
-linkTitle: "AKS on Azure IoT Edge Terraform plan"
-weight: 2
+title: "Azure IoT Edge integration with AKS as an Azure Arc Connected Cluster"
+linkTitle: "Azure IoT Edge integration with AKS as an Azure Arc Connected Cluster"
+weight: 1
 description: >
 ---
 
@@ -75,6 +75,16 @@ The following README will guide you on how to use the provided [Terraform](https
   az provider show -n Microsoft.KubernetesConfiguration -o table
   ```
 
+## Architecture diagram 
+
+Azure Arc provides mechanisms for cluster operators to configure the foundational components of a cluster, and apply and enforce cluster policies. Azure IoT Edge allows application operators to remotely deploy and manage the workloads at scale with convenient cloud ingestion and bi-directional communication primitives.
+
+
+The architecture defined for this scenario is shown below: 
+
+![Screenshot architecture diagram](./16.png)
+
+
 ## Automation Flow
 
 For you to get familiar with the automation and deployment flow, below is an explanation.
@@ -144,7 +154,7 @@ In case the AKS service is not available in your region, you can change the AKS 
 az iot hub device-identity create --device-id "EdgeDeviceSim" --edge-enabled --hub-name k8sedgejumpstart
  ```
 
-> **Note: We will obtain the connection string of the new IoT Edge device to be able to make the link**
+> * We will obtain the connection string of the new IoT Edge device to be able to make the link
 ```shell
 az iot hub device-identity connection-string show --device-id "EdgeDeviceSim" --hub-name k8sedgejumpstart
   ```
@@ -156,14 +166,7 @@ az iot hub device-identity connection-string show --device-id "EdgeDeviceSim" --
 * Modify the file _/etc/aziot/config.toml_ in the VM that we have deployed using your SSH credentials.
 Once inside the VM, we will modify the /etc/aziot/config.toml file including the following lines at the end of the file with the value of the connection string that we have obtained in the previous step: 
 
-```shell
-# Manual provisioning with connection string
-[provisioning]
-source = "manual"
-connection_string = "<ADD DEVICE CONNECTION STRING HERE>"
- ```
-
-* We save the file and execute the following command to synchronize the configuration: 
+* In order to synchronize the configuration of the device that we have paired we must execute the following command:
 
 ```shell
 sudo iotedge config apply
@@ -209,10 +212,12 @@ provisioning:
 
 * Edit the environment variables section in the included in the [_az_k8sconfig_helm_aks.sh_](https://github.com/main/Kubernetes_edge/blob/main/deploy/scripts/helm/az_k8sconfig_helm_aks.sh) shell script. As we did in the previous steps, upload the files to our Azure Cloud Shell.   
 
-![Screenshot showing delete function in Azure Portal](./13.png)
+![Screenshot environment variables section](./13.png)
 
 * Once the script run has finished, the AKS cluster will be projected as a new Azure Arc enabled Kubernetes resource. We will proceed to connect to our AKS cluster and in a couple of minutes you should see the workload modules defined in the edge deployment running as pods along with edgeagent and iotedged. 
 We can use the following commands to check it: 
+
+![Screenshot environment variables section](./17.png)
 
 ```shell
 kubectl get pods -n iotedge
