@@ -122,7 +122,7 @@ In case the AKS service is not available in your region, you can change the AKS 
 
     ![Screenshot showing terraform init being run](./01.png)
 
-* Run the ```terraform apply --auto-approve``` command and wait for the plan to finish.
+* Run the ```terraform apply -auto-approve`` command and wait for the plan to finish.
 
     Once the Terraform deployment is completed, a new Resource Group and all services (Vnet, Subnets, VMs, IoT Hub, EventHub, AKS Cluster) are created.
 
@@ -133,7 +133,7 @@ In case the AKS service is not available in your region, you can change the AKS 
     ![Screenshot showing Azure Portal with AKS resource](./04.png)
 
 
-* In this scenario we will use a VM as a "simulation" of an IoT Edge device. To do this, we must register a new Edge device in our IoT Hub that we will later configure. 
+* In this scenario we will use a VM to "simulate" an IoT Edge device. To do this, we must register a new Edge device in our IoT Hub that we will later configure. 
 
 * In order to keep your local environment clean and untouched, we will use [Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/overview) (located in the top-right corner in the Azure portal) to run the next commands:
 
