@@ -1,4 +1,9 @@
-# Jumpstart ArcBox - An Azure Arc Jumpstart project
+---
+type: docs
+title: "Jumpstart ArcBox - Overview"
+linkTitle: "Jumpstart ArcBox"
+weight: 3
+---
 
 ## Jumpstart ArcBox - Overview
 
