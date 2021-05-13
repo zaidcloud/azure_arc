@@ -1,8 +1,3 @@
----
-type: docs
-title: "Azure Arc Jumpstart Scenarios"
----
-
 # Jumpstart ArcBox - An Azure Arc Jumpstart project
 
 ## Jumpstart ArcBox - Overview
