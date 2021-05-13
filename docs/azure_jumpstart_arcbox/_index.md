@@ -77,7 +77,13 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
 ## Prerequisites
 
-* ArcBox requires 52 vCPUs when deploying with default parameters such as VM series/size. Ensure you have sufficient vCPU quota available in your Azure subscription.
+* ArcBox requires 52 vCPUs when deploying with default parameters such as VM series/size. Ensure you have sufficient vCPU quota available in your Azure subscription and the region where you plan to deploy ArcBox. You can use the below Az CLI command to check your vCPU utilization.
+
+  ```shell
+  az vm list-usage --location <your location> --output table
+  ```
+
+  ![Screenshot showing az vm list-usage](./azvmlistusage.png)
 
 * [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
