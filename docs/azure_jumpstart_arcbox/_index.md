@@ -62,19 +62,6 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
     * SQL MI instance
     * Postgres instance
 
-## ArcBox Azure Region Compatibility
-
-ArcBox must be deployed to one of the following regions. Deploying ArcBox outside of these regions may result in unexpected results or deployment errors.
-
-* East US
-* East US 2
-* West US 2
-* North Europe
-* West Europe
-* UK South
-* Southeast Asia
-* Australia East
-
 ## Prerequisites
 
 * ArcBox requires 52 vCPUs when deploying with default parameters such as VM series/size. Ensure you have sufficient vCPU quota available in your Azure subscription and the region where you plan to deploy ArcBox. You can use the below Az CLI command to check your vCPU utilization.
@@ -122,7 +109,36 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
     > **Note: The Jumpstart scenarios are designed with as much ease of use in-mind and adhering to security-related best practices whenever possible. It is optional but highly recommended to scope the service principal to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest) as well considering using a [less privileged service principal account](https://docs.microsoft.com/en-us/azure/role-based-access-control/best-practices)**
 
+* Enable your subscription for the *Microsoft.AzureArcData* resource provider for Azure Arc enabled data services. Registration is an asynchronous process, and registration may take approximately 10 minutes.
+
+  ```shell
+  az provider register --namespace Microsoft.AzureArcData
+  ```
+
+  You can monitor the registration process with the following commands:
+
+  ```shell
+  az provider show -n Microsoft.AzureArcData -o table
+  ```
+
 * [Generate SSH Key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/) (or use existing ssh key)
+
+  ```shell
+  ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+  ```
+
+## ArcBox Azure Region Compatibility
+
+ArcBox must be deployed to one of the following regions. Deploying ArcBox outside of these regions may result in unexpected results or deployment errors.
+
+* East US
+* East US 2
+* West US 2
+* North Europe
+* West Europe
+* UK South
+* Southeast Asia
+* Australia East
 
 ## Deployment Option 1: Azure Portal
 
@@ -172,6 +188,8 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 * After deployment, you should see the ArcBox resources inside your resource group.
 
   ![Screenshot showing az deployment group create](./deployedresources.png)
+
+## Start post-deployment automation
 
 * Open a remote desktop connection into _ArcBox-Client_. Upon logging in, multiple automated scripts will open and start running. These scripts usually take 10-20 minutes to finish and once completed the script windows will close. At this point, the deployment is complete.
 
