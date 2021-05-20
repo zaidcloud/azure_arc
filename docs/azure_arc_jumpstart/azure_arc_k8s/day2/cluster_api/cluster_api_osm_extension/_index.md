@@ -8,9 +8,9 @@ description: >
 
 ## Integrate Open Service Mesh (OSM) with Cluster API as an Azure Arc Connected Cluster using Kubernetes extensions
 
-The following README will guide you on how to enable [Open Service Mesh](https://openservicemesh.io/) for a Cluster API that is projected as an Azure Arc connected cluster.
+The following README will guide you on how to enable [Open Service Mesh](https://openservicemesh.io/) for a Cluster API that is projected as an Azure Arc connected cluster. Open Service Mesh (OSM) is a lightweight, extensible, Cloud Native service mesh that allows users to uniformly manage, secure, and get out-of-the-box observability features for highly dynamic microservice environments.
 
-In this guide, you will hook the Cluster API to Open Service Mesh by deploying the [Open Service Mesh extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-arc-enabled-osm) on your Kubernetes cluster in order to start collecting security related logs and telemetry.  
+In this guide, you will hook the Cluster API to Open Service Mesh by deploying the [Open Service Mesh extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/tutorial-arc-enabled-osm) on your Kubernetes cluster in order to start collecting security related logs and telemetry.Arc enabled Open Service Mesh will have deep integrations into Azure monitor, and provide a seemless Azure experience for viewing and responding to critical KPIs provided by OSM metrics. This guide also provides you the automation to test Azure monitor integration with Arc enabled Open Service Mesh.
 
 > **Note: This guide assumes you already deployed a Cluster API and connected it to Azure Arc. If you haven't, this repository offers you a way to do so in an automated fashion using a [Shell script](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_k8s/cluster_api/capi_azure/).**
 
@@ -69,11 +69,11 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 * User will set the current kubectl context to the connected Azure Arc enabled Kubernetes cluster.
 
-* User is running the shell script. The script will use the extension management feature of Azure Arc to deploy the Open Service Mesh extension on the Azure Arc connected cluster.
+* User is running the shell script. The script will use the extension management feature of Azure Arc to deploy the Open Service Mesh extension and Azure monitor enxtenion on the Azure Arc connected cluster.
+
+* The script will also deploy sample app (bookstore) to Azure Arc enabled Kuberentes cluster and onboard the app namesapces with OSM to monitor.
 
 * User is veryfing the cluster and make sure OSM extension enabled.
-
-* User is simulating a monitoring scenario, by deploying the a sample app to Azure Arc enabled Kuberentes cluster.
 
 * User check the monitoring insights to confirm OSM start capturing the logs and metrics from the custom app sending it over to Azure Monitor.
 
@@ -97,27 +97,6 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 * Add or Update your local _connectedk8s_ and _k8s-extension_ Azure CLI extensions
 * Create Open Service Mesh k8s extension instance
 * Create Azure Monitor k8s extension instance
-
-You can now see that Open Service Mesh & Azure Monitor extensions are enabled once you visit the extension tab section of the Azure Arc enabled Kubernetes cluster resource in Azure.
-
-![Screenshot extension deployment security tab](./03.png)
-
-* You can also verify the deployment by running the command below:
-
-```bash
-kubectl get pods -n arc-osm-system
-```
-
-![Screenshot extension deployment on cluster](./04.png)
-
-## Simulate Azure Monitoring with a sample app
-
-To verify that Open Service Mesh is working properly, lets deploy a sample app and see the Azure monitoring integration with Open Service Mesh.
-
-There is an automation script provided for the same and you can run ```. ./onboard_osm_test_app.sh``` command.
-
-The script will:
-
 * Download and install OSM cli locally
 * Create four namespaces in kubernetes to deploy a test app
 * Onboard the Namespaces to the OSM Mesh and enable sidecar injection on the namespaces
@@ -125,11 +104,25 @@ The script will:
 * Update the namespaces to be monitored by modifying the configmap provided by the OSM
 * Deploy the apps to the namespaces
 
-After 15 minutes or so you can verify the integration and moniotring insights coming from OSM to Azure Monitor by following the below steps.
+You can now see that Open Service Mesh & Azure Monitor extensions are enabled once you visit the extension tab section of the Azure Arc enabled Kubernetes cluster resource in Azure.
+
+![Screenshot extension deployment security tab](./03.png)
+
+* You can also verify the deployment by running the kubectl command to ge look at the deployed artifacts in the arc-osm-system namespace below:
+
+![Screenshot extension deployment on cluster](./04.png)
+
+After 15 minutes or so you can verify the integration and moniotring insights coming from OSM to Azure Monitor by following the below steps in Azure portal.
+
+Verify the namespaces are showing up in the insights section of the Arc enabled Kuberentes resource in Azure portal.
 
 ![Show the namespaces in the Container Insights](./05.png)
 
+Navigate to the "Reports" tabs in the insights section and you can see OSM dashbarod report got added.
+
 ![Show the report templates for OSM in the Container insights](./06.png)
+
+You can also query the logs by running in the logs section to pull the data from the InsightsMetrics schema
 
 ![Show the log analytics query ](./07.png)
 
@@ -138,5 +131,5 @@ After 15 minutes or so you can verify the integration and moniotring insights co
 The following command only deletes the extension instances, but doesn't delete the Log Analytics workspace 
 
 ```bash
-az k8s-extension delete --name [] --cluster-type connectedClusters --cluster-name <cluster-name> --resource-group <resource-group>
+az k8s-extension delete --cluster-type connectedClusters --cluster-name <name of the cluster> --resource-group <name of the resource group> --name <name of the extension> -y
 ```
