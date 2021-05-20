@@ -77,7 +77,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 * User check the monitoring insights to confirm OSM start capturing the logs and metrics from the custom app sending it over to Azure Monitor.
 
-## Create Open Service Mesh extensions instance
+## Create Open Service Mesh and Azure Monitor extension instances with sample app
 
 To create a new extension Instance, we will use the _k8s-extension create_ command while passing in values for the mandatory parameters. This scenario provides you with the automation to deploy the Open Service Mesh extension on your Azure Arc enabled Kubernetes cluster.
 
@@ -126,7 +126,7 @@ You can also query the logs by running in the logs section to pull the data from
 
 ![Show the log analytics query ](./07.png)
 
-### Delete extension instance
+### Delete extension instances
 
 The following command only deletes the extension instances, but doesn't delete the Log Analytics workspace 
 
