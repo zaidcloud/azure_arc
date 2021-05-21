@@ -128,7 +128,7 @@ Sample query,
 
 You also navigate to the "Reports" tabs in the insights section and you can see OSM dashbarod report got added.
 
-> **Disclaimer: This feature is under preview and in order to view the OSM report template you have to access the portal with a query string "?feature.includePreviewTemplates=true" or directly accessing the using this [link](https://aka.ms/azmon/osmux).**
+> **Disclaimer: This feature is under preview and in order to view the OSM report template you have to access the portal with a query string "?feature.includePreviewTemplates=true" or directly accessing the portal using this [link](https://aka.ms/azmon/osmux).**
 
 ![Show the report templates for OSM in the Container insights](./06.png)
 
