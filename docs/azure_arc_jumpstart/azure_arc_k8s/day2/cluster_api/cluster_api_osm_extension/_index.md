@@ -124,6 +124,8 @@ Navigate to the "Reports" tabs in the insights section and you can see OSM dashb
 
 You can also query the logs by running in the logs section to pull the data from the InsightsMetrics schema
 
+Sample query ''
+
 ![Show the log analytics query ](./07.png)
 
 ### Delete extension instances
