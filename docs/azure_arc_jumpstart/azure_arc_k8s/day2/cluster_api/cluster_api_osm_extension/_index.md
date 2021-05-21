@@ -81,7 +81,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 To create a new extension Instance, we will use the _k8s-extension create_ command while passing in values for the mandatory parameters. This scenario provides you with the automation to deploy the Open Service Mesh extension on your Azure Arc enabled Kubernetes cluster.
 
-* Before integrating the cluster with Open Service Mesh, make sure that the kubectl context is pointing to your Azure Arc enabled Kubernetes cluster. Also notice that, there is no any extensions enabled yet in your Arc enabled Kuberentes cluster.
+* Before integrating the cluster with Open Service Mesh, make sure that the kubectl context is pointing to your Azure Arc enabled Kubernetes cluster. You can refer the documentation [here](https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) to find the options to change the kube context to different Kubernetes clusters. Also notice that, there is no any extensions enabled yet in your Arc enabled Kuberentes cluster.
 
     ![Screenshot showing current kubectl context pointing to CAPI cluster](./01.png)
 
@@ -118,19 +118,23 @@ Verify the namespaces are showing up in the insights section of the Arc enabled 
 
 ![Show the namespaces in the Container Insights](./05.png)
 
-Navigate to the "Reports" tabs in the insights section and you can see OSM dashbarod report got added.
+To verify if monitoring working correctly or not, you can query the logs by running in the logs section to pull the data from the InsightsMetrics schema.
 
-![Show the report templates for OSM in the Container insights](./06.png)
+Sample query,
 
-You can also query the logs by running in the logs section to pull the data from the InsightsMetrics schema
-
-Sample query ''
+  > InsightsMetrics | where Name contains "envoy" | extend t=parse_json(Tags) | where t.app == "bookstore"
 
 ![Show the log analytics query ](./07.png)
 
+You also navigate to the "Reports" tabs in the insights section and you can see OSM dashbarod report got added.
+
+> **Disclaimer: This feature is under preview and in order to view the OSM report template you have to access the portal with a query string "?feature.includePreviewTemplates=true" or directly accessing the using this [link](https://aka.ms/azmon/osmux).**
+
+![Show the report templates for OSM in the Container insights](./06.png)
+
 ### Delete extension instances
 
-The following command only deletes the extension instances, but doesn't delete the Log Analytics workspace 
+The following command only deletes the extension instances, but doesn't delete the Log Analytics workspace. You can also delete the extensions from the Azure Portal under the extensions section of Azure Arc enabled Kubernetes cluster resource.
 
 ```bash
 az k8s-extension delete --cluster-type connectedClusters --cluster-name <name of the cluster> --resource-group <name of the resource group> --name <name of the extension> -y
