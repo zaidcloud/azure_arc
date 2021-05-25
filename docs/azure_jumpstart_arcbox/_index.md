@@ -1,8 +1,13 @@
-# Jumpstart ArcBox - An Azure Arc Jumpstart project
+---
+type: docs
+title: "Jumpstart ArcBox - Overview"
+linkTitle: "Jumpstart ArcBox"
+weight: 3
+---
 
 ## Jumpstart ArcBox - Overview
 
-Jumpstart ArcBox is a project that provides an easy to deploy sandbox for all things Azure Arc. ArcBox is designed to be completely self-contained within a single Azure subscription and resource group, which will make it easy for a user to get hands-on with all available Azure Arc technology with nothing more than an available Azure subscription.
+ArcBox is a project that provides an easy to deploy sandbox for all things Azure Arc. ArcBox is designed to be completely self-contained within a single Azure subscription and resource group, which will make it easy for a user to get hands-on with all available Azure Arc technology with nothing more than an available Azure subscription.
 
 ![ArcBox architecture diagram](./arch_capi.png)
 
