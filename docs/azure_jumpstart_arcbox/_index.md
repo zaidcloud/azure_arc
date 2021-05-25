@@ -245,16 +245,15 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
 
 ### Included tools
 
-| Tool                                                 | Location      |
-| ---------------------------------------------------- | ------------- |
-| Azure Data Studio with Arc and PostgreSQL extensions | ArcBox-Client |
-| kubectl, kubectx, helm                               | ArcBox-Client |
-| Chocolatey                                           | ArcBox-Client |
-| Visual Studio Code                                   | ArcBox-Client |
-| Putty                                                | ArcBox-Client |
-| 7zip                                                 | ArcBox-Client |
-| Terraform                                            | ArcBox-Client |
-| Git                                                  | ArcBox-Client |
+* Azure Data Studio with Arc and PostgreSQL extensions
+* Azure Data Studio with Arc and PostgreSQL extensions
+* kubectl, kubectx, helm
+* Chocolatey
+* Visual Studio Code
+* Putty
+* 7zip
+* Terraform
+* Git
 
 ### Next steps
   
