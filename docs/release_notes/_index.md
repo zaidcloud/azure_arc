@@ -7,7 +7,52 @@ weight: 4
 
 # Azure Arc Jumpstart release notes
 
+| Category                                                                                            | New scenarios for this release | Existing scenarios | Total scenarios |
+| --------------------------------------------------------------------------------------------------- | ------------------------------ | ------------------ | --------------- |
+| [Azure Arc enabled servers](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/)    | 0                              | 25                 | 25              |
+| [Azure Arc enabled SQL Server](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_sqlsrv/)  | 0                              | 4                  | 4               |
+| [Azure Arc enabled Kubernetes](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_k8s/)     | 3                              | 29                 | 32              |
+| [Azure Arc enabled data services](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/) | 2                              | 11                 | 13              |
+| [Azure Arc with Azure Lighthouse](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/) | 1                              | 0                  | 1               |
+|                                                                                                     |                                |                    | 75              |
+
 Release notes will be released on the first week of each month and will cover the previous month.
+
+## May 2021
+
+### General Jumpstart enhancements
+
+* In this milestone, we released the ["Jumpstart ArcBox" solution](https://azurearcjumpstart.io/azure_jumpstart_arcbox/), a sandbox environment that allows users to explore all the major capabilities of Azure Arc.
+
+* A new ["Azure Arc and Azure Lighthouse"](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_lighthouse/) was added.
+
+* [Added new disclaimer security best practices](https://github.com/microsoft/azure_arc/pull/531)
+
+* All Terraform-based automations were updated to support v0.15
+
+### Azure Arc enabled servers scenarios
+
+* [Jumpstart enhancement: Added correlation ID to Arc server onboarding scripts](https://github.com/microsoft/azure_arc/pull/537)
+
+### Azure Arc enabled Kubernetes scenarios
+
+* [New Scenario: Integrate Azure Defender with Cluster API as an Azure Arc Connected Cluster using Kubernetes extensions](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_k8s/day2/cluster_api/cluster_api_defender_extension/)
+
+* [New Scenario: Deploy AKS cluster on Azure IoT Edge and connect it to Azure Arc using Terraform](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_k8s/iot_uses_cases/aks/)
+
+* [New Scenario: Integrate Open Service Mesh (OSM) with Cluster API as an Azure Arc Connected Cluster using Kubernetes extension](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_k8s/day2/cluster_api/cluster_api_osm_extension/)
+
+* [Bug fix: EKS cluster Terraform plan #521](https://github.com/microsoft/azure_arc/issues/521)
+
+### Azure Arc enabled data services scenarios
+
+* [Bug fix: adding psql to client vm #519](https://github.com/microsoft/azure_arc/issues/519)
+
+* [Bug fix: Arc DataService on GCP-GKE - no successful deployment - free account is not enough #520](https://github.com/microsoft/azure_arc/issues/520)
+
+### Azure Arc Jumpstart YouTube channel demos
+
+[New Demo: Azure Defender extension on Azure Arc enabled Kubernetes](https://www.youtube.com/watch?v=-B1-X4hCR98)
 
 ## April 2021
 
@@ -49,7 +94,7 @@ Release notes will be released on the first week of each month and will cover th
 
 ## March 2021
 
-### Jumpstart enhancements
+### General Jumpstart enhancements
 
 * In this milestone, we released our [Jumpstart Scenario Write-up Guidelines](https://azurearcjumpstart.io/scenario_guidelines/) document to help our community with scenarios contribution.
 
