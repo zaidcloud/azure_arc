@@ -246,7 +246,6 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
 ### Included tools
 
 * Azure Data Studio with Arc and PostgreSQL extensions
-* Azure Data Studio with Arc and PostgreSQL extensions
 * kubectl, kubectx, helm
 * Chocolatey
 * Visual Studio Code
