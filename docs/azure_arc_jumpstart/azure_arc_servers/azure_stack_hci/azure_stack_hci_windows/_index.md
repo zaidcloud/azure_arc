@@ -2,72 +2,78 @@
 type: docs
 title: "Windows Server Virtual Machine"
 linkTitle: "Windows Server Virtual Machine"
-weight: 2
+weight: 1
 description: >
 ---
 
-## Deploy a Windows Azure Virtual Machine and connect it to Azure Arc using an ARM Template
+## Deploy a Windows Server Virtual Machine and connect it to Azure Arc using Powershell
 
 The following README will guide you on how to automatically onboard a Azure Windows VM on to Azure Arc using [Azure ARM Template](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview). The provided ARM template is responsible of creating the Azure resources as well as executing the Azure Arc onboard script on the VM.
 
-Azure VMs are leveraging the [Azure Instance Metadata Service (IMDS)](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/instance-metadata-service) by default. By projecting an Azure VM as an Azure Arc enabled server, a "conflict" is created which will not allow for the Azure Arc server resources to be represented as one when the IMDS is being used and instead, the Azure Arc server will still "act" as a native Azure VM.
+The following README will guide you on how to use the provided PowerShell script to deploy a Windows Server Virtual Machine on an [Azure Stack HCI](https://docs.microsoft.com/en-us/azure-stack/hci/overview) cluster and connected it as an Azure Arc enabled server.
 
-However, **for demo purposes only**, the below guide will allow you to use and onboard Azure VMs to Azure Arc and by doing so, you will be able to simulate a server which is deployed outside of Azure (i.e "on-premises" or in other cloud platforms)
+This guide will **not** provide instructions on how to deploy and set up Azure Stack HCI and it assumes you already have a configured cluster. The commands described in this guide should be ran on the management computer or in a host server in a cluster.
 
-> **Note: It is not expected for an Azure VM to be projected as an Azure Arc enabled server. The below scenario is unsupported and should ONLY be used for demo and testing purposes.**
+> **Note: In this scenario, we will create a Virtual Machine on an Azure Stack HCI node, since this is for demo and testing purposes. For production scenarios, it can be a good practice to create a server cluster for guaranteeing high availability ????????????**
 
 ## Prerequisites
 
-* Clone the Azure Arc Jumpstart repository
+* Enable subscription with the resource provider for Azure Arc enabled Servers. Registration is an asynchronous process, and registration may take approximately 10 minutes.
 
-    ```shell
-    git clone https://github.com/microsoft/azure_arc.git
-    ```
-
-* [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
-
-  ```shell
-  az --version
+  ```powershell
+  Register-AzResourceProvider -ProviderNamespace Microsoft.HybridCompute
+  Get-AzResourceProvider -ListAvailable | Select-Object ProviderNamespace, RegistrationState | Select-String  -Pattern "Microsoft.HybridCompute"
   ```
-
-* In case you don't already have one, you can [Create a free Azure account](https://azure.microsoft.com/en-us/free/).
 
 * Create Azure service principal (SP)
 
-    To be able to complete the scenario and its related automation, Azure service principal assigned with the “Contributor” role is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
+    To be able to complete the scenario and its related automation, an Azure service principal assigned with the “Contributor” role is required. To create it, login to your Azure account using PowerShell and run the below command. To do this, you will need to run the script from a PowerShell session that has access to your AKS on the Azure Stack HCI environment.
 
-    ```shell
-    az login
-    az ad sp create-for-rbac -n "<Unique SP Name>" --role contributor
+    ```powershell
+    Connect-AzAccount
+    $sp = New-AzADServicePrincipal -DisplayName "<Unique SP Name>" -Role 'Contributor'
     ```
 
     For example:
 
+    ```powershell
+    $sp = New-AzADServicePrincipal -DisplayName "<Unique SP Name>" -Role 'Contributor'
+    ```
+
+    This command will create a variable with a secure string as shown below:
+
     ```shell
-    az ad sp create-for-rbac -n "http://AzureArcServers" --role contributor
+    Secret                : System.Security.SecureString
+    ServicePrincipalNames : {XXXXXXXXXXXXXXXXXXXXXXXXXXXX, http://AzureArcHCIVM}
+    ApplicationId         : XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    ObjectType            : ServicePrincipal
+    DisplayName           : AzureArcK8s
+    Id                    : XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    Type                  :
     ```
 
-    Output should look like this:
+    To expose the generated password use this code to export the secret:
 
-    ```json
-    {
-    "appId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "displayName": "AzureArcServers",
-    "name": "http://AzureArcServers",
-    "password": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    "tenant": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    }
+    ```powershell
+    $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($sp.Secret)
+    $UnsecureSecret = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
     ```
 
-    > **Note: It is optional, but highly recommended, to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest).**
+    Copy the Service Principal ApplicationId and Secret as you will need it for later on in the automation.
+
+    > **Note: It is optional but highly recommended to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/powershell/module/az.resources/new-azadserviceprincipal?view=azps-5.4.0)**
 
 ## Automation Flow
 
 For you to get familiar with the automation and deployment flow, below is an explanation.
 
-1. User is editing the ARM template parameters file (one time edit). These parameters values are being used throughout the deployment.
+1. User is editing the PowerShell script environment variables (1-time edit). These variables values are being used throughout the deployment and Azure Arc onboarding.
 
-2. The ARM template incl. an Azure VM custom script extension which will deploy the the [*install_arc_agent.ps1*](https://github.com/microsoft/azure_arc/blob/main/azure_arc_servers_jumpstart/azure/windows/arm_template/scripts/install_arc_agent.ps1) PowerShell script.
+2. User is running the PowerShell script to deploy a basic Windows Server Virtual Machine on Azure Stack HCI and onboard onto Azure Arc. Runtime script will:
+    * Download ISO filee
+    * Creation of a new Virtual Switch
+    * Creation of a new VM
+    * Onboard to Azure Arc (script). CAN I DO IT DIRECTLY DURING VM CREATION?
 
 3. In order to allow the Azure VM to successfully be projected as an Azure Arc enabled server, the script will:
 
