@@ -54,6 +54,20 @@ By doing so, you will be able to make real-time changes to the application and s
   az --version
   ```
 
+* Enable subscription with the two resource providers for Azure Arc enabled Kubernetes. Registration is an asynchronous process, and registration may take approximately 10 minutes.
+
+  ```PowerShell
+  Register-AzResourceProvider -ProviderNamespace Microsoft.Kubernetes
+  Register-AzResourceProvider -ProviderNamespace Microsoft.KubernetesConfiguration
+  ```
+
+  You can monitor the registration process with the following commands:
+
+  ```PowerShell
+  Get-AzResourceProvider -ProviderNamespace Microsoft.Kubernetes
+  Get-AzResourceProvider -ProviderNamespace Microsoft.KubernetesConfiguration
+  ```
+
 * Create Azure service principal (SP)
 
     To be able to complete the scenario and its related automation, Azure service principal assigned with the “Contributor” role is required. To create it, login to your Azure account run the below command.
