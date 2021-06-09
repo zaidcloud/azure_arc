@@ -38,6 +38,20 @@ In this guide, you will deploy & attach GitOps configuration to your cluster whi
 
     ![Existing Azure Arc enabled Kubernetes cluster](./02.png)
 
+* Enable subscription with the two resource providers for Azure Arc enabled Kubernetes. Registration is an asynchronous process, and registration may take approximately 10 minutes.
+
+  ```PowerShell
+  Register-AzResourceProvider -ProviderNamespace Microsoft.Kubernetes
+  Register-AzResourceProvider -ProviderNamespace Microsoft.KubernetesConfiguration
+  ```
+
+  You can monitor the registration process with the following commands:
+
+  ```PowerShell
+  Get-AzResourceProvider -ProviderNamespace Microsoft.Kubernetes
+  Get-AzResourceProvider -ProviderNamespace Microsoft.KubernetesConfiguration
+  ```
+
 * [Install or update Azure PowerShell modules](https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-5.6.0). Use the below command to check your current installed version.
 
   ```PowerShell
@@ -91,25 +105,20 @@ In this guide, you will deploy & attach GitOps configuration to your cluster whi
 * If you do not have the AksHci PowerShell module already, you will have to perform a clean installation. To install the AksHci PowerShell module remove any previous versions by running the below commands:
 
   ```powershell
-  Install-PackageProvider -Name NuGet -Force 
-  Install-Module -Name PowershellGet -Force -Confirm:$false -SkipPublisherCheck
-  Uninstall-Module -Name AksHci -AllVersions -Force -ErrorAction:SilentlyContinue 
-  Uninstall-Module -Name Kva -AllVersions -Force -ErrorAction:SilentlyContinue 
-  Uninstall-Module -Name Moc -AllVersions -Force -ErrorAction:SilentlyContinue 
-  Uninstall-Module -Name MSK8SDownloadAgent -AllVersions -Force -ErrorAction:SilentlyContinue 
-  Unregister-PSRepository -Name WSSDRepo -ErrorAction:SilentlyContinue 
-  Unregister-PSRepository -Name AksHciPSGallery -ErrorAction:SilentlyContinue 
-  Unregister-PSRepository -Name AksHciPSGalleryPreview -ErrorAction:SilentlyContinue
+  Install-Module -Name Az.Accounts -Repository PSGallery -RequiredVersion 2.2.4
+  Install-Module -Name Az.Resources -Repository PSGallery -RequiredVersion 3.2.0
+  Install-Module -Name AzureAD -Repository PSGallery -RequiredVersion 2.0.2.128
+  Install-Module -Name AksHci -Repository PSGallery
+  Import-Module Az.Accounts
+  Import-Module Az.Resources
+  Import-Module AzureAD
+  Import-Module AksHci
   Exit
   ```
 
-* Using a web browser navigate to https://aka.ms/AKS-HCI-Evaluate, complete the registration form, download and save AKS on Azure Stack HCI. Extract the contents of the zip file.
-
-* Open PowerShell as administrator, navigate to the folder where you extracted the software and run the following commands:
+* After this is done, close all PowerShell windows and verify the installation by tunning the following:
 
   ```powershell
-  Get-ChildItem -Path . -Recurse | Unblock-File -Verbose
-  Import-Module AksHci
   Get-Command -Module AksHci
   ```
 
@@ -154,18 +163,18 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 * Before kicking the GitOps flow, let's review the Kubernetes resources deployed by running few *kubectl* commands.
 
-  * ```kubectl get pods -n cluster-config``` - Will show the Flux operator and the Memcached pods.
-    * ```kubectl get pods -n hello-arc``` - Will show 3 replicas of the "Hello Arc" application and the NGINX controller.
-    * ```kubectl get svc -n hello-arc``` - Will show NGINX controller Kubernetes Service (Type LoadBalancer).
-    * ```kubectl get ing -n hello-arc``` - Will show NGINX rule which will route the traffic to the "Hello Arc" application from outside the cluster.
+  * ```kubectl get pods -n prod``` - Will show the Flux operator, the Memcached pods and the "Hello Arc" application pods.
+    * ```kubectl get pods -n cluster-mgmt``` - Will show the NGINX controller.
+    * ```kubectl get svc -n prod``` - Will show NGINX controller Kubernetes Service (Type LoadBalancer).
+    * ```kubectl get ing -n prod``` - Will show NGINX rule which will route the traffic to the "Hello Arc" application from outside the cluster.
 
-    ![kubectl get pods -n cluster-config](./07.png)
+    ![kubectl get pods -n prod](./07.png)
 
-    ![kubectl get pods -n hello-arc](./08.png)
+    ![kubectl get pods -n cluster-mgmt](./08.png)
 
-    ![kubectl get svc -n hello-arc](./09.png)
+    ![kubectl get svc -n prod](./09.png)
 
-    ![kubectl get ing -n hello-arc](./10.png)
+    ![kubectl get ing -n prod](./10.png)
 
 * The GitOps flow works as follow:
 
@@ -177,15 +186,15 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 * To show the above flow, open 2 (ideally 3) side-by-side browser windows:
 
-  * Run ```kubectl get pods -n hello-arc -w``` command
+  * Run ```kubectl get pods -n prod -w``` command
 
-    ![kubectl get pods -n hello-arc -w](./11.png)
+    ![kubectl get pods -n prod -w](./11.png)
 
   * Your fork of the "Hello Arc" application repository. Open the [*hello_arc.yaml*](https://github.com/likamrat/hello_arc/blob/master/yaml/hello_arc.yaml) file.
 
-  * The IP address of the Kubernetes Service seen using the ```kubectl get svc -n hello-arc``` command.
+  * The IP address of the Kubernetes Service seen using the ```kubectl get svc -n prod``` command.
 
-    ![kubectl get svc -n hello-arc](./12.png)
+    ![kubectl get svc -n prod](./12.png)
 
   * End result should look like that:
 

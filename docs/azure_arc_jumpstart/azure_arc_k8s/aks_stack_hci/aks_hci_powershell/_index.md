@@ -12,8 +12,6 @@ The following README will guide you on how to use the provided PowerShell script
 
 Azure Kubernetes Service on Azure Stack HCI is an implementation of AKS on-premises using hyperconverged infrastructure operating system that is delivered as an Azure service.  
 
-  > **Note: Azure Kubernetes Service is now in preview on Azure Stack HCI and on Windows Server 2019 Datacenter.**
-
 This guide will not provide instructions on how to deploy and set up Azure Stack HCI and it assumes you already have a configured cluster. The commands described in this guide should be ran on the management computer or in a host server in a cluster.
 
 ## Prerequisites
@@ -73,27 +71,20 @@ This guide will not provide instructions on how to deploy and set up Azure Stack
 * Perform a clean installation of the AksHci PowerShell module. To install the AksHci PowerShell module remove any previous versions by running the below commands:
 
   ```powershell
-  Install-PackageProvider -Name NuGet -Force 
-  Install-Module -Name PowershellGet -Force -Confirm:$false -SkipPublisherCheck
-  Uninstall-Module -Name AksHci -AllVersions -Force -ErrorAction:SilentlyContinue 
-  Uninstall-Module -Name Kva -AllVersions -Force -ErrorAction:SilentlyContinue 
-  Uninstall-Module -Name Moc -AllVersions -Force -ErrorAction:SilentlyContinue 
-  Uninstall-Module -Name MSK8SDownloadAgent -AllVersions -Force -ErrorAction:SilentlyContinue 
-  Unregister-PSRepository -Name WSSDRepo -ErrorAction:SilentlyContinue 
-  Unregister-PSRepository -Name AksHciPSGallery -ErrorAction:SilentlyContinue 
-  Unregister-PSRepository -Name AksHciPSGalleryPreview -ErrorAction:SilentlyContinue
+  Install-Module -Name Az.Accounts -Repository PSGallery -RequiredVersion 2.2.4
+  Install-Module -Name Az.Resources -Repository PSGallery -RequiredVersion 3.2.0
+  Install-Module -Name AzureAD -Repository PSGallery -RequiredVersion 2.0.2.128
+  Install-Module -Name AksHci -Repository PSGallery
+  Import-Module Az.Accounts
+  Import-Module Az.Resources
+  Import-Module AzureAD
+  Import-Module AksHci
   Exit
   ```
-
-* Using a web browser navigate to https://aka.ms/AKS-HCI-Evaluate and complete the registration form, download and save AKS on Azure Stack HCI.
-
-* Navigate to the path %systemdrive%\program files\windowspowershell\modules and delete any existing directories for AksHci, AksHci.Day2, Kva, MOC, and MSK8sDownloadAgent. Then extract the zip file in the same location (%systemdrive%\program files\windowspowershell\modules).
-
-* Open PowerShell as administrator, navigate to the folder where you extracted the software and run the following commands:
+  
+* After this is done, close all PowerShell windows and verify the installation by tunning the following:
 
   ```powershell
-  Get-ChildItem -Path . -Recurse | Unblock-File -Verbose
-  Import-Module AksHci
   Get-Command -Module AksHci
   ```
 
@@ -110,6 +101,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 * User is running the PowerShell script to deploy a basic DHCP AKS cluster on Azure Stack HCI and onboard onto Azure Arc. Runtime script will:
 
   * Configure the Azure Kubernetes Service cluster management services using _Set-AksHciConfig_ cmdlet.
+  * Register Azure Kubernetes Service on Azure Stack HCI with Azure ysing _Set-AksHciRegistration_ cmdlet.
   * Start the deployment of the AKS cluster management services using the _Install-AksHci_ cmdlet.
   * Retrieve the Azure Kubernetes Service cluster credentials.  
   * Create a target cluster with the number of Linux and Windows nodes specified.
@@ -124,14 +116,21 @@ For you to get familiar with the automation and deployment flow, below is an exp
   ```
 
 * Now that all nodes are ready, you will deploy the AKS control management and the target cluster to your Azure Stack HCI using this [PowerShell script](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/aks_stack_hci/powershell/aks_hci_deploy.ps1). Edit the file to provide the environment variables that match the parameters of your environment:
-  * **vipPoolStart:** first IP address for the cluster VIP Pool
-  * **vipPoolEnd:** last IP address for the cluster VIP Pool
+
+  * **vnetName:** the name of the vnet to host your AKS on HCI deployment.
+  * **vSwitchName:** the name of the external virtual switch to connect the virtual machines to. If you already have an external switch on the host, you should pass the name of the switch here. To get the name of your available switches run the command _Get-VMSwitch_.
+  * **vipPoolStart:** first IP address for the cluster VIP Pool. The IP addresses in the VIP pool will be used for the API Server and for Kubernetes services.
+  * **vipPoolEnd:** last IP address for the cluster VIP Pool. The IP addresses in the VIP pool will be used for the API Server and for Kubernetes services.
+  * **k8sNodeIpPoolStart:** The start IP address of a VM pool. The address must be in range of the subnet.
+  * **k8sNodeIpPoolEnd:** The end IP address of a VM pool. The address must be in range of the subnet.
+  * **ipAddressPrefix:** The address prefix to use for Static IP assignment.
+  * **gateway:** The IP address of the default gateway of the subnet.
+  * **dnsServers:**  An array of IP addresses pointing to the DNS servers to be used for the subnet, you should provide at least one.
   * **imageDir:** path to the directory where AKS on Azure Stack HCI will store its VHD images, provide a shared path or SMB for multinode
-  * **cloudConfigLocation:** path to the directory where the cloud agent will store its configuration, provide a shared path or SMB for multi-node
-  * **vnetName:** the name of the virtual switch to connect the virtual machines to. If you already have an external switch on the host, you should pass the name of the switch here.
+  * **cloudConfigLocation:** path to the directory where the cloud agent will store its configuration, provide a shared path or SMB for multi-node.
   * **clusterName:** a name for your AKS cluster, **must be lowercase**.
   * **controlPlaneNodeCount:** number of nodes for your control plane, should be an odd number 1, 3 or 5.
-  * **linuxNodeCount:** number of Linux node VMs for your cluster, if you do not need Linux nodes input 0.
+  * **linuxNodeCount:** number of Linux node VMs for your cluster.
   * **windowsNodeCount:** number of Windows node VMs for your cluster, if you do not need Windows nodes input 0.
   * **resourceGroup:** resource group to connect your Azure Arc enabled Kubernetes cluster.
   * **location:** Azure region to connect your Azure Arc enabled Kubernetes cluster.
@@ -143,23 +142,28 @@ For you to get familiar with the automation and deployment flow, below is an exp
   ![Screenshot showing the AKS on HCI deployment script](./02.png)
 
 * As an example:
-  * **vipPoolStart:** "192.168.0.150"
-  * **vipPoolEnd:** "192.168.0.250"
-  * **imageDir:** "C:\AKS-HCI\Images"
+  * **vnetName:** 'mgmtvnet'
+  * **vSwitchName:** 'InternalNAT'
+  * **vipPoolStart** '192.168.0.150'
+  * **vipPoolEnd** '192.168.0.250'
+  * **k8sNodeIpPoolStart** '192.168.0.3'
+  * **k8sNodeIpPoolEnd** '192.168.0.149'
+  * **ipAddressPrefix** '192.168.0.0/16'
+  * **gateway** '192.168.0.1'
+  * **dnsServers** '192.168.0.1'
   * **cloudConfigLocation:** "C:\AKS-HCI\Config"
-  * **vnetName:** "InternalNAT"
   * **clusterName:** "archcidemo"
   * **controlPlaneNodeCount:** 1
   * **linuxNodeCount:** 1
   * **windowsNodeCount:** 0
   * **resourceGroup:** "Arc-AKS-HCI-Demo"
-  * **location:** westeurope
+  * **location:** eastus
   * **subscriptionId:** "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXX"
   * **appId:** "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXX"
   * **password:** "XXXXXXXXXX"
   * **tenant:** "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXX"  
 
-* Note that the script will deploy a simple DHCP-based cluster on your Azure Stack HCI and there are additional optional parameters that you could use to customize the deployment to your own environment as described [here](https://docs.microsoft.com/en-us/azure-stack/aks-hci/setup-powershell).
+* Note that the script will deploy a simple static IP address based cluster on your Azure Stack HCI and there are additional optional parameters that you could use to customize the deployment to your own environment as described [here](https://docs.microsoft.com/en-us/azure-stack/aks-hci/kubernetes-walkthrough-powershell).
 
 * To run the script open PowerShell as an administrator, navigate to the [script folder](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/aks_stack_hci/powershell/) and run:
 
@@ -191,10 +195,10 @@ The most straightforward way is to delete the Azure Arc enabled Kubernetes clust
 
 ![Screenshot showing how to delete Azure Arc enabled Kubernetes resource](./09.png)
 
-To delete the AKS cluster on HCI run the below command. This will delete all of your AKS clusters on HCI (if any) and the Azure Kubernetes Service host as well as uninstall the Azure Kubernetes Service on Azure Stack HCI agents and services from the nodes.
+To delete the AKS cluster on HCI run the below command.
 
 ```powershell
-Uninstall-AksHci
+Remove-AksHciCluster -name archcidemo
 ```
 
 ![Screenshot showing how to delete AKS cluster on HCI](./10.png)
