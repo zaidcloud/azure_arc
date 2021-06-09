@@ -22,6 +22,7 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 * Edit *TF_VAR* variables values
 * *terraform init*
 * *terraform apply*
+* User remotes into sidecar Windows VM, which automatically kicks off the [DataServicesLogonScript](https://github.com/microsoft/azure_arc/blob/gke_connectedmode/azure_arc_data_jumpstart/gke/dc_vanilla/terraform/scripts/DataServicesLogonScript.ps1) PowerShell script that deploys and configures Azure Arc enabled data services on the GKE cluster.
 * *terraform destroy*
 
 ## Prerequisites
@@ -32,7 +33,7 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
   git clone https://github.com/microsoft/azure_arc.git
   ```
 
-* [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
+* [Install or update Azure CLI to version 2.20.0 or higher](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
   ```shell
   az --version
@@ -48,7 +49,7 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 
     ***Disclaimer*** - **To prevent unexpected charges, please follow the "Delete the deployment" section at the end of this README**
 
-* [Install Terraform >=0.12](https://learn.hashicorp.com/terraform/getting-started/install.html)
+* [Install Terraform 1.0 or higher](https://learn.hashicorp.com/terraform/getting-started/install.html)
 
 * Create Azure service principal (SP)
 
@@ -78,18 +79,6 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
   ```
 
   > **Note: It is optional, but highly recommended, to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest).**
-
-* Enable subscription for the *Microsoft.AzureArcData* resource provider for Azure Arc enabled data services. Registration is an asynchronous process, and registration may take approximately 10 minutes.
-
-  ```shell
-  az provider register --namespace Microsoft.AzureArcData
-  ```
-
-  You can monitor the registration process with the following commands:
-
-  ```shell
-  az provider show -n Microsoft.AzureArcData -o table
-  ```
 
 * Create a new GCP Project, IAM Role & Service Account. In order to deploy resources in GCP, we will create a new GCP Project as well as a service account to allow Terraform to authenticate against GCP APIs and run the plan to deploy resources.
 
@@ -139,9 +128,9 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 
 For you to get familiar with the automation and deployment flow, below is an explanation.
 
-* User is editing and exporting Terraform runtime environment variables, AKA *TF_VAR* (1-time edit). The variables values are being used throughout the deployment.
+* User edits and exports Terraform runtime environment variables, AKA *TF_VAR* (1-time edit). The variables are being used throughout the deployment.
 
-* User deploys the Terraform plan which will deploy the GKE cluster and the GCP compute instance VM as well as an Azure resource group. The Azure resource group is required to host the Azure Arc services you will be able to deploy such as Azure SQL Managed Instance and PostgreSQL Hyperscale.
+* User deploys the Terraform plan which will deploy the GKE cluster and the GCP compute instance VM as well as an Azure resource group. The Azure resource group is required to host the Azure Arc services such as the Azure Arc enabled Kubernetes cluster, the custom location, the Azure Arc data controller, and any database services you deploy on top of the data controller.
 
 * In addition, the plan will copy the *local_ssd_sc.yaml* file which will be used to create a Kubernetes Storage Class backed by SSD disks that will be used by Arc Data Controller to create [persistent volume claims (PVC)](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).
 
@@ -153,24 +142,23 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
   2. *password_reset.ps1* script will be created automatically as part of the Terraform plan runtime and is responsible on creating the Windows username & password.
 
-  3. *ClientTools.ps1* script will run at the Terraform plan runtime Runtime and will:
-      * Create the *ClientTools.log* file  
-      * Install the required tools – az cli, az cli Powershell module, kubernetes-cli, Visual C++ Redistributable (Chocolaty packages)
+  3. *Bootstrap.ps1* script will run at the Terraform plan runtime Runtime and will:
+      * Create the *Bootstrap.log* file  
+      * Install the required tools – az cli, az cli Powershell module, kubernetes-cli, Visual C++ Redistributable, helm, vscode, etc. (Chocolaty packages)
       * Download Azure Data Studio & Azure Data CLI
-      * Download the *DC_Cleanup* and *DC_Deploy* Powershell scripts
-      * Disable Windows Server Manager
-      * Create the logon script
-      * Create the Windows schedule task to run the logon script at first login
+      * Disable Windows Server Manager, remove Internet Explorer, disable Windows Firewall
+      * Download the DataServicesLogonScript.ps1 PowerShell script
+      * Create the Windows schedule task to run the DataServicesLogonScript at first login
 
-  4. *LogonScript.ps1* script will run on user first logon to Windows and will:
-      * Create the *LogonScript.log* file
+  4. *DataServicesLogonScript.ps1* script will run on user first logon to Windows and will:
+      * Create the *DataServicesLogonScript.log* file
       * Install the Azure Data Studio Azure Data CLI, Azure Arc & PostgreSQL extensions
       * Create the Azure Data Studio desktop shortcut
       * Apply the *local_ssd_sc.yaml* file on the GKE cluster
-      * Create the *azdata* config file in user Windows profile
+      * Use Azure CLI to connect the GKE cluster to Azure as an Azure Arc enabled Kubernetes cluster
+      * Create a custom location for use with the Azure Arc enabled Kubernetes cluster
+      * Deploy an ARM template that will deploy the Azure Arc data controller on the GKE cluster
       * Open another Powershell session which will execute a command to watch the deployed Azure Arc Data Controller Kubernetes pods
-      * Create Arc Data Controller config file (*control.json*) to setup the use of the Storage Class and Kubernetes LoadBalancer service
-      * Deploy the Arc Data Controller using the *TF_VAR* variables values
       * Unregister the logon script Windows schedule task so it will not run after first login
 
 ## Deployment
