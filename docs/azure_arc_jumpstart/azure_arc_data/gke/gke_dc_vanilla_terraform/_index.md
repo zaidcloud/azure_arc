@@ -238,11 +238,11 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
   ![GCP Client VM RDP](./29.png)
 
-* At first login, as mentioned in the "Automation Flow" section, a logon script will get executed. This script was created as part of the automated deployment process.
+* At first login, as mentioned in the "Automation Flow" section, the DataServicesLogonScript.ps1 will get executed. This script was created as part of the automated deployment process.
 
     Let the script to run it's course and **do not close** the PowerShell session, this will be done for you once completed. You will notice that the Azure Arc Data Controller gets deployed on the GKE cluster. **The logon script run time is approximately 10min long**.
 
-    Once the script will finish it's run, the logon script PowerShell session will be close and the Azure Arc Data Controller will be deployed on the GKE cluster and be ready to use.
+    Once the script finishes, the logon script PowerShell session will be close and the Azure Arc Data Controller will be deployed on the GKE cluster and be ready to use.
 
   ![PowerShell login script run](./30.png)
 
@@ -256,38 +256,15 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
   ![PowerShell login script run](./35.png)
 
-  <!-- > **Note: Currently, Azure Arc enabled data services is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes) and features are subject to change. As such, the release being used in this scenario does not support the projection of Azure Arc data services resources in the Azure portal**.
+* From Azure Portal, navigate to the resource group and confirm that the Azure Arc data controller resource and the Custom Location resource are present.
 
-    ![Data Controller in a resource group](./36.png)
-
-    ![Data Controller resource](./37.png) -->
-
-* Using PowerShell, login to the Data Controller and check it's health using the below commands.
-
-    ```powershell
-    azdata login --namespace $env:ARC_DC_NAME
-    azdata arc dc status show
-    ```
-
-  ![azdata login](./38.png)
+  ![Azure Portal showing data controller resource](./38.png)
 
 * Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. Using the Desktop shortcut created for you, open Azure Data Studio and click the Extensions settings to see both extensions.
 
   ![Azure Data Studio shortcut](./39.png)
 
   ![Azure Data Studio extension](./40.png)
-
-## Cleanup
-
-* To delete the Azure Arc Data Controller and all of it's Kubernetes resources, run the *DC_Cleanup.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. At the end of it's run, the script will close all PowerShell sessions. **The Cleanup script run time is ~2-3min long**.
-
-  ![DC_Cleanup PowerShell script run](./41.png)
-  
-## Re-Deploy Azure Arc Data Controller
-
-In case you deleted the Azure Arc Data Controller from the GKE cluster, you can re-deploy it by running the *DC_Deploy.ps1* PowerShell script located in *C:\tmp* on the Windows Client instance. **The Deploy script run time is approximately ~3-4min long**.
-
-  ![Re-Deploy Azure Arc Data Controller PowerShell script](./42.png)
 
 ## Delete the deployment
 
