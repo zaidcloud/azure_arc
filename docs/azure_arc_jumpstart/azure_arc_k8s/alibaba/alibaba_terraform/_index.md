@@ -146,11 +146,21 @@ The only thing you need to do before executing the Terraform plan is to export t
 
   ![Alibaba Cloud Resource Management](./08.png)
 
-* The plan will create the _kubeconfig_ file in the home directory `~/.kube/config` to be used with `kubectl` or `helm`.
+* The plan will create the _kubeconfig_ file in the home directory `~/.kube/config_alicloudArc`. You can either use this directly or merge it into your _kubeconfig_ to be used with `kubectl` or `helm`.
 
    ```shell
-   chmod go-r ~/.kube/config
+   cp ~/.kube/config ~/.kube/config_old
+   KUBECONFIG=~/.kube/config_old:~/.kube/config_alicloudArc kubectl config view --flatten > ~/.kube/config
    ```
+
+  Get the name of your newly generated kubeconfig:
+  ```shell
+  kubectl config get-contexts
+  ```
+  Use the newly generated kubeconfig:
+  ```shell
+  kubectl config use-context <new config name>
+  ```
 
 ## Connecting to Azure Arc
 
