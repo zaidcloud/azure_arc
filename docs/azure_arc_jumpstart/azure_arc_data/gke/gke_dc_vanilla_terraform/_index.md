@@ -273,7 +273,7 @@ To completely delete the environment, follow the below steps.
 * If you deployed SQL MI or PostgreSQL Hyperscale, delete the data services resources by using kubectl. Run the below command from a PowerShell window on the client VM.
 
   ```shell
-  kubectl delete all --all -n arc
+  kubectl delete namespace arc
   ```
 
   ![Delete database resources](./47.png)
