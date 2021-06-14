@@ -22,7 +22,7 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 * Edit *TF_VAR* variables values
 * *terraform init*
 * *terraform apply*
-* User remotes into sidecar Windows VM, which automatically kicks off the [DataServicesLogonScript](https://github.com/microsoft/azure_arc/blob/gke_connectedmode/azure_arc_data_jumpstart/gke/dc_vanilla/terraform/scripts/DataServicesLogonScript.ps1) PowerShell script that deploys and configures Azure Arc enabled data services on the GKE cluster.
+* User remotes into sidecar Windows VM, which automatically kicks off the [DataServicesLogonScript](https://github.com/microsoft/azure_arc/blob/gke_connectedmode/azure_arc_data_jumpstart/gke/terraform/artifacts/DataServicesLogonScript.ps1) PowerShell script that deploys and configures Azure Arc enabled data services on the GKE cluster.
 * *terraform destroy*
 
 ## Prerequisites
@@ -165,7 +165,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 As mentioned, the Terraform plan will deploy a GKE cluster, the Azure Arc Data Controller on that cluster and a Windows Server 2019 Client GCP compute instance.
 
-* Before running the Terraform plan, edit the below *TF_VAR* values and export it (simply copy/paste it after you finished edit these). An example *TF_VAR* shell script file is located [here](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/gke/dc_vanilla/terraform/example/TF_VAR_example.sh)
+* Before running the Terraform plan, edit the below *TF_VAR* values and export it (simply copy/paste it after you finished edit these). An example *TF_VAR* shell script file is located [here](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/gke/terraform/example/TF_VAR_example.sh)
 
   ![Terraform vars export](./19.png)
 
@@ -268,6 +268,16 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
 ## Delete the deployment
 
-To completely delete the environment, follow the below steps run the ```terraform destroy --auto-approve``` command which will delete all of the GCP resources as well as the Azure resource group. **The *terraform destroy* run time is approximately ~5-6min long**.
+To completely delete the environment, follow the below steps.
+
+* If you deployed SQL MI or PostgreSQL Hyperscale, delete the data services resources by using kubectl. Run the below command from a PowerShell window on the client VM.
+
+  ```shell
+  kubectl delete all --all -n arc
+  ```
+
+  ![Delete database resources](./47.png)
+
+* Run ```terraform destroy --auto-approve``` command which will delete all of the GCP resources as well as the Azure resource group. **The *terraform destroy* run time is approximately ~5-6min long**.
 
   ![terraform destroy](./43.png)
