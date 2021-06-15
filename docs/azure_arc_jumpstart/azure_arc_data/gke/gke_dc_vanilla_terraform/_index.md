@@ -10,7 +10,7 @@ description: >
 
 The following scanario will guide you on how to deploy a "Ready to Go" environment so you can deploy Azure Arc Data Services on a [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine) cluster using [Terraform](https://www.terraform.io/).
 
-By the end of this guide, you will have a GKE cluster deployed with an Azure Arc Data Controller and a Microsoft Windows Server 2019 (Datacenter) GKE compute instance VM installed & pre-configured with all the required tools needed to work with Azure Arc Data Services.
+By the end of this guide, you will have a GKE cluster deployed with an Azure Arc Data Controller and a Microsoft Windows Server 2019 (Datacenter) GKE compute instance VM installed and pre-configured with all the required tools needed to work with Azure Arc Data Services.
 
 > **Note: Currently, Azure Arc enabled data services is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes)**.
 
@@ -20,9 +20,11 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 * Download credentials file
 * Clone the Azure Arc Jumpstart repository
 * Edit *TF_VAR* variables values
+* Export *TFVAR* values
 * *terraform init*
 * *terraform apply*
-* User remotes into sidecar Windows VM, which automatically kicks off the [DataServicesLogonScript](https://github.com/microsoft/azure_arc/blob/gke_connectedmode/azure_arc_data_jumpstart/gke/terraform/artifacts/DataServicesLogonScript.ps1) PowerShell script that deploys and configures Azure Arc enabled data services on the GKE cluster.
+* User remotes into sidecar Windows VM, which automatically kicks off the [DataServicesLogonScript](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/gke/terraform/artifacts/DataServicesLogonScript.ps1) PowerShell script that deploys and configures Azure Arc enabled data services on the GKE cluster.
+* *kubectl delete namespace arc*
 * *terraform destroy*
 
 ## Prerequisites
@@ -126,7 +128,7 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 
 ## Automation Flow
 
-For you to get familiar with the automation and deployment flow, below is an explanation.
+Read the below explanation to get familiar with the automation and deployment flow.
 
 * User edits and exports Terraform runtime environment variables, AKA *TF_VAR* (1-time edit). The variables are being used throughout the deployment.
 
@@ -163,7 +165,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 ## Deployment
 
-As mentioned, the Terraform plan will deploy a GKE cluster, the Azure Arc Data Controller on that cluster and a Windows Server 2019 Client GCP compute instance.
+As mentioned, the Terraform plan and automation scripts will deploy a GKE cluster, the Azure Arc Data Controller on that cluster and a Windows Server 2019 Client GCP compute instance.
 
 * Before running the Terraform plan, edit the below *TF_VAR* values and export it (simply copy/paste it into your shell after you finish editing these). An example *TF_VAR* shell script file is located [here](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/gke/terraform/example/TF_VAR_datacontroller_only_example.sh)
 
@@ -189,7 +191,7 @@ As mentioned, the Terraform plan will deploy a GKE cluster, the Azure Arc Data C
   * *export TF_VAR_ARC_DC_SUBSCRIPTION*='Azure Arc Data Controller Azure subscription ID'
   * *export TF_VAR_ARC_DC_RG*='Azure resource group where all future Azure Arc resources will be deployed'
   * *export TF_VAR_ARC_DC_REGION*='Azure location where the Azure Arc Data Controller resource will be created in Azure' (Currently, supported regions supported are eastus, eastus2, centralus, westus2, westeurope, southeastasia)
-  * *export TF_VAR_deploy_SQLMI='Boolean that sets whether or not to deploy SQL Managed Instance, for this data controller only scenario we leave it set to false (set to true or false)'
+  * *export TF_VAR_deploy_SQLMI='Boolean that sets whether or not to deploy SQL Managed Instance, for this data controller only scenario we leave it set to false'
 
     > **Note: If you are running in a PowerShell environment, to set the Terraform environment variables, use the _Set-Item -Path env:_ prefix (see example below)**
 
@@ -241,7 +243,7 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
 * At first login, as mentioned in the "Automation Flow" section, the DataServicesLogonScript.ps1 will get executed. This script was created as part of the automated deployment process.
 
-    Let the script to run it's course and **do not close** the PowerShell session, this will be done for you once completed. You will notice that the Azure Arc Data Controller gets deployed on the GKE cluster. **The logon script run time is approximately 10min long**.
+    Let the script run its course and **do not close** the PowerShell session, this will be done for you once completed. You will notice that the Azure Arc Data Controller gets deployed on the GKE cluster. **The logon script run time is approximately 10min long**.
 
     Once the script finishes, the logon script PowerShell session will be close and the Azure Arc Data Controller will be deployed on the GKE cluster and be ready to use.
 
