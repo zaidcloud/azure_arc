@@ -259,6 +259,8 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
   ![PowerShell login script run](./34.png)
 
+  ![PowerShell login script run](./35_0.png)
+
 * When the scripts are complete, all PowerShell windows will close.
 
   ![PowerShell login script run](./35.png)

@@ -1,10 +1,4 @@
----
-type: docs
-title: "PostgreSQL Hyperscale Terraform Plan"
-linkTitle: "PostgreSQL Hyperscale Terraform Plan"
-weight: 3
-description: >
----
+
 
 ## Deploy an Azure PostgreSQL Hyperscale Deployment on GKE using a Terraform plan
 
