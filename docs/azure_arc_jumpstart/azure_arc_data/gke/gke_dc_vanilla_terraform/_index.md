@@ -255,9 +255,11 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
   ![PowerShell login script run](./34.png)
 
+* When the scripts are complete, all PowerShell windows will close.
+
   ![PowerShell login script run](./35.png)
 
-* From Azure Portal, navigate to the resource group and confirm that the Azure Arc data controller resource and the Custom Location resource are present.
+* From Azure Portal, navigate to the resource group and confirm that the Azure Arc enabled Kubernetes cluster, the Azure Arc data controller resource and the Custom Location resource are present.
 
   ![Azure Portal showing data controller resource](./38.png)
 
@@ -271,7 +273,7 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
 To completely delete the environment, follow the below steps.
 
-* If you deployed SQL MI or PostgreSQL Hyperscale, delete the data services resources by using kubectl. Run the below command from a PowerShell window on the client VM.
+* Delete the data services resources by using kubectl. Run the below command from a PowerShell window on the client VM.
 
   ```shell
   kubectl delete namespace arc
@@ -279,6 +281,10 @@ To completely delete the environment, follow the below steps.
 
   ![Delete database resources](./47.png)
 
-* Run ```terraform destroy --auto-approve``` command which will delete all of the GCP resources as well as the Azure resource group. **The *terraform destroy* run time is approximately ~5-6min long**.
+* Use terraform to delete all of the GCP resources as well as the Azure resource group. **The *terraform destroy* run time is approximately ~5-6min long**.
+
+  ```shell
+  terraform destroy --auto-approve
+  ```
 
   ![terraform destroy](./43.png)
