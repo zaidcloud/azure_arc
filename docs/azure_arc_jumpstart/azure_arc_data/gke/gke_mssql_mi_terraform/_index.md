@@ -267,7 +267,7 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
 * From Azure Portal, navigate to the resource group and confirm that the Azure Arc enabled Kubernetes cluster, the Azure Arc data controller resource and the Custom Location resource are present.
 
-  ![Azure Portal showing data controller resource](./??.png)
+  ![Azure Portal showing data controller resource](./35_1.png)
 
 * Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. Using the Desktop shortcut created for you, open Azure Data Studio and expand the SQL MI connection to see the Adventureworks sample database.
 
