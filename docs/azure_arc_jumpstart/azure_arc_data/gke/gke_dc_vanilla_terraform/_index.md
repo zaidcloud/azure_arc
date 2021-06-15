@@ -136,7 +136,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
   > **Note: Depending on the GCP region, make sure you do not have any [SSD quota limit in the region](https://cloud.google.com/compute/quotas), otherwise, the Azure Arc Data Controller kubernetes resources will fail to deploy.**
 
-* As part of the Windows Server 2019 VM deployment, there are 4 scripts executions:
+* As part of the Windows Server 2019 VM deployment, there are 4 script executions:
 
   1. *azure_arc.ps1* script will be created automatically as part of the Terraform plan runtime and is responsible on injecting the *TF_VAR* variables values on to the Windows instance which will then be used in both the *ClientTools* and the *LogonScript* scripts.
 
@@ -165,7 +165,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 As mentioned, the Terraform plan will deploy a GKE cluster, the Azure Arc Data Controller on that cluster and a Windows Server 2019 Client GCP compute instance.
 
-* Before running the Terraform plan, edit the below *TF_VAR* values and export it (simply copy/paste it after you finished edit these). An example *TF_VAR* shell script file is located [here](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/gke/terraform/example/TF_VAR_example.sh)
+* Before running the Terraform plan, edit the below *TF_VAR* values and export it (simply copy/paste it into your shell after you finish editing these). An example *TF_VAR* shell script file is located [here](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/gke/terraform/example/TF_VAR_datacontroller_only_example.sh)
 
   ![Terraform vars export](./19.png)
 
@@ -189,6 +189,7 @@ As mentioned, the Terraform plan will deploy a GKE cluster, the Azure Arc Data C
   * *export TF_VAR_ARC_DC_SUBSCRIPTION*='Azure Arc Data Controller Azure subscription ID'
   * *export TF_VAR_ARC_DC_RG*='Azure resource group where all future Azure Arc resources will be deployed'
   * *export TF_VAR_ARC_DC_REGION*='Azure location where the Azure Arc Data Controller resource will be created in Azure' (Currently, supported regions supported are eastus, eastus2, centralus, westus2, westeurope, southeastasia)
+  * *export TF_VAR_deploy_SQLMI='Boolean that sets whether or not to deploy SQL Managed Instance, for this data controller only scenario we leave it set to false (set to true or false)'
 
     > **Note: If you are running in a PowerShell environment, to set the Terraform environment variables, use the _Set-Item -Path env:_ prefix (see example below)**
 
@@ -199,7 +200,7 @@ As mentioned, the Terraform plan will deploy a GKE cluster, the Azure Arc Data C
 * Navigate to the folder that has Terraform binaries.
 
   ```shell
-  cd azure_arc_data_jumpstart/gke/dc_vanilla/terraform/
+  cd azure_arc_data_jumpstart/gke/terraform/
   ```
 
 * Run the ```terraform init``` command which is used to initialize a working directory containing Terraform configuration files and load the required Terraform providers.
