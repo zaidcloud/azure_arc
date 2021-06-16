@@ -195,6 +195,7 @@ As mentioned, the Terraform plan and automation scripts will deploy a GKE cluste
   * *export TF_VAR_ARC_DC_REGION*='Azure location where the Azure Arc Data Controller resource will be created in Azure' (Currently, supported regions supported are eastus, eastus2, centralus, westus2, westeurope, southeastasia)
   * *export TF_VAR_deploy_SQLMI='Boolean that sets whether or not to deploy SQL Managed Instance, for this scenario we leave it set to true'
   * *export TF_VAR_deploy_PostgreSQL='Boolean that sets whether or not to deploy PostgreSQL Hyperscale, for this scenario we leave it set to false'
+
     > **Note: If you are running in a PowerShell environment, to set the Terraform environment variables, use the _Set-Item -Path env:_ prefix (see example below)**
 
     ```powershell
@@ -209,7 +210,7 @@ As mentioned, the Terraform plan and automation scripts will deploy a GKE cluste
 
 * Run the ```terraform init``` command which is used to initialize a working directory containing Terraform configuration files and load the required Terraform providers.
 
-  ![terraform init](./ .png)
+  ![terraform init](./20.png)
 
 * (Optional but recommended) Run the ```terraform plan``` command to make sure everything is configured properly.
 
