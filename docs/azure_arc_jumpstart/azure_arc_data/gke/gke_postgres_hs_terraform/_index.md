@@ -1,8 +1,14 @@
-
+---
+type: docs
+title: "PostgreSQL Hyperscale Terraform Plan"
+linkTitle: "PostgreSQL Hyperscale Terraform Plan"
+weight: 3
+description: >
+---
 
 ## Deploy an Azure PostgreSQL Hyperscale Deployment on GKE using a Terraform plan
 
-The following scenario will guide you on how to deploy a "Ready to Go" environment so you can start using Azure Arc enabled data services with Azure PostgreSQL Hyperscale on a [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine) cluster by using [Terraform](https://www.terraform.io/).
+The following scanario will guide you on how to deploy a "Ready to Go" environment so you can deploy Azure Arc enabled data services on a [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine) cluster using [Terraform](https://www.terraform.io/).
 
 By the end of this guide, you will have a GKE cluster deployed with an Azure Arc Data Controller ([in "Directly Connected" mode](https://docs.microsoft.com/en-us/azure/azure-arc/data/connectivity)), Azure PostgreSQL Hyperscale with a sample database and a Microsoft Windows Server 2019 (Datacenter) GKE compute instance VM installed & pre-configured with all the required tools needed to work with Azure Arc data services.
 
