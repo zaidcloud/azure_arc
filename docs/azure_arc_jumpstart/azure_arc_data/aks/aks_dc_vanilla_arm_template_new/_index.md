@@ -77,7 +77,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 As mentioned, this deployment will leverage ARM templates. You will deploy a single template that will initiate the entire automation for this scenario.
 
-* The deployment is using the ARM template parameters file. Before initiating the deployment, edit the [_azuredeploy.parameters.json_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/aks/arm_template/azuredeploy.parameters.json) file located in your local cloned repository folder.
+* The deployment is using the ARM template parameters file. Before initiating the deployment, edit the [_azuredeploy.parameters.json_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/aks/arm_template/azuredeploy.parameters.json) file located in your local cloned repository folder. An example parameters file is located [here](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/aks/arm_template/artifacts/azuredeploy.parameters.example.json).
 
   * *sshRSAPublicKey* - Your SSH public key
   * *spnClientId* - Your Azure service principal id
@@ -126,61 +126,64 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
 ## Windows Login & Post Deployment
 
-Now that both the AKS cluster and the Windows Server VM are created, it is time to login to the Client VM.
+* Now that first phase of the automation is completed, it is time to RDP to the client VM using it's public IP.
 
-* Using it's public IP, RDP to the **Client VM**
+    ![Client VM public IP](./03.png)
 
-    ![Data Client VM public IP](./03.jpg)
+* At first login, as mentioned in the "Automation Flow" section above, the [_DataServicesLogonScript_]((https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/aks/arm_template/artifacts/DataServicesLogonScript.ps1)) PowerShell logon script will start it's run.
 
-* At first login, as mentioned in the "Automation Flow" section, a logon script will get executed. This script was created as part of the automated deployment process.
+* Let the script to run its course and **do not close** the PowerShell session, this will be done for you once completed. Once the script will finish it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change and the Azure Arc Data Controller will be deployed on the cluster and be ready to use.
 
-    Let the script to run its course and **do not close** the PowerShell session, this will be done for you once completed. You will notice that the Azure Arc Data Controller gets deployed on the AKS cluster. **The logon script run time is approximately 10min long**.  
+![PowerShell logon script run](./04.png)
 
-    Once the script will finish it's run, the logon script PowerShell session will be closed and the Azure Arc Data Controller will be deployed on the AKS cluster and be ready to use.
+![PowerShell logon script run](./05.png)
 
-    ![PowerShell logon script run](./04.jpg)
+![PowerShell logon script run](./06.png)
 
-    ![PowerShell logon script run](./05.jpg)
+![PowerShell logon script run](./07.png)
 
-    ![PowerShell logon script run](./06.jpg)
+![PowerShell logon script run](./08.png)
 
-    ![PowerShell logon script run](./07.jpg)
+![PowerShell logon script run](./09.png)
 
-    ![PowerShell logon script run](./08.jpg)
+![PowerShell logon script run](./10.png)
 
-  <!-- > **Note: Currently, Azure Arc enabled data services is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes) and features are subject to change. As such, the release being used in this scenario does not support the projection of Azure Arc data services resources in the Azure portal**.
+![PowerShell logon script run](./11.png)
 
-    ![Data Controller in a resource group](./09.jpg)
+![PowerShell logon script run](./12.png)
 
-    ![Data Controller resource](./10.jpg) -->
+![PowerShell logon script run](./13.png)
 
-* Using PowerShell, login to the Data Controller and check it's health using the below commands.
+![PowerShell logon script run](./14.png)
 
-    ```powershell
-    azdata login --namespace $env:ARC_DC_NAME
-    azdata arc dc status show
-    ```
+![PowerShell logon script run](./15.png)
 
-    ![azdata login](./11.jpg)
+* Since this scenario is deploying the Azure Arc Data Controller, you will also notice addtional newly deployed Azure resources in the resources group (at this point you should have **47 verious Azure resources" deployed). The important ones to notice are:
+
+  * Azure Arc enabled Kubernetes cluster - Azure Arc enabled data services deployed in directly connected are using this type of resource in order to deploy the data services [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions) as well as for using Azure Arc [Custom locations](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-custom-locations).
+
+  * Custom location - provides a way for tenant administrators to use their Azure Arc enabled Kubernetes clusters as target locations for deploying Azure services instances.
+
+  * Azure Arc Data Controller - The data contoller that is now deployed on the Kubernetes cluster.
+
+![Addtional Azure resources in the resource group](./16.png)
 
 * Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. Using the Desktop shortcut created for you, open Azure Data Studio and click the Extensions settings to see both extensions.
 
-  ![Azure Data Studio shortcut](./12.jpg)
+  ![Azure Data Studio shortcut](./17.png)
 
-  ![Azure Data Studio extension](./13.jpg)
+## Cluster extensions
+
+In this scenario, the Azure Arc enabled data services cluster extension was deployed and was used troughout this scenario in order to deploy the data services infrastructure.
+
+* In order to view cluster extensions, click on the Azure Arc enabled Kubernetes resource Extensions settings.
+
+  ![Azure Arc enabled Kubernetes resource](./18.png)
+
+  ![Azure Arc enabled Kubernetes clustExtensions settings](./19.png)
 
 ## Cleanup
 
-* To delete the Azure Arc Data Controller and all of it's Kubernetes resources, run the *DC_Cleanup.ps1* PowerShell script located in *C:\tmp* on the Windows Client VM. At the end of it's run, the script will close all PowerShell sessions. **The Cleanup script run time is approximately 5min long**.
-
-    ![DC_Cleanup PowerShell script run](./14.jpg)
-
 * If you want to delete the entire environment, simply delete the deployment resource group from the Azure portal.
 
-    ![Delete Azure resource group](./15.jpg)
-
-## Re-Deploy Azure Arc Data Controller
-
-In case you deleted the Azure Arc Data Controller from the AKS cluster, you can re-deploy it by running the *DC_Deploy.ps1* PowerShell script located in *C:\tmp* on the Windows Client VM. **The Deploy script run time is approximately 5-10min long**
-
-![Re-Deploy Azure Arc Data Controller PowerShell script](./16.jpg)
+    ![Delete Azure resource group](./20.png)
