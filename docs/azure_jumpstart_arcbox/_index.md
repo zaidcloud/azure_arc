@@ -125,13 +125,8 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 ArcBox must be deployed to one of the following regions. Deploying ArcBox outside of these regions may result in unexpected results or deployment errors.
 
 * East US
-* East US 2
-* West US 2
 * North Europe
 * West Europe
-* UK South
-* Southeast Asia
-* Australia East
 
 ## Deployment Option 1: Azure Portal
 
