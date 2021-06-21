@@ -1,7 +1,7 @@
 ---
 type: docs
-title: "PostgreSQL Hyperscale"
-linkTitle: "PostgreSQL Hyperscale"
+title: "PostgreSQL Hyperscale ARM Template"
+linkTitle: "PostgreSQL Hyperscale ARM Template"
 weight: 3
 description: >
 ---
@@ -86,7 +86,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
   * *windowsAdminUsername* - Client Windows VM Administrator name
   * *windowsAdminPassword* - Client Windows VM Password. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
   * *myIpAddress* - Your local public IP address. This is used to allow remote RDP and SSH connections to the client Windows VM and AKS cluster.
-  * *logAnalyticsWorkspaceName* - Unique name for the deployment log analytics workspace
+  * *logAnalyticsWorkspaceName* - Unique name for the deployment log analytics workspace.
   * *deploySQLMI* - Boolean that sets whether or not to deploy SQL Managed Instance, for this data controller and Azure PostgreSQL Hyperscale scenario, we will set it to _**false**_.
   * *deployPostgreSQL* - Boolean that sets whether or not to deploy PostgreSQL Hyperscale, for this data controller and Azure PostgreSQL Hyperscale scenario , we leave it set to _**true**_.
   * *kubernetesVersion* - AKS version
@@ -176,7 +176,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
   ![Azure Data Studio connection](./18.png)
 
-* additionally, the PostgreSQL Hyperscale instance connection will be configured automatically for you.
+* Additionally, the PostgreSQL Hyperscale instance connection will be configured automatically for you.
 
   ![Azure Data Studio connection](./19.png)
 
