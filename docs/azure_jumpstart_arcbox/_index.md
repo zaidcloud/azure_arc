@@ -114,18 +114,6 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
     > **Note: The Jumpstart scenarios are designed with as much ease of use in-mind and adhering to security-related best practices whenever possible. It is optional but highly recommended to scope the service principal to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest) as well considering using a [less privileged service principal account](https://docs.microsoft.com/en-us/azure/role-based-access-control/best-practices)**
 
-* Enable your subscription for the *Microsoft.AzureArcData* resource provider for Azure Arc enabled data services. Registration is an asynchronous process, and registration may take approximately 10 minutes.
-
-  ```shell
-  az provider register --namespace Microsoft.AzureArcData
-  ```
-
-  You can monitor the registration process with the following commands:
-
-  ```shell
-  az provider show -n Microsoft.AzureArcData -o table
-  ```
-
 * [Generate SSH Key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/) (or use existing ssh key)
 
   ```shell
@@ -137,13 +125,8 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 ArcBox must be deployed to one of the following regions. Deploying ArcBox outside of these regions may result in unexpected results or deployment errors.
 
 * East US
-* East US 2
-* West US 2
 * North Europe
 * West Europe
-* UK South
-* Southeast Asia
-* Australia East
 
 ## Deployment Option 1: Azure Portal
 
@@ -218,8 +201,8 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
   kubectx
   kubectx arcbox-capi
   kubectl get nodes
-  kubectl get pods -n arcdatactrl
-  kubectx arcboxk3s
+  kubectl get pods -n arc
+  kubectx arcbox-k3s
   kubectl get nodes
   ```
 
@@ -231,7 +214,8 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
   * Namespace: arcdatactrl
   
   ```shell
-  azdata login --username arcdemo --namespace arcdatactrl
+  kubectx arcbox-capi
+  azdata login --username arcdemo --namespace arc
   azdata arc dc status show
   azdata arc sql endpoint list
   azdata arc postgres endpoint list
@@ -284,7 +268,3 @@ az group delete -n <name of your resource group>
 ## Known issues
 
 * Azure Arc enabled SQL Server assessment report not always visible in Azure Portal
-* Currently, Azure Arc enabled data services are deployed in **indirectly connected** mode.
-* The [_custom-location_](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/custom-locations) feature required for Azure Arc enabled data services directly connected mode currently cannot be installed using a service principal and will present an "Insufficient privileges" error as part of the data services logon script runtime that can be safely ignored for now.
-
-    ![Screenshot showing custom location "Insufficient privileges" error](./customlocationerror.png)
