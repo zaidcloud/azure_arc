@@ -6,6 +6,7 @@ Release notes will be released on the first week of each month and will cover th
 ## June 2021
 
 * Azure Arc-enabled data services components of ArcBox have been updated to use [directly connected mode](https://docs.microsoft.com/en-us/azure/azure-arc/data/connectivity#connectivity-modes).
+* Required resource providers are now enabled automatically as part of the automation scripts.
 
 ## April 2021
 
