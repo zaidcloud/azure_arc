@@ -7,6 +7,7 @@ Release notes will be released on the first week of each month and will cover th
 
 * Azure Arc-enabled data services components of ArcBox have been updated to use [directly connected mode](https://docs.microsoft.com/en-us/azure/azure-arc/data/connectivity#connectivity-modes).
 * Required resource providers are now enabled automatically as part of the automation scripts.
+* Per updated Azure Arc-enabled data services requirements, ArcBox region support is restricted to East US, Northern Europe, and Western Europe.
 
 ## April 2021
 
