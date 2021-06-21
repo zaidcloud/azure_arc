@@ -86,7 +86,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
   * *windowsAdminUsername* - Client Windows VM Administrator name
   * *windowsAdminPassword* - Client Windows VM Password. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
   * *myIpAddress* - Your local public IP address. This is used to allow remote RDP and SSH connections to the client Windows VM and AKS cluster.
-  * *logAnalyticsWorkspaceName* - Unique name for the deployment log analytics workspace
+  * *logAnalyticsWorkspaceName* - Unique name for the deployment log analytics workspace.
   * *deploySQLMI* - Boolean that sets whether or not to deploy SQL Managed Instance, for this data controller only scenario we leave it set to _**false**_.
   * *deployPostgreSQL* - Boolean that sets whether or not to deploy PostgreSQL Hyperscale, for this data controller only scenario we leave it set to _**false**_.
   * *kubernetesVersion* - AKS version

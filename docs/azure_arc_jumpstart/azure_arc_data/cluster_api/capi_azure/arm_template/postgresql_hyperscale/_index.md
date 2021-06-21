@@ -1,16 +1,16 @@
 ---
 type: docs
-title: "SQL Managed Instance ARM Template"
-linkTitle: "SQL Managed Instance ARM Template"
+title: "PostgreSQL Hyperscale ARM Template"
+linkTitle: "PostgreSQL Hyperscale ARM Template"
 weight: 2
 description: >
 ---
 
-## Deploy Azure Arc enabled SQL Managed Instance in directly connected mode on Cluster API Kubernetes cluster with Azure provider using an ARM Template
+## Deploy Azure Arc enabled PostgreSQL Hyperscale in directly connected mode on Cluster API Kubernetes cluster with Azure provider using an ARM Template
 
-The following README will guide you on how to deploy a "Ready to Go" environment so you can start using [Azure Arc enabled data services](https://docs.microsoft.com/en-us/azure/azure-arc/data/overview) and [SQL Managed Instance](https://docs.microsoft.com/en-us/azure/azure-arc/data/managed-instance-overview) deployed on [Cluster API (CAPI)](https://cluster-api.sigs.k8s.io/introduction.html) Kubernetes cluster and it's [Cluster API Azure provider (CAPZ)](https://cloudblogs.microsoft.com/opensource/2020/12/15/introducing-cluster-api-provider-azure-capz-kubernetes-cluster-management/).
+The following README will guide you on how to deploy a "Ready to Go" environment so you can start using [Azure Arc enabled data services](https://docs.microsoft.com/en-us/azure/azure-arc/data/overview) and [PostgreSQL Hyperscale](https://docs.microsoft.com/en-us/azure/azure-arc/data/what-is-azure-arc-enabled-postgres-hyperscale) deployed on [Cluster API (CAPI)](https://cluster-api.sigs.k8s.io/introduction.html) Kubernetes cluster and it's [Cluster API Azure provider (CAPZ)](https://cloudblogs.microsoft.com/opensource/2020/12/15/introducing-cluster-api-provider-azure-capz-kubernetes-cluster-management/).
 
-By the end of this guide, you will have a CAPI Kubernetes cluster deployed with an Azure Arc Data Controller, SQL Managed Instance (with a sample database), and a Microsoft Windows Server 2019 (Datacenter) Azure sidecar VM, installed & pre-configured with all the required tools needed to work with Azure Arc enabled data services.
+By the end of this guide, you will have a CAPI Kubernetes cluster deployed with an Azure Arc Data Controller, PostgreSQL Hyperscale instance (with a sample database), and a Microsoft Windows Server 2019 (Datacenter) Azure sidecar VM, installed & pre-configured with all the required tools needed to work with Azure Arc enabled data services.
 
 > **Note: Currently, Azure Arc enabled data services is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes)**.
 
@@ -108,8 +108,8 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
   * *windowsAdminPassword* - Client Windows VM Password. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
   * *myIpAddress* - Your local IP address. This is used to allow remote RDP and SSH connections to the sidecar Windows VM and K3s Rancher VM.
   * *logAnalyticsWorkspaceName* - Unique name for the deployment log analytics workspace.
-  * *deploySQLMI* - Boolean that sets whether or not to deploy SQL Managed Instance, for this data controller and Azure SQL Managed Instance scenario, we will set it to _**true**_.
-  * *deployPostgreSQL* - Boolean that sets whether or not to deploy PostgreSQL Hyperscale, for this data controller and Azure SQL Managed Instance scenario, we leave it set to _**false**_.
+  * *deploySQLMI* - Boolean that sets whether or not to deploy SQL Managed Instance, for this data controller and Azure PostgreSQL Hyperscale scenario, we will set it to _**false**_.
+  * *deployPostgreSQL* - Boolean that sets whether or not to deploy PostgreSQL Hyperscale, for this data controller and Azure PostgreSQL Hyperscale scenario , we leave it set to _**true**_.
 
 * To deploy the ARM template, navigate to the local cloned [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_arc_data_jumpstart/cluster_api/capi_azure/arm_template) and run the below command:
 
@@ -153,7 +153,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
 * At first login, as mentioned in the "Automation Flow" section above, the [_DataServicesLogonScript_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/cluster_api/capi_azure/arm_template/artifacts/DataServicesLogonScript.ps1) PowerShell logon script will start it's run.
 
-* Let the script to run its course and **do not close** the PowerShell session, this will be done for you once completed. Once the script will finish it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change and both the Azure Arc Data Controller and the SQL Managed Instance will be deployed on the cluster and be ready to use.
+* Let the script to run its course and **do not close** the PowerShell session, this will be done for you once completed. Once the script will finish it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change and both the Azure Arc Data Controller and PostgreSQL will be deployed on the cluster and be ready to use.
 
 ![PowerShell logon script run](./05.png)
 
@@ -179,7 +179,11 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
 ![PowerShell logon script run](./16.png)
 
-* Since this scenario is deploying the Azure Arc Data Controller and SQL Managed Instance, you will also notice additional newly deployed Azure resources in the resources group (at this point you should have **54 various Azure resources deployed**. The important ones to notice are:
+![PowerShell logon script run](./17.png)
+
+![PowerShell logon script run](./18.png)
+
+* Since this scenario is deploying the Azure Arc Data Controller and PostgreSQL Hyperscale instance, you will also notice additional newly deployed Azure resources in the resources group (at this point you should have **55 various Azure resources deployed**. The important ones to notice are:
 
   * Azure Arc enabled Kubernetes cluster - Azure Arc enabled data services deployed in directly connected are using this type of resource in order to deploy the data services [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions) as well as for using Azure Arc [Custom locations](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-custom-locations).
 
@@ -187,19 +191,19 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
   * Azure Arc Data Controller - The data controller that is now deployed on the Kubernetes cluster.
 
-  * Azure Arc enabled SQL Managed Instance - The SQL Managed Instance that is now deployed on the Kubernetes cluster.
+  * Azure Arc enabled PostgreSQL Hyperscale - The PostgreSQL Hyperscale instance that is now deployed on the Kubernetes cluster.
 
-![Additional Azure resources in the resource group](./17.png)
+![Additional Azure resources in the resource group](./19.png)
 
 * Another tool automatically deployed is Azure Data Studio along with the *Azure Data CLI*, the *Azure Arc* and the *PostgreSQL* extensions. Using the Desktop shortcut created for you, open Azure Data Studio and click the Extensions settings to see both extensions.
 
-  ![Azure Data Studio shortcut](./18.png)
+  ![Azure Data Studio shortcut](./20.png)
 
-* Additionally, the SQL Managed Instance connection will be configured as well as the sample [_AdventureWorks_](https://docs.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver15&tabs=ssms) database will restored automatically for you.
+* Additionally, the PostgreSQL Hyperscale instance connection will be configured as well as the sample [_AdventureWorks_](https://docs.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver15&tabs=ssms) database will restored automatically for you.
 
-  ![Azure Data Studio connection](./19.png)
+  ![Azure Data Studio connection](./21.png)
 
-  ![Configured SQL Managed Instance connection](./20.png)
+  ![Configured PostgreSQL Hyperscale instance connection](./22.png)
 
 ## Cluster extensions
 
@@ -213,12 +217,12 @@ In this scenario, three Azure Arc enabled Kubernetes cluster extensions were dep
 
 * In order to view these cluster extensions, click on the Azure Arc enabled Kubernetes resource Extensions settings.
 
-  ![Azure Arc enabled Kubernetes resource](./21.png)
+  ![Azure Arc enabled Kubernetes resource](./23.png)
 
-  ![Azure Arc enabled Kubernetes cluster extensions settings](./22.png)
+  ![Azure Arc enabled Kubernetes cluster extensions settings](./24.png)
 
 ## Cleanup
 
 * If you want to delete the entire environment, simply delete the deployment resource group from the Azure portal.
 
-    ![Delete Azure resource group](./23.png)
+    ![Delete Azure resource group](./25.png)
