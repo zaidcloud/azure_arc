@@ -114,7 +114,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
  > **Note: Once more, please make sure all the steps mentioned below are done in your management server.**
 
-As mentioned, this deployment will leverage this [PowerShell script](https://github.com/microsoft/azure_arc/blob/main/azure_arc_servers_jumpstart/azure_stack_hci/powershell/azstack_hci_vm_deploy.ps1) to deploy all the needed componenets. Before running the script, it's important to edit the script variables for matching the parameters of your environment. We can split it in three sets of variables:
+As mentioned, this deployment will leverage this [PowerShell script](https://github.com/frteles/azure_arc/blob/main/azure_arc_servers_jumpstart/azure_stack_hci/powershell/azstack_hci_vm_deploy.ps1) to deploy all the needed componenets. Before running the script, it's important to edit the script variables for matching the parameters of your environment. We can split it in three sets of variables:
 
 1. Environment variables for optional configurations
 
@@ -176,7 +176,7 @@ As mentioned, this deployment will leverage this [PowerShell script](https://git
     * **rgroup:** "arc-vms-rg"
     * **location:** "West Europe"
 
-* After editing the variables, to run the script open PowerShell as an administrator, navigate to the [script folder](https://github.com/microsoft/azure_arc/blob/main/azure_arc_servers_jumpstart/azure_stack_hci/powershell/) and run:
+* After editing the variables, to run the script open PowerShell as an administrator, navigate to the [script folder](https://github.com/frteles/azure_arc/tree/main/azure_arc_servers_jumpstart/azure_stack_hci/powershell) and run:
 
   ```powershell
   .\azstack_hci_vm_deploy.ps1
