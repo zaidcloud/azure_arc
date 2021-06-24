@@ -74,7 +74,7 @@ The commands below and the Powershell script described in this guide should be r
     Enable-WSManCredSSP -Role Server
     ```
 
-    ![Screenshot Enable-WSManCredSSP Output](./01.jpg)
+    ![Screenshot Enable-WSManCredSSP Output](./01.png)
 
     Confirm if CredSSP enabled the host server to receive credentials:
 
@@ -82,7 +82,7 @@ The commands below and the Powershell script described in this guide should be r
     Get-WSManCredSSP
     ```
 
-    ![Screenshot Enable-WSManCredSSP Output](./02.jpg)
+    ![Screenshot Enable-WSManCredSSP Output](./02.png)
 
 * Create a Virtual Switch
 
