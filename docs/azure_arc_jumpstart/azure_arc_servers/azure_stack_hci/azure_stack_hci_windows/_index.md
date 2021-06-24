@@ -68,6 +68,7 @@ The commands below and the Powershell script described in this guide should be r
     > **Note: It is optional but highly recommended to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/powershell/module/az.resources/new-azadserviceprincipal?view=azps-5.4.0)**
 
 * Enable CredSSP in the Host Server
+
     The Powershell script leverages [CredSSP](https://docs.microsoft.com/en-us/windows/win32/secauthn/credential-security-support-provider) to delegate credentials from the management server to the target server for remote authentication. It's required to allow the host server to receive credentials from a remote computer.
 
     ```powershell
