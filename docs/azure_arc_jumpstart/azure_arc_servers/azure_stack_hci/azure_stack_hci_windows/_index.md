@@ -87,12 +87,12 @@ The commands below and the Powershell script described in this guide should be r
 
 * Create a Virtual Switch
 
-    > **Note:If you already have a Virtual Switch with Internet access you can skip this step.**
+    > **Note: If you already have a Virtual Switch with Internet access you can skip this step.**
 
     It's required to have a [Virtual Switch](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/create-a-virtual-switch-for-hyper-v-virtual-machines#create-a-virtual-switch-by-using-windows-powershell) created in advance, before running the Powershell script. If not yet created, you can use the following powershell command in your host server:
 
     ```powershell
-    New-VMSwitch -name ExternalSwitch  -NetAdapterName Internet-Access -AllowManagementOS $true
+    New-VMSwitch -Name ExternalSwitch  -NetAdapterName Internet-Access -AllowManagementOS $true
     ```
 
 ## Automation Flow
@@ -119,14 +119,16 @@ As mentioned, this deployment will leverage this [PowerShell script](https://git
 1. Environment variables for optional configurations
 
     * **DHCPEnabled:** Select _$true_ if DHCP is enabled on your environment, _$false_ if not.
-        * If **DHCPEnabled** = _$false_, please fill the following variables. Otherwise attribute the vale _$null_ to the following variables:
+        * If **DHCPEnabled** = _$false_, please fill the following variables. 
             * **IPAddress:**  Provide the static IP to assign the to the VM.
             * **Prefix Lenght:** Provide the subnet lenght to assing to the VM.
             * **DefaultGateway:** Provide the default gateway to assign to the VM.
             * **DNSServer:** Provide the DNS Server to assign to the VM.
+        * If **DHCPEnabled** = _$true_, please fill attribute _$null_ to all the variables above.
     * **ServerClusterEnabled:** Select _$true_ if you have a server cluster created, _$false_ if the not.
-        * If **ServerClusterEnabled** = _$true_, please provide the path to the cluster storage in the format **"Disk Letter:\Folder"**.
-        * If **ServerClusterEnabled** = _$false_, please provide the path to the folder where the VM will be created in the format **"Disk Letter:\Folder"**.
+        * If **ServerClusterEnabled** = _$true_, please provide the path to the cluster storage in the following format:
+            * **vmdir:** Disk Letter:\ClusterStorage
+        * If **ServerClusterEnabled** = _$false_, please provide the path to the folder where the VM will be created in the following format:
             * **vmdir:** Disk Letter:\Folder
 
     ![Screenshot showing first set of variables in the Powershell script](./03.png)
@@ -174,7 +176,7 @@ As mentioned, this deployment will leverage this [PowerShell script](https://git
     * **rgroup:** "arc-vms-rg"
     * **location:** "West Europe"
 
-* After editing the variables, to run the script access open PowerShell as an administrator, navigate to the [script folder](https://github.com/microsoft/azure_arc/blob/main/azure_arc_servers_jumpstart/azure_stack_hci/powershell/) and run:
+* After editing the variables, to run the script open PowerShell as an administrator, navigate to the [script folder](https://github.com/microsoft/azure_arc/blob/main/azure_arc_servers_jumpstart/azure_stack_hci/powershell/) and run:
 
   ```powershell
   .\azstack_hci_vm_deploy.ps1
