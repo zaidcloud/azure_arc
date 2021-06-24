@@ -85,6 +85,15 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
 * Login to AZ CLI using the ```az login``` command.
 
+* Register necessary Azure resource providers by running the following commands.
+
+  ```shell
+  az provider register --namespace Microsoft.Kubernetes --wait
+  az provider register --namespace Microsoft.KubernetesConfiguration --wait
+  az provider register --namespace Microsoft.ExtendedLocation --wait
+  az provider register --namespace Microsoft.AzureArcData --wait
+  ```
+
 * Create Azure service principal (SP)
 
     To deploy ArcBox an Azure service principal assigned with the "Contributor" role is required. To create it login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
