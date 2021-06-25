@@ -8,7 +8,7 @@ description: >
 
 ## Deploy a Windows Server Virtual Machine in Azure Stack HCI and connect it to Azure Arc using Powershell
 
-The following README will guide you on how to use the provided PowerShell script to deploy a Windows Server Virtual Machine on an [Azure Stack HCI](https://docs.microsoft.com/en-us/azure-stack/hci/overview) cluster and connected it as an Azure Arc enabled server.
+The following README will guide you on how to use the provided PowerShell script to deploy a Windows Server Virtual Machine on an [Azure Stack HCI](https://docs.microsoft.com/en-us/azure-stack/hci/overview) cluster and connect it as an Azure Arc enabled server.
 
 This guide will **not** provide instructions on how to deploy and set up Azure Stack HCI and it assumes you already have it provisioned. If you don't have any Azure Stack HCI cluster created, please have a look at the following [Azure Stack HCI 20H2 Evaluation Guide](https://github.com/Azure/AzureStackHCI-EvalGuide).
 
@@ -114,7 +114,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
  > **Note: Once more, please make sure all the steps mentioned below are done in your management server.**
 
-As mentioned, this deployment will leverage this [PowerShell script](https://github.com/frteles/azure_arc/blob/main/azure_arc_servers_jumpstart/azure_stack_hci/powershell/azstack_hci_vm_deploy.ps1) to deploy all the needed componenets. Before running the script, it's important to edit the script variables for matching the parameters of your environment. We can split it in three sets of variables:
+As mentioned, this deployment will leverage this [PowerShell script](https://github.com/microsoft/azure_arc/blob/main/azure_arc_servers_jumpstart/azure_stack_hci/powershell/azstack_hci_vm_deploy.ps1) to deploy all the needed componenets. Before running the script, it's important to edit the script variables for matching the parameters of your environment. We can split it in three sets of variables:
 
 1. Environment variables for optional configurations
 
@@ -176,7 +176,7 @@ As mentioned, this deployment will leverage this [PowerShell script](https://git
     * **rgroup:** "arc-vms-rg"
     * **location:** "West Europe"
 
-* After editing the variables, to run the script open PowerShell as an administrator, navigate to the [script folder](https://github.com/frteles/azure_arc/tree/main/azure_arc_servers_jumpstart/azure_stack_hci/powershell) and run:
+* After editing the variables, to run the script open PowerShell as an administrator, navigate to the [script folder](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/azure_stack_hci/powershell) and run:
 
   ```powershell
   .\azstack_hci_vm_deploy.ps1
