@@ -114,7 +114,7 @@ In this guide (as explained in the CAPI Book docs), you will deploy a local [kin
   On Linux:
 
   ```shell
-  curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v0.3.12/clusterctl-linux-amd64 -o clusterctl
+  curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v0.3.19/clusterctl-linux-amd64 -o clusterctl
   chmod +x ./clusterctl
   sudo mv ./clusterctl /usr/local/bin/clusterctl
   clusterctl version
@@ -123,7 +123,7 @@ In this guide (as explained in the CAPI Book docs), you will deploy a local [kin
   On MacOS:
 
   ```shell
-  curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v0.3.12/clusterctl-darwin-amd64 -o clusterctl
+  curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v0.3.19/clusterctl-darwin-amd64 -o clusterctl
   chmod +x ./clusterctl
   sudo mv ./clusterctl /usr/local/bin/clusterctl
   clusterctl version
@@ -139,7 +139,7 @@ In this guide (as explained in the CAPI Book docs), you will deploy a local [kin
 
 * Edit the environment variables to match your Azure subscription and SPN details created in the prerequisites section in this guide as well as the required workload cluster details.
 
-  * *KUBERNETES_VERSION*="Kubernetes version. For example: 1.18.17"
+  * *KUBERNETES_VERSION*="Kubernetes version. For example: 1.19.11"
   * *CONTROL_PLANE_MACHINE_COUNT*="Control Plane node count. For example: 1"
   * *WORKER_MACHINE_COUNT*="Workers node count. For example: 2"
   * *AZURE_LOCATION*="Azure region. For example: eastus"
