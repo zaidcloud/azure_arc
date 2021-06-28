@@ -12,7 +12,7 @@ The following README will guide you on how to use the provided PowerShell script
 
 Azure Kubernetes Service on Azure Stack HCI is an implementation of AKS on-premises using hyperconverged infrastructure operating system that is delivered as an Azure service.  
 
-This guide will not provide instructions on how to deploy and set up Azure Stack HCI and it assumes you already have a configured cluster. The commands described in this guide should be ran on the management computer or in a host server in a cluster.
+This guide will not provide instructions on how to deploy and set up Azure Stack HCI and it assumes you already have a configured cluster. The commands described in this guide should be run on the management computer or in a host server in a cluster.
 
 ## Prerequisites
 
