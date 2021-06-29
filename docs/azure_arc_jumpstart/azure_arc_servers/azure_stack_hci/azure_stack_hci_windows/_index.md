@@ -103,7 +103,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 2. User is running the PowerShell script to deploy a basic Windows Server Virtual Machine on Azure Stack HCI and onboard onto Azure Arc. Runtime script will:
     * Set local OS variables
-    * Download .vhdx with Windows Server 2019 Datacenter installed
+    * Download VHDX file with Windows Server 2019 Datacenter installed
     * Enable CredSSP on the management VM, for allowing credential delegation to the host server
     * Create a new Virtual Machine based on the .vhdx
     * Add Virtual Machine to Server Cluster (optional)
