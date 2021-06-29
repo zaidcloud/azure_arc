@@ -77,7 +77,7 @@ By the end of this guide, you will have a Microk8s Kubernetes cluster deployed w
 
 From the [Microk8s Github repo](https://github.com/ubuntu/microk8s):
 
-_"Microk8s is a single-package, fully conformant, lightweight Kubernetes that works on 42 flavours of Linux. Perfect for Developer workstations, IoT, Edge & CI/CD. MicroK8s tracks upstream and releases beta, RC and final bits the same day as upstream K8s."_
+_"Microk8s is a single-package, fully conformant, lightweight Kubernetes that works on 42 flavors of Linux. Perfect for Developer workstations, IoT, Edge & CI/CD. MicroK8s tracks upstream and releases beta, RC and final bits the same day as upstream K8s."_
 
 In this guide, we automate the installation of Microk8s on an Ubuntu 18.04 VM running on Azure using a few simple commands to install from the [Snap Store](https://snapcraft.io/microk8s), before proceeding to onboard it as an Azure Arc enabled Kubernetes Cluster.
 
@@ -146,7 +146,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
   ![Deployment time](./02.png)
 
-- Once Azure resources has been provisioned, you will be able to see it in the Azure portal. At this point, the resource group should have **13** various Azure resources deployed.
+- Once Azure resources have been provisioned, you will be able to see it in the Azure portal. At this point, the resource group should have **13 various Azure resources deployed**.
 
   ![ARM template deployment completed](./03.png)
 
@@ -168,7 +168,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
   ![Wallpaper Change](./07.png)
 
-- Since this scenario is deploying the Azure Arc Data Controller and PostgreSQL Hyperscale instance, you will also notice additional newly deployed Azure resources in the resources group (at this point you should have **17** various Azure resources deployed). The important ones to notice are:
+- Since this scenario is deploying the Azure Arc Data Controller and PostgreSQL Hyperscale instance, you will also notice additional newly deployed Azure resources in the resources group (at this point you should have **17 various Azure resources deployed**. The important ones to notice are:
 
   - **Azure Arc enabled Kubernetes cluster** - Azure Arc enabled data services deployed in directly connected mode is using this resource to deploy the data services [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions), as well as using Azure Arc [Custom locations](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-custom-locations).
 
