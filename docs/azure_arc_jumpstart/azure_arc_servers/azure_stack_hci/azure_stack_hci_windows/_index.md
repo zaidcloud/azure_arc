@@ -56,7 +56,7 @@ The commands below and the Powershell script described in this guide should be r
     Type                  :
     ```
 
-    To expose the generated password use this code to export the secret:
+    To expose the generated password use the below code to export the secret:
 
     ```powershell
     $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($sp.Secret)
