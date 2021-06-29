@@ -89,7 +89,7 @@ The commands below and the Powershell script described in this guide should be r
 
     > **Note: If you already have a Virtual Switch with Internet access you can skip this step.**
 
-    It's required to have a [Virtual Switch](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/create-a-virtual-switch-for-hyper-v-virtual-machines#create-a-virtual-switch-by-using-windows-powershell) created in advance, before running the Powershell script. If not yet created, you can use the following powershell command in your host server:
+    It's required to have a [Virtual Switch](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/create-a-virtual-switch-for-hyper-v-virtual-machines#create-a-virtual-switch-by-using-windows-powershell) created in advance, before running the PowerShell script. If not yet created, you can use the following PowerShell command in your host server:
 
     ```powershell
     New-VMSwitch -Name ExternalSwitch  -NetAdapterName Internet-Access -AllowManagementOS $true
