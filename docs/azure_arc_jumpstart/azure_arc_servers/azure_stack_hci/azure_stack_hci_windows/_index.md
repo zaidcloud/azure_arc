@@ -184,7 +184,7 @@ As mentioned, this deployment will leverage this [PowerShell script](https://git
 
   > **Note: The script takes some minutes to deploy, specially during the .VHDX download**  
 
-    ![Screenshot showing the download of the .VHDX file](./06.png)
+    ![Screenshot showing the download of the VHDX file](./06.png)
 
   > **Note: You'll be asked to provide the credentials for accessing your host server. If prompted with any other authorization requests (CredSSP, networking related, etc), please answer _Yes_ to all of them.**
 
