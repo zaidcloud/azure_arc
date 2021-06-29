@@ -131,7 +131,7 @@ As mentioned, this deployment will leverage this [PowerShell script](https://git
         * If **ServerClusterEnabled** = _$false_, please provide the path to the folder where the VM will be created in the following format:
             * **vmdir:** Disk Letter:\Folder
 
-    ![Screenshot showing first set of variables in the Powershell script](./03.png)
+    ![Screenshot showing first set of variables in the PowerShell script](./03.png)
 
     As an example:
     * **DHCPEnabled:** _$false_
