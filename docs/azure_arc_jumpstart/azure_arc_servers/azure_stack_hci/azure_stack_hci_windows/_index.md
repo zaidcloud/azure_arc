@@ -69,7 +69,7 @@ The commands below and the Powershell script described in this guide should be r
 
 * Enable CredSSP in the Host Server
 
-    The Powershell script leverages [CredSSP](https://docs.microsoft.com/en-us/windows/win32/secauthn/credential-security-support-provider) to delegate credentials from the management server to the target server for remote authentication. It's required to allow the host server to receive credentials from a remote computer.
+    The PowerShell script leverages [CredSSP](https://docs.microsoft.com/en-us/windows/win32/secauthn/credential-security-support-provider) to delegate credentials from the management server to the target server for remote authentication. It's required to allow the host server to receive credentials from a remote computer.
 
     ```powershell
     Enable-WSManCredSSP -Role Server
