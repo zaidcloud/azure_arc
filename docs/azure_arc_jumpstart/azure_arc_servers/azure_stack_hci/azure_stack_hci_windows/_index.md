@@ -120,12 +120,12 @@ As mentioned, this deployment will leverage this [PowerShell script](https://git
 
     * **DHCPEnabled:** Select _$true_ if DHCP is enabled on your environment, _$false_ if not.
         * If **DHCPEnabled** = _$false_, please fill the following variables. 
-            * **IPAddress:**  Provide the static IP to assign the to the VM.
-            * **Prefix Lenght:** Provide the subnet lenght to assing to the VM.
+            * **IPAddress:**  Provide the static IP address to assign to the VM.
+            * **Prefix Lenght:** Provide the subnet length to assign to the VM.
             * **DefaultGateway:** Provide the default gateway to assign to the VM.
             * **DNSServer:** Provide the DNS Server to assign to the VM.
         * If **DHCPEnabled** = _$true_, please fill attribute _$null_ to all the variables above.
-    * **ServerClusterEnabled:** Select _$true_ if you have a server cluster created, _$false_ if the not.
+    * **ServerClusterEnabled:** Select _$true_ if you have a server cluster created, _$false_ if not.
         * If **ServerClusterEnabled** = _$true_, please provide the path to the cluster storage in the following format:
             * **vmdir:** Disk Letter:\ClusterStorage
         * If **ServerClusterEnabled** = _$false_, please provide the path to the folder where the VM will be created in the following format:
