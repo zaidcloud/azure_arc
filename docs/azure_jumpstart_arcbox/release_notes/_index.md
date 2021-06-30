@@ -8,10 +8,9 @@ Release notes will be released on the first week of each month and will cover th
 * Azure Arc-enabled data services components of ArcBox have been updated to use [directly connected mode](https://docs.microsoft.com/en-us/azure/azure-arc/data/connectivity#connectivity-modes).
 * Required resource providers are now enabled automatically as part of the automation scripts.
 * Per updated Azure Arc-enabled data services requirements, ArcBox region support is restricted to East US, Northern Europe, and Western Europe.
+* Incorporated streamlined modular automation approach for Azure Arc-enabled data services used by the primary Jumpstart data services scenarios.
 
 ## April 2021
-
-### Jumpstart ArcBox v0.1 release
 
 * This is the initial release for Jumpstart ArcBox, a project that provides an easy to deploy sandbox for all things Azure Arc. ArcBox is designed to be completely self-contained within a single Azure subscription and resource group, which will make it easy for a user to get hands-on with all available Azure Arc technologies with nothing more than an available Azure subscription.
 
