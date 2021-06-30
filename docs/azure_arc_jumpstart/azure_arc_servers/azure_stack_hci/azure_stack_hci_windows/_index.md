@@ -6,7 +6,7 @@ weight: 1
 description: >
 ---
 
-## Deploy a Windows Server Virtual Machine in Azure Stack HCI and connect it to Azure Arc using Powershell
+## Deploy a Windows Server Virtual Machine in Azure Stack HCI and connect it to Azure Arc using PowerShell
 
 The following README will guide you on how to use the provided PowerShell script to deploy a Windows Server Virtual Machine on an [Azure Stack HCI](https://docs.microsoft.com/en-us/azure-stack/hci/overview) cluster and connect it as an Azure Arc enabled server.
 
