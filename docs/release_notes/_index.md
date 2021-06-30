@@ -17,7 +17,7 @@ weight: 3
 
 ### Azure Arc enabled servers scenarios
 
-* [New Scenario: Deploying Windows Server virtual machine in Azure Stack HCI and connect it to Azure Arc using Powershell](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/azure_stack_hci/azure_stack_hci_windows/)
+* [New Scenario: Deploying Windows Server virtual machine in Azure Stack HCI and connect it to Azure Arc using PowerShell](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/azure_stack_hci/azure_stack_hci_windows/)
 
 * [Bug fix: existing linux server onboarding fails #570](https://github.com/microsoft/azure_arc/issues/570)
 
