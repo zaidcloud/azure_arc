@@ -116,7 +116,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 ## Clean up environment
 
-Complete the following steps to clean up your environment. To disable Azure Automanage you will use the Azure portal, go to the Automanage – Azure virtual machine best practices page that lists all of your auto-managed VMs. Select the checkbox next to the Azure Arc enabled Server you want to disable from Automanage, then click on the Disable automanagment button.
+Complete the following steps to clean up your environment. To disable Azure Automanage you will use the Azure portal, go to the Automanage – Azure virtual machine best practices page that lists all of your auto-managed VMs. Select the checkbox next to the Azure Arc enabled Server you want to disable from Automanage, then click on the Disable automanagement button.
 
   ![Disable Azure Automanage](./06.png)
 
