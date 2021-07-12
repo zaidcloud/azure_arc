@@ -1,16 +1,16 @@
----
+<!-- ---
 type: docs
-title: "App Service (Container) ARM Template"
-linkTitle: "App Service (Container) ARM Template"
+title: "Azure Function ARM Template"
+linkTitle: "Azure Function ARM Template"
 weight: 1
 description: >
----
+--- -->
 
-## Deploy an App Service app using custom container on AKS using an ARM Template
+## Deploy Azure Function application on AKS using an ARM Template
 
 The following README will guide you on how to deploy a "Ready to Go" environment so you can start using [Azure Arc enabled app services](https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration) deployed on [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes) cluster using [Azure ARM Template](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview).
 
-By the end of this guide, you will have an AKS cluster deployed with an App Service plan, a sample Web Application (Web App) and a Microsoft Windows Server 2019 (Datacenter) Azure VM, installed & pre-configured with all the required tools needed to work with Azure Arc-enabled app services.
+By the end of this guide, you will have an AKS cluster deployed with an App Service plan, a sample Azure Function application that sends messages to an Azure storage account queue and a Microsoft Windows Server 2019 (Datacenter) Azure VM, installed & pre-configured with all the required tools needed to work with Azure Arc-enabled app services.
 
 > **Note: Currently, Azure Arc enabled app services is in preview.**
 
@@ -90,8 +90,8 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
   * _`logAnalyticsWorkspaceName`_ - Unique name for the deployment log analytics workspace.
   * _`kubernetesVersion`_ - AKS version
   * _`dnsPrefix`_ - AKS unique DNS prefix
-  * _`deployAppService`_ - Boolean that sets whether or not to deploy App Service plan and a Web App. For this scenario, we leave it set to _**true**_.
-  * _`deployFunction`_ - Boolean that sets whether or not to deploy App Service plan and an Azure Function application. For this scenario, we leave it set to _**false**_.
+  * _`deployAppService`_ - Boolean that sets whether or not to deploy App Service plan and a Web App. For this scenario, we leave it set to _**false**_.
+  * _`deployFunction`_ - Boolean that sets whether or not to deploy App Service plan and an Azure Function application. For this scenario, we leave it set to _**true**_.
   * _`templateBaseUrl`_ - GitHub URL to the deployment template - filled in by default to point to [Microsoft/Azure Arc](https://github.com/microsoft/azure_arc) repository, but you can point this to your forked repo as well.
 
 * To deploy the ARM template, navigate to the local cloned [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_arc_app_services_jumpstart/aks/arm_template) and run the below command:
@@ -136,7 +136,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
 * At first login, as mentioned in the "Automation Flow" section above, the [_AppServicesLogonScript_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_app_services_jumpstart/aks/arm_template/artifacts/AppServicesLogonScript.ps1) PowerShell logon script will start it's run.
 
-* Let the script to run its course and **do not close** the PowerShell session, this will be done for you once completed. Once the script will finish it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change and the Azure web application will be deployed on the cluster and be ready to use.
+* Let the script to run its course and **do not close** the PowerShell session, this will be done for you once completed. Once the script will finish it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change and the Azure Function application will be deployed on the cluster and be ready to use.
 
     > **Note: As you will notices from the screenshots below, during the Azure Arc enabled app services environment, the _log-processor_ service pods will be restarted and will go trough multiple Kubernetes pod lifecycle stages. This is normal and can safely be ignored. To learn more about the various Azure Arc enabled app services Kubernetes components, visit the official [Azure Docs page](https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration#pods-created-by-the-app-service-extension).**
 
@@ -170,11 +170,11 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
     ![PowerShell logon script run](./18.png)
 
-  Once the script finishes it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change, and both the app service plan and the sample web application deployed on the cluster will be ready.
+  Once the script finishes it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change, and both the app service plan and the Azure Function application deployed on the cluster will be ready.
 
     ![Wallpaper change](./19.png)
 
-* Since this scenario is deploying both the app service plan and a sample web application, you will also notice additional, newly deployed Azure resources in the resources group (at this point you should have **13 various Azure resources deployed**. The important ones to notice are:
+* Since this scenario is deploying both the app service plan and a sample Azure Function application, you will also notice additional, newly deployed Azure resources in the resources group (at this point you should have **13 various Azure resources deployed**. The important ones to notice are:
 
   * **Azure Arc enabled Kubernetes cluster** - Azure Arc enabled app services are using this resource to deploy the app services [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions), as well as using Azure Arc [Custom locations](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-custom-locations).
 
@@ -182,19 +182,26 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
   * [**App Service Kubernetes Environment**](https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration#app-service-kubernetes-environment) - The App Service Kubernetes environment resource is required before apps may be created. It enables configuration common to apps in the custom location, such as the default DNS suffix.
 
-  * [**App Service plan**](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans) - In App Service (Web Apps, API Apps, or Mobile Apps), an app always runs in an App Service plan. In addition, Azure Functions also has the option of running in an App Service plan. An App Service plan defines a set of compute resources for a web app to run.
+  * [**App Service plan**](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans) - In App Service (Web Apps, API Apps, or Mobile Apps), an app always runs in an App Service plan. In addition, Azure Functions also has the option of running in an App Service plan. An App Service plan defines a set of compute resources for an Azure Function to run.
 
-  * [**App Service**](https://docs.microsoft.com/en-us/azure/app-service/overview) - Azure App Service is an HTTP-based service for hosting web applications, REST APIs, and mobile back ends.
+  * [**Azure Function**](https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview) - Azure Functions is a serverless solution that allows you to write less code, maintain less infrastructure, and save on costs.
+
+  * Azure Storage Account - The storage account deployed in this scenario is used for hosting the [queue storage](https://docs.microsoft.com/en-us/azure/storage/queues/storage-queues-introduction) where the Azure Function will be sending messages to that can be leveraged later in an application event-driven architecture.
 
   ![Additional Azure resources in the resource group](./20.png)
 
-* In this scenario, **a Docker, custom container Linux-based** sample Jumpstart web application was deployed. To open the deployed web application in your web browser, simply click the App Service resource and the created URL.
+* In this scenario, **a sample Jumpstart Azure Function application** was deployed. To open the deployed Function application in your web browser, simply click the Azure Function resource and the created URL.
 
-  ![App Service resource in a resource group](./21.png)
+  ![Azure Function resource in a resource group](./21.png)
 
-  ![App Service URL](./22.png)
+  ![Azure Function URL](./22.png)
 
-  ![App Service open in a web browser](./23.png)
+  ![Azure Function open in a web browser](./23.png)
+
+* To demonstrate the messaging queuing element and to show how messages are stored in the queue storage, the Azure Function deployment script also generates 10 sample messages. To view it, click on the newly created storage account and go to the "Queues" section where you will see the new queue and the stored messages.
+
+
+* To generate your own messages using the Function application, 
 
 ## Cluster extensions
 
