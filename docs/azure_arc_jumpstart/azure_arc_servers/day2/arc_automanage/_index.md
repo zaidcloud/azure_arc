@@ -102,7 +102,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
  ![Screenshot environment variables](./04.png)
 
-* Still from the deployment folder run the below command:
+* From the deployment folder run the below command:
 
   ```shell
     . ./arc_automanage.sh
