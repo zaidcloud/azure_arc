@@ -8,18 +8,20 @@ description: >
 
 ## Enable Azure Automanage on an Azure Arc enabled server using an ARM template
 
-The following README will guide you on how to onboard an Azure Arc enabled server on to [Azure Automanage](https://docs.microsoft.com/en-us/azure/automanage/automanage-virtual-machines#prerequisites), so you can follow best practices in reliability, security and management for Azure Arc enabled servers using Azure services such as [Azure Update Management](https://docs.microsoft.com/en-us/azure/automation/update-management/overview) and [Azure Backup](https://docs.microsoft.com/en-us/azure/backup/backup-overview).
+The following README will guide you on how to onboard an Azure Arc enabled Server on to [Azure Automanage](https://docs.microsoft.com/en-us/azure/automanage/automanage-virtual-machines#prerequisites), so you can follow best practices in reliability, security and management for Azure Arc enabled servers using Azure services such as [Azure Update Management](https://docs.microsoft.com/en-us/azure/automation/update-management/overview) and [Azure Backup](https://docs.microsoft.com/en-us/azure/backup/backup-overview).
 
-Azure Automanage removes the need to discover virtual machines manually and automatically onboards and configures certain services in Azure following best practices as defined in [Microsoft Cloud Adoption Framework for Azure](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/manage/best-practices). Azure services included in Azure Automation are: 
+Azure Automanage removes the need to discover virtual machines manually and automatically onboards and configures certain services in Azure following best practices as defined in [Microsoft Cloud Adoption Framework for Azure](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/manage/best-practices). Azure services included in Azure Automanage are:
+
 - [Azure Backup](https://docs.microsoft.com/en-us/azure/backup/backup-overview)
 - [Azure Security Center](https://docs.microsoft.com/en-us/azure/security-center/security-center-introduction)
 - [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview)
 - [Azure Automation](https://docs.microsoft.com/en-us/azure/automation/automation-intro)
 
-In this guide, you will use an ARM template to enable and configure Azure Automation on your Azure Arc enabled servers.
+By the end of this guide, you will have an Azure Arc enabled Server with Azure Automanage enabled and configured following Microsoft Cloud Adoption Framework best practices for Dev/Test or Production environments.
 
 > **Note: This guide assumes you already deployed VMs or servers that are running on-premises or other clouds and you have connected them to Azure Arc but If you haven't, this repository offers you a way to do so in an automated fashion:**
 
+* **[Azure Stack HCI Windows VM](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/azure_stack_hci/azure_stack_hci_windows/)**
 * **[GCP Ubuntu instance](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/gcp/gcp_terraform_ubuntu/)**
 * **[GCP Windows instance](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/gcp/gcp_terraform_windows/)**
 * **[AWS Ubuntu EC2 instance](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/aws/aws_terraform_ubuntu/)**
@@ -74,7 +76,7 @@ In this guide, you will use an ARM template to enable and configure Azure Automa
     }
     ```
 
-  > **Note: It is optional but highly recommended to scope the SP to a specific [Azure subscription](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest). To create an Automanage Account used by the Automanage services, you need the Owner or Contributor permissions on your subscription along with User Access Administrator roles.**
+  > **Note: It is optional but highly recommended to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest). To create an Automanage Account used by the Automanage services, you need the Owner or Contributor permissions on your subscription along with User Access Administrator roles.**
 
 ## Automation Flow
 
@@ -90,22 +92,23 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 ## Enable Azure Automanage on an Azure Arc enabled server
 
-* In order to keep your local environment clean and untouched, we will use Azure Cloud Shell to run the `arc_automanage.sh` shell script against the Azure Arc enabled server.
+* In order to keep your local environment clean and untouched, we will use Azure Cloud Shell to run the `arcautomanage.sh` shell script against the Azure Arc enabled server.
 
   ![Screenshot showing Azure Cloud Shell](./03.png)
 
-* To run the automation, navigate to the [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts) and edit [the script's](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts/arc_automanage.sh) environment variables:
-  * **automanageAccountName:** name of your Automanage Account identity, make sure it is unique.
-  * **location:** Azure Region where your Arc enabled server is registered to.
-  * **machineName:** Name of your Azure Arc enabled server as it is shown in the Azure Portal.
-  * **configurationProfileAssignment:** refers to the environment of your Azure Arc enabled server as Azure Automanage has different profiles. Values can be "Production" or "DevTest".
+* To run the automation, navigate to the [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts) and edit [the script's](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts/arcautomanage.sh) environment variables:
+  *  _`automanage_account_name`_: name of your Automanage Account identity, make sure it is unique.
+  * _`location`_: Azure Region where your Arc enabled server is registered to.
+  * _`resource_group`_: Azure Resource Group where your Azure Arc enabled Server is registered to.
+  * _`machine_name`_: Name of your Azure Arc enabled server as it is shown in the Azure Portal.
+  * _`profile`_: refers to the environment of your Azure Arc enabled server as Azure Automanage has different profiles. Values can be "Production" or "DevTest".
 
  ![Screenshot environment variables](./04.png)
 
 * From the deployment folder run the below command:
 
   ```shell
-    . ./arc_automanage.sh
+    . ./arcautomanage.sh
   ```
 
  ![Scripts output](./05.png)
@@ -114,7 +117,8 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 * After the script has finished its run you will have Azure Automanage enabled. You should be able to see the Azure Arc enabled Server under 'Automanage – Azure machine best practices' with the Status set in 'Configured'.
 
-  ![Azure Arc enabled server in Azure Automanage](./06.png)
+  ![Azure Automanage search](./06.png)
+  ![Azure Arc enabled server in Azure Automanage](./07.png)
 
   > **Note: it may take upto 30 minutes for the script to finish its run**
 
@@ -122,10 +126,11 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 Complete the following steps to clean up your environment. To disable Azure Automanage you will use the Azure portal, go to the Automanage – Azure virtual machine best practices page that lists all of your auto-managed VMs. Select the checkbox next to the Azure Arc enabled Server you want to disable from Automanage, then click on the Disable _automanagement_ button.
 
-  ![Disable Azure Automanage](./06.png)
+  ![Disable Azure Automanage](./08.png)
 
 * Remove the virtual machines from each environment by following the teardown instructions from each guide.
 
+* **[Azure Stack HCI Windows VM](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/azure_stack_hci/azure_stack_hci_windows/)**
 * **[GCP Ubuntu instance](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/gcp/gcp_terraform_ubuntu/)**
 * **[GCP Windows instance](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/gcp/gcp_terraform_windows/)**
 * **[AWS Ubuntu EC2 instance](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/aws/aws_terraform_ubuntu/)**
