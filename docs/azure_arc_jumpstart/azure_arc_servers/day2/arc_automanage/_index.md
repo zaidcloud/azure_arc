@@ -76,7 +76,7 @@ By the end of this guide, you will have an Azure Arc enabled Server with Azure A
     }
     ```
 
-  > **Note: It is optional but highly recommended to scope the SP to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest). To create an Automanage Account used by the Automanage services, you need the Owner or Contributor permissions on your subscription along with User Access Administrator roles.**
+  > **Note: It is optional but highly recommended to scope the SP to a specific [Azure subscription](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest). To create an Automanage Account used by the Automanage services, you need the Owner or Contributor permissions on your subscription along with User Access Administrator roles.**
 
 ## Automation Flow
 
@@ -92,15 +92,15 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 ## Enable Azure Automanage on an Azure Arc enabled server
 
-* In order to keep your local environment clean and untouched, we will use Azure Cloud Shell to run the `arcautomanage.sh` shell script against the Azure Arc enabled server.
+* In order to keep your local environment clean and untouched, we will use Azure Cloud Shell to run the `arcAutomanage.sh` shell script against the Azure Arc enabled server.
 
   ![Screenshot showing Azure Cloud Shell](./03.png)
 
-* To run the automation, navigate to the [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts) and edit [the script's](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts/arcautomanage.sh) environment variables:
-  *  _`automanage_account_name`_: name of your Automanage Account identity, make sure it is unique.
+* To run the automation, navigate to the [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts) and edit [the script's](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts/arcAutomanage.sh) environment variables:
+  *  _`automanageAccountName`_: name of your Automanage Account identity, make sure it is unique.
   * _`location`_: Azure Region where your Arc enabled server is registered to.
-  * _`resource_group`_: Azure Resource Group where your Azure Arc enabled Server is registered to.
-  * _`machine_name`_: Name of your Azure Arc enabled server as it is shown in the Azure Portal.
+  * _`resourceGroup`_: Azure Resource Group where your Azure Arc enabled Server is registered to.
+  * _`machineName`_: Name of your Azure Arc enabled server as it is shown in the Azure Portal.
   * _`profile`_: refers to the environment of your Azure Arc enabled server as Azure Automanage has different profiles. Values can be "Production" or "DevTest".
 
  ![Screenshot environment variables](./04.png)
@@ -108,7 +108,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 * From the deployment folder run the below command:
 
   ```shell
-    . ./arcautomanage.sh
+    . ./arcAutomanage.sh
   ```
 
  ![Scripts output](./05.png)
