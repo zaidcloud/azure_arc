@@ -94,7 +94,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
   ![Screenshot showing Azure Cloud Shell](./03.png)
 
-* To run the automation, navigate to the [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts) and edit [the script's](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts/arc_automanage.sh) environment variables, you have to provide:
+* To run the automation, navigate to the [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts) and edit [the script's](https://github.com/microsoft/azure_arc/tree/main/azure_arc_servers_jumpstart/automanage/artifacts/arc_automanage.sh) environment variables:
   * **automanageAccountName:** name of your Automanage Account identity, make sure it is unique.
   * **location:** Azure Region where your Arc enabled server is registered to.
   * **machineName:** Name of your Azure Arc enabled server as it is shown in the Azure Portal.
