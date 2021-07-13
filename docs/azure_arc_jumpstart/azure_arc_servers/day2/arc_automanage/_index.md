@@ -85,7 +85,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 * The script will edit the ARM templates parameters file that will be used for the deployment. There are three ARM templates that will:
 
   * Create an Azure Automanage Account.
-  * Grant premissions to the Azure Automanage Accout.
+  * Grant permissions to the Azure Automanage Account.
   * Enable Azure Automanage on the Azure Arc enabled server.
 
 ## Enable Azure Automanage on an Azure Arc enabled server
