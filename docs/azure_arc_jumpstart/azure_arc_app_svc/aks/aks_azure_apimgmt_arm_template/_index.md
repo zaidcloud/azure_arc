@@ -92,8 +92,9 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
   * _`dnsPrefix`_ - AKS unique DNS prefix
   * _`deployAppService`_  Boolean that sets whether or not to deploy App Service plan, Azure Function application and Azure API Management. For this scenario, we leave it set to _**false**_.
   * _`deployFunction`_ - Boolean that sets whether or not to deploy App Service plan, Azure Function application and Azure API Management. For this scenario, we leave it set to _**false**_.
-  * _`deployAPIMgmgt`_ - Boolean that sets whether or not to deploy App Service plan, Azure Function application and Azure API Management.  For this scenario, we leave it set to _**true**_.
+  * _`deployAPIMgmt`_ - Boolean that sets whether or not to deploy App Service plan, Azure Function application and Azure API Management.  For this scenario, we leave it set to _**true**_.
   * _`templateBaseUrl`_ - GitHub URL to the deployment template - filled in by default to point to [Microsoft/Azure Arc](https://github.com/microsoft/azure_arc) repository, but you can point this to your forked repo as well.
+  * _`adminEmail`_ - an email address that will be used on the Azure API Management deployment to receive all system notifications.
 
 * To deploy the ARM template, navigate to the local cloned [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_arc_app_services_jumpstart/aks/arm_template) and run the below command:
 
@@ -119,7 +120,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
     --parameters azuredeploy.parameters.json
     ```
 
-    > **Note: The deployment time for this scenario can take ~5-10min**
+    > **Note: The deployment time for this scenario can take ~60-90 minutes**
 
 * Once Azure resources has been provisioned, you will be able to see it in Azure portal. At this point, the resource group should have **7 various Azure resources** deployed.
 
@@ -155,58 +156,30 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
     ![PowerShell logon script run](./11.png)
 
-    ![PowerShell logon script run](./12.png)
+  Once the script finishes it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change, and both the API Management gateway and the sample API will be configured on the cluster.
 
-    ![PowerShell logon script run](./13.png)
+    ![Wallpaper change](./12.png)
 
-    ![PowerShell logon script run](./14.png)
-
-    ![PowerShell logon script run](./15.png)
-
-    ![PowerShell logon script run](./16.png)
-
-    ![PowerShell logon script run](./17.png)
-
-    ![PowerShell logon script run](./18.png)
-
-  Once the script finishes it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change, and both the app service plan and the sample web application deployed on the cluster will be ready.
-
-    ![Wallpaper change](./19.png)
-
-* Since this scenario is deploying both the app service plan and a sample web application, you will also notice additional, newly deployed Azure resources in the resources group (at this point you should have **13 various Azure resources deployed**. The important ones to notice are:
+* Since this scenario is deploying both the Azure API Management instance, the API Management gateway extension and configure a sample API, you will also notice additional, newly deployed Azure resources in the resources group (at this point you should have **12 various Azure resources deployed**. The important ones to notice are:
 
   * **Azure Arc enabled Kubernetes cluster** - Azure Arc enabled app services are using this resource to deploy the app services [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions), as well as using Azure Arc [Custom locations](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-custom-locations).
 
-  * **Custom location** - Provides a way for tenant administrators to use their Azure Arc enabled Kubernetes clusters as a target location for deploying Azure services.
+  * [**Azure API Management service**](https://docs.microsoft.com/en-us/azure/api-management/) - An instance of Azure API Management needs to be created with a gateway resource befor you can enable the API Management gateway extension.
 
-  * [**App Service Kubernetes Environment**](https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration#app-service-kubernetes-environment) - The App Service Kubernetes environment resource is required before apps may be created. It enables configuration common to apps in the custom location, such as the default DNS suffix.
-
-  * [**App Service plan**](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans) - In App Service (Web Apps, API Apps, or Mobile Apps), an app always runs in an App Service plan. In addition, Azure Functions also has the option of running in an App Service plan. An App Service plan defines a set of compute resources for a web app to run.
-
-  * [**App Service**](https://docs.microsoft.com/en-us/azure/app-service/overview) - Azure App Service is an HTTP-based service for hosting web applications, REST APIs, and mobile back ends.
-
-  ![Additional Azure resources in the resource group](./20.png)
-
-* In this scenario, **a Docker, custom container Linux-based** sample Jumpstart web application was deployed. To open the deployed web application in your web browser, simply click the App Service resource and the created URL.
-
-  ![App Service resource in a resource group](./21.png)
-
-  ![App Service URL](./22.png)
-
-  ![App Service open in a web browser](./23.png)
+  ![Additional Azure resources in the resource group](./13.png)
 
 ## Cluster extensions
 
-In this scenario, the Azure Arc enabled app services cluster extension was deployed and used throughout this scenario in order to deploy the app services infrastructure.
+In this scenario, the Azure Arc enabled API Management cluster extension was deployed and used throughout this scenario in order to deploy the self-hosted API Management gateway services infrastructure.
 
 * In order to view cluster extensions, click on the Azure Arc enabled Kubernetes resource Extensions settings.
 
-  ![Azure Arc enabled Kubernetes resource](./24.png)
+  ![Azure Arc enabled Kubernetes resource](./14.png)
 
-  ![Azure Arc enabled Kubernetes cluster extensions settings](./25.png)
+  ![Azure Arc enabled Kubernetes cluster extensions settings](./15.png)
 
 ## Cleanup
 
 * If you want to delete the entire environment, simply delete the deployed resource group from the Azure portal.
 
-  ![Delete Azure resource group](./26.png)
+  ![Delete Azure resource group](./16.png)
