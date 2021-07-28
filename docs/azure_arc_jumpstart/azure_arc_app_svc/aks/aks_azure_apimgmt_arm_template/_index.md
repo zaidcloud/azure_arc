@@ -154,13 +154,9 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
     ![PowerShell logon script run](./09.png)
 
-    ![PowerShell logon script run](./10.png)
-
-    ![PowerShell logon script run](./11.png)
-
   Once the script finishes it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change, and both the API Management gateway and the sample API will be configured on the cluster.
 
-    ![Wallpaper change](./12.png)
+    ![Wallpaper change](./10.png)
 
 * Since this scenario is deploying both the Azure API Management instance, the API Management gateway extension and configure a sample API, you will also notice additional, newly deployed Azure resources in the resources group (at this point you should have **12 various Azure resources deployed**. The important ones to notice are:
 
@@ -168,7 +164,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
   * [**Azure API Management service**](https://docs.microsoft.com/en-us/azure/api-management/) - An instance of Azure API Management needs to be created with a gateway resource befor you can enable the API Management gateway extension.
 
-  ![Additional Azure resources in the resource group](./13.png)
+  ![Additional Azure resources in the resource group](./11.png)
 
 ## Cluster extensions
 
@@ -176,12 +172,12 @@ In this scenario, the Azure Arc enabled API Management cluster extension was dep
 
 * In order to view cluster extensions, click on the Azure Arc enabled Kubernetes resource Extensions settings.
 
-  ![Azure Arc enabled Kubernetes resource](./14.png)
+  ![Azure Arc enabled Kubernetes resource](./12.png)
 
-  ![Azure Arc enabled Kubernetes cluster extensions settings](./15.png)
+  ![Azure Arc enabled Kubernetes cluster extensions settings](./13.png)
 
 ## Cleanup
 
 * If you want to delete the entire environment, simply delete the deployed resource group from the Azure portal.
 
-  ![Delete Azure resource group](./16.png)
+  ![Delete Azure resource group](./14.png)
