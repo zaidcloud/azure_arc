@@ -264,7 +264,7 @@ az group delete -n <name of your resource group>
 
 ![Screenshot showing group delete from Azure Portal](./portaldelete.png)
 
-## Troubleshooting
+## Basic Troubleshooting
 
 Occassionally deployments of ArcBox may fail at various stages. Common reasons for failed deployments include:
 
