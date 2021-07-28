@@ -92,7 +92,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
   * _`logAnalyticsWorkspaceName`_ - Unique name for the deployment log analytics workspace.
   * _`kubernetesVersion`_ - AKS version
   * _`dnsPrefix`_ - AKS unique DNS prefix
-  * _`deployAppService`_  Boolean that sets whether or not to deploy App Service plan, Azure Function application and Azure API Management. For this scenario, we leave it set to _**false**_.
+  * _`deployAppService`_  Boolean that sets whether or not to deploy App Service plan and a Web App. For this scenario, we leave it set to _**false**_.
   * _`deployFunction`_ - Boolean that sets whether or not to deploy App Service plan, Azure Function application and Azure API Management. For this scenario, we leave it set to _**false**_.
   * _`deployAPIMgmt`_ - Boolean that sets whether or not to deploy a self-hosted Azure API Management gateway. For this scenario, we leave it set to _**true**_.
   * _`templateBaseUrl`_ - GitHub URL to the deployment template - filled in by default to point to [Microsoft/Azure Arc](https://github.com/microsoft/azure_arc) repository, but you can point this to your forked repo as well.
