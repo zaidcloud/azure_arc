@@ -1,7 +1,7 @@
 ---
 type: docs
 title: "Azure API Management gateway ARM Template"
-linkTitle: "zure API Management gateway ARM Template"
+linkTitle: "Azure API Management gateway ARM Template"
 weight: 3
 description: >
 ---
