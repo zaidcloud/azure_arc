@@ -134,8 +134,14 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 ArcBox must be deployed to one of the following regions. Deploying ArcBox outside of these regions may result in unexpected results or deployment errors.
 
 * East US
+* East US 2
+* West US 2
 * North Europe
 * West Europe
+* France Central
+* UK South
+* Southeast Asia
+* Australia East
 
 ## Deployment Option 1: Azure Portal
 
@@ -257,6 +263,14 @@ az group delete -n <name of your resource group>
 ![Screenshot showing az group delete](./azdelete.png)
 
 ![Screenshot showing group delete from Azure Portal](./portaldelete.png)
+
+## Troubleshooting
+
+Occassionally deployments of ArcBox may fail at various stages. Common reasons for failed deployments include:
+
+* Invalid service principal id or service principal secret provided in azuredeploy.parameters.json.
+* Not enough vCPU quota available in your target Azure region - check vCPU quota and ensure you have at least 52 available.
+* Target Azure region does not support all required Azure services - ensure you are running ArcBox in one of the supported regions listed in the above section "ArcBox Azure Region Compatibility".
 
 ## Known issues
 
