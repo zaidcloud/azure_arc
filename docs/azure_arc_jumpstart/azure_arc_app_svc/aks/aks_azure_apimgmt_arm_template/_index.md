@@ -12,9 +12,7 @@ The following README will guide you on how to deploy a "Ready to Go" environment
 
 By the end of this guide, you will have an AKS cluster deployed with an Azure API Management gateway, a backend API and a Microsoft Windows Server 2019 (Datacenter) Azure VM, installed & pre-configured with all the required tools needed to work with the Azure API Management gateway.
 
-> **Note: Currently, API Management self-hosted gateway on Azure Arc is in preview.**
-
-> **Note: The deployment time for this scenario can take ~60-90 minutes**
+> **Note: Currently, API Management self-hosted gateway on Azure Arc is in preview. The deployment time for this scenario can take ~60-90 minutes**
 
 ## Prerequisites
 
