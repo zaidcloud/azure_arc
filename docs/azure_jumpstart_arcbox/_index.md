@@ -217,21 +217,6 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
 
   ![Screenshot showing usage of kubectx](./kubectx.png)
 
-* Login to the Azure Arc data controller with [Azdata CLI](https://docs.microsoft.com/en-us/sql/azdata/reference/reference-azdata-arc?view=sql-server-ver15) and explore its functionality.
-  * Azdata username: arcdemo
-  * Azdata password: ArcPassword123!!
-  * Namespace: arcdatactrl
-  
-  ```shell
-  kubectx arcbox-capi
-  azdata login --username arcdemo --namespace arc
-  azdata arc dc status show
-  azdata arc sql endpoint list
-  azdata arc postgres endpoint list
-  ```
-
-  ![Screenshot showing Azdata CLI usage](./azdatausage.png)
-
 * Open Azure Data Studio and explore the SQL MI and PostgreSQL Hyperscale instances.
 
   ![Screenshot showing Azure Data Studio usage](./azdatastudio.png)
@@ -251,7 +236,6 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
   
 ArcBox is a sandbox that can be used for a large variety of use cases, such as an environment for testing and training or kickstarter for proof of concept projects. Ultimately, you are free to do whatever you wish with ArcBox. Some suggested next steps for you to try in your ArcBox are:
 
-* Login to the Azure Arc data controller using azdata and explore the functionality provided by the data controller
 * Deploy sample databases to the PostgreSQL Hyperscale instance or to the SQL Managed Instance
 * Use the included kubectx to switch contexts between the two Kubernetes clusters
 * Deploy GitOps configurations with Azure Arc enabled Kubernetes
