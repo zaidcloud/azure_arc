@@ -161,7 +161,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
   * **Azure Arc enabled Kubernetes cluster** - Azure Arc enabled app services are using this resource to deploy the app services [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions), as well as using Azure Arc [Custom locations](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-custom-locations).
 
-  * [**Azure API Management service**](https://docs.microsoft.com/en-us/azure/api-management/) - An instance of Azure API Management needs to be created with a gateway resource befor you can enable the API Management gateway extension.
+  * [**Azure API Management service**](https://docs.microsoft.com/en-us/azure/api-management/) - An instance of Azure API Management needs to be created with a gateway resource before you can enable the API Management gateway extension.
 
   ![Additional Azure resources in the resource group](./11.png)
 
