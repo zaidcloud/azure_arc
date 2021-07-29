@@ -157,7 +157,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
     ![Wallpaper change](./10.png)
 
-* Since this scenario is deploying both the Azure API Management instance, the API Management gateway extension and configure a sample API, you will also notice additional, newly deployed Azure resources in the resources group (at this point you should have **12 various Azure resources deployed**. The important ones to notice are:
+* Since this scenario is deploying both the Azure API Management instance, the API Management gateway extension and configured with a sample API, you will also notice additional, newly deployed Azure resources in the resources group (at this point you should have **12 various Azure resources deployed**. The important ones to notice are:
 
   * **Azure Arc enabled Kubernetes cluster** - Azure Arc enabled app services are using this resource to deploy the app services [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions), as well as using Azure Arc [Custom locations](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-custom-locations).
 
