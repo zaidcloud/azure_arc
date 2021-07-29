@@ -76,6 +76,8 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 ## Deployment
 
+    > **Note: The deployment time for this scenario can take ~60-90 minutes**
+
 As mentioned, this deployment will leverage ARM templates. You will deploy a single template that will initiate the entire automation for this scenario.
 
 * The deployment is using the ARM template parameters file. Before initiating the deployment, edit the [_azuredeploy.parameters.json_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_app_services_jumpstart/aks/arm_template/azuredeploy.parameters.json) file located in your local cloned repository folder. An example parameters file is located [here](https://github.com/microsoft/azure_arc/blob/main/azure_arc_app_services_jumpstart/aks/arm_template/artifacts/azuredeploy.parameters.example.json).
