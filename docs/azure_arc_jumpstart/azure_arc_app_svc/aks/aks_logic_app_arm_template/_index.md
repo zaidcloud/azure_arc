@@ -1,16 +1,16 @@
 ---
 type: docs
-title: "Azure Function ARM Template"
-linkTitle: "Azure Function ARM Template"
-weight: 2
+title: "Azure Logic App ARM Template"
+linkTitle: "Azure Logic App ARM Template"
+weight: 3
 description: >
 ---
 
-## Deploy Azure Function application on AKS using an ARM Template
+## Deploy Azure Logic App on AKS using an ARM Template
 
 The following README will guide you on how to deploy a "Ready to Go" environment so you can start using [Azure Arc enabled app services](https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration) deployed on [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes) cluster using [Azure ARM Template](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview).
 
-By the end of this guide, you will have an AKS cluster deployed with an App Service plan, a sample Azure Function application that sends messages to an Azure storage account queue and a Microsoft Windows Server 2019 (Datacenter) Azure VM, installed & pre-configured with all the required tools needed to work with Azure Arc-enabled app services.
+By the end of this guide, you will have an AKS cluster deployed with an App Service plan, a sample Azure Logic App that reads messages from an Azure storage account queue and creates blobs in an Azure storage account container, and a Microsoft Windows Server 2019 (Datacenter) Azure VM installed & pre-configured with all the required tools needed to work with Azure Arc-enabled app services.
 
 > **Note: Currently, Azure Arc enabled app services is in preview.**
 
@@ -91,8 +91,8 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
   * _`kubernetesVersion`_ - AKS version
   * _`dnsPrefix`_ - AKS unique DNS prefix
   * _`deployAppService`_ - Boolean that sets whether or not to deploy App Service plan and a Web App. For this scenario, we leave it set to _**false**_.
-  * _`deployFunction`_ - Boolean that sets whether or not to deploy App Service plan and an Azure Function application. For this scenario, we leave it set to _**true**_.
-  * _`deployLogicApp`_ - Boolean that sets whether or not to deploy App Service plan and an Azure Logic App. For this scenario, we leave it set to _**false**_.
+  * _`deployFunction`_ - Boolean that sets whether or not to deploy App Service plan and an Azure Function application. For this scenario, we leave it set to _**false**_.
+  * _`deployLogicApp`_ - Boolean that sets whether or not to deploy App Service plan and an Azure Logic App. For this scenario, we leave it set to _**true**_.
   * _`templateBaseUrl`_ - GitHub URL to the deployment template - filled in by default to point to [Microsoft/Azure Arc](https://github.com/microsoft/azure_arc) repository, but you can point this to your forked repo as well.
 
 * To deploy the ARM template, navigate to the local cloned [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_arc_app_services_jumpstart/aks/arm_template) and run the below command:
@@ -131,15 +131,15 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
 ## Windows Login & Post Deployment
 
-* Now that first phase of the automation is completed, it is time to RDP to the client VM using it's public IP.
+* Now that first phase of the automation is completed, it is time to RDP to the client VM using its public IP.
 
     ![Client VM public IP](./03.png)
 
-* At first login, as mentioned in the "Automation Flow" section above, the [_AppServicesLogonScript_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_app_services_jumpstart/aks/arm_template/artifacts/AppServicesLogonScript.ps1) PowerShell logon script will start it's run.
+* At first login, as mentioned in the "Automation Flow" section above, the [_AppServicesLogonScript_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_app_services_jumpstart/aks/arm_template/artifacts/AppServicesLogonScript.ps1) PowerShell logon script will start its run.
 
-* Let the script to run its course and **do not close** the PowerShell session, this will be done for you once completed. Once the script will finish it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change and the Azure Function application will be deployed on the cluster and be ready to use.
+* Let the script run its course and **do not close** the PowerShell session as this will be done for you once completed. Once the script will finish its run, the logon script PowerShell session will be closed, the Windows wallpaper will change and the Azure Logic App will be deployed on the cluster and ready to use.
 
-    > **Note: As you will notices from the screenshots below, during the Azure Arc enabled app services environment, the _log-processor_ service pods will be restarted and will go trough multiple Kubernetes pod lifecycle stages. This is normal and can safely be ignored. To learn more about the various Azure Arc enabled app services Kubernetes components, visit the official [Azure Docs page](https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration#pods-created-by-the-app-service-extension).**
+    > **Note: As you will notice from the screenshots below, during the Azure Arc enabled app services environment, the _log-processor_ service pods will be restarted and will go trough multiple Kubernetes pod lifecycle stages. This is normal and can safely be ignored. To learn more about the various Azure Arc enabled app services Kubernetes components, visit the official [Azure Docs page](https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration#pods-created-by-the-app-service-extension).**
 
     ![PowerShell logon script run](./04.png)
 
@@ -183,11 +183,11 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
     ![PowerShell logon script run](./24.png)
 
-  Once the script finishes it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change, and both the app service plan and the Azure Function application deployed on the cluster will be ready.
+  Once the script finishes its run, the logon script PowerShell session will be closed, the Windows wallpaper will change, and both the app service plan and the Azure Logic App deployed on the cluster will be ready.
 
     ![Wallpaper change](./25.png)
 
-* Since this scenario is deploying both the app service plan and a sample Azure Function application, you will also notice additional, newly deployed Azure resources in the resources group (at this point you should have **15 various Azure resources deployed**. The important ones to notice are:
+* Since this scenario is deploying both the app service plan and a sample Azure Logic App, you will also notice additional Azure resources in the resource group (at this point you should have **17 various Azure resources deployed**. The important ones to notice are:
 
   * **Azure Arc enabled Kubernetes cluster** - Azure Arc enabled app services are using this resource to deploy the app services [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions), as well as using Azure Arc [Custom locations](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-custom-locations).
 
@@ -195,53 +195,61 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
   * [**App Service Kubernetes Environment**](https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration#app-service-kubernetes-environment) - The App Service Kubernetes environment resource is required before apps may be created. It enables configuration common to apps in the custom location, such as the default DNS suffix.
 
-  * [**App Service plan**](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans) - In App Service (Web Apps, API Apps, or Mobile Apps), an app always runs in an App Service plan. In addition, Azure Functions also has the option of running in an App Service plan. An App Service plan defines a set of compute resources for an Azure Function to run.
+  * [**App Service plan**](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans) - In App Service (Web Apps, API Apps, or Mobile Apps), an app always runs in an App Service plan. In addition, Azure Logic Apps also has the option of running in an App Service plan. An App Service plan defines a set of compute resources for an Azure Logic App to run.
 
-  * [**Azure Function**](https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview) - Azure Functions is a serverless solution that allows you to write less code, maintain less infrastructure, and save on costs.
+  * [**Azure Logic App**](https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-overview) - Azure Logic Apps is a cloud-based platform for creating and running automated workflows that integrate your apps, data, services, and systems.
+
+  * [**API Connection**](https://docs.microsoft.com/en-us/azure/connectors/apis-list)A connector provides prebuilt operations that you can use as steps in your Logic Apps workflows.
 
   * [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview) - Application Insights, a feature of Azure Monitor, is an extensible Application Performance Management (APM) service for developers and DevOps professionals. Use it to monitor your live applications.
 
-  * Azure Storage Account - The storage account deployed in this scenario is used for hosting the [queue storage](https://docs.microsoft.com/en-us/azure/storage/queues/storage-queues-introduction) where the Azure Function will be sending messages to that can be leveraged later in an application event-driven architecture.
+  * Azure Storage Account - The storage account deployed in this scenario is used for hosting the [queue storage](https://docs.microsoft.com/en-us/azure/storage/queues/storage-queues-introduction) and [blob storage](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction) where the Azure Logic App will be creating files in response to messages in a queue.
 
   ![Additional Azure resources in the resource group](./26.png)
 
-* In this scenario, **a sample Jumpstart Azure Function application** was deployed. To open the deployed Function application in your web browser, simply click the Azure Function resource and the created URL.
+* In this scenario, **a sample Jumpstart Azure Logic App** was deployed. To view the deployed Logic App, simply click the Azure Logic App resource.
 
-  ![Azure Function URL](./27.png)
+  ![Azure Logic App resource](./27.png)
 
-  ![Azure Function open in a web browser](./28.png)
+* You can view the Logic App workflow by clicking on "Workflows" and then clicking the workflow name "CreateBlobFromQueueMessage".
 
-* To demonstrate the messaging queuing element and to show how messages are stored in the queue storage, the Azure Function deployment script also generates 10 sample messages. To view it, click on the newly created storage account and go to the "Queues" section where you will see the new queue and the stored messages.
+  ![Azure Logic App detail](./28.png)
 
-  ![Azure Storage Account](./29.png)
+  ![Azure Logic App detail](./29.png)
 
-  ![Azure storage queue](./30.png)
+* To demonstrate the messaging queuing element and to show how blobs are created when messages are read from the queue storage, the Azure Logic App deployment script also generates 10 sample queue messages. To view it, click on the newly created storage account and go to the "Queues" section where you will see the queue named "jumpstart-queue". Note that the queue will be empty because the workflow automatically deletes messages from the queue after creating a new blob in the "jumpstart-blobs" container.
 
-  ![Azure Function messages in storage queue](./31.png)
+  ![Azure storage account](./30.png)
 
-* Alternatively, you can view the same queue storage using the Azure Storage Explorer client application installed automatically in the Client VM or using the Azure Storage Explorer portal-based view.
+  ![Azure storage queue](./31.png)
 
-  ![Azure Storage Explorer client application storage queue](./32.png)
+* Go back to the Azure storage account and click on Containers. From here you will see the "jumpstart-blobs" container. Open this container and view the blobs that were created by the Logic App.
 
-  ![Azure Storage Explorer portal-based view](./33.png)
+  ![Azure storage container](./32.png)
 
-  ![Azure Storage Explorer portal-based view storage queue](./34.png)
+  ![Azure storage blobs](./33.png)
 
-* To generate your own messages using the Function application, use the Function invoke URL. As part of the deployment script, a _`funcUrl.txt`_ text file located in the Client VM under _C:\Temp_ folder that includes invoke URL was created for you. Copy the URL and open it in your web browser while adding the message text to it using the _`?name=<Something>`_ syntax, for example, _`?name=Bilbo`_.
+* Alternatively, you can view the storage details using the Azure Storage Explorer client application installed automatically in the Client VM or using the Azure Storage Explorer portal-based view.
 
-  ![funcUrl.txt file](./35.png)
+  ![Azure Storage Explorer client application storage queue](./34.png)
 
-  ![Invoke URL](./36.png)
+  ![Azure Storage Explorer portal-based view](./35.png)
 
-  ![Invoke URL in web browser](./37.png)
+  ![Azure Storage Explorer portal-based view storage queue](./36.png)
 
-* Go back to the storage queue and see the new added message.
+* To generate your own blobs using the Logic App, create a new message in the queue by using Azure Storage Explorer.
 
-  ![New message in storage queue](./38.png)
+  ![Add queue message](./37.png)
+
+  ![Add queue message](./38.png)
+
+* Go back to the storage container and see the new added blob that was created automatically by the Logic App.
+
+  ![New message in storage queue](./39.png)
 
 * As part of the deployment, an Application Insights instance was also provisioned to provide you with relevant performance and application telemetry.
 
-  ![Application Insights instance](./39.png)
+  ![Application Insights instance](./40.png)
 
 ## Cluster extensions
 
@@ -249,12 +257,12 @@ In this scenario, the Azure Arc enabled app services cluster extension was deplo
 
 * In order to view cluster extensions, click on the Azure Arc enabled Kubernetes resource Extensions settings.
 
-  ![Azure Arc enabled Kubernetes resource](./40.png)
+  ![Azure Arc enabled Kubernetes resource](./41.png)
 
-  ![Azure Arc enabled Kubernetes cluster extensions settings](./41.png)
+  ![Azure Arc enabled Kubernetes cluster extensions settings](./42.png)
 
 ## Cleanup
 
 * If you want to delete the entire environment, simply delete the deployed resource group from the Azure portal.
 
-  ![Delete Azure resource group](./42.png)
+  ![Delete Azure resource group](./43.png)
