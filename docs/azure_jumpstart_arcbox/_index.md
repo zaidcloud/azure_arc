@@ -21,21 +21,21 @@ ArcBox is a project that provides an easy to deploy sandbox for all things Azure
 
 ## Azure Arc capabilities available in ArcBox
 
-### Azure Arc enabled Servers
+### Azure Arc-enabled servers
 
 ![ArcBox servers diagram](./servers.png)
 
-ArcBox includes three Azure Arc enabled server resources that are hosted using nested virtualization in Azure. As part of the deployment, a Hyper-V host (ArcBox-Client) is deployed with three guest virtual machines. These machines, _ArcBoxWin_, _ArcBoxUbuntu_, and _ArcBoxSQL_ are connected as Azure Arc enabled servers via the ArcBox automation.
+ArcBox includes three Azure Arc-enabled server resources that are hosted using nested virtualization in Azure. As part of the deployment, a Hyper-V host (ArcBox-Client) is deployed with three guest virtual machines. These machines, _ArcBoxWin_, _ArcBoxUbuntu_, and _ArcBoxSQL_ are connected as Azure Arc-enabled servers via the ArcBox automation.
 
-### Azure Arc enabled Kubernetes
+### Azure Arc-enabled Kubernetes
 
 ![ArcBox Kubernetes diagram](./k8s.png)
 
-ArcBox deploys one single-node Rancher K3s cluster running on an Azure virtual machine. This cluster is then connected to Azure as an Azure Arc enabled Kubernetes resource (_ArcBox-K3s_).
+ArcBox deploys one single-node Rancher K3s cluster running on an Azure virtual machine. This cluster is then connected to Azure as an Azure Arc-enabled Kubernetes resource (_ArcBox-K3s_).
 
-### Azure Arc enabled Data Services
+### Azure Arc-enabled data services
 
-ArcBox deploys one single-node Rancher K3s cluster (_ArcBox-CAPI-MGMT_), which is then transformed to a [Cluster API](https://cluster-api.sigs.k8s.io/user/concepts.html) management cluster with the Azure CAPZ provider, and a workload cluster is deployed onto the management cluster. The Azure Arc enabled data services and data controller are deployed onto this workload cluster via a PowerShell script that runs when first logging into ArcBox-Client virtual machine.
+ArcBox deploys one single-node Rancher K3s cluster (_ArcBox-CAPI-MGMT_), which is then transformed to a [Cluster API](https://cluster-api.sigs.k8s.io/user/concepts.html) management cluster with the Azure CAPZ provider, and a workload cluster is deployed onto the management cluster. The Azure Arc-enabled data services and data controller are deployed onto this workload cluster via a PowerShell script that runs when first logging into ArcBox-Client virtual machine.
 
 ![ArcBox data services diagram](./dataservices2.png)
 
@@ -54,15 +54,15 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 * User deploys the primary ARM template (azuredeploy.json). This template contains several nested templates that will run simultaneously.
   * ClientVM ARM template - deploys the Client Windows VM. This is the Hyper-V host VM where all user interactions with the environment are made from.
   * CAPI ARM template - deploys an Ubuntu Linux VM which will have Rancher (K3s) installed and transformed into a Cluster API management cluster via the Azure CAPZ provider.
-  * Rancher K3s template - deploys an Ubuntu Linux VM which will have Rancher (K3s) installed on it and connected as an Azure Arc enabled Kubernetes cluster
+  * Rancher K3s template - deploys an Ubuntu Linux VM which will have Rancher (K3s) installed on it and connected as an Azure Arc-enabled Kubernetes cluster
   * Storage account template - used for staging files in automation scripts
   * Management artifacts template - deploys Azure Log Analytics workspace and solutions and Azure Policy artifacts
 * User remotes into Client Windows VM, which automatically kicks off multiple scripts that:
   * Deploy and configure three (3) nested virtual machines in Hyper-V
-    * Windows VM - onboarded as Azure Arc enabled Server
-    * Ubuntu VM - onboarded as Azure Arc enabled Server
-    * Windows VM running SQL Server - onboarded as Azure Arc enabled SQL Server (as well as Azure Arc enabled Server)
-  * Deploy and configure Azure Arc enabled data services on the CAPI workload cluster including a data controller, a SQL MI instance, and a PostgreSQL Hyperscale cluster. After deployment, Azure Data Studio opens automatically with connection entries for each database instance. Data services deployed by the script are:
+    * Windows VM - onboarded as Azure Arc-enabled Server
+    * Ubuntu VM - onboarded as Azure Arc-enabled Server
+    * Windows VM running SQL Server - onboarded as Azure Arc-enabled SQL Server (as well as Azure Arc-enabled Server)
+  * Deploy and configure Azure Arc-enabled data services on the CAPI workload cluster including a data controller, a SQL MI instance, and a PostgreSQL Hyperscale cluster. After deployment, Azure Data Studio opens automatically with connection entries for each database instance. Data services deployed by the script are:
     * Data controller
     * SQL MI instance
     * Postgres instance
@@ -204,7 +204,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
 After deployment is complete, its time to start exploring ArcBox. Most interactions with ArcBox will take place either from Azure itself (Azure Portal, CLI or similar) or from inside the ArcBox-Client virtual machine. When remoted into the client VM, here are some things to try:
 
-* Open Hyper-V and access the Azure Arc enabled servers
+* Open Hyper-V and access the Azure Arc-enabled servers
   * Username: arcdemo
   * Password: ArcDemo123!!
 
@@ -244,9 +244,9 @@ ArcBox is a sandbox that can be used for a large variety of use cases, such as a
 
 * Deploy sample databases to the PostgreSQL Hyperscale instance or to the SQL Managed Instance
 * Use the included kubectx to switch contexts between the two Kubernetes clusters
-* Deploy GitOps configurations with Azure Arc enabled Kubernetes
-* Build policy initiatives that apply to your Azure Arc enabled resources
-* Write and test custom policies that apply to your Azure Arc enabled resources
+* Deploy GitOps configurations with Azure Arc-enabled Kubernetes
+* Build policy initiatives that apply to your Azure Arc-enabled resources
+* Write and test custom policies that apply to your Azure Arc-enabled resources
 * Incorporate your own tooling and automation into the existing automation framework
 * Build a certificate/secret/key management strategy with your Azure Arc resources
 
@@ -266,12 +266,16 @@ az group delete -n <name of your resource group>
 
 ## Basic Troubleshooting
 
-Occassionally deployments of ArcBox may fail at various stages. Common reasons for failed deployments include:
+Occasionally deployments of ArcBox may fail at various stages. Common reasons for failed deployments include:
 
-* Invalid service principal id or service principal secret provided in azuredeploy.parameters.json.
+* Invalid service principal id or service principal secret provided in _azuredeploy.parameters.json_ file.
 * Not enough vCPU quota available in your target Azure region - check vCPU quota and ensure you have at least 52 available.
 * Target Azure region does not support all required Azure services - ensure you are running ArcBox in one of the supported regions listed in the above section "ArcBox Azure Region Compatibility".
 
 ## Known issues
 
-* Azure Arc enabled SQL Server assessment report not always visible in Azure Portal
+* Azure Arc-enabled SQL Server assessment report not always visible in Azure Portal
+
+* Webhook pods go into error state, even after Data Controller/SQL MI/Postgres pods are up, caused by a known Helm-related backend issue that is being worked on. These errors can be safely ignored and do not impact the functionality of Azure Arc-enabled data services and the Jumpstart automation.
+
+    ![webhook known issue](https://raw.githubusercontent.com/microsoft/azure_arc/main/docs/known_issues/webhook_issue.png)
