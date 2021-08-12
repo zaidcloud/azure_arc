@@ -227,6 +227,10 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
 
   ![Screenshot showing Azure Data Studio usage](./azdatastudio.png)
 
+* Open the Azure Monitor workbook and explore the visualizations and reports of hybrid cloud resources. A [dedicated README](./workbook.md) is available with more detail on usage of the workbook.
+
+  ![Screenshot showing Azure Monitor workbook usage](./workbook.md)
+
 ### Included tools
 
 * Azure Data Studio with Arc and PostgreSQL extensions
