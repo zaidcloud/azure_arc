@@ -20,6 +20,8 @@ When deploying Azure Arc-enabled SQL Managed Instance in an availability group, 
 
 ### SQL MI Pods Replicas
 
+> **Note: As mentioned under the ["Known Issues"](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/cluster_api/capi_azure/arm_template/mssql_mi/#known-issues) in the bootstrap Jumpstart scenario, Webhook pods error state can be safely ignored and do not impact the functionality of Azure Arc-enabled data services and the Jumpstart automation.**
+
 Three SQL pods replicas will be deployed to assemble the availability group. These can be seen using the _`kubectl get pods -n <deployment namespace> -o wide`_ command, for example, _`kubectl get pods -n arc -o wide`_.
 
 ![SQL pods](./01.png)
@@ -48,15 +50,17 @@ In an availability group deployment, two endpoints, primary and secondary get cr
 
 ## Database Restore
 
-In order for you to test the HA functionality, a database restore _[RestoreDB](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/aks/arm_template/artifacts/RestoreDB.ps1)_ PowerShell script is provided. The script will restore the _[AdventureWorks2019](https://docs.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver15&tabs=ssms)_ sample database directly onto the primary SQL node pod container. From the _C:\Temp_ folder, run the script using the _`.\RestoreDB.ps1`_ command.
-
-![RestoreDB script](./06.png)
+In order for you to test the HA functionality and as part of the bootstrap Jumpstart scenario, the [AdventureWorks2019](https://docs.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver15&tabs=ssms)_ sample database was directly restored onto the primary SQL node pod container.
 
 ## Database Replication
 
 All databases are automatically added to the availability group, including all users (including the _AdventureWorks2019_ database you just restored) and system databases like _master_ and _msdb_. This capability provides a single-system view across the availability group replicas.
 
-- In addition to restoring the _AdventureWorks2019_ database, the script will also create a new text file and a desktop shortcut named _Endpoints_ that includes both the primary and the secondary SQL endpoints.
+To retrieve the SQL Managed Instance endpoints, an [Endpoints](https://github.com/microsoft/azure_arc/tree/main/azure_arc_data_jumpstart/cluster_api/capi_azure/arm_template/artifacts/Endpoints.ps1) PowerShell script is provided that will create a new text file and a desktop shortcut named _Endpoints_ that includes both the primary and the secondary SQL endpoints.
+
+- From the _C:\Temp_ folder, run the script using the _`.\Endpoints.ps1`_ command.
+
+    ![Endpoints script](./06.png)
 
     ![Endpoints desktop shortcut](./07.png)
 
@@ -108,17 +112,15 @@ As you already know, the availability group includes three Kubernetes replicas w
 
     ![side-by-side PowerShell sessions](./22.png)
 
-> **Note: As mentioned under the ["Known Issues"](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/aks/aks_mssql_mi_arm_template/#known-issues) in the bootstrap Jumpstart scenario, Webhook pods error state can be safely ignored and do not impact the functionality of Azure Arc-enabled data services and the Jumpstart automation.**
-
 - In SSMS, you can also see that _jumpstart-sql-0_ is acting as the primary replica and _jumpstart-sql-1_ as the secondary. At this point, close SSMS.
 
     ![Primary and secondary replicas](./23.png)
 
-- To trigger the HA event, delete the primary replica _jumpstart-sql-0_ using the _`kubectl delete pod jumpstart-sql-0 -n arc`_ and watch how the pod gets deleted and then being deployed again due to being part of a Kubernetes _ReplicaSet_. Wait for the _jumpstart-sql-0_ pod to become ready again (and an additional couple of minutes to let the availability group recover).
+- To trigger the HA event, delete the primary replica _jumpstart-sql-0_ using the _`kubectl delete pod jumpstart-sql-0 -n arc`_ and watch how the pod gets deleted and then being deployed again due to being part of a Kubernetes _ReplicaSet_. Wait for the _jumpstart-sql-0_ pod to become ready again (and an additional few minutes for letting the availability group to recover).
 
     ![Pod deletion](./24.png)
 
-- Re-open SSMS and connect back to the *primary* endpoint. You can now see that _jumpstart-sql-0_ is now acting as the secondary replica and _jumpstart-sql-2_ was promoted to primary. In addition, run the _`az sql mi-arc show -n jumpstart-sql --k8s-namespace arc --use-k8s`_ command again and check the health status of the availability group.
+- Re-open SSMS and connect back to the *primary* endpoint. You can now see that _jumpstart-sql-0_ is now acting as the secondary replica and _jumpstart-sql-1_ was promoted to primary. In addition, run the _`az sql mi-arc show -n jumpstart-sql --k8s-namespace arc --use-k8s`_ command again and check the health status of the availability group.
 
     ![Successful failover](./25.png)
 
@@ -130,7 +132,7 @@ As you already know, the availability group includes three Kubernetes replicas w
 
     ![Re-adding secondary endpoint connection](./27.png)
 
-- In the primary endpoint connection, repeat the process of performing a change on the _AdventureWorks2019_ database _"HumanResources.Employee"_ table and check that replication is working.In the example below, you can see how new values in new rows are now replicated.
+- In the primary endpoint connection, repeat the process of performing a change on the _AdventureWorks2019_ database _"HumanResources.Employee"_ table and check that replication is working In the example below, you can see how new values in new rows are now replicated.
 
     ![New table values change](./28.png)
 

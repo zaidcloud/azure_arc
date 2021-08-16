@@ -10,7 +10,7 @@ description: >
 
 The following README will guide you on how to explore and test Azure Arc-enabled SQL Managed Instance Availability Groups, simulate failures and DB replication. In this scenario, you will be restoring a sample database, will initiate a failover to force HA event as well as validating database replication across multiple SQL nodes in an availability groups.
 
-> **Note: This guide assumes you already deployed a Azure Arc-enabled SQL Managed Instance on Azure Kubernetes Service (AKS). If you haven't, this [following bootstrap Jumpstart scenario](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/aks/aks_mssql_mi_arm_template/) offers you a way to do so in an automated fashion. All the steps and operations described in this readme assume you used the mentioned bootstrap Jumpstart scenario and have the Client VM as part of it.**
+> **Note: This guide assumes you already deployed a Azure Arc-enabled SQL Managed Instance on Azure Kubernetes Service (AKS). If you haven't, this [following bootstrap Jumpstart scenario](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/aks/aks_mssql_mi_arm_template/) offers you a way to do so in an automated fashion. All the steps and operations described in this readme assume you used the mentioned bootstrap Jumpstart scenario and have the Client VM deployed as part of it.**
 
 > **Note: Azure Arc-enabled SQL Managed Instance with Availability Groups is currently in [preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes)**.
 
@@ -114,7 +114,7 @@ As you already know, the availability group includes three Kubernetes replicas w
 
     ![Primary and secondary replicas](./23.png)
 
-- To trigger the HA event, delete the primary replica _jumpstart-sql-0_ using the _`kubectl delete pod jumpstart-sql-0 -n arc`_ and watch how the pod gets deleted and then being deployed again due to being part of a Kubernetes _ReplicaSet_. Wait for the _jumpstart-sql-0_ pod to become ready again (and an additional couple of minutes to let the availability group recover).
+- To trigger the HA event, delete the primary replica _jumpstart-sql-0_ using the _`kubectl delete pod jumpstart-sql-0 -n arc`_ and watch how the pod gets deleted and then being deployed again due to being part of a Kubernetes _ReplicaSet_. Wait for the _jumpstart-sql-0_ pod to become ready again (and an additional few minutes for letting the availability group to recover).
 
     ![Pod deletion](./24.png)
 
@@ -130,7 +130,7 @@ As you already know, the availability group includes three Kubernetes replicas w
 
     ![Re-adding secondary endpoint connection](./27.png)
 
-- In the primary endpoint connection, repeat the process of performing a change on the _AdventureWorks2019_ database _"HumanResources.Employee"_ table and check that replication is working.In the example below, you can see how new values in new rows are now replicated.
+- In the primary endpoint connection, repeat the process of performing a change on the _AdventureWorks2019_ database _"HumanResources.Employee"_ table and check that replication is working. In the example below, you can see how new values in new rows are now replicated.
 
     ![New table values change](./28.png)
 
