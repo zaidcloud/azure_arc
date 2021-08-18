@@ -41,7 +41,7 @@ ArcBox deploys one single-node Rancher K3s cluster (_ArcBox-CAPI-MGMT_), which i
 
 ### Hybrid Unified Operations
 
-ArcBox deploys several management and operations services that work with ArcBox's Azure Arc resources. These resources include an an Azure Automation account, an Azure Log Analytics workspace with the Update Management solution, Azure Policy assignments for deploying Log Analytics agents on Windows and Linux, Azure Policy assignment for adding tags to resources, and a storage account used for staging resources needed for the deployment automation.
+ArcBox deploys several management and operations services that work with ArcBox's Azure Arc resources. These resources include an an Azure Automation account, an Azure Log Analytics workspace with the Update Management solution, an Azure Monitor workbook, Azure Policy assignments for deploying Log Analytics agents on Windows and Linux, Azure Policy assignment for adding tags to resources, and a storage account used for staging resources needed for the deployment automation.
 
 ![ArcBox unified operations diagram](./unifiedops.png)
 
@@ -66,6 +66,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
     * Data controller
     * SQL MI instance
     * Postgres instance
+  * Deploy an Azure Monitor workbook that provides example reports and metrics for monitoring ArcBox components
 
 ## Prerequisites
 
