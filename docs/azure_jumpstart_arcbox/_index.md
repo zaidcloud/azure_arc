@@ -230,9 +230,11 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
 
 * Open the Azure Monitor workbook and explore the visualizations and reports of hybrid cloud resources. A [dedicated README](./workbook.md) is available with more detail on usage of the workbook.
 
-  ![Screenshot showing Azure Monitor workbook usage](./workbook.md)
+  ![Screenshot showing Azure Monitor workbook usage](./workbook.png)
 
 ### Included tools
+
+The following tools are including on the ArcBox-Client VM.
 
 * Azure Data Studio with Arc and PostgreSQL extensions
 * kubectl, kubectx, helm
