@@ -210,7 +210,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
 ## Cluster extensions
 
-In this scenario, the Azure Arc-enabled Machine Learning services cluster extension was deployed and used throughout this scenario in order to deploy the machine learning components.
+In this scenario, the Azure Arc-enabled machine learning services cluster extension was deployed and used throughout this scenario in order to deploy the machine learning components.
 
 * In order to view cluster extensions, click on the Azure Arc-enabled Kubernetes resource Extensions settings.
 
