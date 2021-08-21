@@ -137,7 +137,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
   --parameters templateBaseUrl="https://raw.githubusercontent.com/your--github--handle/azure_arc/main/azure_arc_ml_jumpstart/aks/arm_template/"
   ```
 
-  > **Note: The deployment time for this scenario can take ~8-10min**
+  > **Note: The deployment time for this scenario can take ~10-15min**
 
 - Once the above deployment is kicked off - you also have the option to deploy an Azure Bastion to access the Client VM. This is specially useful for enterprise environments where access to Port 3389 is restricted from Public IP's (e.g. using preventative [Azure Policies](https://docs.microsoft.com/en-us/azure/virtual-network/policy-reference#azure-virtual-network)).
 
