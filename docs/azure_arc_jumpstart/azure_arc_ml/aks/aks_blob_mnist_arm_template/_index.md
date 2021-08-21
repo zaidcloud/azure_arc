@@ -22,7 +22,7 @@ By the end of this guide, you will have:
 
 ![Deployed Architecture](./01.png)
 
-> **Note: Currently, Azure Arc-enabled Machine Learning is in [public preview](https://github.com/Azure/AML-Kubernetes)**.
+> **Note: Currently, Azure Arc-enabled machine learning is in [public preview](https://github.com/Azure/AML-Kubernetes)**.
 
 To demonstrate the various architecture components, the ML pipeline we deploy is an Image Classification model trained using [scikit-learn](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html) on the common [MNIST database of handwritten digits](https://docs.microsoft.com/en-us/azure/open-datasets/dataset-mnist?tabs=azureml-opendatasets) - a Jupyter Notebook representation of the training pipeline can be found [here](https://github.com/Azure/AML-Kubernetes/blob/master/examples/simple-train-sdk/img-classification-training.ipynb), and a visual representation of the model's inference capabilities is summarized as follows:
 
