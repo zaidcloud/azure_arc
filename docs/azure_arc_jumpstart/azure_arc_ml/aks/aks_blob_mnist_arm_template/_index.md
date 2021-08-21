@@ -224,7 +224,6 @@ In this scenario, the Azure Arc-enabled Machine Learning services cluster extens
 
   ![Delete Azure ML endpoints](./24.png)
   
-  
 * Then, delete the remaining resources from the resource group - in the Azure portal:
 
     ![Delete Azure resource group](./25.png)
