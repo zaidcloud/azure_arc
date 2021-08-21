@@ -121,10 +121,10 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
     For example:
 
     ```shell
-    az group create --name Arc-Data-Demo --location "East US"
+    az group create --name Arc-ML-Demo --location "East US"
     az deployment group create \
     --resource-group Arc-ML-Demo \
-    --name arcdata \
+    --name arcml \
     --template-uri https://raw.githubusercontent.com/microsoft/azure_arc/main/azure_arc_ml_jumpstart/aks/arm_template/azuredeploy.json \
     --parameters azuredeploy.parameters.json
     --parameters templateBaseUrl="https://raw.githubusercontent.com/your--github--handle/azure_arc/main/azure_arc_ml_jumpstart/aks/arm_template/"
