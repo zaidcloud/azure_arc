@@ -41,7 +41,7 @@ ArcBox deploys one single-node Rancher K3s cluster (_ArcBox-CAPI-MGMT_), which i
 
 ### Hybrid Unified Operations
 
-ArcBox deploys several management and operations services that work with ArcBox's Azure Arc resources. These resources include an an Azure Automation account, an Azure Log Analytics workspace with the Update Management solution, Azure Policy assignments for deploying Log Analytics agents on Windows and Linux, Azure Policy assignment for adding tags to resources, and a storage account used for staging resources needed for the deployment automation.
+ArcBox deploys several management and operations services that work with ArcBox's Azure Arc resources. These resources include an an Azure Automation account, an Azure Log Analytics workspace with the Update Management solution, an Azure Monitor workbook, Azure Policy assignments for deploying Log Analytics agents on Windows and Linux Azure Arc-enabled servers, Azure Policy assignment for adding tags to resources, and a storage account used for staging resources needed for the deployment automation.
 
 ![ArcBox unified operations diagram](./unifiedops.png)
 
@@ -66,6 +66,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
     * Data controller
     * SQL MI instance
     * Postgres instance
+  * Deploy an Azure Monitor workbook that provides example reports and metrics for monitoring ArcBox components
 
 ## Prerequisites
 
@@ -226,7 +227,13 @@ After deployment is complete, its time to start exploring ArcBox. Most interacti
 
   ![Screenshot showing Azure Data Studio usage](./azdatastudio.png)
 
+* Open the [ArcBox Azure Monitor workbook](https://azurearcjumpstart.io/azure_jumpstart_arcbox/workbook/_index.md) and explore the visualizations and reports of hybrid cloud resources. A [dedicated README](https://azurearcjumpstart.io/azure_jumpstart_arcbox/workbook/_index.md) is available with more detail on usage of the workbook.
+
+  ![Screenshot showing Azure Monitor workbook usage](./workbook.png)
+
 ### Included tools
+
+The following tools are including on the ArcBox-Client VM.
 
 * Azure Data Studio with Arc and PostgreSQL extensions
 * kubectl, kubectx, helm
