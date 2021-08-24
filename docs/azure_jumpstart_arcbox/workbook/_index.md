@@ -1,7 +1,8 @@
 ---
 type: docs
-title: "Jumpstart ArcBox - Overview"
-list: false
+title: "Jumpstart ArcBox - Azure Monitor Workbook"
+weight: 99
+toc_hide: true
 ---
 # Jumpstart ArcBox - Azure Monitor Workbook
 
