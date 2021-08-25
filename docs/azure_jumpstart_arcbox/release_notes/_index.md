@@ -12,7 +12,9 @@ Release notes will be released on the first week of each month and will cover th
 ## August 2021
 
 * New [Azure Monitor workbook](https://azurearcjumpstart.io/azure_jumpstart_arcbox/workbook/) included that provides single pane of glass monitoring for all ArcBox resources.
-* Update ArcBox to use clusterctl v0.4.1
+* Remove port 22 from Cluster API control plane Network Security Group
+* Update clusterctl to v0.4.2
+* Update CAPZ provider to v0.5.2
 * Automation optimizations
 
 ## July 2021
