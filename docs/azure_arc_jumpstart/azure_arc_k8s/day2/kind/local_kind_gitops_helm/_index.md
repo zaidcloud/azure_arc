@@ -14,7 +14,7 @@ In this guide, you will first deploy a nginx ingress controller to your cluster.
 
 By doing so, you will be able to make real-time changes to the application and show how the GitOps flow takes effect.
 
-> **Note: This guide assumes you already deployed a kind and connected it to Azure Arc. If you haven't, this repository offers you a way to do so in the [kind onboarding guide](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_k8s/kind/local_kind/).**
+> **Note: This guide assumes you already deployed a kind and connected it to Azure Arc. If you haven't, this repository offers you a way to do so in the [kind onboarding guide](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_k8s/kind/local_kind/). Furthermore, kind should be deployed with [_kind_cluster_ingress.yaml_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/kind/kind_cluster_ingress.yaml) instead of _kind_cluster.yaml_**
 
 ## Prerequisites
 
@@ -36,9 +36,9 @@ By doing so, you will be able to make real-time changes to the application and s
 
 * As mentioned, this guide starts at the point where you already have a connected kind cluster to Azure Arc.
 
-    ![Existing Azure Arc enabled Kubernetes cluster](./01.png)
+    ![Existing Azure Arc-enabled Kubernetes cluster](./01.png)
 
-    ![Existing Azure Arc enabled Kubernetes cluster](./02.png)
+    ![Existing Azure Arc-enabled Kubernetes cluster](./02.png)
 
 * [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
@@ -91,6 +91,8 @@ The demo application that will be deployed later in this guide relies on an ingr
 
     ![Running ingress nginx controller](./03.png)
 
+> **Note: If the ingress controller fails to start, you should redeploy the kind cluster with [_kind_cluster_ingress.yaml_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/kind/kind_cluster_ingress.yaml) instead of _kind_cluster.yaml_.**
+
 * Finally, test that the ingress is responding to traffic. To test this, either browse to [http://localhost](http://localhost) or use the command line to connect to `localhost`. You should get a HTTP 404 response with a nginx footer. This shows that the ingress is working. The 404 response is to be expected since you haven't setup an ingress route yet. You will do that in the next section.
 
     ![HTTP 404 response in a web browser](./04.png)
@@ -113,7 +115,7 @@ With Namespace-level GitOps config, the goal is to have Kubernetes resources dep
 
 ### The Mechanism (In a nutshell)
 
-In the process of creating Azure Arc enabled Kubernetes GitOps configuration, [Weaveworks Flux Kubernetes Operator](https://github.com/fluxcd/flux) is deployed on the cluster.
+In the process of creating Azure Arc-enabled Kubernetes GitOps configuration, [Weaveworks Flux Kubernetes Operator](https://github.com/fluxcd/flux) is deployed on the cluster.
 
 The Operator is aware of the "HelmRelease" Custom Resource Definition (CRD). This HelmRelease points to a helm chart in a git repo and can optionally contain specific values to input into the helm chart. Due to this configuration, a user can choose to leave the chart values intact or to have different values for different releases.
 

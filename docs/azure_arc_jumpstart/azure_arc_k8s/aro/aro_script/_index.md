@@ -14,11 +14,12 @@ The following is a guide on how to use the Azure Cloud Shell to deploy an [Azure
 
 * Ensure the user logging into Azure portal as admin or co-admin rights to be able to create service principals and/or assign policies to those service principals.
 
-* [Enable subscription with](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider) the two resource providers for Azure Arc enabled Kubernetes. Registration is an asynchronous process, and registration may take approximately 10 minutes.
+* [Enable subscription with](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider) the two resource providers for Azure Arc-enabled Kubernetes. Registration is an asynchronous process, and registration may take approximately 10 minutes.
 
   ```shell
   az provider register --namespace Microsoft.Kubernetes
   az provider register --namespace Microsoft.KubernetesConfiguration
+  az provider register --namespace Microsoft.ExtendedLocation
   ```
 
   You can monitor the registration process with the following commands:
@@ -26,6 +27,7 @@ The following is a guide on how to use the Azure Cloud Shell to deploy an [Azure
   ```shell
   az provider show -n Microsoft.Kubernetes -o table
   az provider show -n Microsoft.KubernetesConfiguration -o table
+  az provider show -n Microsoft.ExtendedLocation -o table
   ```
 
 ## Deployment
@@ -74,14 +76,14 @@ The deployment of all resources is going to be done via Azure Cloud Shell.
 
 * Upon completion, the following resources will be deployed in the resource group:
 
-  * Azure Arc enabled Kubernetes
+  * Azure Arc-enabled Kubernetes
   * OpenShift cluster
   * Azure VNet
 
-  ![Screenshot showing Azure Portal with Azure Arc enabled Kubernetes resources](./image7.png)
+  ![Screenshot showing Azure Portal with Azure Arc-enabled Kubernetes resources](./image7.png)
 
 ## Delete the deployment
 
-The way to delete all the resources deployed is by deleting the resource group. This will delete the managed resource group as well the resources created for the Azure Arc enabled Kubernetes cluster.
+The way to delete all the resources deployed is by deleting the resource group. This will delete the managed resource group as well the resources created for the Azure Arc-enabled Kubernetes cluster.
 
 ![Screenshot showing how to delete resource group from Azure Portal](./image8.png)

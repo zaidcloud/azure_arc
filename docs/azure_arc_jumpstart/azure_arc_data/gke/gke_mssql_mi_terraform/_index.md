@@ -8,11 +8,13 @@ description: >
 
 ## Deploy an Azure SQL Managed Instance on GKE using a Terraform plan
 
-The following scanario will guide you on how to deploy a "Ready to Go" environment so you can deploy Azure Arc enabled data services on a [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine) cluster using [Terraform](https://www.terraform.io/).
+The following scanario will guide you on how to deploy a "Ready to Go" environment so you can deploy Azure Arc-enabled data services on a [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine) cluster using [Terraform](https://www.terraform.io/).
 
-By the end of this guide, you will have a GKE cluster deployed with an Azure Arc Data Controller ([in "Directly Connected" mode](https://docs.microsoft.com/en-us/azure/azure-arc/data/connectivity)), Azure SQL MI with a sample database and a Microsoft Windows Server 2019 (Datacenter) GKE compute instance VM installed and pre-configured with all the required tools needed to work with Azure Arc data services.
+By the end of this guide, you will have a GKE cluster deployed with an Azure Arc Data Controller ([in "Directly Connected" mode](https://docs.microsoft.com/en-us/azure/azure-arc/data/connectivity)), Azure SQL MI with a sample database and a Microsoft Windows Server 2019 (Datacenter) GKE compute instance VM installed and pre-configured with all the required tools needed to work with Azure Arc data services:
 
-> **Note: Currently, Azure Arc enabled data services is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes)**.
+![Deployed Architecture](./57.png)
+
+> **Note: Currently, Azure Arc-enabled data services with PostgreSQL Hyperscale is in [public preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes)**.
 
 ## Deployment Process Overview
 
@@ -23,7 +25,7 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 * Export *TFVAR* values
 * *terraform init*
 * *terraform apply*
-* User remotes into client Windows VM, which automatically kicks off the [DataServicesLogonScript](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/gke/terraform/artifacts/DataServicesLogonScript.ps1) PowerShell script that deploys and configures Azure Arc enabled data services on the GKE cluster.
+* User remotes into client Windows VM, which automatically kicks off the [DataServicesLogonScript](https://github.com/microsoft/azure_arc/blob/main/azure_arc_data_jumpstart/gke/terraform/artifacts/DataServicesLogonScript.ps1) PowerShell script that deploys and configures Azure Arc-enabled data services on the GKE cluster.
 * Open Azure Data Studio and connect to SQL MI instance and sample database
 * *kubectl delete namespace arc*
 * *terraform destroy*
@@ -44,11 +46,11 @@ By the end of this guide, you will have a GKE cluster deployed with an Azure Arc
 
 * Google Cloud account with billing enabled - [Create a free trial account](https://cloud.google.com/free). To create Windows Server virtual machines, you must upgraded your account to enable billing. Click Billing from the menu and then select Upgrade in the lower right.
 
-    ![Screenshot showing how to enable billing on GCP account](./46.png)
+    ![Screenshot showing how to enable billing on GCP account](./59.png)
 
-    ![Screenshot showing how to enable billing on GCP account](./47.png)
+    ![Screenshot showing how to enable billing on GCP account](./60.png)
 
-    ![Screenshot showing how to enable billing on GCP account](./48.png)
+    ![Screenshot showing how to enable billing on GCP account](./61.png)
 
     ***Disclaimer*** - **To prevent unexpected charges, please follow the "Delete the deployment" section at the end of this README**
 
@@ -131,7 +133,7 @@ Read the below explanation to get familiar with the automation and deployment fl
 
 * User edits and exports *TF_VAR* Terraform runtime environment variables (1-time edit). The variable values are used throughout the deployment.
 
-* User deploys the Terraform plan which will deploy a GKE cluster and compute instance VM as well as an Azure resource group. The Azure resource group is required to host the Azure Arc services such as the Azure Arc enabled Kubernetes cluster, the custom location, the Azure Arc data controller, and the SQL MI database service.
+* User deploys the Terraform plan which will deploy a GKE cluster and compute instance VM as well as an Azure resource group. The Azure resource group is required to host the Azure Arc services such as the Azure Arc-enabled Kubernetes cluster, the custom location, the Azure Arc data controller, and the SQL MI database service.
 
 * In addition, the plan will copy the *local_ssd_sc.yaml* file which will be used to create a Kubernetes Storage Class backed by SSD disks. These disks will be used by Azure Arc Data Controller to create [persistent volume claims (PVC)](https://kubernetes.io/docs/concepts/storage/persistent-volumes/).
 
@@ -156,8 +158,8 @@ Read the below explanation to get familiar with the automation and deployment fl
       * Install the Azure Data Studio Azure Data CLI, Azure Arc and PostgreSQL extensions
       * Create the Azure Data Studio desktop shortcut
       * Apply the *local_ssd_sc.yaml* file on the GKE cluster
-      * Use Azure CLI to connect the GKE cluster to Azure as an Azure Arc enabled Kubernetes cluster
-      * Create a custom location for use with the Azure Arc enabled Kubernetes cluster
+      * Use Azure CLI to connect the GKE cluster to Azure as an Azure Arc-enabled Kubernetes cluster
+      * Create a custom location for use with the Azure Arc-enabled Kubernetes cluster
       * Open another Powershell session which will execute a command to watch the deployed Azure Arc Data Controller Kubernetes pods
       * Deploy an ARM template that will deploy the Azure Arc data controller on the GKE cluster
       * Execute a secondary *DeploySQLMI.ps1* script which will configure the SQL MI instance, download and install the sample Adventureworks database, and configure Azure Data Studio to connect to the SQL MI database instance
@@ -191,8 +193,9 @@ As mentioned, the Terraform plan and automation scripts will deploy a GKE cluste
   * *export TF_VAR_ARC_DC_SUBSCRIPTION*='Azure Arc Data Controller Azure subscription ID'
   * *export TF_VAR_ARC_DC_RG*='Azure resource group where all future Azure Arc resources will be deployed'
   * *export TF_VAR_ARC_DC_REGION*='Azure location where the Azure Arc Data Controller resource will be created in Azure' (Currently, supported regions supported are eastus, eastus2, centralus, westus2, westeurope, southeastasia)
-  * *export TF_VAR_deploy_SQLMI='Boolean that sets whether or not to deploy SQL Managed Instance, for this scenario we leave it set to true'
-  * *export TF_VAR_deploy_PostgreSQL='Boolean that sets whether or not to deploy PostgreSQL Hyperscale, for this scenario we leave it set to false'
+  * *export TF_VAR_deploy_SQLMI*='Boolean that sets whether or not to deploy SQL Managed Instance, for this scenario we leave it set to true'
+  * *export TF_VAR_deploy_PostgreSQL*='Boolean that sets whether or not to deploy PostgreSQL Hyperscale, for this scenario we leave it set to false'
+  * *export TF_VAR_templateBaseUrl*='GitHub URL to the deployment template - filled in by default to point to [Microsoft/Azure Arc](https://github.com/microsoft/azure_arc) repository, but you can point this to your forked repo as well - e.g. `https://raw.githubusercontent.com/your--github--account/azure_arc/your--branch/azure_arc_data_jumpstart/gke/terraform/`.'
 
     > **Note: If you are running in a PowerShell environment, to set the Terraform environment variables see example below**
 
@@ -264,7 +267,7 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
   ![PowerShell login script run](./35.png)
 
-* From Azure Portal, navigate to the resource group and confirm that the Azure Arc enabled Kubernetes cluster, the Azure Arc data controller resource and the Custom Location resource are present.
+* From Azure Portal, navigate to the resource group and confirm that the Azure Arc-enabled Kubernetes cluster, the Azure Arc data controller resource and the Custom Location resource are present.
 
   ![Azure Portal showing data controller resource](./35_1.png)
 
@@ -278,6 +281,68 @@ Now that we have both the GKE cluster and the Windows Server Client instance cre
 
   ![Azure Data studio sample database](./42.png)
 
+## Operations
+
+### Azure Arc-enabled SQL Managed Instance Stress Simulation
+
+Included in this scenario, is a dedicated SQL stress simulation tool named _SqlQueryStress_ automatically installed for you on the Client VM. _SqlQueryStress_ will allow you to generate load on the Azure Arc-enabled SQL Managed Instance that can be done used to showcase how the SQL database and services are performing as well to highlight operational practices described in the next section.
+
+* To start with, open the _SqlQueryStress_ desktop shortcut and connect to the SQL Managed Instance **primary** endpoint IP address. This can be found in the _SQLMI Endpoints_ text file desktop shortcut that was also created for you alongside the username and password you used to deploy the environment.
+
+  ![Open SqlQueryStress](./43.png)
+
+  ![SQLMI Endpoints text file](./44.png)
+
+> **Note: Secondary SQL Managed Instance endpoint will be available only when using the HA deployment model ("Business Critical").**
+
+* To connect, use "SQL Server Authentication" and select the deployed sample _AdventureWorks_ database (you can use the "Test" button to check the connection).
+
+  ![SqlQueryStress connected](./45.png)
+
+* To generate some load, we will be running a simple stored procedure. Copy the below procedure and change the number of iterations you want it to run as well as the number of threads to generate even more load on the database. In addition, change the delay between queries to 1ms for allowing the stored procedure to run for a while.
+
+    ```sql
+    exec [dbo].[uspGetEmployeeManagers] @BusinessEntityID = 8
+    ```
+
+* As you can see from the example below, the configuration settings are 100,000 iterations, five threads per iteration, and a 1ms delay between queries. These configurations should allow you to have the stress test running for a while.
+
+  ![SqlQueryStress settings](./46.png)
+
+  ![SqlQueryStress running](./47.png)
+
+### Azure Arc-enabled SQL Managed Instance monitoring using Grafana
+
+When deploying Azure Arc-enabled data services, a [Grafana](https://grafana.com/) instance is also automatically deployed on the same Kubernetes cluster and include built-in dashboards for both Kubernetes infrastructure as well SQL Managed Instance monitoring (PostgreSQL dashboards are included as well but we will not be covering these in this section).
+
+* Now that you have the _SqlQueryStress_ stored procedure running and generating load, we can look how this is shown in the the built-in Grafana dashboard. As part of the automation, a new URL desktop shortcut simply named "Grafana" was created.
+
+  ![Grafana desktop shortcut](./48.png)
+
+* [Optional] The IP address for this instance represents the Kubernetes _LoadBalancer_ external IP that was provision as part of Azure Arc-enabled data services. Use the _```kubectl get svc -n arc```_ command to view the _metricsui_ external service IP address.
+
+  ![metricsui Kubernetes service](./49.png)
+
+* To log in, use the same username and password that is in the _SQLMI Endpoints_ text file desktop shortcut.
+
+  ![Grafana username and password](./50.png)
+
+* Navigate to the built-in "SQL Managed Instance Metrics" dashboard.
+
+  ![Grafana dashboards](./51.png)
+
+  ![Grafana "SQL Managed Instance Metrics" dashboard](./52.png)
+
+* Change the dashboard time range to "Last 5 minutes" and re-run the stress test using _SqlQueryStress_ (in case it was already finished).
+
+  ![Last 5 minutes time range](./53.png)
+
+* You can now see how the SQL graphs are starting to show increased activity and load on the database instance.
+
+  ![Increased load activity](./54.png)
+
+  ![Increased load activity](./55.png)
+
 ## Delete the deployment
 
 To completely delete the environment, follow the below steps.
@@ -288,7 +353,7 @@ To completely delete the environment, follow the below steps.
   kubectl delete namespace arc
   ```
 
-  ![Delete database resources](./49.png)
+  ![Delete database resources](./56.png)
 
 * Use terraform to delete all of the GCP resources as well as the Azure resource group. **The *terraform destroy* run time is approximately ~5-6min long**.
 
@@ -296,4 +361,10 @@ To completely delete the environment, follow the below steps.
   terraform destroy --auto-approve
   ```
 
-  ![terraform destroy](./43.png)
+  ![terraform destroy](./58.png)
+
+## Known Issues
+
+* Webhook pods go into error state, even after Data Controller/SQL MI/Postgres pods are up, caused by a known Helm-related backend issue that is being worked on. These errors can be safely ignored and do not impact the functionality of Azure Arc-enabled data services and the Jumpstart automation.
+
+    ![webhook known issue](https://raw.githubusercontent.com/microsoft/azure_arc/main/docs/known_issues/webhook_issue.png)

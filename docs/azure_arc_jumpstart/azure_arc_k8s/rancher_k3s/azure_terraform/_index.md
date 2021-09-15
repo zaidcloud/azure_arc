@@ -55,11 +55,12 @@ The following README will guide you on how to use the provided [Terraform](https
 
     > **Note: The Jumpstart scenarios are designed with as much ease of use in-mind and adhering to security-related best practices whenever possible. It is optional but highly recommended to scope the service principal to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest) as well considering using a [less privileged service principal account](https://docs.microsoft.com/en-us/azure/role-based-access-control/best-practices)**
 
-* [Enable subscription with](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider) the two resource providers for Azure Arc enabled Kubernetes. Registration is an asynchronous process, and registration may take approximately 10 minutes.
+* [Enable subscription with](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider) the two resource providers for Azure Arc-enabled Kubernetes. Registration is an asynchronous process, and registration may take approximately 10 minutes.
 
   ```shell
   az provider register --namespace Microsoft.Kubernetes
   az provider register --namespace Microsoft.KubernetesConfiguration
+  az provider register --namespace Microsoft.ExtendedLocation
   ```
 
   You can monitor the registration process with the following commands:
@@ -67,6 +68,7 @@ The following README will guide you on how to use the provided [Terraform](https
   ```shell
   az provider show -n Microsoft.Kubernetes -o table
   az provider show -n Microsoft.KubernetesConfiguration -o table
+  az provider show -n Microsoft.ExtendedLocation -o table
   ```
 
 * The Terraform plan execute a script on the VM OS to install all the needed artifacts as well to inject environment variables. Edit the [*scripts/vars.sh*](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/rancher_k3s/azure/terraform/scripts/vars.sh) to match the Azure service principal you've just created.
@@ -126,9 +128,9 @@ The only thing you need to do before executing the Terraform plan is to export t
 
     ![Successful azconnctedk8s command](./05.png)
 
-    ![Azure Arc enabled Kubernetes cluster in an Azure resource group](./06.png)
+    ![Azure Arc-enabled Kubernetes cluster in an Azure resource group](./06.png)
 
-    ![Azure Arc enabled Kubernetes cluster in an Azure resource group](./07.png)
+    ![Azure Arc-enabled Kubernetes cluster in an Azure resource group](./07.png)
 
 ## K3s External Access
 
@@ -148,7 +150,7 @@ Traefik is the (default) ingress controller for k3s and uses port 80. To test ex
 
     ![kubectl get svc command](./12.png)
 
-* In your browser, enter the *cluster_public_ip:3232* which will bring up the *hello-world* application.
+* In your browser, enter the *cluster_public_ip:32323* which will bring up the *hello-world* application.
 
     ![hello-kubernetes application in a web browser](./13.png)
 
@@ -156,7 +158,7 @@ Traefik is the (default) ingress controller for k3s and uses port 80. To test ex
 
 * The most straightforward way is to delete the cluster is via the Azure Portal, just select cluster and delete it.
 
-    ![Delete Azure Arc enabled Kubernetes cluster](./14.png)
+    ![Delete Azure Arc-enabled Kubernetes cluster](./14.png)
 
 * If you want to nuke the entire environment, just delete the Azure resource group or alternatively, you can use the ```terraform destroy --auto-approve``` command.
 

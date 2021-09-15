@@ -53,13 +53,14 @@ The following README will guide you on how to use the provided [Azure ARM Templa
 
     > **Note: The Jumpstart scenarios are designed with as much ease of use in-mind and adhering to security-related best practices whenever possible. It is optional but highly recommended to scope the service principal to a specific [Azure subscription and resource group](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest) as well considering using a [less privileged service principal account](https://docs.microsoft.com/en-us/azure/role-based-access-control/best-practices)**
 
-* Enable subscription for two providers for Azure Arc enabled Kubernetes.
+* Enable subscription for two providers for Azure Arc-enabled Kubernetes.
   
-* [Enable subscription with](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider) the two resource providers for Azure Arc enabled Kubernetes. Registration is an asynchronous process, and registration may take approximately 10 minutes.
+* [Enable subscription with](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#register-resource-provider) the two resource providers for Azure Arc-enabled Kubernetes. Registration is an asynchronous process, and registration may take approximately 10 minutes.
 
   ```shell
   az provider register --namespace Microsoft.Kubernetes
   az provider register --namespace Microsoft.KubernetesConfiguration
+  az provider register --namespace Microsoft.ExtendedLocation
   ```
 
   You can monitor the registration process with the following commands:
@@ -67,6 +68,7 @@ The following README will guide you on how to use the provided [Azure ARM Templa
   ```shell
   az provider show -n Microsoft.Kubernetes -o table
   az provider show -n Microsoft.KubernetesConfiguration -o table
+  az provider show -n Microsoft.ExtendedLocation -o table
   ```
 
 ## Deployment
@@ -95,7 +97,7 @@ The deployment is using the template parameters file. Before initiating the depl
   --parameters azuredeploy.parameters.json
   ```
 
-  Upon completion, you will have new VM installed as a single-host k3s cluster which is already projected as an Azure Arc enabled Kubernetes cluster in a new resource group.
+  Upon completion, you will have new VM installed as a single-host k3s cluster which is already projected as an Azure Arc-enabled Kubernetes cluster in a new resource group.
 
   ![Azure resource group](./01.png)
 
@@ -117,7 +119,7 @@ Traefik is the (default) ingress controller for k3s and uses port 80. To test ex
 
   ![kubectl get svc command](./06.png)
 
-* In your browser, enter the *cluster_public_ip:3232* which will bring up the *hello-world* application.
+* In your browser, enter the *cluster_public_ip:32323* which will bring up the *hello-world* application.
 
   ![hello-kubernetes application in a web browser](./07.png)
 
