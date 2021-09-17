@@ -122,7 +122,6 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
     --parameters azuredeploy.parameters.json
     ```
 
-
 * Once Azure resources has been provisioned, you will be able to see it in Azure portal. At this point, the resource group should have **7 various Azure resources** deployed.
 
     ![ARM template deployment completed](./01.png)
@@ -165,7 +164,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
   ![Additional Azure resources in the resource group](./11.png)
 
-## Cluster extensions
+## API Management sef-hosted gateway
 
 In this scenario, the Azure Arc enabled API Management cluster extension was deployed and used throughout this scenario in order to deploy the self-hosted API Management gateway services infrastructure.
 
@@ -175,8 +174,63 @@ In this scenario, the Azure Arc enabled API Management cluster extension was dep
 
   ![Azure Arc enabled Kubernetes cluster extensions settings](./13.png)
 
+Deploying the API Management gateway extension to an Azure Arc enabled Kubernetes cluster creates an Azure API Management self-hosted gateway. You can verify this from the portal by going to the Resource Group and selecting the API management service.
+
+  ![API management service](./15.png)
+
+Select Gateways on the Deployment + infrastructure section.
+
+  ![Self hosted Gateway](./16.png)
+
+A self-hosted gateway should be deployed with one connected node.
+
+  ![Connected node on self-hosted gateway](./17.png)
+
+In this scenario, a sample Demo conference API was deployed. To view the deployed API, simply click on the self-hosted gateway resource and select on APIs.
+
+  ![Demo Conference API](./18.png)
+
+To demonstrate that the self-hosted gateway is processesing API requests you need to identify two elements:
+
+* Public IP address of the self-hosted gateway, by running the command below from the client VM.
+
+    ```powershell
+    kubectl get svc -n apimgmt
+    ```
+
+  ![Self-hosted gateway public IP](./19.png)
+
+* API management subsription key, from the Azure portal on the API Management service resource select Subscriptions under APIs and select Show/hide keys for the one with display name "Built-in all-access subscription".
+
+  ![Self-hosted gateway subscriptions](./20.png)
+
+  ![Subscription key](./21.png)
+
+Once you have obtained these two parameters, replace them on the following code snippet and run it from the client VM powershell.
+
+    ```powershell
+    $publicip = <self hosted gateway public IP>
+    $subscription = <self hosted gateway subscription>
+    $headers = @{
+    'Ocp-Apim-Subscription-Key' = $subscription
+    'Ocp-Apim-Trace' = 'true'
+    }
+    $i=1
+    While ($i -le 10)
+    {
+    Invoke-RestMethod -URI "http://$publicip:5000/conference/topics" -Headers $headers
+    $i++
+    }
+    ```
+
+  ![API calls test](./22.png)
+
+From the Azure Portal on the  overview metrics of the self-hosted gateway the API requests will be shown.
+
+  ![API requests metrics](./23.png)
+
 ## Cleanup
 
 * If you want to delete the entire environment, simply delete the deployed resource group from the Azure portal.
 
-  ![Delete Azure resource group](./14.png)
+  ![Delete Azure resource group](./24.png)
