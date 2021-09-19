@@ -201,7 +201,7 @@ To demonstrate that the self-hosted gateway is processing API requests you need 
 
   ![Self-hosted gateway public IP](./19.png)
 
-* API management subsription key, from the Azure portal on the API Management service resource select Subscriptions under APIs and select Show/hide keys for the one with display name "Built-in all-access subscription".
+* API management subscription key, from the Azure portal on the API Management service resource select Subscriptions under APIs and select Show/hide keys for the one with display name "Built-in all-access subscription".
 
   ![Self-hosted gateway subscriptions](./20.png)
 
