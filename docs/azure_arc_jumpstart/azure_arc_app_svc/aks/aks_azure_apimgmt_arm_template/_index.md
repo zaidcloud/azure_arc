@@ -165,9 +165,9 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
   ![Additional Azure resources in the resource group](./11.png)
 
-## API Management sef-hosted gateway
+## API Management self-hosted gateway
 
-In this scenario, the Azure Arc enabled API Management cluster extension was deployed and used throughout this scenario in order to deploy the self-hosted API Management gateway services infrastructure.
+In this scenario, the Azure Arc-enabled API Management cluster extension was deployed and used throughout this scenario in order to deploy the self-hosted API Management gateway services infrastructure.
 
 * In order to view cluster extensions, click on the Azure Arc enabled Kubernetes resource Extensions settings.
 
