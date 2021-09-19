@@ -207,7 +207,7 @@ To demonstrate that the self-hosted gateway is processing API requests you need 
 
   ![Subscription key](./21.png)
 
-Once you have obtained these two parameters, replace them on the following code snippet and run it from the client VM powershell.
+Once you have obtained these two parameters, replace them on the following code snippet and run it from the client VM PowerShell.
 
     ```powershell
     $publicip = <self hosted gateway public IP>
