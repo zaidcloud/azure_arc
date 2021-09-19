@@ -175,13 +175,13 @@ In this scenario, the Azure Arc-enabled API Management cluster extension was dep
 
   ![Azure Arc enabled Kubernetes cluster extensions settings](./13.png)
 
-Deploying the API Management gateway extension to an Azure Arc enabled Kubernetes cluster creates an Azure API Management self-hosted gateway. You can verify this from the portal by going to the Resource Group and selecting the API management service.
+Deploying the API Management gateway extension to an Azure Arc-enabled Kubernetes cluster creates an Azure API Management self-hosted gateway. You can verify this from the portal by going to the Resource Group and selecting the API management service.
 
   ![API management service](./15.png)
 
 Select Gateways on the Deployment + infrastructure section.
 
-  ![Self hosted Gateway](./16.png)
+  ![Self-hosted Gateway](./16.png)
 
 A self-hosted gateway should be deployed with one connected node.
 
@@ -191,7 +191,7 @@ In this scenario, a sample Demo conference API was deployed. To view the deploye
 
   ![Demo Conference API](./18.png)
 
-To demonstrate that the self-hosted gateway is processesing API requests you need to identify two elements:
+To demonstrate that the self-hosted gateway is processing API requests you need to identify two elements:
 
 * Public IP address of the self-hosted gateway, by running the command below from the client VM.
 
