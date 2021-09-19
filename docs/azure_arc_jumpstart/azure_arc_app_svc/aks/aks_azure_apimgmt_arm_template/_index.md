@@ -157,11 +157,17 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
     ![Wallpaper change](./10.png)
 
-* Since this scenario is deploying both the Azure API Management instance, the API Management gateway extension and configured with a sample API, you will also notice additional, newly deployed Azure resources in the resources group (at this point you should have **12 various Azure resources deployed**. The important ones to notice are:
+* Since this scenario is deploying both the app service plan and a sample web application, you will also notice additional, newly deployed Azure resources in the resources group. The important ones to notice are:
 
-  * **Azure Arc enabled Kubernetes cluster** - Azure Arc enabled app services are using this resource to deploy the app services [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions), as well as using Azure Arc [Custom locations](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-custom-locations).
+  * **Azure Arc-enabled Kubernetes cluster** - Azure Arc-enabled app services are using this resource to deploy the app services [cluster extension](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-extensions), as well as using Azure Arc [Custom locations](https://docs.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-custom-locations).
 
-  * [**Azure API Management service**](https://docs.microsoft.com/en-us/azure/api-management/) - An instance of Azure API Management needs to be created with a gateway resource before you can enable the API Management gateway extension.
+  * **Custom location** - Provides a way for tenant administrators to use their Azure Arc-enabled Kubernetes clusters as a target location for deploying Azure services.
+
+  * [**App Service Kubernetes Environment**](https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration#app-service-kubernetes-environment) - The App Service Kubernetes environment resource is required before apps may be created. It enables configuration common to apps in the custom location, such as the default DNS suffix.
+
+  * [**App Service plan**](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans) - In App Service (Web Apps, API Apps, or Mobile Apps), an app always runs in an App Service plan. In addition, Azure Functions also has the option of running in an App Service plan. An App Service plan defines a set of compute resources for a web app to run.
+
+  * [**App Service**](https://docs.microsoft.com/en-us/azure/app-service/overview) - Azure App Service is an HTTP-based service for hosting web applications, REST APIs, and mobile back ends.
 
   ![Additional Azure resources in the resource group](./11.png)
 
@@ -177,19 +183,19 @@ In this scenario, the Azure Arc-enabled API Management cluster extension was dep
 
 Deploying the API Management gateway extension to an Azure Arc-enabled Kubernetes cluster creates an Azure API Management self-hosted gateway. You can verify this from the portal by going to the Resource Group and selecting the API management service.
 
-  ![API management service](./15.png)
+  ![API management service](./14.png)
 
 Select Gateways on the Deployment + infrastructure section.
 
-  ![Self-hosted Gateway](./16.png)
+  ![Self-hosted Gateway](./15.png)
 
 A self-hosted gateway should be deployed with one connected node.
 
-  ![Connected node on self-hosted gateway](./17.png)
+  ![Connected node on self-hosted gateway](./16.png)
 
 In this scenario, a sample Demo conference API was deployed. To view the deployed API, simply click on the self-hosted gateway resource and select on APIs.
 
-  ![Demo Conference API](./18.png)
+  ![Demo Conference API](./17.png)
 
 To demonstrate that the self-hosted gateway is processing API requests you need to identify two elements:
 
@@ -199,13 +205,13 @@ To demonstrate that the self-hosted gateway is processing API requests you need 
     kubectl get svc -n apimgmt
     ```
 
-  ![Self-hosted gateway public IP](./19.png)
+  ![Self-hosted gateway public IP](./18.png)
 
 * API management subscription key, from the Azure portal on the API Management service resource select Subscriptions under APIs and select Show/hide keys for the one with display name "Built-in all-access subscription".
 
-  ![Self-hosted gateway subscriptions](./20.png)
+  ![Self-hosted gateway subscriptions](./19.png)
 
-  ![Subscription key](./21.png)
+  ![Subscription key](./20.png)
 
 Once you have obtained these two parameters, replace them on the following code snippet and run it from the client VM PowerShell.
 
@@ -226,14 +232,14 @@ Once you have obtained these two parameters, replace them on the following code 
     }
     ```
 
-  ![API calls test](./22.png)
+  ![API calls test](./21.png)
 
 From the Azure Portal on the overview metrics of the self-hosted gateway the API requests will be shown.
 
-  ![API requests metrics](./23.png)
+  ![API requests metrics](./22.png)
 
 ## Cleanup
 
 * If you want to delete the entire environment, simply delete the deployed resource group from the Azure portal.
 
-  ![Delete Azure resource group](./24.png)
+  ![Delete Azure resource group](./23.png)
