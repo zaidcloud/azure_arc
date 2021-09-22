@@ -234,7 +234,7 @@ Once you have obtained these two parameters, replace them on the following code 
 
   ![API calls test](./21.png)
 
-From the Azure Portal on the overview metrics of the self-hosted gateway the API requests will be shown.
+In the Overview page of the API Management service, you can now see how the self-hosted gateway API requests are now shown.
 
   ![API requests metrics](./22.png)
 
