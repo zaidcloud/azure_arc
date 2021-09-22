@@ -70,7 +70,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
   * [_clientVm_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_app_services_jumpstart/aks/arm_template/clientVm.json) - Deploys the client Windows VM. This is where all user interactions with the environment are made from.
   * [_logAnalytics_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_app_services_jumpstart/aks/arm_template/logAnalytics.json) - Deploys Azure Log Analytics workspace to support Azure API Management logs uploads.
 
-* User remotes into client Windows VM, which automatically kicks off the [_AppServicesLogonScript_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_app_services_jumpstart/aks/arm_template/artifacts/AppServicesLogonScript.ps1) PowerShell script that deploy the AKS cluster and will configure Azure Arc enabled app services Kubernetes environment on the AKS cluster.
+* User remotes into client Windows VM, which automatically kicks off the [_AppServicesLogonScript_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_app_services_jumpstart/aks/arm_template/artifacts/AppServicesLogonScript.ps1) PowerShell script that deploy the AKS cluster and will configureAzure Arc-enabled app services Kubernetes environment on the AKS cluster.
 
     > **Note: Notice the AKS cluster will be deployed via the PowerShell script automation.**
 
@@ -139,7 +139,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
 * Let the script to run its course and **do not close** the PowerShell session, this will be done for you once completed. Once the script will finish it's run, the logon script PowerShell session will be closed, the Windows wallpaper will change and the Azure web application will be deployed on the cluster and be ready to use.
 
-    > **Note: As you will notices from the screenshots below, during the Azure Arc enabled app services environment, the _log-processor_ service pods will be restarted and will go through multiple Kubernetes pod lifecycle stages. This is normal and can safely be ignored. To learn more about the various Azure Arc-enabled app services Kubernetes components, visit the official [Azure Docs page](https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration#pods-created-by-the-app-service-extension).**
+    > **Note: As you will notices from the screenshots below, during theAzure Arc-enabled app services environment, the _log-processor_ service pods will be restarted and will go through multiple Kubernetes pod lifecycle stages. This is normal and can safely be ignored. To learn more about the various Azure Arc-enabled app services Kubernetes components, visit the official [Azure Docs page](https://docs.microsoft.com/en-us/azure/app-service/overview-arc-integration#pods-created-by-the-app-service-extension).**
 
     ![PowerShell logon script run](./04.png)
 
@@ -175,7 +175,7 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
 
 In this scenario, the Azure Arc-enabled API Management cluster extension was deployed and used throughout this scenario in order to deploy the self-hosted API Management gateway services infrastructure.
 
-* In order to view cluster extensions, click on the Azure Arc enabled Kubernetes resource Extensions settings.
+* In order to view cluster extensions, click on theAzure Arc-enabled Kubernetes resource Extensions settings.
 
   ![Azure Arc enabled Kubernetes resource](./12.png)
 
