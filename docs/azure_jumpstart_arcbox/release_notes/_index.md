@@ -9,6 +9,13 @@ toc_hide: true
 
 Release notes will be released on the first week of each month and will cover the previous month.
 
+## September 2021
+
+* Switch inbound SQL MI port from 1433 to 11433
+* Switch inbound PostgreSQL port from 5432 to 15432
+* Remove custom-locations-oid parameter from connected cluster onboarding scripts
+* Add --kubeconfig parameter to custom location creation
+
 ## August 2021
 
 * New [Azure Monitor workbook](https://azurearcjumpstart.io/azure_jumpstart_arcbox/workbook/) included that provides single pane of glass monitoring for all ArcBox resources.
