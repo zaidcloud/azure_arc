@@ -119,11 +119,11 @@ As mentioned, this deployment will leverage ARM templates. You will deploy a sin
     For example:
 
     ```shell
-    az group create --name Arc-AppSvc-Demo --location "East US"
+    az group create --name Arc-API-Demo --location "East US"
     az deployment group create \
-    --resource-group Arc-AppSvc-Demo \
+    --resource-group Arc-API-Demo \
     --name arcappsvc \
-    --template-uri https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_capi/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/azuredeploy.json \
+    --template-uri https://raw.githubusercontent.com/microsoft/azure_arc/main/azure_arc_app_services_jumpstart/aks/arm_template/azuredeploy.json \
     --parameters azuredeploy.parameters.json
     ```
 
