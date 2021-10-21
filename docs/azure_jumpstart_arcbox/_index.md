@@ -9,7 +9,7 @@ weight: 3
 
 ArcBox is a project that provides an easy to deploy sandbox for all things Azure Arc. ArcBox is designed to be completely self-contained within a single Azure subscription and resource group, which will make it easy for a user to get hands-on with all available Azure Arc technology with nothing more than an available Azure subscription.
 
-![ArcBox architecture diagram](./arch_capi.png)
+![ArcBox architecture diagram](./arch_full.png)
 
 ### Use cases
 
@@ -25,7 +25,7 @@ ArcBox is a project that provides an easy to deploy sandbox for all things Azure
 
 ![ArcBox servers diagram](./servers.png)
 
-ArcBox includes three Azure Arc-enabled server resources that are hosted using nested virtualization in Azure. As part of the deployment, a Hyper-V host (ArcBox-Client) is deployed with three guest virtual machines. These machines, _ArcBoxWin_, _ArcBoxUbuntu_, and _ArcBoxSQL_ are connected as Azure Arc-enabled servers via the ArcBox automation.
+ArcBox includes five Azure Arc-enabled server resources that are hosted using nested virtualization in Azure. As part of the deployment, a Hyper-V host (ArcBox-Client) is deployed with five guest virtual machines. These machines, _ArcBox-Win2k22_, _ArcBox-Win2k19_, _ArcBox-SQL_, _ArcBox-CentOS_, and _ArcBox-Ubuntu_ are connected as Azure Arc-enabled servers via the ArcBox automation.
 
 ### Azure Arc-enabled Kubernetes
 
@@ -47,7 +47,7 @@ ArcBox deploys several management and operations services that work with ArcBox'
 
 ## ArcBox Azure Consumption Costs
 
-ArcBox resources generate Azure Consumption charges from the underlying Azure resources including core compute, storage, networking and auxilliary services. These services generate approximately $20-30 USD per day. Note that Azure consumption costs vary depending the region where ArcBox is deployed. Be mindful of your ArcBox deployments and ensure that you disable or delete ArcBox resources when not in use to avoid unwanted charges. Users may review cost analysis of ArcBox by using [Azure Cost Analysis](https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/quick-acm-cost-analysis).
+ArcBox resources generate Azure Consumption charges from the underlying Azure resources including core compute, storage, networking and auxilliary services. These services generate approximately $30-40 USD per day. Note that Azure consumption costs vary depending the region where ArcBox is deployed. Be mindful of your ArcBox deployments and ensure that you disable or delete ArcBox resources when not in use to avoid unwanted charges. Users may review cost analysis of ArcBox by using [Azure Cost Analysis](https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/quick-acm-cost-analysis).
 
 ## Automation flow
 
@@ -62,10 +62,12 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
   * Storage account template - used for staging files in automation scripts
   * Management artifacts template - deploys Azure Log Analytics workspace and solutions and Azure Policy artifacts
 * User remotes into Client Windows VM, which automatically kicks off multiple scripts that:
-  * Deploy and configure three (3) nested virtual machines in Hyper-V
-    * Windows VM - onboarded as Azure Arc-enabled Server
-    * Ubuntu VM - onboarded as Azure Arc-enabled Server
+  * Deploy and configure five (5) nested virtual machines in Hyper-V
+    * Windows Server 2022 VM - onboarded as Azure Arc-enabled Server
+    * Windows Server 2019 VM - onboarded as Azure Arc-enabled Server
     * Windows VM running SQL Server - onboarded as Azure Arc-enabled SQL Server (as well as Azure Arc-enabled Server)
+    * Ubuntu VM - onboarded as Azure Arc-enabled Server
+    * CentOS VM - onboarded as Azure Arc-enabled server
   * Deploy and configure Azure Arc-enabled data services on the CAPI workload cluster including a data controller, a SQL MI instance, and a PostgreSQL Hyperscale cluster. After deployment, Azure Data Studio opens automatically with connection entries for each database instance. Note that the SQI MI instance and the PostgreSQL Hyperscale instance are exposed by the load balancer on non-standard ports (SQLMI/11433 and PostgreSQL/15432) Data services deployed by the script are:
     * Data controller
     * SQL MI instance
@@ -74,7 +76,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
 ## Prerequisites
 
-* ArcBox requires 52 vCPUs when deploying with default parameters such as VM series/size. Ensure you have sufficient vCPU quota available in your Azure subscription and the region where you plan to deploy ArcBox. You can use the below Az CLI command to check your vCPU utilization.
+* ArcBox requires 52 DSv3-series vCPUs when deploying with default parameters such as VM series/size. Ensure you have sufficient vCPU quota available in your Azure subscription and the region where you plan to deploy ArcBox. You can use the below Az CLI command to check your vCPU utilization.
 
   ```shell
   az vm list-usage --location <your location> --output table
