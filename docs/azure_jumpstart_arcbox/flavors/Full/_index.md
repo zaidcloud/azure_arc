@@ -177,7 +177,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
   * *windowsAdminPassword* - Client Windows VM Password. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
   * *myIpAddress* - Your local IP address. This is used to allow remote RDP and SSH connections to the Client Windows VM and K3s Rancher VM.
   * *logAnalyticsWorkspaceName* - Unique name for the ArcBox log analytics workspace
-    * *flavor* - Use the value "Full" to specify that you want to deploy the complete version of ArcBox (ArcBox Full)
+  * *flavor* - Use the value "Full" to specify that you want to deploy the complete version of ArcBox (ArcBox Full)
 
     ![Screenshot showing example parameters](./parameters.png)
 
