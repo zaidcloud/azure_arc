@@ -21,12 +21,12 @@ ArcBox is a project that provides an easy to deploy sandbox for all things Azure
 
 ArcBox comes in multiple "flavors", or configurations, which can be selected to best suit your needs. Currently, the available flavors are:
 
-* [ArcBox "Full"](https://azurearcjumpstart.io/azure_jumpstart_arcbox/Full)
+* [ArcBox "Full"](https://azurearcjumpstart.io/azure_jumpstart_arcbox/flavors/Full)
     As the name implies, this flavor includes all ArcBox features including Azure Arc-enabled servers, Azure Arc-enabled Kubernetes, and Azure Arc-enabled data services. Use this flavor if you want to experience everything ArcBox has to offer.
 
     ![ArcBox architecture diagram](./arch_full.png)
 
-* [ArcBox for IT Pros](https://azurearcjumpstart.io.azure_jumpstart_arcbox/ITPro)
+* [ArcBox for IT Pros](https://azurearcjumpstart.io.azure_jumpstart_arcbox/flavors/ITPro)
     ArcBox for IT Pros focuses specifically on Azure Arc-enabled servers and Azure Arc-enabled SQL Server functionality. This flavor omits anything related to Azure Arc-enabled Kubernetes or Azure Arc-enabled data services.
 
     ![ArcBox for IT Pros architecture diagram](./arch_itpro.png)
