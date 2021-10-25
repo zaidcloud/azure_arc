@@ -244,7 +244,7 @@ Open the [ArcBox Azure Monitor workbook](https://azurearcjumpstart.io/azure_jump
 
 Open the [data services operations page](https://azurearcjumpstart.io/azure_jumpstart_arcbox/data_ops/) and explore various ways you can perform operations against the Azure Arc-enabled data services deployed with ArcBox.
 
-  ![Screenshot showing Grafana dashboard](./data_ops/activity1.png)
+  ![Screenshot showing Grafana dashboard](./activity1.png)
 
 ### Included tools
 
