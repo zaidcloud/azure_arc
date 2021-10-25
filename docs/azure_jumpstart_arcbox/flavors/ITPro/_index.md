@@ -7,9 +7,9 @@ weight: 3
 
 ## Jumpstart ArcBox for IT Pros
 
-ArcBox for IT Pros is a special "flavor" of ArcBox that is intended for users who want to experience Azure Arc-enabled servers capabilities in a sandbox environment. 
+ArcBox for IT Pros is a special "flavor" of ArcBox that is intended for users who want to experience Azure Arc-enabled servers capabilities in a sandbox environment.
 
-![ArcBox architecture diagram](./arch_capi.png)
+![ArcBox architecture diagram](./arch_itpro.png)
 
 ## Azure Arc capabilities available in ArcBox for IT Pros
 
