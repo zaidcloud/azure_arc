@@ -295,6 +295,17 @@ Occasionally deployments of ArcBox may fail at various stages. Common reasons fo
 * Target Azure region does not support all required Azure services - ensure you are running ArcBox in one of the supported regions listed in the above section "ArcBox Azure Region Compatibility".
 * "BadRequest" error message when deploying - this error returns occassionally when the Log Analytics solutions in the ARM templates are deployed. Typically, waiting a few minutes and re-running the same deployment resolves the issue. Alternatively, you can try deploying to a different Azure region.
 
+Occasionally, you may need to review log output from scripts that run on the ArcBox-Client, ArcBox-CAPI or ArcBox-K3s virtual machines in case of deployment failures. Locations of logs for various script outputs is listed here:
+
+* ArcBox-Client - 
+  * C:\ArcBox\ArcServersLogonScript.log
+  * C:\ArcBox\DataServicesLogonScript.log
+  * C:\ArcBox\
+* ArcBox-CAPI
+  * /var/lib/waagent/custom-script/download/0/installCAPI.log
+* ArcBox-K3s
+  * /var/lib/waagent/custom-script/download/0/installK3s.log
+
 ## Known issues
 
 * Azure Arc-enabled SQL Server assessment report not always visible in Azure Portal
