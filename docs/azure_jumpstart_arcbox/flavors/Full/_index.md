@@ -290,14 +290,26 @@ az group delete -n <name of your resource group>
 
 Occasionally deployments of ArcBox may fail at various stages. Common reasons for failed deployments include:
 
-* Invalid service principal id, service principal secret, or SSH public key provided in _azuredeploy.parameters.json_ file.
+* Invalid service principal id, service principal secret provided in _azuredeploy.parameters.json_ file.
+* Invalid SSH public key provided in _azuredeploy.parameters.json_ file.
+  * An example SSH public key is shown here. Note that the public key includes "ssh-rsa" at the beginning. The entire value should be included in your _azuredeploy.parameters.json_ file.
+
+    ```console
+    ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAklOUpkDHrfHY17SbrmTIpNLTGK9Tjom/BWDSU
+    GPl+nafzlHDTYW7hdI4yZ5ew18JH4JW9jbhUFrviQzM7xlELEVf4h9lFX5QVkbPppSwg0cda3
+    Pbv7kOdJ/MTyBlWXFCR+HAo3FXRitBqxiX1nKhXpHAZsMciLq8V6RjsNAQwdsdMFvSlVK/7XA
+    t3FaoJoAsncM1Q9x5+3V0Ww68/eIFmb1zuUFljQJKprrX88XypNDvjYNby6vw/Pb0rwert/En
+    mZ+AW4OZPnTPI89ZPmVMLuayrD2cE86Z/il8b+gw3r3+1nKatmIkjn2so1d01QraTlMqVSsbx
+    NrRFi9wrf+M7Q== schacon@mylaptop.local
+    ```
+
 * Not enough vCPU quota available in your target Azure region - check vCPU quota and ensure you have at least 52 available.
 * Target Azure region does not support all required Azure services - ensure you are running ArcBox in one of the supported regions listed in the above section "ArcBox Azure Region Compatibility".
 * "BadRequest" error message when deploying - this error returns occassionally when the Log Analytics solutions in the ARM templates are deployed. Typically, waiting a few minutes and re-running the same deployment resolves the issue. Alternatively, you can try deploying to a different Azure region.
 
 Occasionally, you may need to review log output from scripts that run on the ArcBox-Client, ArcBox-CAPI or ArcBox-K3s virtual machines in case of deployment failures. Locations of logs for various script outputs is listed here:
 
-* ArcBox-Client - 
+* ArcBox-Client
   * C:\ArcBox\ArcServersLogonScript.log
   * C:\ArcBox\DataServicesLogonScript.log
   * C:\ArcBox\
@@ -305,6 +317,8 @@ Occasionally, you may need to review log output from scripts that run on the Arc
   * /var/lib/waagent/custom-script/download/0/installCAPI.log
 * ArcBox-K3s
   * /var/lib/waagent/custom-script/download/0/installK3s.log
+
+If you are still having issues deploying ArcBox, please submit an issue on GitHub and include the Azure region you are deploying to, the flavor of ArcBox you are trying to deploy, and the output of the relevant logs listed above.
 
 ## Known issues
 
