@@ -29,16 +29,25 @@ ArcBox deploys several management and operations services that work with ArcBox'
 
 ArcBox resources generate Azure Consumption charges from the underlying Azure resources including core compute, storage, networking and auxilliary services. These services generate approximately $20-30 USD per day. Note that Azure consumption costs vary depending the region where ArcBox is deployed. Be mindful of your ArcBox deployments and ensure that you disable or delete ArcBox resources when not in use to avoid unwanted charges. Users may review cost analysis of ArcBox by using [Azure Cost Analysis](https://docs.microsoft.com/en-us/azure/cost-management-billing/costs/quick-acm-cost-analysis).
 
-## Automation flow
+## Deployment Options and Automation Flow
 
-![Deployment flow diagram](./deploymentflow.png)
+ArcBox provides multiple paths for deploying and configuring ArcBox resources. Deployment options include:
 
-ArcBox uses an advanced automation flow to deploy and configure all necessary resources with minimal user interaction. The above diagram provides a high-level overview of the deployment flow. A high-level summary of the deployment is:
+* Azure Portal
+* ARM template via Azure CLI
+* Bicep
+* Terraform
 
-* User deploys the primary ARM template (azuredeploy.json). This template contains several nested templates that will run simultaneously.
-  * ClientVM ARM template - deploys the Client Windows VM. This is the Hyper-V host VM where all user interactions with the environment are made from.
-  * Storage account template - used for staging files in automation scripts
-  * Management artifacts template - deploys Azure Log Analytics workspace and solutions and Azure Policy artifacts
+![Deployment flow diagram for ARM-based deployments](./deploymentflow.png)
+
+![Deployment flow diagram for Terraform-based deployments](./deploymentflow_tf.png)
+
+ArcBox uses an advanced automation flow to deploy and configure all necessary resources with minimal user interaction. The previous diagrams provide an overview of the deployment flow. A high-level summary of the deployment is:
+
+* User deploys the primary ARM template (azuredeploy.json) or Terraform plan (main.tf). These objects contain several nested objects that will run simultaneously.
+  * ClientVM ARM template/plan - deploys the Client Windows VM. This is the Hyper-V host VM where all user interactions with the environment are made from.
+  * Storage account template/plan - used for staging files in automation scripts
+  * Management artifacts template/plan - deploys Azure Log Analytics workspace and solutions and Azure Policy artifacts
 * User remotes into Client Windows VM, which automatically kicks off multiple scripts that:
   * Deploy and configure five (5) nested virtual machines in Hyper-V
     * Windows Server 2022 VM - onboarded as Azure Arc-enabled Server
@@ -112,11 +121,10 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 * France Central
 * UK South
 * Southeast Asia
-* Australia East
 
 ## Deployment Option 1: Azure Portal
 
-* Click the <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Farcbox_flavors%2Fazure_jumpstart_arcbox%2FARM%2Fazuredeploy.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a> button and enter values for the the ARM template parameters.
+* Click the <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Fmain%2Fazure_jumpstart_arcbox%2FARM%2Fazuredeploy.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a> button and enter values for the the ARM template parameters.
 
   ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeploy.png)
 
@@ -124,7 +132,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
   ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeploymentcomplete.png)
 
-## Deployment Option 2: Azure CLI
+## Deployment Option 2: ARM template with Azure CLI
 
 * Clone the Azure Arc Jumpstart repository
 
@@ -163,6 +171,10 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 * After deployment, you should see the ArcBox resources inside your resource group.
 
   ![Screenshot showing az deployment group create](./deployedresources.png)
+
+## Deployment Option 3: Bicep deployment via Azure CLI
+
+* To do: add instructions for Bicep deployment here
 
 ## Start post-deployment automation
 

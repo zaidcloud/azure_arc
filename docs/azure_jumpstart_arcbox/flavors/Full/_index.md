@@ -147,7 +147,6 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 * France Central
 * UK South
 * Southeast Asia
-* Australia East
 
 ## Deployment Option 1: Azure Portal
 
