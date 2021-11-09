@@ -60,37 +60,35 @@ To retrieve the SQL Managed Instance endpoints, a desktop shortcut for a _SQLMI 
 
     ![Microsoft SQL Server Management Studio](./07.png)
 
+    ![SSMS login](./08.png)
 
-
-    ![SSMS login](./11.png)
-
-    ![Primary endpoint connected](./12.png)
+    ![Primary endpoint connected](./09.png)
 
 - Follow the same process and connect to the secondary endpoint.
 
-    ![Connect button](./13.png)
+    ![Connect button](./10.png)
 
-    ![Secondary endpoint connected](./14.png)
+    ![Secondary endpoint connected](./11.png)
 
 - On both endpoints, expand the "Databases" and the "Always On High Availability" sections and see how the _AdventureWorks2019_ database is already automatically replicated and is part of the availability group.
 
-    ![Databases replication](./15.png)
+    ![Databases replication](./12.png)
 
 - To test that the DB replication is working, a simple table modification is needed. For this example, on the primary replica, expand the "Tables" section for the database, select the _"HumanResources.Employee"_ table, click on "Edit Top 200 Rows", modify one or more records and commit the changes by saving (_`Ctrl+S`_). As you can see, in this example a change was made to _"ken0"_ title and the number of vacation hours for _"rob0"_.
 
-    ![Expending database for primary](./16.png)
+    ![Expending database for primary](./13.png)
 
-    ![Edit Top 200 Rows](./17.png)
+    ![Edit Top 200 Rows](./14.png)
 
-    ![Modifying a table](./18.png)
+    ![Modifying a table](./15.png)
 
 - On the secondary replica, expand the "Tables" section for the database, click on "Select Top 1000 Rows", and in the Results pane see how the table change is now replicated, showing the synchronization of the SQL instances in the availability group works as expected.
 
-    ![Expending database for secondary](./19.png)
+    ![Expending database for secondary](./16.png)
 
-    ![Select Top 1000 Rows](./20.png)
+    ![Select Top 1000 Rows](./17.png)
 
-    ![Replication works](./21.png)
+    ![Replication works](./18.png)
 
 ## Database Failover
 
@@ -98,30 +96,28 @@ As you already know, the availability group includes three Kubernetes replicas w
 
 - To test that failover between the replicas, we will simulate a "crash" that will trigger an HA event and will force one of the secondary replicas to get promoted to a primary replica. Open two side-by-side PowerShell sessions. On the left side session, use the _`kubectl get pods -n arc`_ to review the deployed pods. The right-side session will be used to monitor the pods on the cluster using the _`kubectl get pods -n arc -w`_ command. As you can see, three SQL replicas with four containers each are running.
 
-    ![side-by-side PowerShell sessions](./22.png)
+    ![side-by-side PowerShell sessions](./19.png)
 
 - In SSMS, you can also see that _jumpstart-sql-0_ is acting as the primary replica and _jumpstart-sql-1_ as the secondary. At this point, close SSMS.
 
-    ![Primary and secondary replicas](./23.png)
+    ![Primary and secondary replicas](./20.png)
 
 - To trigger the HA event, delete the primary replica _jumpstart-sql-0_ using the _`kubectl delete pod jumpstart-sql-0 -n arc`_ and watch how the pod gets deleted and then being deployed again due to being part of a Kubernetes _ReplicaSet_. Wait for the _jumpstart-sql-0_ pod to become ready again (and an additional few minutes for letting the availability group to recover).
 
-    ![Pod deletion](./24.png)
+    ![Pod deletion](./21.png)
 
-- Re-open SSMS and connect back to the *primary* endpoint. You can now see that _jumpstart-sql-0_ is now acting as the secondary replica and _jumpstart-sql-1_ was promoted to primary. In addition, run the _`az sql mi-arc show -n jumpstart-sql --k8s-namespace arc --use-k8s`_ command again and check the health status of the availability group.
+- Re-open SSMS and connect back to the *primary* endpoint. You can now see that _jumpstart-sql-0_ and _jumpstart-sql-2_ are now acting as the secondary replica and _jumpstart-sql-1_ was promoted to primary. In addition, run the _`az sql mi-arc show -n jumpstart-sql --k8s-namespace arc --use-k8s`_ command again and check the health status of the availability group.
 
-    ![Successful failover](./25.png)
+    ![Successful failover](./22.png)
 
-    ![Availability group health](./26.png)
+    ![Availability group health](./23.png)
 
 ## Re-Validating Database Replication
 
 - Now that we perform a successful failover, we can re-validate and make sure replication still works as expected. In SSMS, re-add the secondary endpoint connection.
 
-    ![Re-adding secondary endpoint connection](./27.png)
+    ![Re-adding secondary endpoint connection](./24.png)
 
 - In the primary endpoint connection, repeat the process of performing a change on the _AdventureWorks2019_ database _"HumanResources.Employee"_ table and check that replication is working In the example below, you can see how new values in new rows are now replicated.
 
-    ![New table values change](./28.png)
-
-    ![Successful replication](./29.png)
+    ![Successful replication](./25.png)
