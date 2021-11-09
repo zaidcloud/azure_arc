@@ -10,7 +10,7 @@ description: >
 
 The following README will guide you on how to explore and test Azure Arc-enabled SQL Managed Instance Availability Groups, simulate failures and DB replication. In this scenario, you will be restoring a sample database, will initiate a failover to force HA event as well as validating database replication across multiple SQL nodes in an availability group.
 
-> **Note: This guide assumes you already deployed an Azure Arc-enabled SQL Managed Instance on Cluster API (CAPI) cluster using the Cluster API Azure Provider (CAPZ). If you haven't, this [following bootstrap Jumpstart scenario](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/cluster_api/capi_azure/arm_template/mssql_mi/) offers you a way to do so in an automated fashion. All the steps and operations described in this readme assume you used the mentioned bootstrap Jumpstart scenario and have the Client VM deployed as part of it.**
+> **Note: This guide assumes you already deployed an Azure Arc-enabled SQL Managed Instance on Cluster API (CAPI) cluster using the Cluster API Azure Provider (CAPZ). If you haven't, the [following bootstrap Jumpstart scenario](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/cluster_api/capi_azure/arm_template/mssql_mi/) offers you a way to do so in an automated fashion. All the steps and operations described in this readme assume you used the mentioned bootstrap Jumpstart scenario and have the Client VM deployed as part of it.**
 
 > **Note: Azure Arc-enabled SQL Managed Instance with Availability Groups is currently in [preview](https://docs.microsoft.com/en-us/azure/azure-arc/data/release-notes)**.
 
@@ -20,15 +20,9 @@ When deploying Azure Arc-enabled SQL Managed Instance in an availability group, 
 
 ### SQL MI Pods Replicas
 
-> **Note: As mentioned under the ["Known Issues"](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/cluster_api/capi_azure/arm_template/mssql_mi/#known-issues) in the bootstrap Jumpstart scenario, Webhook pods error state can be safely ignored and do not impact the functionality of Azure Arc-enabled data services and the Jumpstart automation.**
-
-Three SQL pods replicas will be deployed to assemble the availability group. These can be seen using the _`kubectl get pods -n <deployment namespace> -o wide`_ command, for example, _`kubectl get pods -n arc -o wide`_.
+Three SQL pods replicas will be deployed to assemble the availability group. These can be seen using the _`kubectl get pods -n <deployment namespace> -o wide`_ command, for example, _`kubectl get pods -n arc -o wide`_. It is also important to highlight that Kubernetes will spread the pods across the various nodes in the cluster.
 
 ![SQL pods](./01.png)
-
-It is also important to highlight that Kubernetes will spread the pods across the various nodes in the cluster.
-
-![SQL pods spread on various nodes](./02.png)
 
 ### Services & Endpoints
 
@@ -38,15 +32,15 @@ In an availability group deployment, two endpoints, primary and secondary get cr
 
 - Using the _`az sql mi-arc show -n jumpstart-sql --k8s-namespace arc --use-k8s`_ command, validate the deployment endpoints details and the Availability Group health status.
 
-    ![az sql Azure CLI extension](./03.png)
+    ![az sql Azure CLI extension](./02.png)
 
-    ![az sql mi-arc show command](./04.png)
+    ![az sql mi-arc show command](./03.png)
 
     > **Note: Initiating the command will also deploy _az sql_ Azure CLI extension automatically.**
 
 - Using the _`kubectl get svc -n arc`_ command, you will be able to see the _LoadBalancer_ services used by the endpoints.
 
-    ![Kubernetes services](./05.png)
+    ![Kubernetes services](./04.png)
 
 ## Database Restore
 
@@ -56,23 +50,17 @@ In order for you to test the HA functionality and as part of the bootstrap Jumps
 
 All databases are automatically added to the availability group, including all users (including the _AdventureWorks2019_ database you just restored) and system databases like _master_ and _msdb_. This capability provides a single-system view across the availability group replicas.
 
-To retrieve the SQL Managed Instance endpoints, an [Endpoints](https://github.com/microsoft/azure_arc/tree/main/azure_arc_data_jumpstart/cluster_api/capi_azure/arm_template/artifacts/Endpoints.ps1) PowerShell script is provided that will create a new text file and a desktop shortcut named _Endpoints_ that includes both the primary and the secondary SQL endpoints.
+To retrieve the SQL Managed Instance endpoints, a desktop shortcut for a _SQLMI Endpoints_ text file is automatically created for you that includes both the primary and the secondary SQL endpoints.
 
-- From the _C:\Temp_ folder, run the script using the _`.\Endpoints.ps1`_ command.
+![Endpoints script](./05.png)
 
-    ![Endpoints script](./06.png)
+![Endpoints text file](./06.png)
 
-    ![Endpoints desktop shortcut](./07.png)
+- Open Microsoft SQL Server Management Studio (SSMS) which is installed automatically for you as part of the [bootstrap Jumpstart scenario](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/aks/aks_mssql_mi_arm_template/) and use the primary endpoint IP address and login to the primary DB instance using the username and password provided in the text file mentioned above.
 
-    ![Endpoints text file](./08.png)
+    ![Microsoft SQL Server Management Studio](./07.png)
 
-- Open Microsoft SQL Server Management Studio (SSMS) which is installed automatically for you as part of the [bootstrap Jumpstart scenario](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_data/aks/aks_mssql_mi_arm_template/) and use the primary endpoint IP address and login to the primary DB instance.
 
-    ![Microsoft SQL Server Management Studio](./09.png)
-
-- Use the username and password you entered when provisioned the environment and select "SQL Server Authentication". Alternatively, you can retrieve the username and password using the _`$env:AZDATA_USERNAME`_ and _`$env:AZDATA_PASSWORD`_ commands.
-
-    ![Username and password](./10.png)
 
     ![SSMS login](./11.png)
 
