@@ -105,29 +105,29 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
 * You can now see that Azure Key Vault extensions are now enabled in the extension tab section of the Azure Arc-enabled Kubernetes cluster resource in Azure.
 
-![Screenshot extension deployment extensions tab](./04.png)
+    ![Screenshot extension deployment extensions tab](./04.png)
 
 * You can also verify the deployment by running the below _kubectl_ commands and see the deployed artifacts in the _kube-system_ namespace.
 
-![Screenshot extension and app deployment](./05.png)
+    ![Screenshot extension and app deployment](./05.png)
 
 ## Validate the Key Vault
 
-To verify that Azure Key Vault Secret Provider is working properly and fetching the secrets, run the below command to show secrets held in secrets-store:
+* To verify that Azure Key Vault Secret Provider is working properly and fetching the secrets, run the below command to show secrets held in secrets-store:
 
-```bash
-kubectl -n hello-arc exec busybox-secrets-sync -- ls /mnt/secrets-store/
-```
+    ```bash
+    kubectl -n hello-arc exec busybox-secrets-sync -- ls /mnt/secrets-store/
+    ```
 
-![Screenshot Kubernetes App Pod secret store](./06.png)
+    ![Screenshot Kubernetes App Pod secret store](./06.png)
 
-Run the below command to print a test secret held in secrets-store:
+* Run the below command to print a test secret held in secrets-store:
 
-```bash
-kubectl -n hello-arc exec busybox-secrets-sync -- sh -c 'echo $SECRET_USERNAME'
-```
+    ```bash
+    kubectl -n hello-arc exec busybox-secrets-sync -- sh -c 'echo $SECRET_USERNAME'
+    ```
 
-![Screenshot Kubernetes App Pod secret](./07.png)
+    ![Screenshot Kubernetes App Pod secret](./07.png)
 
 ### Delete extension instance
 
