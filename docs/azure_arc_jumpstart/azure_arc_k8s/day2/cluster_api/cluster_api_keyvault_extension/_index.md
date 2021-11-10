@@ -10,7 +10,7 @@ description: >
 
 The following README will guide you on how to enable [Azure Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/general/overview) for a Cluster API that is projected as an Azure Arc connected cluster.
 
-In this guide, you will hook the Cluster API to Azure Key Vault by deploying the [Azure Key Vault extension](https://docs.microsoft.com/en-us/azure/aks/csi-secrets-store-driver) on your Kubernetes cluster in order to integrate Azure Key Vault as a secrets store with a Kubernetes cluster via a CSI volume. This will also include deploying a sample application on your Kubernetes cluster.
+In this guide, you will hook the Cluster API to Azure Key Vault by deploying the [Azure Key Vault extension](https://docs.microsoft.com/en-us/azure/aks/csi-secrets-store-driver) and a sample app on your Kubernetes cluster in order to integrate Azure Key Vault as a secrets store with a Kubernetes cluster via a CSI volume. This will also include deploying a Key Vault and sample secret on your Azure subscription.
 
 > **Note: This guide assumes you already deployed a Cluster API and connected it to Azure Arc. If you haven't, this repository offers you a way to do so in an automated fashion using a [Shell script](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_k8s/cluster_api/capi_azure/).**
 
@@ -131,8 +131,12 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
 ### Delete extension instance
 
-The following command only deletes the extension instance, but doesn't delete the Key Vault.
+* The following command only deletes the extension instance.
 
-```bash
-az k8s-extension delete --name Microsoft.AzureKeyVaultSecretsProvider --cluster-type connectedClusters --cluster-name <cluster-name> --resource-group <resource-group>
-```
+    ```bash
+    az k8s-extension delete --name Microsoft.AzureKeyVaultSecretsProvider --cluster-type connectedClusters --cluster-name <cluster-name> --resource-group <resource-group>
+    ```
+
+* You can also delete the extensions from the Azure Portal under the extensions section of Azure Arc-enabled Kubernetes cluster resource.
+
+    ![Screenshot showing uninstalling of the extension](./08.png)
