@@ -133,7 +133,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
 * The following command only deletes the extension instance.
 
-    ```bash
+    ```shell
     az k8s-extension delete --name Microsoft.AzureKeyVaultSecretsProvider --cluster-type connectedClusters --cluster-name <cluster-name> --resource-group <resource-group>
     ```
 
