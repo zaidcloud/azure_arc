@@ -109,6 +109,12 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
 * You can also verify the deployment by running the below _kubectl_ commands and see the deployed artifacts in the _kube-system_ namespace.
 
+    ```shell
+    kubectl get pods,secret -n hello-arc
+    kubectl get secretproviderclass -n hello-arc
+    kubectl get customresourcedefinitions
+    ```
+
     ![Screenshot extension and app deployment](./05.png)
 
 ## Validate the Key Vault
