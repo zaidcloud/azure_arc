@@ -129,7 +129,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
     ![Screenshot Kubernetes App Pod secret](./07.png)
 
-### Delete extension instance
+## Delete extension instance
 
 * The following command only deletes the extension instance.
 
