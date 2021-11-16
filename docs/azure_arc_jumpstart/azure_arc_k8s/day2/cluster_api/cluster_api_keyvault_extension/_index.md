@@ -112,7 +112,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
     ```shell
     kubectl get pods,secret -n hello-arc
     kubectl get secretproviderclass -n hello-arc
-    kubectl get customresourcedefinitions
+    kubectl get customresourcedefinitions secretproviderclasses.secrets-store.csi.x-k8s.io secretproviderclasspodstatuses.secrets-store.csi.x-k8s.io
     ```
 
     ![Screenshot extension and app deployment](./05.png)
