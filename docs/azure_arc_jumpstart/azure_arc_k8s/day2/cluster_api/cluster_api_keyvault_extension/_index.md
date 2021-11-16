@@ -140,7 +140,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 * The following command only deletes the extension instance.
 
     ```shell
-    az k8s-extension delete --name Microsoft.AzureKeyVaultSecretsProvider --cluster-type connectedClusters --cluster-name <cluster-name> --resource-group <resource-group>
+    az k8s-extension delete --name <extension-name> --cluster-type connectedClusters --cluster-name <cluster-name> --resource-group <resource-group>
     ```
 
 * You can also delete the extensions from the Azure Portal under the extensions section of Azure Arc-enabled Kubernetes cluster resource.
