@@ -117,7 +117,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
     ![Screenshot extension and app deployment](./05.png)
 
-## Validate the Key Vault
+## Validate the secrets
 
 * To verify that Azure Key Vault Secret Provider is working properly and fetching the secrets, run the below command to show secrets held in secrets-store:
 
