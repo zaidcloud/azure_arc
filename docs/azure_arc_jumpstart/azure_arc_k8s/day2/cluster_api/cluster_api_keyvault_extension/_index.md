@@ -69,7 +69,7 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 * User is running the shell script. The script will use the extension management feature of Azure Arc to deploy the Azure Key Vault Secrets Provider extension on the Azure Arc connected cluster.
 
-* The script will also deploy the sample app to Azure Arc-enabled Kubernetes cluster
+* The script will also deploy the Key Vault, sample secret to Azure Subscription, and a sample app to Azure Arc-enabled Kubernetes cluster
 
 * User is veryfing the cluster and make sure the extension is deployed.
 
@@ -112,12 +112,17 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
     ```shell
     kubectl get pods,secret -n hello-arc
     kubectl get secretproviderclass -n hello-arc
-    kubectl get customresourcedefinitions secretproviderclasses.secrets-store.csi.x-k8s.io secretproviderclasspodstatuses.secrets-store.csi.x-k8s.io
+
+    kubectl get customresourcedefinitions \
+    secretproviderclasses.secrets-store.csi.x-k8s.io \
+    secretproviderclasspodstatuses.secrets-store.csi.x-k8s.io
     ```
 
     ![Screenshot extension and app deployment](./05.png)
 
-## Validate the secrets
+    ![Screenshot extension and app deployment](./06.png)
+
+## Validate the Secrets
 
 * To verify that Azure Key Vault Secret Provider is working properly and fetching the secrets, run the below command to show secrets held in secrets-store:
 
@@ -125,7 +130,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
     kubectl -n hello-arc exec busybox-secrets-sync -- ls /mnt/secrets-store/
     ```
 
-    ![Screenshot Kubernetes App Pod secret store](./06.png)
+    ![Screenshot Kubernetes App Pod secret store](./07.png)
 
 * Run the below command to print a test secret held in secrets-store:
 
@@ -133,7 +138,7 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
     kubectl -n hello-arc exec busybox-secrets-sync -- sh -c 'echo $SECRET_USERNAME'
     ```
 
-    ![Screenshot Kubernetes App Pod secret](./07.png)
+    ![Screenshot Kubernetes App Pod secret](./08.png)
 
 ## Delete extension instance
 
@@ -145,4 +150,4 @@ To create a new extension Instance, we will use the _k8s-extension create_ comma
 
 * You can also delete the extension from the Azure Portal under the extensions section of Azure Arc-enabled Kubernetes cluster resource.
 
-    ![Screenshot showing uninstalling of the extension](./08.png)
+    ![Screenshot showing uninstalling of the extension](./09.png)
