@@ -404,7 +404,7 @@ Occasionally deployments of ArcBox may fail at various stages. Common reasons fo
     NrRFi9wrf+M7Q== myname@mylaptop.local
     ```
 
-* Not enough vCPU quota available in your target Azure region - check vCPU quota and ensure you have at least 52 available.
+* Not enough vCPU quota available in your target Azure region - check vCPU quota and ensure you have at least 52 available. See the [prerequisites](#prerequisites) section for more details.
 * Target Azure region does not support all required Azure services - ensure you are running ArcBox in one of the supported regions listed in the above section "ArcBox Azure Region Compatibility".
 * "BadRequest" error message when deploying - this error returns occassionally when the Log Analytics solutions in the ARM templates are deployed. Typically, waiting a few minutes and re-running the same deployment resolves the issue. Alternatively, you can try deploying to a different Azure region.
 
