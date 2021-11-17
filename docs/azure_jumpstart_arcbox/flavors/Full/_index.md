@@ -197,13 +197,45 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
   ![Screenshot showing az deployment group create](./azdeploy.png)
 
+## Deployment Option 3: Bicep deployment via Azure CLI
+
+* Clone the Azure Arc Jumpstart repository
+
+  ```shell
+  git clone https://github.com/microsoft/azure_arc.git
+  ```
+
+* Upgrade to latest Bicep version
+
+  ```shell
+  az bicep upgrade
+  ```
+
+* Edit the [main.parameters.json](https://github.com/microsoft/azure_arc/blob/main/azure_jumpstart_arcbox/bicep/main.parameters.json) template parameters file and supply some values for your environment.
+
+  * *sshRSAPublicKey* - Your SSH public key
+  * *spnClientId* - Your Azure service principal id
+  * *spnClientSecret* - Your Azure service principal secret
+  * *spnTenantId* - Your Azure tenant id
+  * *windowsAdminUsername* - Client Windows VM Administrator name
+  * *windowsAdminPassword* - Client Windows VM Password. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
+  * *myIpAddress* - Your local IP address. This is used to allow remote RDP and SSH connections to the Client Windows VM and K3s Rancher VM.
+  * *logAnalyticsWorkspaceName* - Unique name for the ArcBox log analytics workspace
+  * *flavor* - Use the value "Full" to specify that you want to deploy the full version of ArcBox
+
+  ![Screenshot showing example parameters](./parameters_bicep.png)
+
+* Now you will deploy the Bicep file. Navigate to the local cloned [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_jumpstart_arcbox/bicep) and run the below command:
+
+  ```shell
+  az login
+  az group create --name "<resource-group-name>"  --location "<preferred-location>"
+  az deployment group create -g "<resource-group-name>" -f "main.bicep" -p "main.parameters.json"
+  ```
+  
 * After deployment, you should see the ArcBox resources inside your resource group.
 
   ![Screenshot showing az deployment group create](./deployedresources.png)
-
-## Deployment Option 3: Bicep deployment via Azure CLI
-
-* To do: add instructions for Bicep deployment here
 
 ## Start post-deployment automation
 
