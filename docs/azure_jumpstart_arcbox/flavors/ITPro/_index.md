@@ -57,6 +57,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
     * CentOS VM - onboarded as Azure Arc-enabled server
   * Deploy an Azure Monitor workbook that provides example reports and metrics for monitoring ArcBox components
 
+
 ## Prerequisites
 
 * ArcBox for IT Pros requires 16 DSv3-series vCPUs when deploying with default parameters such as VM series/size. Ensure you have sufficient vCPU quota available in your Azure subscription and the region where you plan to deploy ArcBox. You can use the below Az CLI command to check your vCPU utilization.
@@ -340,7 +341,7 @@ az group delete -n <name of your resource group>
     NrRFi9wrf+M7Q== myname@mylaptop.local
     ```
 
-* Not enough vCPU quota available in your target Azure region - check vCPU quota and ensure you have at least 52 available.
+* Not enough vCPU quota available in your target Azure region - check vCPU quota and ensure you have at least 16 available. See the [prerequisites](#prerequisites) section for more details.
 * Target Azure region does not support all required Azure services - ensure you are running ArcBox in one of the supported regions listed in the above section "ArcBox Azure Region Compatibility".
 * "BadRequest" error message when deploying - this error returns occassionally when the Log Analytics solutions in the ARM templates are deployed. Typically, waiting a few minutes and re-running the same deployment resolves the issue. Alternatively, you can try deploying to a different Azure region.
 
