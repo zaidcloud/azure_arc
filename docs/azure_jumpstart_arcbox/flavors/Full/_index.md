@@ -268,10 +268,10 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
   * ***spn_client_secret*** - Your Azure service principal secret
   * ***spn_tenant_id*** - Your Azure tenant id
   * ***user_ip_address*** - Your local IP address. This is used to allow remote RDP and SSH connections to the Client Windows VM and K3s Rancher VM. If you don't know your public IP, you can find it [here](https://www.whatismyip.com/)
-  * ***client_admin_ssh*** - SSH public key path, used for Linux VM's
+  * ***client_admin_ssh*** - SSH public key path, used for Linux VMs
   * ***deployment_flavor*** - Use the value "Full" to specify that you want to deploy the full version of ArcBox
-  * *client_admin_username* - Admin username for Windows & Linux VM's
-  * *client_admin_password* - Admin password for Windows VM's. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
+  * *client_admin_username* - Admin username for Windows & Linux VMs
+  * *client_admin_password* - Admin password for Windows VMs. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
   * *workspace_name* - Unique name for the ArcBox Log Analytics workspace
 
   *NOTE: Any variables in **bold** are required. If any optional parameters are not provided, defaults will be used.*
