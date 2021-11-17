@@ -153,7 +153,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
 ## Deployment Option 1: Azure Portal
 
-* Click the <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Fmain%2FARM%2Fazure_jumpstart_arcbox%2Fazuredeploy.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a> button and enter values for the the ARM template parameters.
+* Click the <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Farcbox_flavors%2FARM%2Fazure_jumpstart_arcbox%2Fazuredeploy.json" target="_blank"><img src="https://aka.ms/deploytoazurebutton"/></a> button and enter values for the the ARM template parameters.
 
   ![Screenshot showing Azure Portal deployment of ArcBox](./portaldeploy.png)
 
@@ -169,7 +169,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
     git clone https://github.com/microsoft/azure_arc.git
     ```
 
-* Edit the [azuredeploy.parameters.json](https://github.com/microsoft/azure_arc/blob/main/azure_jumpstart_arcbox/azuredeploy.parameters.json) ARM template parameters file and supply some values for your environment.
+* Edit the [azuredeploy.parameters.json](https://github.com/microsoft/azure_arc/blob/arcbox_flavors/azure_jumpstart_arcbox/azuredeploy.parameters.json) ARM template parameters file and supply some values for your environment.
 
   * *sshRSAPublicKey* - Your SSH public key
   * *spnClientId* - Your Azure service principal id
@@ -183,7 +183,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
     ![Screenshot showing example parameters](./parameters.png)
 
-* Now you will deploy the ARM template. Navigate to the local cloned [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_jumpstart_arcbox) and run the below command:
+* Now you will deploy the ARM template. Navigate to the local cloned [deployment folder](https://github.com/microsoft/azure_arc/tree/arcbox_flavors/azure_jumpstart_arcbox) and run the below command:
 
   ```shell
   az group create --name <Name of the Azure resource group> --location <Azure Region>
@@ -211,7 +211,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
   az bicep upgrade
   ```
 
-* Edit the [main.parameters.json](https://github.com/microsoft/azure_arc/blob/main/azure_jumpstart_arcbox/bicep/main.parameters.json) template parameters file and supply some values for your environment.
+* Edit the [main.parameters.json](https://github.com/microsoft/azure_arc/blob/arcbox_flavors/azure_jumpstart_arcbox/bicep/main.parameters.json) template parameters file and supply some values for your environment.
 
   * *sshRSAPublicKey* - Your SSH public key
   * *spnClientId* - Your Azure service principal id
@@ -225,14 +225,14 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
   ![Screenshot showing example parameters](./parameters_bicep.png)
 
-* Now you will deploy the Bicep file. Navigate to the local cloned [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_jumpstart_arcbox/bicep) and run the below command:
+* Now you will deploy the Bicep file. Navigate to the local cloned [deployment folder](https://github.com/microsoft/azure_arc/tree/arcbox_flavors/azure_jumpstart_arcbox/bicep) and run the below command:
 
   ```shell
   az login
   az group create --name "<resource-group-name>"  --location "<preferred-location>"
   az deployment group create -g "<resource-group-name>" -f "main.bicep" -p "main.parameters.json"
   ```
-  
+
 * After deployment, you should see the ArcBox resources inside your resource group.
 
   ![Screenshot showing az deployment group create](./deployedresources.png)
@@ -338,7 +338,7 @@ Occasionally deployments of ArcBox may fail at various stages. Common reasons fo
     Pbv7kOdJ/MTyBlWXFCR+HAo3FXRitBqxiX1nKhXpHAZsMciLq8V6RjsNAQwdsdMFvSlVK/7XA
     t3FaoJoAsncM1Q9x5+3V0Ww68/eIFmb1zuUFljQJKprrX88XypNDvjYNby6vw/Pb0rwert/En
     mZ+AW4OZPnTPI89ZPmVMLuayrD2cE86Z/il8b+gw3r3+1nKatmIkjn2so1d01QraTlMqVSsbx
-    NrRFi9wrf+M7Q== schacon@mylaptop.local
+    NrRFi9wrf+M7Q== myname@mylaptop.local
     ```
 
 * Not enough vCPU quota available in your target Azure region - check vCPU quota and ensure you have at least 52 available.
