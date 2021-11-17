@@ -245,7 +245,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
   git clone https://github.com/microsoft/azure_arc.git
   ```
 
-* Download & install the latest version of Terraform [here](https://www.terraform.io/downloads.html)
+* Download and install the latest version of Terraform [here](https://www.terraform.io/downloads.html)
 
   *NOTE: Terraform 1.x or higher is supported for this deployment. Tested with Terraform v1.011.*
 
@@ -408,6 +408,10 @@ Occasionally deployments of ArcBox may fail at various stages. Common reasons fo
 * Target Azure region does not support all required Azure services - ensure you are running ArcBox in one of the supported regions listed in the above section "ArcBox Azure Region Compatibility".
 * "BadRequest" error message when deploying - this error returns occassionally when the Log Analytics solutions in the ARM templates are deployed. Typically, waiting a few minutes and re-running the same deployment resolves the issue. Alternatively, you can try deploying to a different Azure region.
 
+  [Screenshot showing BadRequest errors in Az CLI](./error_badrequest.png)
+
+  [Screenshot showing BadRequest errors in Azure Portal](./error_badrequest2.png)
+
 Occasionally, you may need to review log output from scripts that run on the ArcBox-Client, ArcBox-CAPI or ArcBox-K3s virtual machines in case of deployment failures. Locations of logs for various script outputs is listed here:
 
 * ArcBox-Client
@@ -419,7 +423,7 @@ Occasionally, you may need to review log output from scripts that run on the Arc
 * ArcBox-K3s
   * /var/lib/waagent/custom-script/download/0/installK3s.log
 
-If you are still having issues deploying ArcBox, please submit an issue on GitHub and include the Azure region you are deploying to, the flavor of ArcBox you are trying to deploy, and the output of the relevant logs listed above.
+If you are still having issues deploying ArcBox, please [submit an issue](https://github.com/microsoft/azure_arc/issues/new/choose) on GitHub and include the Azure region you are deploying to, the flavor of ArcBox you are trying to deploy, and the output of the relevant logs listed above.
 
 ## Known issues
 
