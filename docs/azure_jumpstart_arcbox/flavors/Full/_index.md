@@ -251,7 +251,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
 * Create a `terraform.tfvars` file in the root of the terrform directory and supply some values for your environment.
 
-  ```json
+  ```HCL
   azure_location    = "westus2"
   spn_client_id     = "1414133c-9786-53a4-b231-f87c143ebdb1"
   spn_client_secret = "tgG7R~ef4w1rcvzfNmZoFNhgpRrMw25iLXEcS"
