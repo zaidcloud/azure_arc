@@ -44,7 +44,7 @@ ArcBox provides multiple paths for deploying and configuring ArcBox resources. D
 
 ArcBox uses an advanced automation flow to deploy and configure all necessary resources with minimal user interaction. The previous diagrams provide an overview of the deployment flow. A high-level summary of the deployment is:
 
-* User deploys the primary ARM template (azuredeploy.json) or Terraform plan (main.tf). These objects contain several nested objects that will run simultaneously.
+* User deploys the primary ARM template (azuredeploy.json), Bicep file (main.bicep), or Terraform plan (main.tf). These objects contain several nested objects that will run simultaneously.
   * ClientVM ARM template/plan - deploys the Client Windows VM. This is the Hyper-V host VM where all user interactions with the environment are made from.
   * Storage account template/plan - used for staging files in automation scripts
   * Management artifacts template/plan - deploys Azure Log Analytics workspace and solutions and Azure Policy artifacts
@@ -56,7 +56,6 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
     * Ubuntu VM - onboarded as Azure Arc-enabled Server
     * CentOS VM - onboarded as Azure Arc-enabled server
   * Deploy an Azure Monitor workbook that provides example reports and metrics for monitoring ArcBox components
-
 
 ## Prerequisites
 
@@ -219,7 +218,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
 * Create a `terraform.tfvars` file in the root of the terrform directory and supply some values for your environment.
 
-  ```json
+  ```terraform
   azure_location    = "westus2"
   spn_client_id     = "1414133c-9786-53a4-b231-f87c143ebdb1"
   spn_client_secret = "tgG7R~ef4w1rcvzfNmZoFNhgpRrMw25iLXEcS"
@@ -236,15 +235,15 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
   * ***spn_client_secret*** - Your Azure service principal secret
   * ***spn_tenant_id*** - Your Azure tenant id
   * ***user_ip_address*** - Your local IP address. This is used to allow remote RDP and SSH connections to the Client Windows VM and K3s Rancher VM. If you don't know your public IP, you can find it [here](https://www.whatismyip.com/)
-  * ***client_admin_ssh*** - SSH public key path, used for Linux VM's
+  * ***client_admin_ssh*** - SSH public key path, used for Linux VMs
   * ***deployment_flavor*** - Use the value "ITPro" to specify that you want to deploy ArcBox for IT Pros
-  * *client_admin_username* - Admin username for Windows & Linux VM's
-  * *client_admin_password* - Admin password for Windows VM's. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
+  * *client_admin_username* - Admin username for Windows & Linux VMs
+  * *client_admin_password* - Admin password for Windows VMs. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
   * *workspace_name* - Unique name for the ArcBox Log Analytics workspace
 
   *NOTE: Any variables in **bold** are required. If any optional parameters are not provided, defaults will be used.*
 
-* Now you will deploy the Terraform file. Navigate to the local cloned [deployment folder](https://github.com/microsoft/azure_arc/tree/main/azure_jumpstart_arcbox/bicep) and run the commands below:
+* Now you will deploy the Terraform file. Navigate to the local cloned [deployment folder](https://github.com/microsoft/azure_arc/tree/arcbox_flavors/azure_jumpstart_arcbox/bicep) and run the commands below:
 
   ```shell
   terraform init
