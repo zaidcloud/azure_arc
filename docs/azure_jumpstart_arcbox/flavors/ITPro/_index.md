@@ -344,9 +344,9 @@ az group delete -n <name of your resource group>
 * Target Azure region does not support all required Azure services - ensure you are running ArcBox in one of the supported regions listed in the above section "ArcBox Azure Region Compatibility".
 * "BadRequest" error message when deploying - this error returns occassionally when the Log Analytics solutions in the ARM templates are deployed. Typically, waiting a few minutes and re-running the same deployment resolves the issue. Alternatively, you can try deploying to a different Azure region.
 
-  [Screenshot showing BadRequest errors in Az CLI](./error_badrequest.png)
+  ![Screenshot showing BadRequest errors in Az CLI](./error_badrequest.png)
 
-  [Screenshot showing BadRequest errors in Azure Portal](./error_badrequest2.png)
+  ![Screenshot showing BadRequest errors in Azure Portal](./error_badrequest2.png)
 
 Occasionally, you may need to review log output from scripts that run on the ArcBox-Client, ArcBox-CAPI or ArcBox-K3s virtual machines in case of deployment failures. Locations of logs for various script outputs is listed here:
 
