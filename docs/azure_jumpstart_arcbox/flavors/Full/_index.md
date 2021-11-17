@@ -64,7 +64,7 @@ ArcBox provides multiple paths for deploying and configuring ArcBox resources. D
 
 ArcBox uses an advanced automation flow to deploy and configure all necessary resources with minimal user interaction. The previous diagrams provide an overview of the deployment flow. A high-level summary of the deployment is:
 
-* User deploys the primary ARM template (azuredeploy.json) or Terraform plan (main.tf). These objects contain several nested objects that will run simultaneously.
+* User deploys the primary ARM template (azuredeploy.json), Bicep file (main.bicep), or Terraform plan (main.tf). These objects contain several nested objects that will run simultaneously.
   * ClientVM ARM template/plan - deploys the Client Windows VM. This is the Hyper-V host VM where all user interactions with the environment are made from.
   * Storage account template/plan - used for staging files in automation scripts
   * Management artifacts template/plan - deploys Azure Log Analytics workspace and solutions and Azure Policy artifacts
