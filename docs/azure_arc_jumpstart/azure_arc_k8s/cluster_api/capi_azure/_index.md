@@ -111,28 +111,6 @@ In this guide (as explained in the CAPI Book docs), you will deploy a local [kin
 
   ![Screenshot of kind management cluster deployment](./02.png)
 
-* Install the *clusterctl* CLI tool which handles the lifecycle of a Cluster API management cluster using the below commands:
-
-  On Linux:
-
-  ```shell
-  curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v0.4.2/clusterctl-linux-amd64 -o clusterctl
-  chmod +x ./clusterctl
-  sudo mv ./clusterctl /usr/local/bin/clusterctl
-  clusterctl version
-  ```
-  
-  On MacOS:
-
-  ```shell
-  curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v0.4.2/clusterctl-darwin-amd64 -o clusterctl
-  chmod +x ./clusterctl
-  sudo mv ./clusterctl /usr/local/bin/clusterctl
-  clusterctl version
-  ```
-
-  ![Screenshot clusterctl installation](./03.png)
-
 ## Deployment - Workload Cluster
 
 * In the your directory of the cloned Jumpstart repository, navigate to where the [*arc_capi_azure*](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/cluster_api/capi_azure/arc_capi_azure.sh) bash script is located.
@@ -141,7 +119,7 @@ In this guide (as explained in the CAPI Book docs), you will deploy a local [kin
 
 * Edit the environment variables to match your Azure subscription and SPN details created in the prerequisites section in this guide as well as the required workload cluster details.
 
-  * _`KUBERNETES_VERSION`_="Kubernetes version. For example: 1.19.11"
+  * _`KUBERNETES_VERSION`_="Kubernetes version. For example: 1.22.1"
   * _`CONTROL_PLANE_MACHINE_COUNT`_="Control Plane node count. For example: 1"
   * _`WORKER_MACHINE_COUNT`_="Workers node count. For example: 2"
   * _`AZURE_LOCATION`_="Azure region. For example: eastus"
@@ -153,11 +131,11 @@ In this guide (as explained in the CAPI Book docs), you will deploy a local [kin
   * _`AZURE_CONTROL_PLANE_MACHINE_TYPE`_="Control Plane node Azure VM type .For example: Standard_D2s_v3".
   * _`AZURE_NODE_MACHINE_TYPE`_="Worker node Azure VM type .For example: Standard_D4s_v3"
 
-  ![Screenshot of user environment variables](./04.png)
+  ![Screenshot of user environment variables](./03.png)
 
   > **Note: CAPI-based Kubernetes cluster deployments are using a yaml file that holds the deployment parameters as a Kubernetes manifest. The script in this scenario [generates the default scheme](https://github.com/kubernetes-sigs/cluster-api-provider-azure/blob/cfdac96526e388eb6374cad5eef581fb1767627f/templates/cluster-template-external-cloud-provider.yaml#L131) that has Premium storage type VMs as it's default. When editing both the _AZURE_CONTROL_PLANE_MACHINE_TYPE_ and the _AZURE_NODE_MACHINE_TYPE_, use Premium storage supported type VMs**
 
-* Execute the script using the below command. The script runtime can take ~10-20min, depends on the number of control plane and worker nodes you chose to deploy. In case you don't have the required Azure CLI extensions already installed or if they are requires an update, the script will either install it or perform an update.
+* Execute the script using the below command. The script runtime can take ~10-20min, depends on the number of control plane and worker nodes you chose to deploy. In case you don't have the required Azure CLI extensions already installed or if they are requires an update, the script will either install it or perform an update. The script will also install helm and *clusterctl* CLI tool which handles the lifecycle of a Cluster API management cluster.
 
   ```shell
   . ./arc_capi_azure.sh
@@ -165,27 +143,31 @@ In this guide (as explained in the CAPI Book docs), you will deploy a local [kin
 
   > **Note: The extra dot is due to the script having an *export* function and needs to have the vars exported in the same shell session as the other commands.**
 
+  ![Screenshot of workload cluster deployment script runtime](./04.png)
+
   ![Screenshot of workload cluster deployment script runtime](./05.png)
 
   ![Screenshot of workload cluster deployment script runtime](./06.png)
 
   ![Screenshot of workload cluster deployment script runtime](./07.png)
 
+  ![Screenshot of workload cluster deployment script runtime](./08.png)
+
 * Upon completion, you will have a new Kubernetes cluster deployed on top of Azure virtual machines  that is already onboard as an Azure Arc-enabled Kubernetes cluster.
 
   The script will generate the cluster definition *yaml* file which was used to deploy the workload cluster as will as the *kubeconfig* file. To test the cluster is up and running use the below command.
 
   ```shell
-  kubectl get nodes --kubeconfig=./<Name of your workload cluster>.kubeconfig
+  kubectl get nodes --kubeconfig=<Name of your workload cluster>.kubeconfig
   ```
 
-  ![Screenshot of the workload cluster nodes](./08.png)
+  ![Screenshot of the workload cluster nodes](./09.png)
 
 * In the Azure portal, you can see how all the resources were deployed in a new resource group as well as the Azure Arc-enabled Kubernetes cluster resource.
 
-  ![Screenshot of the Azure resources](./09.png)
+  ![Screenshot of the Azure resources](./10.png)
 
-  ![Screenshot of the Azure Arc-enabled Kubernetes cluster resource](./10.png)
+  ![Screenshot of the Azure Arc-enabled Kubernetes cluster resource](./11.png)
 
 ## Cleanup
 
@@ -195,7 +177,7 @@ In this guide (as explained in the CAPI Book docs), you will deploy a local [kin
   kubectl delete cluster "<Name of your cluster>"
   ```
 
-  ![Screenshot of the workload cluster deletion](./11.png)
+  ![Screenshot of the workload cluster deletion](./12.png)
 
 * In addition, you can also delete the management cluster using the below command.
 
@@ -203,4 +185,4 @@ In this guide (as explained in the CAPI Book docs), you will deploy a local [kin
   kind delete cluster
   ```
 
-  ![Screenshot of the management cluster deletion](./12.png)
+  ![Screenshot of the management cluster deletion](./13.png)
