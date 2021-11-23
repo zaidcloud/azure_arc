@@ -145,7 +145,6 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 * France Central
 * UK South
 * Southeast Asia
-* Australia East
 
 ## Deployment Option 1: Azure Portal
 
@@ -294,7 +293,3 @@ Occasionally deployments of ArcBox may fail at various stages. Common reasons fo
 ## Known issues
 
 * Azure Arc-enabled SQL Server assessment report not always visible in Azure Portal
-
-* Webhook pods go into error state, even after Data Controller/SQL MI/Postgres pods are up, caused by a known Helm-related backend issue that is being worked on. These errors can be safely ignored and do not impact the functionality of Azure Arc-enabled data services and the Jumpstart automation.
-
-    ![webhook known issue](https://raw.githubusercontent.com/microsoft/azure_arc/main/docs/known_issues/webhook_issue.png)
