@@ -25,7 +25,7 @@ ArcBox is a solution that provides an easy to deploy sandbox for all things Azur
 
 ![ArcBox servers diagram](./servers.png)
 
-ArcBox includes five Azure Arc-enabled server resources that are hosted using nested virtualization in Azure. As part of the deployment, a Hyper-V host (ArcBox-Client) is deployed with five guest virtual machines. These machines, _ArcBox-Win2k22_, _ArcBox-Win2k19_, _ArcBox-SQL_, _ArcBox-Debian_, and _ArcBox-Ubuntu_ are connected as Azure Arc-enabled servers via the ArcBox automation.
+ArcBox includes five Azure Arc-enabled server resources that are hosted using nested virtualization in Azure. As part of the deployment, a Hyper-V host (ArcBox-Client) is deployed with five guest virtual machines. These machines, _ArcBox-Win2k22_, _ArcBox-Win2k19_, _ArcBox-SQL_, _ArcBox-CentOS_, and _ArcBox-Ubuntu_ are connected as Azure Arc-enabled servers via the ArcBox automation.
 
 ### Azure Arc-enabled Kubernetes
 
@@ -74,7 +74,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
     * Windows Server 2019 VM - onboarded as Azure Arc-enabled Server
     * Windows VM running SQL Server - onboarded as Azure Arc-enabled SQL Server (as well as Azure Arc-enabled Server)
     * Ubuntu VM - onboarded as Azure Arc-enabled Server
-    * Debian VM - onboarded as Azure Arc-enabled server
+    * CentOS VM - onboarded as Azure Arc-enabled server
   * Deploy an Azure Monitor workbook that provides example reports and metrics for monitoring ArcBox components
 
 ## Prerequisites
