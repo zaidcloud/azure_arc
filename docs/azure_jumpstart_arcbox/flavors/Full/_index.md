@@ -106,20 +106,22 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
 * Create Azure service principal (SP)
 
-    To deploy ArcBox an Azure service principal assigned with the "Contributor" role is required. To create it login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
+    To deploy ArcBox an Azure service principal assigned with the "Contributor" and "User Access Administrator" roles are required. To create it login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)). "User Access Administrator" role is required for onboarding the Azure Arc-enabled SQL Server resource.
 
     ```shell
     az login
     az ad sp create-for-rbac -n "<Unique SP Name>" --role contributor
+    az ad sp create-for-rbac -n "<Unique SP Name>" --role "User Access Administrator"
     ```
 
     For example:
 
     ```shell
     az ad sp create-for-rbac -n "http://AzureArcBox" --role contributor
+    az ad sp create-for-rbac -n "http://AzureArcBox" --role "User Access Administrator"
     ```
 
-    Output should look like this:
+    Output should look similar to this:
 
     ```json
     {
