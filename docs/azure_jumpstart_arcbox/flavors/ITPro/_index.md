@@ -97,11 +97,11 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
     For example:
 
     ```shell
-    az ad sp create-for-rbac -n "http://AzureArcBox" --role contributor
-    az ad sp create-for-rbac -n "http://AzureArcBox" --role "User Access Administrator"
-    az ad sp create-for-rbac -n "http://AzureArcBox" --role "Security admin"
-    az ad sp create-for-rbac -n "http://AzureArcBox" --role "Security reader"
-    az ad sp create-for-rbac -n "http://AzureArcBox" --role "Monitoring Metrics Publisher"
+    az ad sp create-for-rbac -n "JumpstartArcBox" --role "Contributor"
+    az ad sp create-for-rbac -n "JumpstartArcBox" --role "User Access Administrator"
+    az ad sp create-for-rbac -n "JumpstartArcBox" --role "Security admin"
+    az ad sp create-for-rbac -n "JumpstartArcBox" --role "Security reader"
+    az ad sp create-for-rbac -n "JumpstartArcBox" --role "Monitoring Metrics Publisher"
     ```
 
     Output should look like this:
