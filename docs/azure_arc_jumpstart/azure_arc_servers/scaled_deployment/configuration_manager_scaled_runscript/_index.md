@@ -93,25 +93,25 @@ In order for Configuration Manager to run the PowerShell script in this scenario
 ## Configuration of the PowerShell script approval settings in Configuration Manager
 
 - Go to the “Administration” workspace. Under “Site Configuration”, select “Sites” and select the Configuration Manager site. Click on “Hierarchy Settings”.
-    
+
     ![Screenshot showing sites settings in the configuration manager console](./05.png)
 
 - In the “General” tab, uncheck the “Script authors require additional script approver” option.
-    
+
     ![Screenshot showing script approval settings in the configuration manager console](./06.png)
 
 ## Deployment
 
 - Go to the “Software Library” workspace. Click on “Create Script”.
-    
+
     ![Screenshot showing script creation in the configuration manager console](./07.png)
 
 - Provide a name to the script. Paste the content of the [_az_connect_win_](https://github.com/microsoft/azure_arc/blob/main/azure_arc_servers_jumpstart/scripts/az_connect_win.ps1) PowerShell script you downloaded earlier. Click “Next” and “Close”.
-    
+
     ![Screenshot showing script creation in the configuration manager console](./08.png)
 
 - Select the script and click “Approve/Deny”. Proceed to approve the script and close.
-    
+
     ![Screenshot showing script approval settings in the configuration manager console](./09.png)
 
     ![Screenshot showing script approving in the configuration manager console](./10.png)
