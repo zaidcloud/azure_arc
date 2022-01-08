@@ -20,6 +20,8 @@ In this guide, you will deploy & attach GitOps configuration to your cluster whi
 
 - Clone the forked Azure Arc Jumpstart repository.
 
+    For example:
+
     ```shell
     git clone https://github.com/zaidmohd/azure_arc.git
     ```
@@ -81,13 +83,13 @@ For you to get familiar with the automation and deployment flow, below is an exp
 
 - User is editing the environment variables in the Shell script file (1-time edit) which then be used throughout the GitOps configuration.
 
-- User is running the shell script. The script will use the extension management feature of Azure Arc to deploy the Flux extension and the create GitOps configuration on the Azure Arc connected cluster.
+- User is running the shell script. The script will use the extension management feature of Azure Arc to deploy the Flux extension and create GitOps configuration on the Azure Arc connected cluster.
 
 - The script will also create a namespace and deploy Nginx Ingress Controller.
 
 - User is verifying the cluster and making sure the extension and GitOps configuration is deployed.
 
-- User is making a edit on the GitHub repo that will cause Flux GitOps to detect this change and trigger an update to the pod deployment.
+- User is making an edit on the GitHub repo that will cause Flux GitOps to detect this change and trigger an update to the pod deployment.
 
 ## Azure Arc Kubernetes GitOps Configuration
 
@@ -113,7 +115,7 @@ To create the GitOps Configuration, we will use the _k8s-configuration flux crea
   - Retrieve the cluster credentials (KUBECONFIG)
   - Will use Helm to deploy NGINX ingress controller
   - Create the GitOps configurations and deploy the Flux controllers on the Azure Arc connected cluster
-  - Deploy the ["Hello Arc"](https://github.com/zaidmohd/azure_arc/artifacts/hello-arc/yaml) application along side an Ingress rule to make it available from outside the cluster
+  - Deploy the ["Hello Arc"](https://github.com/microsoft/azure_arc/blob/main/artifacts/hello-arc) application along side an Ingress rule to make it available from outside the cluster
 
     > **Disclaimer: For the purpose of this guide, notice how the "*sync-interval 3s*" is set. The 3 seconds interval is useful for demo purposes since it will make the sync interval to rapidly track changes on the repository but it is recommended to have longer interval in your production environment (default value is 5min)**
 
@@ -163,7 +165,7 @@ To create the GitOps Configuration, we will use the _k8s-configuration flux crea
 
 - The GitOps flow works as follow:
 
-    1. The Flux operator holds the "desired state" of the "Hello Arc" application, this are the configuration we deployed against the Azure Arc connected cluster. The operator "polls" the state of the of the ["Hello Arc"](https://github.com/zaidmohd/azure_arc/artifacts/hello-arc/yaml) application repository.
+    1. The Flux operator holds the "desired state" of the "Hello Arc" application, this are the configuration we deployed against the Azure Arc connected cluster. The operator "polls" the state of the of the ["Hello Arc"](https://github.com/microsoft/azure_arc/blob/main/artifacts/hello-arc) application repository.
 
     2. Changing the application which is consider to be a new version of it, will trigger the Flux operator to kick-in the GitOps flow.
 
@@ -179,7 +181,7 @@ To create the GitOps Configuration, we will use the _k8s-configuration flux crea
   
     ![kubectl get pods -n hello-arc -w](./13.png)
 
-  - Your fork of the "Azure Arc Jumpstart" repository. Open the [*hello_arc.yaml*](https://github.com/zaidmohd/azure_arc/artifacts/hello-arc/yaml/hello_arc.yaml) file.
+  - Your fork of the "Azure Arc Jumpstart" repository. Open the [*hello_arc.yaml*](https://github.com/zaidmohd/azure_arc/tree/main/artifacts/hello-arc/yaml/hello_arc.yaml) file.
 
   - The external IP address of the Kubernetes Service seen using the ```kubectl get svc -n hello-arc``` command.
 
