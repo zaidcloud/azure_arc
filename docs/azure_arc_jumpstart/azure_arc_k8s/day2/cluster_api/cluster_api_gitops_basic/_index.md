@@ -195,7 +195,7 @@ To create the GitOps Configuration, we will use the _k8s-configuration flux crea
 
     ![Tab Auto Refresh](./16.png)
 
-- In the repository window showing the *hello_arc.yaml* file, change the text under "MESSAGE" section commit the change. Alternatively, you can open the clone repository in your IDE, make the change, commit and push it.
+- In the repository window showing the _hello_arc.yaml_ file, change the text under the "MESSAGE" section commit the change. Alternatively, you can open your cloned repository in your IDE, make the change, commit and push it.
 
     ![Making a change to the replica count and the "MESSAGE" section](./17.png)
 
