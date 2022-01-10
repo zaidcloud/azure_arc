@@ -16,7 +16,7 @@ In this guide, you will deploy & attach GitOps configuration to your cluster whi
 
 ## Prerequisites
 
-- Fork the ["Azure Arc Jumpstart"](https://github.com/microsoft/azure_arc) repository
+- Fork the ["Azure Arc Jumpstart"](https://github.com/microsoft/azure_arc) repository. In this guide, you will be making changes on your own forked repository to initiate the GitOps flow.
 
 - Clone the forked Azure Arc Jumpstart repository.
 
