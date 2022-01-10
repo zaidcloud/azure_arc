@@ -191,7 +191,7 @@ To create the GitOps Configuration, we will use the _k8s-configuration flux crea
 
     ![Side-by-side view of terminal, "Hello Arc" GitHub repo and the application open in a web browser](./15.png)
 
-- As mentioned in the prerequisites section, it is optional but very recommended to configure the "Tab Auto Refresh" extension for your browser. If you did, in the "Hello Arc" application window, configure it to refresh every 2 seconds.
+- As mentioned in the prerequisites section, it is optional but highly recommended to configure the "Tab Auto Refresh" extension for your browser. If you did, in the "Hello Arc" application window, configure it to refresh every 2 seconds.
 
     ![Tab Auto Refresh](./16.png)
 
