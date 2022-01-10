@@ -129,7 +129,7 @@ To create the GitOps Configuration, we will use the _k8s-configuration flux crea
 
 ## The "Hello Arc" Application & Components
 
-- Before kicking the GitOps flow, let's verify and zoom-in to the Kubernetes resources deployed by running few *kubectl* commands.
+- Before kicking the GitOps flow, let's verify and "zoom in" to the Kubernetes resources deployed by running a few _kubectl_ commands.
 
 - Show the Flux operator pods.
 
