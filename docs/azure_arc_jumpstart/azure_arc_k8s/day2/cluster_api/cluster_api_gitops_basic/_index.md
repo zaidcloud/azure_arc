@@ -101,7 +101,7 @@ To create the GitOps Configuration, we will use the _k8s-configuration flux crea
 
 - In the screenshot below, notice how currently there is no GitOps configuration in your Arc-enabled Kubernetes cluster.
 
-    ![Screenshot showing Azure Portal with Azure Arc-enabled Kubernetes GitOps Config](./04.png)
+    ![Screenshot showing Azure Portal with no Azure Arc-enabled Kubernetes GitOps configurations](./04.png)
 
 - Edit the environment variables [in the script](https://github.com/microsoft/azure_arc/blob/main/azure_arc_k8s_jumpstart/cluster_api/gitops/basic/az_k8sconfig_capi.sh) to match your environment parameters followed by running the _`. ./az_k8sconfig_capi.sh`_ command.
 
