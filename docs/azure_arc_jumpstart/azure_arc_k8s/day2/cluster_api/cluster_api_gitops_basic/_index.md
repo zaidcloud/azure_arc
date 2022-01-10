@@ -147,7 +147,7 @@ To create the GitOps Configuration, we will use the _k8s-configuration flux crea
 
     ![kubectl get pods -n hello-arc](./10.png)
 
-- Show NGINX controller Kubernetes Service (Type LoadBalancer).
+- Show NGINX controller Kubernetes Service (Type _LoadBalancer_).
 
     ```shell
     kubectl get svc -n hello-arc
