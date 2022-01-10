@@ -23,7 +23,7 @@ In this guide, you will deploy & attach GitOps configuration to your cluster whi
     For example:
 
     ```shell
-    git clone https://github.com/zaidmohd/azure_arc.git
+    git clone https://github.com/**zaidmohd**/azure_arc.git
     ```
 
 - (Optional) Install the "Tab Auto Refresh" extension for your browser. This will help you to show the real-time changes on the application in an automated way.
