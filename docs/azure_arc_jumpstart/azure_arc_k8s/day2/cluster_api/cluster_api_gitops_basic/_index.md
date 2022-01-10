@@ -169,7 +169,7 @@ To create the GitOps Configuration, we will use the _k8s-configuration flux crea
 
     2. Changing the application, which is considered to be a new version of it, will trigger the Flux operator to kick in the GitOps flow.
 
-    3. A new Kubernetes pod with the new version of the application will be deployed on the cluster. Once the new pods is successfully deployed, the old one will be terminated (rolling upgrade).
+    3. A new Kubernetes pod with the new version of the application will be deployed on the cluster. Once the new pods are successfully deployed, the old one will be terminated (rolling upgrade).
 
 - To show the above flow, open 2 (ideally 3) side-by-side browser windows:
 
