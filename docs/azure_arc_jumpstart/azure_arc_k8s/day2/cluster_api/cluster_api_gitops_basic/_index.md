@@ -201,6 +201,6 @@ To create the GitOps Configuration, we will use the _k8s-configuration flux crea
 
     ![Making a change to the replica count and the "MESSAGE" section](./18.png)
 
-- Upon committing the changes, notice how the Kubernetes Pod rolling upgrade starts. Once the Pod is up & running, the new "Hello Arc" application version window will show the new message, showing the rolling upgrade is completed and the GitOps flow is successful.
+- Upon committing the changes, notice how the Kubernetes Pod rolling upgrade will start. Once the Pod is up & running, the new "Hello Arc" application version window will show the new message, showing the rolling upgrade is completed and the GitOps flow is successful.
 
     ![New side-by-side view of terminal, "Hello Arc" GitHub repo and the application open in a web browser](./19.png)
