@@ -362,12 +362,17 @@ az group delete -n <name of your resource group>
 
   ![Screenshot showing BadRequest errors in Azure Portal](./error_badrequest2.png)
 
-Occasionally, you may need to review log output from scripts that run on the ArcBox-Client, ArcBox-CAPI or ArcBox-K3s virtual machines in case of deployment failures. Locations of logs for various script outputs is listed here:
+Occasionally, you may need to review log output from scripts that run on the ArcBox-Client, ArcBox-CAPI or ArcBox-K3s virtual machines in case of deployment failures. To make troubleshooting easier, the ArcBox deployment scripts collect all relevant logs in the _C:\ArcBox\Logs_ folder on ArcBox-Client. A short description of the logs and their purpose can be seen in the list below:
 
-- ArcBox-Client
-  - _C:\ArcBox\ArcServersLogonScript.log_
+| Logfile | Description |
+| ------- | ----------- |
+| _C:\ArcBox\Logs\Bootstrap.log_ | Output from the initial bootstrapping script that runs on ArcBox-Client. |
+| _C:\ArcBox\Logs\ArcServersLogonScript.log_ | Output of ArcServersLogonScript.ps1 which configures the Hyper-V host and guests and onboards the guests as Azure Arc-enabled servers. |
+| _C:\ArcBox\Logs\MonitorWorkbookLogonScript.log_ | Output from MonitorWorkbookLogonScript.ps1 which deploys the Azure Monitor workbook. |
 
-If you are still having issues deploying ArcBox, please [submit an issue](https://github.com/microsoft/azure_arc/issues/new/choose) on GitHub and include the Azure region you are deploying to, the flavor of ArcBox you are trying to deploy, and the output of the relevant logs listed above.
+  ![Screenshot showing ArcBox logs folder on ArcBox-Client](./troubleshoot_logs.png)
+
+If you are still having issues deploying ArcBox, please [submit an issue](https://github.com/microsoft/azure_arc/issues/new/choose) on GitHub and include a detailed description of your issue, the Azure region you are deploying to, and the flavor of ArcBox you are trying to deploy.
 
 ## Known issues
 

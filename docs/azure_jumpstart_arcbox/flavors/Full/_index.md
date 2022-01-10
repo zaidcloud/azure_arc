@@ -426,18 +426,23 @@ Occasionally deployments of ArcBox may fail at various stages. Common reasons fo
 
   ![Screenshot showing BadRequest errors in Azure Portal](./error_badrequest2.png)
 
-Occasionally, you may need to review log output from scripts that run on the ArcBox-Client, ArcBox-CAPI or ArcBox-K3s virtual machines in case of deployment failures. Locations of logs for various script outputs is listed here:
+Occasionally, you may need to review log output from scripts that run on the ArcBox-Client, ArcBox-CAPI or ArcBox-K3s virtual machines in case of deployment failures. To make troubleshooting easier, the ArcBox deployment scripts collect all relevant logs in the _C:\ArcBox\Logs_ folder on ArcBox-Client. A short description of the logs and their purpose can be seen in the list below:
 
-- ArcBox-Client
-  - _C:\ArcBox\ArcServersLogonScript.log_
-  - _C:\ArcBox\DataServicesLogonScript.log_
-  - _C:\ArcBox_
-- ArcBox-CAPI
-  - _/var/lib/waagent/custom-script/download/0/installCAPI.log_
-- ArcBox-K3s
-  - _/var/lib/waagent/custom-script/download/0/installK3s.log_
+| Logfile | Description |
+| ------- | ----------- |
+| _C:\ArcBox\Logs\Bootstrap.log_ | Output from the initial bootstrapping script that runs on ArcBox-Client. |
+| _C:\ArcBox\Logs\ArcServersLogonScript.log_ | Output of ArcServersLogonScript.ps1 which configures the Hyper-V host and guests and onboards the guests as Azure Arc-enabled servers. |
+| _C:\ArcBox\Logs\DataServicesLogonScript.log_ | Output of DataServicesLogonScript which configures Azure Arc-enabled data services baseline capability. |
+| _C:\ArcBox\Logs\deployPostgreSQL.log_ | Output of deployPostgreSQL.ps1 which deploys and configures PostgreSQL Hyperscale with Azure Arc. |
+| _C:\ArcBox\Logs\deploySQL.log_ | Output of deploySQL.ps1 which deploys and configures SQL Managed Instance with Azure Arc. |
+| _C:\ArcBox\Logs\installCAPI.log_ | Output from the custom script extension which runs on ArcBox-CAPI and configures the Cluster API for Azure cluster and onboards it as an Azure Arc-enabled Kubernetes cluster. If you encounter ARM deployment issues with ubuntuCapi.json then review this log. |
+| _C:\ArcBox\Logs\installK3s.log_ | Output from the custom script extension which runs on ArcBox-K3s and configures the Rancher cluster and onboards it as an Azure Arc-enabled Kubernetes cluster. If you encounter ARM deployment issues with ubuntuRancher.json then review this log. |
+| _C:\ArcBox\Logs\MonitorWorkbookLogonScript.log_ | Output from MonitorWorkbookLogonScript.ps1 which deploys the Azure Monitor workbook. |
+| _C:\ArcBox\Logs\SQLMIEndpoints.log_ | Output from SQLMIEndpoints.ps1 which collects the service endpoints for SQL MI and uses them to configure Azure Data Studio connection settings. |
 
-If you are still having issues deploying ArcBox, please [submit an issue](https://github.com/microsoft/azure_arc/issues/new/choose) on GitHub and include the Azure region you are deploying to, the flavor of ArcBox you are trying to deploy, and the output of the relevant logs listed above.
+  ![Screenshot showing ArcBox logs folder on ArcBox-Client](./troubleshoot_logs.png)
+
+If you are still having issues deploying ArcBox, please [submit an issue](https://github.com/microsoft/azure_arc/issues/new/choose) on GitHub and include a detailed description of your issue, the Azure region you are deploying to, the flavor of ArcBox you are trying to deploy, and the LogsBundle zipfile in _C:\ArcBox\Logs_.
 
 ## Known issues
 
