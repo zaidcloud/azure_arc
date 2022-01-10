@@ -167,7 +167,7 @@ To create the GitOps Configuration, we will use the _k8s-configuration flux crea
 
     1. The Flux operator holds the "desired state" of the "Hello Arc" application, this is the configuration we deployed against the Azure Arc connected cluster. The operator "polls" the state of the ["Hello Arc"](https://github.com/microsoft/azure_arc/blob/main/artifacts/hello-arc) application repository.
 
-    2. Changing the application which is consider to be a new version of it, will trigger the Flux operator to kick-in the GitOps flow.
+    2. Changing the application, which is considered to be a new version of it, will trigger the Flux operator to kick in the GitOps flow.
 
     3. A new Kubernetes pod with the new version of the application will be deployed on the cluster. Once the new pods is successfully deployed, the old one will be terminated (rolling upgrade).
 
