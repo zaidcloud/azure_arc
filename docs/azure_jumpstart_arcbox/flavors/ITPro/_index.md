@@ -289,6 +289,38 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
   ![Screenshot showing ArcBox resources in Azure Portal](./rgarc.png)
 
+## Azure Arc-enabled SQL Server onboarding
+
+- During deployment, a check is performed to determine whether or not the Service Principal being used has permissions of _'Microsoft.Authorization/roleAssignments/write'_ on the target Resource Group. This permission can be found in the Azure built-in roles of Owner, User Access Administrator, or you may have a custom RBAC role which provides this permission. If the Service Principal has been granted the rights to change the role assignments on the Resource Group, the Azure Arc-enabled SQL server can be automatically onboarded as part of the port-deployment automation.
+
+- In the event that the Service Principal does *not* have _'Microsoft.Authorization/roleAssignments/write'_ on the target Resource Group, and icon will created on the ArcBox-Client desktop, which will allow you to onboard the Azure Arc-enabled SQL server after the post-deployment automation is complete. To start the onboarding process in this scenario, simply click the _'Onboard SQL Server'_ icon on the desktop. This process should take around 10-15 minutes to complete.
+
+  ![Screenshot showing ArcBox-Client](./sql_manual_onboard_icon.png)
+
+- A pop-up box will walk you through the target SQL server which will be onboarded to Azure Arc,as well as provide details around the flow of the onboarding automation and how to complete the Azure authentication process when prompted.
+
+  ![Screenshot showing ArcBox-Client](./sql_manual_onboard_start.png)
+
+- The automation uses the PowerShell SDK to onboard the Azure Arc-enabled SQL server on your behalf. To accomplish this, it will login to Azure with the _-UseDeviceAuthentication_ flag. The device code will be copied to the clipboard on your behalf, so you can simply paste the value into box when prompted.
+
+  ![Screenshot showing ArcBox-Client](./sql_manual_onboard_code.png)
+
+- You'll then need to provide your Azure credentials to complete the authentication process. The user you login as will need _'Microsoft.Authorization/roleAssignments/write'_ permissions on the ArcBox Resource Group to complete the onboarding process.
+
+  ![Screenshot showing ArcBox-Client](./sql_manual_onboard_login.png)
+
+- The output of each step of the onboarding process will be displayed in the PowerShell script window, so you'll be able to see where the script currently is in the process at all times.
+
+  ![Screenshot showing ArcBox-Client](./sql_manual_onboard_output.png)
+
+- Once complete, you'll receive a pop-up notification informing you that the onboarding process is complete, and to check the Arc blade in the Azure Portal in the next few minutes.
+
+  ![Screenshot showing ArcBox-Client](./sql_manual_onboard_complete.png)
+
+- From the Azure Portal, the SQL server should now be visible as an Azure Arc-enabled SQL server.
+
+  ![Screenshot showing ArcBox-Client](./sql_manual_onboard_portal.png)
+
 ## Using ArcBox for IT Pros
 
 After deployment is complete, its time to start exploring ArcBox. Most interactions with ArcBox will take place either from Azure itself (Azure Portal, CLI or similar) or from inside the ArcBox-Client virtual machine. When remoted into the client VM, here are some things to try:
