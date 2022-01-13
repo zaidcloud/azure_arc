@@ -346,7 +346,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
   ![Screenshot showing ArcBox-Client](./sql_manual_onboard_output.png)
 
-- Once complete, you'll receive a pop-up notification informing you that the onboarding process is complete, and to check the Arc blade in the Azure Portal in the next few minutes.
+- Once complete, you'll receive a pop-up notification informing you that the onboarding process is complete, and to check the Azure Arc blade in the Azure Portal in the next few minutes.
 
   ![Screenshot showing ArcBox-Client](./sql_manual_onboard_complete.png)
 
