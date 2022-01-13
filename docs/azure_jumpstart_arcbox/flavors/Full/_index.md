@@ -330,7 +330,7 @@ ArcBox must be deployed to one of the following regions. Deploying ArcBox outsid
 
   ![Screenshot showing ArcBox-Client](./sql_manual_onboard_icon.png)
 
-- A pop-up box will walk you through the target SQL server which will be onboarded to Azure Arc,as well as provide details around the flow of the onboarding automation and how to complete the Azure authentication process when prompted.
+- A pop-up box will walk you through the target SQL server which will be onboarded to Azure Arc, as well as provide details around the flow of the onboarding automation and how to complete the Azure authentication process when prompted.
 
   ![Screenshot showing ArcBox-Client](./sql_manual_onboard_start.png)
 
