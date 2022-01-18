@@ -106,7 +106,7 @@ In this guide, you will enable and configure Microsoft Defender for Cloud on you
 * Microsoft Defender for Cloud is enabled on all your Azure subscriptions by default and will provide continuous security assessment and actionable security recommendations. In this guide, you will use Microsoft Defender for Cloud for Virtual Machines that extends these capabilities providing unified security management and threat protection across your hybrid cloud workloads. To enable Microsoft Defender for Cloud for VMs run the command below:
 
     ```shell
-    az security pricing create -n default --tier 'standard'
+    az security pricing create -n VirtualMachines --tier 'standard'
     ```
 
 * Now you need to assign the default Microsoft Defender for Cloud policy initiative. Defender makes its security recommendations based on policies. There is an specific initiative that groups Microsoft Defender for Cloud policies with the definition ID '1f3afdf9-d0c9-4c3d-847f-89da613e70a8'. The command below will assign the Defender initiative to your subscription:
@@ -140,7 +140,7 @@ Microsoft Defender for Cloud will collect data from your Arc-enabled servers to 
 
     ![Screenshot showing Defender Quick Fix ARM template](./06.png)
 
-* You can trigger the remediation and selecting: "Recommended: Deploy ASC integrated vulnerability scanner powered by Qualys (included in Microsoft Defender for Cloud for servers)" and clicking on "Remediate 1 resource".
+* You can trigger the remediation and selecting: "Deploy the integrated vulnerability scanner powered by Qualys (included with Microsoft Defender for servers)" and clicking on "Proceed", select the Azure Arc-enabled server and click on "Fix 1 resource".
 
     ![Screenshot showing triggering of remediation step of Defender](./07.png)
 
