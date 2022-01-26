@@ -78,7 +78,7 @@ In this guide, you will enable and configure Azure Sentinel on your Azure subscr
 
 ## Onboarding Azure Sentinel
 
-Azure Sentinel uses the Log Analytics agent to collect Windows and Linux server's log files and forwards them to Azure Sentinel, the data collected is stored in a Log Analytics workspace. Since you cannot use the default workspace created by Azure Security Center (ASC), a custom one is required and you could have raw events and alerts for ASC within the same custom workspace as Sentinel.
+Azure Sentinel uses the Log Analytics agent to collect Windows and Linux server's log files and forwards them to Azure Sentinel, the data collected is stored in a Log Analytics workspace. Since you cannot use the default workspace created by Microsoft Defender for Cloud, a custom one is required and you could have raw events and alerts for Defender within the same custom workspace as Sentinel.
 
 * You will need to create a dedicated Log Analytics workspace and enable the Azure Sentinel solution on the top of it. For that you can use this [ARM template](https://github.com/microsoft/azure_arc/blob/main/azure_arc_servers_jumpstart/azuresentinel/arm/sentinel-template.json) that will create a new Log Analytics Workspace and define the Azure Sentinel solution and enable it for the workspace. To automate the deployment edit the ARM template [parameters file](https://github.com/microsoft/azure_arc/blob/main/azure_arc_servers_jumpstart/azuresentinel/arm/sentinel-template.parameters.json), provide a name and location for your workspace:
 
