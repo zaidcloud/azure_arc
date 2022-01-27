@@ -9,6 +9,52 @@ weight: 3
 
 **Release notes will be released on the first week of each month and will cover the previous month.**
 
+## January 2022
+
+### Release highlights and general Jumpstart enhancements
+
+- [Announcing Jumpstart ArcBox 2.0 release](https://aka.ms/ArcBox2Blog)
+
+- New Azure Arc-enabled servers scenarios
+
+- New Azure Arc-enabled Kubernetes scenarios
+
+- Azure Arc-enabled data services enhancements
+
+- [Product rebranding: Microsoft Defender for Cloud and Microsoft Container Registry #927](https://github.com/microsoft/azure_arc/issues/925)
+
+### Azure Arc-enabled servers scenarios
+
+- [New Scenario: Connect an existing Windows server to Azure Arc using Configuration Manager with PowerShell](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/scaled_deployment/configuration_manager_scaled_runscript/)
+
+- [New Scenario: Connect an existing Windows server to Azure Arc using Configuration Manager with a Task Sequence](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_servers/scaled_deployment/configuration_manager_scaled_tasksequence/)
+
+- [Updated Scenario: Update Sentinel scenario with the new onboarding method #933](https://github.com/microsoft/azure_arc/issues/933)
+
+- [Bug fix: Windows Server Virtual Machine won't register to Azure Arc #918](https://github.com/microsoft/azure_arc/issues/918)
+
+- [VMware vSphere Windows Server VMs VMTools update #940](https://github.com/microsoft/azure_arc/issues/940)
+
+### Azure Arc-enabled Kubernetes scenarios
+
+- [New Scenario: Deploy GitOps configurations and perform basic GitOps flow on Cluster API as an Azure Arc Connected Cluster (Flux v2)](https://azurearcjumpstart.io/azure_arc_jumpstart/azure_arc_k8s/day2/cluster_api/cluster_api_gitops_basic/)
+
+- [Bug fix: Service principle azure role doesn't have proper rights configured #861](https://github.com/microsoft/azure_arc/issues/861)
+
+- [Bug fix: k3s Azure ARM template #885](https://github.com/microsoft/azure_arc/issues/885)
+
+- [Bug fix: Cloud Defender K8s extension failing to install #900](https://github.com/microsoft/azure_arc/issues/900)
+
+### Azure Arc-enabled data services scenarios
+
+- [Enhancement: Add support for data controller auto-upload logs and metrics #901](https://github.com/microsoft/azure_arc/issues/901)
+
+- [Bug fix: Creating data controller for the November release using kubectl #876](https://github.com/microsoft/azure_arc/issues/876)
+
+## December 2021
+
+All of December 2021 release notes were consolidated to the January 2022 release notes.
+
 ## November 2021
 
 ### Release highlights and general Jumpstart enhancements
