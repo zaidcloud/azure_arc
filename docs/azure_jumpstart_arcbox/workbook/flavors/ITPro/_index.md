@@ -93,7 +93,7 @@ The "Security" tab of the Jumpstart Workbook shows insights from Microsoft Defen
 
 - Make sure to select ArcBox's subscription, resource group, and Log Analytics workspace as the export target. Select Save.
 
-   ![Microsoft Defender for Cloud Configuration](./security_center_config_7.png)
+   ![Microsoft Defender for Cloud Configuration](./security_center_config_4.png)
 
 Once configured, the report will provide an overview of the secure score, you can filter information by using the parameters section:
 
