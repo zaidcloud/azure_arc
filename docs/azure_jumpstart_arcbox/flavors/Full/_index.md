@@ -2,7 +2,7 @@
 type: docs
 title: "Jumpstart ArcBox - Overview"
 linkTitle: "Jumpstart ArcBox"
-weight: 3
+weight: 1
 ---
 
 ## Jumpstart ArcBox "Full" Edition - Overview

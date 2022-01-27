@@ -2,7 +2,7 @@
 type: docs
 title: "Jumpstart ArcBox - IT Pros"
 linkTitle: "Jumpstart ArcBox for IT Pros"
-weight: 3
+weight: 2
 ---
 
 ## Jumpstart ArcBox for IT Pros
