@@ -1,21 +1,20 @@
 ---
 type: docs
-title: "Jumpstart ArcBox - Azure Monitor Workbook"
 weight: 99
 toc_hide: true
 ---
 
-# Jumpstart ArcBox - Azure Monitor Workbook
+# Jumpstart ArcBox for IT Pros - Azure Monitor Workbook
 
-[ArcBox](https://azurearcjumpstart.io/azure_jumpstart_arcbox/) is a solution that provides an easy to deploy sandbox for all things Azure Arc. This document provides specific guidance on the included ArcBox [Azure Monitor Workbook](https://docs.microsoft.com/en-us/azure/azure-monitor/visualize/workbooks-overview). Please refer to the main [ArcBox documentation](https://azurearcjumpstart.io/azure_jumpstart_arcbox/) for information on deploying and using ArcBox.
+ArcBox for IT Pros is a special "flavor" of ArcBox that is intended for users who want to experience Azure Arc-enabled servers capabilities in a sandbox environment. This document provides specific guidance on the included ArcBox [Azure Monitor Workbook](https://docs.microsoft.com/en-us/azure/azure-monitor/visualize/workbooks-overview). Please refer to the main [ArcBox documentation](https://azurearcjumpstart.io/azure_jumpstart_arcbox/) for information on deploying and using ArcBox.
 
-As part of ArcBox, an Azure Monitor workbook is deployed to provide a single pane of glass for monitoring and reporting on ArcBox resources. Using Azure's management and operations tools in hybrid, multi-cloud and edge deployments provides the consistency needed to manage each environment through a common set of governance and operations management practices. The Azure Monitor workbook acts as a flexible canvas for data analysis and visualization in the Azure portal, gathering information from several data sources from across ArcBox and combining them into an integrated interactive experience.
+As part of ArcBox for IT Pros, an Azure Monitor workbook is deployed to provide a single pane of glass for monitoring and reporting on ArcBox resources. Using Azure's management and operations tools in hybrid, multi-cloud and edge deployments provides the consistency needed to manage each environment through a common set of governance and operations management practices. The Azure Monitor workbook acts as a flexible canvas for data analysis and visualization in the Azure portal, gathering information from several data sources from across ArcBox and combining them into an integrated interactive experience.
 
-   > **NOTE: Due to the number of Azure resources included in a single ArcBox deployment and the data ingestion and analysis required, it is expected that metrics and telemetry for the workbook can take several hours to be fully available.**
+   > **Note: Due to the number of Azure resources included in a single ArcBox deployment and the data ingestion and analysis required, it is expected that metrics and telemetry for the workbook can take several hours to be fully available.**
 
-## Access the ArcBox workbook
+## Access the ArcBox for IT Pros workbook
 
-The Jumpstart ArcBox workbook is automatically deployed for you as part of ArcBox's advanced automation. To access the Jumpstart ArcBox workbook use the Azure portal to follow the next steps.
+The Jumpstart ArcBox workbook is automatically deployed for you as part of ArcBox's advanced automation. To access the Jumpstart ArcBox workbook use the Azure Portal to follow the next steps.
 
 - From the ArcBox resource group, select the Azure Workbook, then click "Open Workbook"
 
@@ -23,13 +22,13 @@ The Jumpstart ArcBox workbook is automatically deployed for you as part of ArcBo
 
 ![Workbook Gallery](./open_workbook.png)
 
-- The Jumpstart ArcBox Workbook will be displayed.
+- The Jumpstart ArcBox for IT Pros Workbook will be displayed.
 
-![Arcbox workbook overview](./workbook_overview.png)
+![Arcbox for IT Pros workbook overview](./workbook_overview.png)
 
-## ArcBox Workbook capabilities
+## ArcBox for IT Pros Workbook capabilities
 
-The ArcBox Workbook is a single report that combines data from different sources and services, providing a unified view across resources, enabling richer data and insights for unified operations.
+The ArcBox for IT Pros Workbook is a single report that combines data from different sources and services, providing a unified view across resources, enabling richer data and insights for unified operations.
 
 The Workbook is organized into several tabs that provide easier navigation and separation of concerns.
 
@@ -39,7 +38,7 @@ The Workbook is organized into several tabs that provide easier navigation and s
 
 By using Azure Arc, your on-premises and multi-cloud resources become visible through Azure Resource Manager. Therefore, you can use tools such as Azure Resource Graph as a way to explore your inventory at scale. Your Azure Resource Graph queries can now include Azure Arc-enabled resources with filtering, using tags, or tracking changes.
 
-The "Inventory" tab in the ArcBox Workbook has three sections:
+The "Inventory" tab in the ArcBox for IT Pros Workbook has three sections:
 
 - _parameters_ - use the drop-down menu to select your subscription and resource group, you also get the option to filter the report by resource type.
 
@@ -55,9 +54,9 @@ The "Inventory" tab in the ArcBox Workbook has three sections:
 
 ### Monitoring
 
-Enabling a resource in Azure Arc gives you the ability to perform configuration management and monitoring tasks on those services as if they were first-class citizens in Azure. You are able to monitor your connected machine guest operating system performance and your Kubernetes clusters at the scope of the resource with VM and container Insights. In ArcBox the Azure Arc-enabled servers and Azure Arc-enabled Kubernetes clusters have been onboarded onto Azure Monitor.
+Enabling a resource in Azure Arc gives you the ability to perform configuration management and monitoring tasks on those services as if they were first-class citizens in Azure. You are able to monitor your connected machine guest operating system performance at the scope of the resource with VM insights. In ArcBox for IT Pros the Azure Arc-enabled servers have been onboarded onto Azure Monitor.
 
-The "Monitoring" tab of the Jumpstart Workbook shows metrics and alerts for ArcBox resources organized in three sections:
+The "Monitoring" tab of the Jumpstart Workbook shows metrics and alerts for ArcBox for IT Pros resources organized in three sections:
 
 - _Alert Summary_ - Shows an overview of alerts organized by severity and status. You can use the drop-down menus to apply filters to the report. The following filters are available:
   - Subscription: select one or multiple subscriptions in your environment to show available alerts.
@@ -71,38 +70,9 @@ The "Monitoring" tab of the Jumpstart Workbook shows metrics and alerts for ArcB
 
 - _Azure Arc-enabled servers_ - Shows metrics for CPU and memory usage on the Azure Arc-enabled servers. Use the parameters section to select the Azure Arc-enabled server as well as a time range to visualize the data.
 
-   ![Monitoring Azure Arc enabled Server Metrics](./monitoring_arc_servers.png)
+   ![Monitoring Azure Arc enabled server Metrics](./monitoring_arc_servers.png)
 
-- _Azure Arc-enabled Kubernetes_ - Shows information and metrics from ArcBox's Azure Arc-enabled Kubernetes clusters. Use the parameters section to filter data:
-  - Time Range: provide a time range for the metrics and logs to be displayed.
-  - Subscription: select your subscription where ArcBox is deployed.
-  - Log Analytics Workspace: select ArcBox's Log Analytics workspace.
-  - Azure Arcenabled K8s cluster: choose one of ArcBox's Azure Arc-enabled Kubernetes clusters.
-  - Workload Type: choose one or multiple kubernetes deployment types.
-  - Namespace: choose one or multiple namespaces in the Kubernetes cluster.
-  - Workload Name: choose one of the deployments in your cluster.
-  - Pod Status: filter by Pod status like Pending/Running/Failed etc.
-  - Pod Name: filter by pod name in the namespace and workload name selected.
-
-  With this report you will get several visualizations:
-
-  - _Pod and Container restart trend graphs._
-
-     ![Monitoring Azure Arc enabled K8S Metrics](./monitoring_arc_kubernetes_1.png)
-
-  - _Pod count and status chart._
-
-     ![Monitoring Azure Arc enabled K8S Metrics](./monitoring_arc_kubernetes_2.png)
-
-  - _A list of the container status for pods._
-
-     ![Monitoring Azure Arc enabled K8S Metrics](./monitoring_arc_kubernetes_3.png)
-
-  - _The Kubernetes cluster's nodes CPU and memory working set percentage._
-
-     ![Monitoring Azure Arc enabled K8S Metrics](./monitoring_arc_kubernetes_4.png)
-
-### Security
+### Microsoft Defender for Cloud
 
 Microsoft Defender for Cloud can monitor the security posture of your hybrid and multi-cloud deployments that have been onboarded onto Azure Arc. Once those deployments are registered in Azure, you can take care of the security baseline and audit, apply, or automate requirements from recommended security controls as well as identify and provide mitigation guidance for security-related business risks.
 
@@ -156,11 +126,11 @@ Once configured, the report will provide an overview of the secure score, you ca
 
      ![Resources changed overtime selected resources](./security_changes_resource.png)
 
-This part of the workbook also includes a section dedicated to agent monitoring. For Microsoft Defender for Cloud to be able to monitor an Azure Arc enabled-servers certain configurations have to be in place and the workbook will help visualize machines that may not be properly reporting to the Log Analytics workspace.
+This part of the workbook also includes a section dedicated to agent monitoring. For Azure Defender to be able to monitor an Azure Arc enabled-servers certain configurations have to be in place and the workbook will help visualize machines that may not be properly reporting to the Log Analytics workspace.
 
 In the parameters section select the Log Analytics workspace used by ArcBox.
 
-   ![Resources changed overtime](./agentmgmt_parameters.png)
+   ![Agent Management](./agentmgmt_parameters.png)
 
 From within the Agent Monitoring section you will get several tabs:
 
@@ -168,11 +138,15 @@ From within the Agent Monitoring section you will get several tabs:
 
   - _Log Analytics Agent installation status_ shows the Log Analytics Agent installation status as reported by Microsoft Defender for Cloud.
 
+     ![Log Analytics Agent installation status](./agentmgmt_overviewstatus.png)
+
   - _Log Analytics Agent reporting status_ shows the current Log Analytics Agent reporting status of the Azure Arc-enabled servers. Machines that are sending current heartbeat information within the last 15 minutes are considered as currently reporting.
 
-  - _Microsoft Defender for Cloud coverage_ shows the status of Microsoft Defender for Cloud for Servers across all servers that are protected by Microsoft Defender for Cloud.
+     ![Log Analytics Agent reporting status](./agentmgmt_overviewsreport.png)
 
-      ![Log Analytics Agent installation status](./agentmgmt_overviewstatus.png)
+  - _Azure Defender coverage_ shows the status of Azure Defender for Servers across all servers that are protected by Microsoft Defender for Cloud.
+
+     ![Azure Defender coverage](./agentmgmt_overviewscoverage.png)
 
 - _Machines not reporting to Log Analytics workspace_ - this has four lists of machines that are not sending heartbeats to the Log Analytics workspace in different periods of time: 15 minutes, 24 hours, 48 hours and 7 days. Please not that there are no machines listed on the image as all of them are properly sending heartbeats to the workspace.
 
@@ -186,7 +160,7 @@ From within the Agent Monitoring section you will get several tabs:
 
 Change Tracking in Azure Automation keeps track of the changes in virtual machines hosted in Azure, on-premises, and other cloud environments to help you pinpoint operational and environmental issues with software managed by the Distribution Package Manager.
 
-In Jumpstart ArcBox all of the Azure Arc-enabled servers are onboarded onto Change Tracking and Inventory. The "Change Tracking" tab of the Jumpstart Workbook shows insights from Azure Automation. To use this report you need to provide ArcBox's subscription and Log Analytics workspace in the parameters section along with a time range.
+In Jumpstart ArcBox for IT Pros all of the Azure Arc-enabled servers are onboarded onto Change Tracking and Inventory. The "Change Tracking" tab of the Jumpstart Workbook shows insights from Azure Automation. To use this report you need to provide ArcBox's subscription and Log Analytics workspace in the parameters section along with a time range.
 
    ![Change Tracking Parameters](./changetracking_parameters.png)
 
@@ -204,7 +178,7 @@ The tab has two different sections:
 
 Azure Automation provides Update Management to take care of the operating system updates for Windows and Linux  Azure VMs or Azure Arc-enabled servers.
 
-The solution assesses the status of available updates and manages the process of installing required updates for your machines reporting to Update Management. In ArcBox, all of the Azure Arc-enabled servers are onboarded onto Update Management with the "Update Management" tab of the Jumpstart Workbook shows insights from Azure Automation.
+The solution assesses the status of available updates and manages the process of installing required updates for your machines reporting to Update Management. In ArcBox for IT Pros, all of the Azure Arc-enabled servers are onboarded onto Update Management with the "Update Management" tab of the Jumpstart Workbook shows insights from Azure Automation.
 
 To use this report you need to provide ArcBox's subscription, resource group, and Log Analytics workspace in the parameters section along with a time range.
 
@@ -228,6 +202,8 @@ The tab has two different sections, one for Windows and one for Linux machines:
 
 - _Linux VM Updates_ - This section provides several reports:
 
+   > **Note: Please note there are no updates available for the Azure Arc-enabled servers in Arcbox for IT Pros in this instance.**
+
   - _Types of Linux Updates_ - This donut chart shows the number of Windows Updates grouped by type.
 
    ![Update Linux Updates](./update_linux.png)
@@ -244,7 +220,7 @@ The tab has two different sections, one for Windows and one for Linux machines:
 
 The Azure Monitor SQL Health Check solution assesses the risk and health of your Windows-based SQL Server instance that is connected to Azure Arc. The solution provides a prioritized list of recommendations specific to your deployed server infrastructure. Each recommendation provides guidance based on best practices and how to implement the suggested changes.
 
-ArcBox has one Windows VM running SQL Server that is onboarded as Azure Arc-enabled SQL server (as well as an Azure Arc-enabled server) where the SQL Assessment has been run. To use the "SQL Healthcheck" tab of the ArcBox workbooks you need to provide ArcBox's subscription, resource group, and Log Analytics workspace as parameters.
+ArcBox for IT Pros has one Windows VM running SQL Server that is onboarded as Azure Arc-enabled SQL server (as well as an Azure Arc-enabled server) where the SQL Assessment has been run. To use the "SQL Healthcheck" tab of the ArcBox for ITPros workbook you need to provide ArcBox's subscription, resource group, and Log Analytics workspace as parameters.
 
    ![SQL Healthcheck parameters](./sql_healthcheck_parameters.png)
 

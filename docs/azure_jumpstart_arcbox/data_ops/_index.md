@@ -1,6 +1,5 @@
 ---
 type: docs
-title: "Jumpstart ArcBox - Data Services Operations"
 weight: 100
 toc_hide: true
 ---

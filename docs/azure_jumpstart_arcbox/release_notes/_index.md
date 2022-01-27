@@ -1,6 +1,5 @@
 ---
 type: docs
-title: "Jumpstart ArcBox - Release Notes"
 weight: 98
 toc_hide: true
 ---
