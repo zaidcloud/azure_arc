@@ -11,11 +11,11 @@ toc_hide: true
 
 As part of ArcBox, an Azure Monitor workbook is deployed to provide a single pane of glass for monitoring and reporting on ArcBox resources. Using Azure's management and operations tools in hybrid, multi-cloud and edge deployments provides the consistency needed to manage each environment through a common set of governance and operations management practices. The Azure Monitor workbook acts as a flexible canvas for data analysis and visualization in the Azure portal, gathering information from several data sources from across ArcBox and combining them into an integrated interactive experience.
 
-   > **Note: Due to the number of Azure resources included in a single ArcBox deployment and the data ingestion and analysis required, it is expected that metrics and telemetry for the workbook can take several hours to be fully available.**
+   > **NOTE: Due to the number of Azure resources included in a single ArcBox deployment and the data ingestion and analysis required, it is expected that metrics and telemetry for the workbook can take several hours to be fully available.**
 
 ## Access the ArcBox workbook
 
-The Jumpstart ArcBox workbook is automatically deployed for you as part of ArcBox's advanced automation. To access the Jumpstart ArcBox workbook use the Azure Portal to follow the next steps.
+The Jumpstart ArcBox workbook is automatically deployed for you as part of ArcBox's advanced automation. To access the Jumpstart ArcBox workbook use the Azure portal to follow the next steps.
 
 - Navigate to your ArcBox resource group and search for your Log Analytics workspace, you can do so by using the filter "Type" and searching for "Log Analytics workspace".
 
@@ -114,9 +114,9 @@ The "Monitoring" tab of the Jumpstart Workbook shows metrics and alerts for ArcB
 
 ### Security
 
-Azure Security Center can monitor the security posture of your hybrid and multi-cloud deployments that have been onboarded onto Azure Arc. Once those deployments are registered in Azure, you can take care of the security baseline and audit, apply, or automate requirements from recommended security controls as well as identify and provide mitigation guidance for security-related business risks.
+Microsoft Defender for Cloud can monitor the security posture of your hybrid and multi-cloud deployments that have been onboarded onto Azure Arc. Once those deployments are registered in Azure, you can take care of the security baseline and audit, apply, or automate requirements from recommended security controls as well as identify and provide mitigation guidance for security-related business risks.
 
-The "Security" tab of the Jumpstart Workbook shows insights from Azure Security Center assessments. To be able to use this report, you will need to configure "continuous export" capability to export Azure Security Center's data to ArcBox's Log Analytics workspace:
+The "Security" tab of the Jumpstart Workbook shows insights from Microsoft Defender for Cloud assessments. To be able to use this report, you will need to configure "continuous export" capability to export Microsoft Defender for Cloud's data to ArcBox's Log Analytics workspace:
 
 - From Security Center's sidebar, select Pricing & settings.
 
@@ -178,7 +178,7 @@ Once configured, the report will provide an overview of the secure score, you ca
 
      ![Resources changed overtime selected resources](./security_changes_resource.png)
 
-This part of the workbook also includes a section dedicated to agent monitoring. For Azure Defender to be able to monitor an Azure Arc enabled-servers certain configurations have to be in place and the workbook will help visualize machines that may not be properly reporting to the Log Analytics workspace.
+This part of the workbook also includes a section dedicated to agent monitoring. For Microsoft Defender for Cloud to be able to monitor an Azure Arc enabled-servers certain configurations have to be in place and the workbook will help visualize machines that may not be properly reporting to the Log Analytics workspace.
 
 In the parameters section select the Log Analytics workspace used by ArcBox.
 
@@ -188,7 +188,7 @@ From within the Agent Monitoring section you will get several tabs:
 
 - _Overview_ - with three visualizations:
 
-  - _Log Analytics Agent installation status_ shows the Log Analytics Agent installation status as reported by Azure Security Center.
+  - _Log Analytics Agent installation status_ shows the Log Analytics Agent installation status as reported by Microsoft Defender for Cloud.
 
      ![Log Analytics Agent installation status](./agentmgmt_overviewstatus.png)
 
@@ -196,9 +196,9 @@ From within the Agent Monitoring section you will get several tabs:
 
      ![Log Analytics Agent reporting status](./agentmgmt_overviewsreport.png)
 
-  - _Azure Defender coverage_ shows the status of Azure Defender for Servers across all servers that are protected by Azure Security Center.
+  - _Microsoft Defender for Cloud coverage_ shows the status of Microsoft Defender for Cloud for Servers across all servers that are protected by Microsoft Defender for Cloud.
 
-     ![Azure Defender coverage](./agentmgmt_overviewscoverage.png)
+     ![Microsoft Defender for Cloud coverage](./agentmgmt_overviewscoverage.png)
 
 - _Machines not reporting to Log Analytics workspace_ - this has four lists of machines that are not sending heartbeats to the Log Analytics workspace in different periods of time: 15 minutes, 24 hours, 48 hours and 7 days. Please not that there are no machines listed on the image as all of them are properly sending heartbeats to the workspace.
 
