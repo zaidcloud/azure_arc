@@ -18,6 +18,7 @@ ArcBox is a solution that provides an easy to deploy sandbox for all things Azur
 - Training tool for Azure Arc skills development
 - Demo environment for customer presentations or events
 - Rapid integration testing platform
+- Infrastructure-as-code and automation template library for building hybrid cloud management solutions
 
 ## Azure Arc capabilities available in ArcBox
 

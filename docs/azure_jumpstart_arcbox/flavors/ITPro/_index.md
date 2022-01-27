@@ -11,6 +11,15 @@ ArcBox for IT Pros is a special "flavor" of ArcBox that is intended for users wh
 
 ![ArcBox architecture diagram](./arch_itpro.png)
 
+### Use cases
+
+- Sandbox environment for getting hands-on with Azure Arc technologies
+- Accelerator for Proof-of-concepts or pilots
+- Training tool for Azure Arc skills development
+- Demo environment for customer presentations or events
+- Rapid integration testing platform
+- Infrastructure-as-code and automation template library for building hybrid cloud management solutions
+
 ## Azure Arc capabilities available in ArcBox for IT Pros
 
 ### Azure Arc-enabled servers
