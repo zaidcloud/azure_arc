@@ -83,7 +83,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
   az provider register --namespace Microsoft.AzureArcData --wait
   ```
 
-- Create Azure service principal (SP). To deploy ArcBox, an Azure service principal assigned with multiple RBAC roles is required:
+- Create Azure service principal (SP). To deploy ArcBox, an Azure service principal assigned with multiple role-based access controls (RBAC) roles is required:
 
   - "Contributor" - Required for provisioning Azure resources
   - **(optional)** "User Access Administrator" - Required for automatically onboarding the Azure Arc-enabled SQL Server resource
