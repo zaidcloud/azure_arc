@@ -52,7 +52,7 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
   - Deploy and configure five (5) nested virtual machines in Hyper-V
     - Windows Server 2022 VM - onboarded as Azure Arc-enabled server
     - Windows Server 2019 VM - onboarded as Azure Arc-enabled server
-    - Windows VM running SQL Server - onboarded as Azure Arc-enabled SQL server (as well as Azure Arc-enabled server)
+    - Windows VM running SQL Server - onboarded as Azure Arc-enabled SQL Server (as well as Azure Arc-enabled server)
     - Ubuntu VM - onboarded as Azure Arc-enabled server
     - CentOS VM - onboarded as Azure Arc-enabled server
   - Deploy an Azure Monitor workbook that provides example reports and metrics for monitoring ArcBox components
@@ -86,9 +86,9 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 - Create Azure service principal (SP). To deploy ArcBox, an Azure service principal assigned with multiple RBAC roles is required:
 
   - "Contributor" - Required for provisioning Azure resources
-  - **(optional)** "User Access Administrator" - Required for automatically onboarding the Azure Arc-enabled SQL server resource
+  - **(optional)** "User Access Administrator" - Required for automatically onboarding the Azure Arc-enabled SQL Server resource
 
-    > **NOTE: In the event a Service Principal with Owner cannot be created, the SQL server can be onboarded to Azure Arc post deployment by following the [Azure Arc-enabled SQL Server onboarding](#azure-arc-enabled-sql-server-onboarding) steps below.**
+    > **NOTE: In the event a Service Principal with Owner cannot be created, the SQL Server can be onboarded to Azure Arc post deployment by following the [Azure Arc-enabled SQL Server onboarding](#azure-arc-enabled-sql-server-onboarding) steps below.**
 
     To create it login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/).
 
@@ -162,7 +162,6 @@ ArcBox must be deployed to one of the following regions. **Deploying ArcBox outs
   ```
 
 - Edit the [azuredeploy.parameters.json](https://github.com/microsoft/azure_arc/blob/main/azure_jumpstart_arcbox/ARM/azuredeploy.parameters.json) ARM template parameters file and supply some values for your environment.
-
   - _`sshRSAPublicKey`_ - Your SSH public key
   - _`spnClientId`_ - Your Azure service principal id
   - _`spnClientSecret`_ - Your Azure service principal secret
@@ -170,7 +169,7 @@ ArcBox must be deployed to one of the following regions. **Deploying ArcBox outs
   - _`windowsAdminUsername`_ - Client Windows VM Administrator name
   - _`windowsAdminPassword`_ - Client Windows VM Password. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
   - _`myIpAddress`_ - Your local IP address. This is used to allow remote RDP connections to the Client Windows VM.
-  - _`logAnalyticsWorkspaceName`_ - Unique name for the ArcBox log analytics workspace
+  - _`logAnalyticsWorkspaceName`_ - Unique name for the ArcBox Log Analytics workspace
   - _`flavor`_ - Use the value "ITPro" to specify that you want to deploy ArcBox for IT Pros
 
     ![Screenshot showing example parameters](./parameters.png)
@@ -204,7 +203,6 @@ ArcBox must be deployed to one of the following regions. **Deploying ArcBox outs
   ```
 
 - Edit the [main.parameters.json](https://github.com/microsoft/azure_arc/blob/main/azure_jumpstart_arcbox/bicep/main.parameters.json) template parameters file and supply some values for your environment.
-
   - _`sshRSAPublicKey`_ - Your SSH public key
   - _`spnClientId`_ - Your Azure service principal id
   - _`spnClientSecret`_ - Your Azure service principal secret
@@ -212,7 +210,7 @@ ArcBox must be deployed to one of the following regions. **Deploying ArcBox outs
   - _`windowsAdminUsername`_ - Client Windows VM Administrator name
   - _`windowsAdminPassword`_ - Client Windows VM Password. Password must have 3 of the following: 1 lower case character, 1 upper case character, 1 number, and 1 special character. The value must be between 12 and 123 characters long.
   - _`myIpAddress`_ - Your local IP address. This is used to allow remote RDP connections to the Client Windows VM.
-  - _`logAnalyticsWorkspaceName`_ - Unique name for the ArcBox log analytics workspace
+  - _`logAnalyticsWorkspaceName`_ - Unique name for the ArcBox Log Analytics workspace
   - _`flavor`_ - Use the value "ITPro" to specify that you want to deploy ArcBox for IT Pros
 
   ![Screenshot showing example parameters](./parameters_bicep.png)
@@ -221,7 +219,7 @@ ArcBox must be deployed to one of the following regions. **Deploying ArcBox outs
 
   ```shell
   az login
-  az group create --name "<resource-group-name>"  --location "<preferred-location>"
+  az group create --name "<resource-group-name>" --location "<preferred-location>"
   az deployment group create -g "<resource-group-name>" -f "main.bicep" -p "main.parameters.json"
   ```
 
@@ -298,21 +296,21 @@ ArcBox must be deployed to one of the following regions. **Deploying ArcBox outs
 
 ## Azure Arc-enabled SQL Server onboarding
 
-- During deployment, a check is performed to determine whether or not the Service Principal being used has permissions of _'Microsoft.Authorization/roleAssignments/write'_ on the target Resource Group. This permission can be found in the Azure built-in roles of Owner, User Access Administrator, or you may have a custom RBAC role which provides this permission. If the Service Principal has been granted the rights to change the role assignments on the Resource Group, the Azure Arc-enabled SQL server can be automatically onboarded as part of the port-deployment automation.
+- During deployment, a check is performed to determine whether or not the Service Principal being used has permissions of _'Microsoft.Authorization/roleAssignments/write'_ on the target resource group. This permission can be found in the Azure built-in roles of Owner, User Access Administrator, or you may have a custom RBAC role which provides this permission. If the Service Principal has been granted the rights to change the role assignments on the resource group, the Azure Arc-enabled SQL Server can be automatically onboarded as part of the port-deployment automation.
 
-- In the event that the Service Principal does *not* have _'Microsoft.Authorization/roleAssignments/write'_ on the target Resource Group, and icon will created on the _ArcBox-Client_ desktop, which will allow you to onboard the Azure Arc-enabled SQL server after the post-deployment automation is complete. To start the onboarding process in this scenario, simply click the _'Onboard SQL Server'_ icon on the desktop. This process should take around 10-15 minutes to complete.
+- In the event that the Service Principal does *not* have _'Microsoft.Authorization/roleAssignments/write'_ on the target resource group, and icon will created on the _ArcBox-Client_ desktop, which will allow you to onboard the Azure Arc-enabled SQL Server after the post-deployment automation is complete. To start the onboarding process in this scenario, simply click the _'Onboard SQL Server'_ icon on the desktop. This process should take around 10-15 minutes to complete.
 
   ![Screenshot showing ArcBox-Client](./sql_manual_onboard_icon.png)
 
-- A pop-up box will walk you through the target SQL server which will be onboarded to Azure Arc, as well as provide details around the flow of the onboarding automation and how to complete the Azure authentication process when prompted.
+- A pop-up box will walk you through the target SQL Server which will be onboarded to Azure Arc, as well as provide details around the flow of the onboarding automation and how to complete the Azure authentication process when prompted.
 
   ![Screenshot showing ArcBox-Client](./sql_manual_onboard_start.png)
 
-- The automation uses the PowerShell SDK to onboard the Azure Arc-enabled SQL server on your behalf. To accomplish this, it will login to Azure with the _-UseDeviceAuthentication_ flag. The device code will be copied to the clipboard on your behalf, so you can simply paste the value into box when prompted.
+- The automation uses the PowerShell SDK to onboard the Azure Arc-enabled SQL Server on your behalf. To accomplish this, it will login to Azure with the _-UseDeviceAuthentication_ flag. The device code will be copied to the clipboard on your behalf, so you can simply paste the value into box when prompted.
 
   ![Screenshot showing ArcBox-Client](./sql_manual_onboard_code.png)
 
-- You'll then need to provide your Azure credentials to complete the authentication process. The user you login as will need _'Microsoft.Authorization/roleAssignments/write'_ permissions on the ArcBox Resource Group to complete the onboarding process.
+- You'll then need to provide your Azure credentials to complete the authentication process. The user you login as will need _'Microsoft.Authorization/roleAssignments/write'_ permissions on the ArcBox resource group to complete the onboarding process.
 
   ![Screenshot showing ArcBox-Client](./sql_manual_onboard_login.png)
 
@@ -324,7 +322,7 @@ ArcBox must be deployed to one of the following regions. **Deploying ArcBox outs
 
   ![Screenshot showing ArcBox-Client](./sql_manual_onboard_complete.png)
 
-- From the Azure portal, the SQL server should now be visible as an Azure Arc-enabled SQL server.
+- From the Azure portal, the SQL Server should now be visible as an Azure Arc-enabled SQL Server.
 
   ![Screenshot showing ArcBox-Client](./sql_manual_onboard_portal.png)
 
@@ -333,8 +331,8 @@ ArcBox must be deployed to one of the following regions. **Deploying ArcBox outs
 After deployment is complete, its time to start exploring ArcBox. Most interactions with ArcBox will take place either from Azure itself (Azure portal, CLI or similar) or from inside the _ArcBox-Client_ virtual machine. When remoted into the client VM, here are some things to try:
 
 - Open Hyper-V and access the Azure Arc-enabled servers
-  - Username: arcdemo
-  - Password: ArcDemo123!!
+  - **Username: arcdemo**
+  - **Password: ArcDemo123!!**
 
   ![Screenshot showing ArcBox Client VM with Hyper-V](./hypervterminal.png)
 
@@ -415,4 +413,4 @@ If you are still having issues deploying ArcBox, please [submit an issue](https:
 
 ## Known issues
 
-- Azure Arc-enabled SQL server assessment report not always visible in Azure portal
+- Azure Arc-enabled SQL Server assessment report not always visible in Azure portal
