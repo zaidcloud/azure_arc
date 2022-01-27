@@ -118,33 +118,21 @@ Microsoft Defender for Cloud can monitor the security posture of your hybrid and
 
 The "Security" tab of the Jumpstart Workbook shows insights from Microsoft Defender for Cloud assessments. To be able to use this report, you will need to configure "continuous export" capability to export Microsoft Defender for Cloud's data to ArcBox's Log Analytics workspace:
 
-- From Security Center's sidebar, select Pricing & settings.
+- From Microsoft Defender for Cloud's sidebar, select Environment Settings.
 
-   ![Security Center Configuration](./security_center_config_1.png)
+   ![Microsoft Defender for Cloud Configuration](./security_center_config_1.png)
 
 - Select the specific subscription for which you want to configure the data export.
 
-   ![Security Center Configuration](./security_center_config_2.png)
+   ![Microsoft Defender for Cloud Configuration](./security_center_config_2.png)
 
-- From the sidebar of the settings page for that subscription, select Continuous Export.
+- From the sidebar of the settings page for that subscription, select Continuous Export, set the export target to the Log Analytics workspace, and set the data types to Security recommendations and Secure Score (Preview) and leave the export frequency at the default values.
 
-   ![Security Center Configuration](./security_center_config_3.png)
-
-- Set the export target to the Log Analytics workspace.
-
-   ![Security Center Configuration](./security_center_config_4.png)
-
-- Select the following data types: Security recommendations and Secure Score (Preview).
-
-   ![Security Center Configuration](./security_center_config_5.png)
-
-- From the export frequency options, select Streaming, and Snapshots.
-
-   ![Security Center Configuration](./security_center_config_6.png)
+   ![Microsoft Defender for Cloud Configuration](./security_center_config_3.png)
 
 - Make sure to select ArcBox's subscription, resource group, and Log Analytics workspace as the export target. Select Save.
 
-   ![Security Center Configuration](./security_center_config_7.png)
+   ![Microsoft Defender for Cloud Configuration](./security_center_config_4.png)
 
 Once configured, the report will provide an overview of the secure score, you can filter information by using the parameters section:
 
