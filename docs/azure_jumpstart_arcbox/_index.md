@@ -26,7 +26,7 @@ ArcBox comes in multiple "flavors", or configurations, which can be selected to 
 
     ![ArcBox architecture diagram](./arch_full.png)
 
-- [ArcBox for IT Pros](https://azurearcjumpstart.io.azure_jumpstart_arcbox/flavors/ITPro)
+- [ArcBox for IT Pros](https://azurearcjumpstart.io/azure_jumpstart_arcbox/flavors/ITPro)
     ArcBox for IT Pros focuses specifically on Azure Arc-enabled servers and Azure Arc-enabled SQL Server functionality. This flavor omits anything related to Azure Arc-enabled Kubernetes or Azure Arc-enabled data services.
 
     ![ArcBox for IT Pros architecture diagram](./arch_itpro.png)
