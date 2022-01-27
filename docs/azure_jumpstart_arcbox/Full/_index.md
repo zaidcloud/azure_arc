@@ -1,7 +1,7 @@
 ---
 type: docs
 title: "Jumpstart ArcBox - Overview"
-linkTitle: "Jumpstart ArcBox"
+linkTitle: "Jumpstart ArcBox Full"
 weight: 1
 ---
 
