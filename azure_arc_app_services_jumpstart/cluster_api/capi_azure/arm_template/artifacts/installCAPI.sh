@@ -149,7 +149,7 @@ echo ""
 sudo curl -o patches/AzureCluster.yaml --create-dirs https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/AzureCluster.yaml
 sudo curl -o patches/Cluster.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/Cluster.yaml
 sudo curl -o patches/KubeadmControlPlane.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/KubeadmControlPlane.yaml
-sudo curl -o kustomization.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/kustomization.yaml
+sudo curl -o patches/kustomization.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/kustomization.yaml
 kubectl kustomize patches/ > jumpstart.yaml
 clusterctl generate yaml --from jumpstart.yaml > template.yaml
 
