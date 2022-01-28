@@ -149,6 +149,7 @@ echo ""
 sudo curl -o patches/AzureCluster.yaml --create-dirs https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/AzureCluster.yaml
 sudo curl -o patches/Cluster.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/Cluster.yaml
 sudo curl -o patches/KubeadmControlPlane.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/KubeadmControlPlane.yaml
+sudo curl -o kustomization.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/kustomization.yaml
 kubectl kustomize patches/ > jumpstart.yaml
 clusterctl generate yaml --from jumpstart.yaml > template.yaml
 
@@ -189,7 +190,7 @@ sudo service sshd restart
 # Onboarding the cluster to Azure Arc
 echo ""
 workspaceResourceId=$(sudo -u $adminUsername az resource show --resource-group $AZURE_RESOURCE_GROUP --name $logAnalyticsWorkspace --resource-type "Microsoft.OperationalInsights/workspaces" --query id -o tsv)
-sudo -u $adminUsername az connectedk8s connect --name $capiArcAppSvcClusterName --resource-group $AZURE_RESOURCE_GROUP --location $location --tags 'Project=jumpstart_app_svc'
+sudo -u $adminUsername az connectedk8s connect --name $capiArcAppSvcClusterName --resource-group $AZURE_RESOURCE_GROUP --location $location --tags 'Project=jumpstart_azure_arc_app_service'
 
 # Enabling Azure Policy for Kubernetes on the cluster
 echo ""

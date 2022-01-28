@@ -10,7 +10,7 @@
         },
         "vmName": {
             "type": "string",
-            "defaultValue": "Arc-App-CAPI-K8s",
+            "defaultValue": "Arc-App-CAPI-MGMT",
             "metadata": {
                 "description": "The name of you Virtual Machine."
             }
