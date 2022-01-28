@@ -15,6 +15,13 @@
                 "description": "The name of you Virtual Machine."
             }
         },
+        "capiArcAppSvcClusterName": {
+            "type": "string",
+            "defaultValue": "arcbox-capi-appsvc",
+            "metadata": {
+                "description": "The name of the Cluster API workload cluster to be connected as an Azure Arc-enabled Kubernetes cluster (lowercase)"
+            }
+        },
         "adminUsername": {
             "type": "string",
             "defaultValue": "arcdemo",
@@ -279,7 +286,7 @@
                 "settings": {
                 },
                 "protectedSettings": {
-                    "commandToExecute": "[concat('bash installCAPI.sh', ' ', parameters('adminUsername'), ' ', parameters('spnClientId'), ' ', parameters('spnClientSecret'), ' ', parameters('spnTenantId'), ' ', parameters('vmName'), ' ', parameters('azureLocation'), ' ', parameters('stagingStorageAccountName'))]",
+                    "commandToExecute": "[concat('bash installCAPI.sh', ' ', parameters('adminUsername'), ' ', parameters('spnClientId'), ' ', parameters('spnClientSecret'), ' ', parameters('spnTenantId'), ' ', parameters('vmName'),' ', parameters('capiArcAppSvcClusterName'), ' ', parameters('azureLocation'), ' ', parameters('stagingStorageAccountName'))]",
                     "fileUris": [
                         "[uri(parameters('templateBaseUrl'), 'artifacts/installCAPI.sh')]"
                     ]
