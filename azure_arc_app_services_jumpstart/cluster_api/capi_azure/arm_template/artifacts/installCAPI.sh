@@ -146,13 +146,28 @@ echo ""
 # Creating CAPI Workload cluster yaml manifest
 echo "Deploying Kubernetes workload cluster"
 echo ""
-sudo curl -o patches/AzureCluster.yaml --create-dirs https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/AzureCluster.yaml
-sudo curl -o patches/Cluster.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/Cluster.yaml
-sudo curl -o patches/KubeadmControlPlane.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/KubeadmControlPlane.yaml
-sudo curl -o kustomization.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/kustomization.yaml
-kubectl kustomize > jumpstart.yaml
+sudo curl -o capz_kustomize/patches/AzureCluster.yaml --create-dirs https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/capz_kustomize/patches/AzureCluster.yaml
+sudo curl -o capz_kustomize/patches/Cluster.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/capz_kustomize/Cluster.yaml
+sudo curl -o capz_kustomize/patches/KubeadmControlPlane.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/capz_kustomize/KubeadmControlPlane.yaml
+sudo curl -o capz_kustomize/kustomization.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/capz_kustomize/kustomization.yaml
+kubectl kustomize capz_kustomize/ > jumpstart.yaml
 clusterctl generate yaml --from jumpstart.yaml > template.yaml
 
+# Creating Microsoft Defender for Cloud audit secret
+echo ""
+echo "Creating Microsoft Defender for Cloud audit secret"
+curl -o audit.yaml https://raw.githubusercontent.com/Azure/Azure-Security-Center/master/Pricing%20%26%20Settings/Defender%20for%20Kubernetes/audit-policy.yaml
+
+cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: audit
+type: Opaque
+data:
+  audit.yaml: $(cat "audit.yaml" | base64 -w0)
+  username: $(echo -n "jumpstart" | base64 -w0)
+EOF
 
 # Deploying CAPI Workload cluster
 echo ""

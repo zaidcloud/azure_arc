@@ -17,7 +17,7 @@
         },
         "capiArcAppSvcClusterName": {
             "type": "string",
-            "defaultValue": "arcbox-capi-appsvc",
+            "defaultValue": "Arc-App-CAPI",
             "metadata": {
                 "description": "The name of the Cluster API workload cluster to be connected as an Azure Arc-enabled Kubernetes cluster (lowercase)"
             }
