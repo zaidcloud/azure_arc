@@ -3,7 +3,7 @@ Start-Transcript -Path C:\Temp\AppServicesLogonScript.log
 $Env:TempDir = "C:\Temp"
 $Env:TempLogsDir = "C:\Temp\Logs"
 $connectedClusterName = $env:capiArcDataClusterName
-$AppSvcExtensionVersion = "0.11.0"
+$AppSvcExtensionVersion = "0.11.1"
 
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
@@ -184,17 +184,11 @@ if ( $env:deployApiMgmt -eq $true )
 }
 
 
-# Deploying Azure Monitor for containers Kubernetes extension instance
-Write-Host "`n"
-Write-Host "Create Azure Monitor for containers Kubernetes extension instance"
-Write-Host "`n"
-az k8s-extension create --name "azuremonitor-containers" --cluster-name $connectedClusterName --resource-group $env:resourceGroup --cluster-type connectedClusters --extension-type Microsoft.AzureMonitor.Containers
-
-# Deploying Azure Defender Kubernetes extension instance
-Write-Host "`n"
-Write-Host "Create Azure Defender Kubernetes extension instance"
-Write-Host "`n"
-az k8s-extension create --name "azure-defender" --cluster-name $connectedClusterName --resource-group $env:resourceGroup --cluster-type connectedClusters --extension-type Microsoft.AzureDefender.Kubernetes
+# # Deploying Azure Defender Kubernetes extension instance
+# Write-Host "`n"
+# Write-Host "Create Azure Defender Kubernetes extension instance"
+# Write-Host "`n"
+# az k8s-extension create --name "azure-defender" --cluster-name $connectedClusterName --resource-group $env:resourceGroup --cluster-type connectedClusters --extension-type Microsoft.AzureDefender.Kubernetes
 
 # Changing to Client VM wallpaper
 $imgPath="C:\Temp\wallpaper.png"
