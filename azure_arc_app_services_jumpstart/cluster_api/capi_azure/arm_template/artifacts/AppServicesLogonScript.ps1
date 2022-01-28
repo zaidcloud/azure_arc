@@ -3,7 +3,7 @@ Start-Transcript -Path C:\Temp\AppServicesLogonScript.log
 $Env:TempDir = "C:\Temp"
 $Env:TempLogsDir = "C:\Temp\Logs"
 $connectedClusterName = $env:capiArcDataClusterName
-$AppSvcExtensionVersion = "0.11.1"
+$ArcAppSvcExtensionVersion = "0.11.1"
 
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
@@ -110,7 +110,7 @@ az k8s-extension create `
    --cluster-name $connectedClusterName `
    --extension-type 'Microsoft.Web.Appservice' `
    --release-train stable `
-   --version $AppSvcExtensionVersion `
+   --version $ArcAppSvcExtensionVersion `
    --auto-upgrade-minor-version false `
    --scope cluster `
    --release-namespace $namespace `
