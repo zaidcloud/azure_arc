@@ -31,7 +31,7 @@ sed -i '6s/^/export vmName=/' vars.sh
 sed -i '7s/^/export location=/' vars.sh
 sed -i '8s/^/export stagingStorageAccountName=/' vars.sh
 sed -i '9s/^/export logAnalyticsWorkspace=/' vars.sh
-sed -i '10s/^/export capiArcDataClusterName=/' vars.sh
+sed -i '10s/^/export capiArcAppSvcClusterName=/' vars.sh
 
 chmod +x vars.sh
 . ./vars.sh
@@ -146,19 +146,10 @@ echo ""
 # Creating CAPI Workload cluster yaml manifest
 echo "Deploying Kubernetes workload cluster"
 echo ""
-
-# if ! command -v svn &> /dev/null
-# then
-#     echo "svn could not be found, trying to install..."
-#     sudo apt-get install subversion -y
-# fi
-
-sudo svn export https://github.com/microsoft/azure_arc/branches/capi_kustomize/azure_jumpstart_arcbox/artifacts/capz_kustomize
-
-sudo curl -o patches/AzureCluster.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/AzureCluster.yaml
-
-
-kubectl kustomize capz_kustomize/ > jumpstart.yaml
+sudo curl -o patches/AzureCluster.yaml --create-dirs https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/AzureCluster.yaml
+sudo curl -o patches/Cluster.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/Cluster.yaml
+sudo curl -o patches/KubeadmControlPlane.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/patches/KubeadmControlPlane.yaml
+kubectl kustomize patches/ > jumpstart.yaml
 clusterctl generate yaml --from jumpstart.yaml > template.yaml
 
 
@@ -198,15 +189,15 @@ sudo service sshd restart
 # Onboarding the cluster to Azure Arc
 echo ""
 workspaceResourceId=$(sudo -u $adminUsername az resource show --resource-group $AZURE_RESOURCE_GROUP --name $logAnalyticsWorkspace --resource-type "Microsoft.OperationalInsights/workspaces" --query id -o tsv)
-sudo -u $adminUsername az connectedk8s connect --name $capiArcDataClusterName --resource-group $AZURE_RESOURCE_GROUP --location $location --tags 'Project=jumpstart_app_svc'
+sudo -u $adminUsername az connectedk8s connect --name $capiArcAppSvcClusterName --resource-group $AZURE_RESOURCE_GROUP --location $location --tags 'Project=jumpstart_app_svc'
 
 # Enabling Azure Policy for Kubernetes on the cluster
 echo ""
-sudo -u $adminUsername az k8s-extension create --name "arc-azurepolicy" --cluster-name $capiArcDataClusterName --resource-group $AZURE_RESOURCE_GROUP --cluster-type connectedClusters --extension-type Microsoft.PolicyInsights 
+sudo -u $adminUsername az k8s-extension create --name "arc-azurepolicy" --cluster-name $capiArcAppSvcClusterName --resource-group $AZURE_RESOURCE_GROUP --cluster-type connectedClusters --extension-type Microsoft.PolicyInsights 
 
 # Enabling Container Insights cluster extensions
 echo ""
-sudo -u $adminUsername az k8s-extension create --name "azuremonitor-containers" --cluster-name $capiArcDataClusterName --resource-group $AZURE_RESOURCE_GROUP --cluster-type connectedClusters --extension-type Microsoft.AzureMonitor.Containers --configuration-settings logAnalyticsWorkspaceResourceID=$workspaceResourceId
+sudo -u $adminUsername az k8s-extension create --name "azuremonitor-containers" --cluster-name $capiArcAppSvcClusterName --resource-group $AZURE_RESOURCE_GROUP --cluster-type connectedClusters --extension-type Microsoft.AzureMonitor.Containers --configuration-settings logAnalyticsWorkspaceResourceID=$workspaceResourceId
 
 # Creating Storage Class with azure-managed-disk for the CAPI cluster
 echo ""
