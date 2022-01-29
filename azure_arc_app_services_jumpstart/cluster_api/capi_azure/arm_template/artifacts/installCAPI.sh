@@ -143,24 +143,13 @@ echo ""
 sudo kubectl wait --for=condition=Available --timeout=60s --all deployments -A >/dev/null
 echo ""
 
-# # Creating CAPI Workload cluster yaml manifest
-# echo "Deploying Kubernetes workload cluster"
-# echo ""
-# sudo curl -o capz_kustomize/patches/AzureCluster.yaml --create-dirs https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/capz_kustomize/patches/AzureCluster.yaml
-# sudo curl -o capz_kustomize/patches/Cluster.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/capz_kustomize/patches/Cluster.yaml
-# sudo curl -o capz_kustomize/patches/KubeadmControlPlane.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/capz_kustomize/patches/KubeadmControlPlane.yaml
-# sudo curl -o capz_kustomize/kustomization.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/capz_kustomize/kustomization.yaml
-# kubectl kustomize capz_kustomize/ > jumpstart.yaml
-# clusterctl generate yaml --from jumpstart.yaml > template.yaml
-
-sudo apt-get install subversion -y
-if ! command -v svn &> /dev/null
-then
-    echo "svn could not be found, trying to install..."
-    sudo apt-get install subversion -y
-fi
-
-sudo svn export https://github.com/microsoft/azure_arc/branches/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/capz_kustomize
+# Creating CAPI Workload cluster yaml manifest
+echo "Deploying Kubernetes workload cluster"
+echo ""
+sudo curl -o capz_kustomize/patches/AzureCluster.yaml --create-dirs https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/capz_kustomize/patches/AzureCluster.yaml
+sudo curl -o capz_kustomize/patches/Cluster.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/capz_kustomize/patches/Cluster.yaml
+sudo curl -o capz_kustomize/patches/KubeadmControlPlane.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/capz_kustomize/patches/KubeadmControlPlane.yaml
+sudo curl -o capz_kustomize/kustomization.yaml https://raw.githubusercontent.com/microsoft/azure_arc/app_svc_refresh/azure_arc_app_services_jumpstart/cluster_api/capi_azure/arm_template/artifacts/capz_kustomize/kustomization.yaml
 kubectl kustomize capz_kustomize/ > jumpstart.yaml
 clusterctl generate yaml --from jumpstart.yaml > template.yaml
 

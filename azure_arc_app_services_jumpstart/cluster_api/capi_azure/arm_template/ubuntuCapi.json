@@ -68,14 +68,14 @@
         },
         "subnetName": {
             "type": "string",
-            "defaultValue": "Arc-App-CAPI-Subnet",
+            "defaultValue": "Arc-App-CAPI-MGMT-Subnet",
             "metadata": {
                 "description": "Name of the subnet in the virtual network"
             }
         },
         "networkSecurityGroupName": {
             "type": "string",
-            "defaultValue": "Arc-App-CAPI-NSG",
+            "defaultValue": "Arc-App-CAPI-MGMT-NSG",
             "metadata": {
                 "description": "Name of the Network Security Group"
             }
