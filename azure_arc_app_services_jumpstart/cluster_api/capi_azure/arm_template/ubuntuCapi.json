@@ -75,7 +75,7 @@
         },
         "networkSecurityGroupName": {
             "type": "string",
-            "defaultValue": "Arc-App-CAPI-K8s-NSG",
+            "defaultValue": "Arc-App-CAPI-NSG",
             "metadata": {
                 "description": "Name of the Network Security Group"
             }
