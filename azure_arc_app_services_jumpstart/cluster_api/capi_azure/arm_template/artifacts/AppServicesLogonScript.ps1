@@ -21,6 +21,11 @@ az login --service-principal --username $env:spnClientId --password $env:spnClie
 # Principal has access to multiple subscriptions, which can break the automation logic
 az account set --subscription $env:subscriptionId
 
+# Making extension install dynamic
+az config set extension.use_dynamic_install=yes_without_prompt
+Write-Host "`n"
+az -v
+
 # Creating Azure Public IP resource to be used by the Azure Arc app service
 Write-Host "`n"
 Write-Host "Creating Azure Public IP resource to be used by the Azure Arc app service"
