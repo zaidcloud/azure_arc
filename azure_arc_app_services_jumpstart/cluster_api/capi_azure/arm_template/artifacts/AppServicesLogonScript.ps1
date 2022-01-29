@@ -74,7 +74,6 @@ Start-Sleep -Seconds 10
 $kubectlMonShell = Start-Process -PassThru PowerShell {for (0 -lt 1) {kubectl get pod -n appservices; Start-Sleep -Seconds 5; Clear-Host }}
 
 # Deploying Azure App environment
-Write-Host "`n"
 Write-Host "Deploying Azure App Service Kubernetes environment"
 Write-Host "`n"
 
@@ -105,7 +104,6 @@ az k8s-extension create `
    --configuration-settings "buildService.storageClassName=${storageClassName}" `
    --configuration-settings "buildService.storageAccessMode=ReadWriteOnce" `
    --configuration-settings "customConfigMap=${namespace}/kube-environment-config" `
-   --configuration-settings "envoy.annotations.service.beta.kubernetes.io/azure-load-balancer-resource-group=${connectedClusterName}" `
    --configuration-settings "logProcessor.appLogs.destination=log-analytics" `
    --configuration-protected-settings "logProcessor.appLogs.logAnalyticsConfig.customerId=${logAnalyticsWorkspaceIdEnc}" `
    --configuration-protected-settings "logProcessor.appLogs.logAnalyticsConfig.sharedKey=${logAnalyticsKeyEnc}"
