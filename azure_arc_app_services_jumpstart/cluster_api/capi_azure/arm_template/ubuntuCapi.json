@@ -10,14 +10,14 @@
         },
         "vmName": {
             "type": "string",
-            "defaultValue": "Arc-AppSvc-CAPI-MGMT",
+            "defaultValue": "Arc-App-CAPI-MGMT",
             "metadata": {
                 "description": "The name of you Virtual Machine."
             }
         },
         "capiArcAppSvcClusterName": {
             "type": "string",
-            "defaultValue": "Arc-AppSvc-CAPI",
+            "defaultValue": "Arc-App-CAPI",
             "metadata": {
                 "description": "The name of the Cluster API workload cluster to be connected as an Azure Arc-enabled Kubernetes cluster (lowercase)"
             }
@@ -61,21 +61,21 @@
         },
         "virtualNetworkName": {
             "type": "string",
-            "defaultValue": "Arc-AppSvc-CAPI-VNet",
+            "defaultValue": "Arc-App-CAPI-VNet",
             "metadata": {
                 "description": "Name of the VNet"
             }
         },
         "subnetName": {
             "type": "string",
-            "defaultValue": "Arc-AppSvc-CAPI-MGMT-Subnet",
+            "defaultValue": "Arc-App-CAPI-MGMT-Subnet",
             "metadata": {
                 "description": "Name of the subnet in the virtual network"
             }
         },
         "networkSecurityGroupName": {
             "type": "string",
-            "defaultValue": "Arc-AppSvc-CAPI-MGMT-NSG",
+            "defaultValue": "Arc-App-CAPI-MGMT-NSG",
             "metadata": {
                 "description": "Name of the Network Security Group"
             }
