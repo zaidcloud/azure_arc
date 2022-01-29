@@ -21,7 +21,7 @@ echo $SPN_TENANT_ID:$4 | awk '{print substr($1,2); }' >> vars.sh
 echo $vmName:$5 | awk '{print substr($1,2); }' >> vars.sh
 echo $location:$6 | awk '{print substr($1,2); }' >> vars.sh
 echo $stagingStorageAccountName:$7 | awk '{print substr($1,2); }' >> vars.sh
-echo $logAnalyticsWorkspace:$8 | awk '{print substr($1,2); }' >> vars.sh
+echo $logAnalyticsWorkspaceName:$8 | awk '{print substr($1,2); }' >> vars.sh
 echo $capiArcAppSvcClusterName:$9 | awk '{print substr($1,2); }' >> vars.sh
 sed -i '2s/^/export adminUsername=/' vars.sh
 sed -i '3s/^/export SPN_CLIENT_ID=/' vars.sh
@@ -30,7 +30,7 @@ sed -i '5s/^/export SPN_TENANT_ID=/' vars.sh
 sed -i '6s/^/export vmName=/' vars.sh
 sed -i '7s/^/export location=/' vars.sh
 sed -i '8s/^/export stagingStorageAccountName=/' vars.sh
-sed -i '9s/^/export logAnalyticsWorkspace=/' vars.sh
+sed -i '9s/^/export logAnalyticsWorkspaceName=/' vars.sh
 sed -i '10s/^/export capiArcAppSvcClusterName=/' vars.sh
 
 chmod +x vars.sh

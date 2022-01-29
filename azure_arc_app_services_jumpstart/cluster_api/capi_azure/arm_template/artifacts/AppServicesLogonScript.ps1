@@ -98,8 +98,8 @@ $namespace="appservices"
 $extensionName = "arc-app-services"
 $apiVersion = "2020-07-01-preview"
 $kubeEnvironmentName=$connectedClusterName + -join ((48..57) + (97..122) | Get-Random -Count 4 | ForEach-Object {[char]$_})
-$workspaceId = $(az resource show --resource-group $env:resourceGroup --name $env:workspaceName --resource-type "Microsoft.OperationalInsights/workspaces" --query properties.customerId -o tsv)
-$workspaceKey = $(az monitor log-analytics workspace get-shared-keys --resource-group $env:resourceGroup --workspace-name $env:workspaceName --query primarySharedKey -o tsv)
+$workspaceId = $(az resource show --resource-group $env:resourceGroup --name $env:logAnalyticsWorkspaceName --resource-type "Microsoft.OperationalInsights/workspaces" --query properties.customerId -o tsv)
+$workspaceKey = $(az monitor log-analytics workspace get-shared-keys --resource-group $env:resourceGroup --workspace-name $env:logAnalyticsWorkspaceName --query primarySharedKey -o tsv)
 $logAnalyticsWorkspaceIdEnc = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($workspaceId))
 $logAnalyticsKeyEnc = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($workspaceKey))
 

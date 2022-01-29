@@ -110,7 +110,7 @@
         "description": "Name for the staging storage account using to hold kubeconfig. This value is passed into the template as an output from mgmtStagingStorage.json"
       }
     },
-    "workspaceName": {
+    "logAnalyticsWorkspaceName": {
       "type": "string",
       "metadata": {
         "description": "Name for the environment Azure Log Analytics workspace"
@@ -300,7 +300,7 @@
           "fileUris": [
             "[uri(parameters('templateBaseUrl'), 'artifacts/Bootstrap.ps1')]"
           ],
-          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Bypass -File Bootstrap.ps1', ' -adminUsername ', parameters('windowsAdminUsername'), ' -spnClientId ', parameters('spnClientId'), ' -spnClientSecret ', parameters('spnClientSecret'), ' -spnTenantId ', parameters('spnTenantId'), ' -subscriptionId ', subscription().subscriptionId, ' -resourceGroup ', resourceGroup().name, ' -azureLocation ', parameters('location'), ' -stagingStorageAccountName ', parameters('stagingStorageAccountName'), ' -workspaceName ', parameters('workspaceName'), ' -capiArcAppSvcClusterName ', parameters('capiArcAppSvcClusterName'), ' -deployAppService ', parameters('deployAppService'), ' -deployFunction ', parameters('deployFunction'), ' -deployApiMgmt ', parameters('deployApiMgmt'), ' -deployLogicApp ', parameters('deployLogicApp'), ' -templateBaseUrl ', parameters('templateBaseUrl'),' -adminEmail ', parameters('adminEmail'))]"
+          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Bypass -File Bootstrap.ps1', ' -adminUsername ', parameters('windowsAdminUsername'), ' -spnClientId ', parameters('spnClientId'), ' -spnClientSecret ', parameters('spnClientSecret'), ' -spnTenantId ', parameters('spnTenantId'), ' -subscriptionId ', subscription().subscriptionId, ' -resourceGroup ', resourceGroup().name, ' -azureLocation ', parameters('location'), ' -stagingStorageAccountName ', parameters('stagingStorageAccountName'), ' -logAnalyticsWorkspaceName ', parameters('logAnalyticsWorkspaceName'), ' -capiArcAppSvcClusterName ', parameters('capiArcAppSvcClusterName'), ' -deployAppService ', parameters('deployAppService'), ' -deployFunction ', parameters('deployFunction'), ' -deployApiMgmt ', parameters('deployApiMgmt'), ' -deployLogicApp ', parameters('deployLogicApp'), ' -templateBaseUrl ', parameters('templateBaseUrl'),' -adminEmail ', parameters('adminEmail'))]"
         }
       }
     }
