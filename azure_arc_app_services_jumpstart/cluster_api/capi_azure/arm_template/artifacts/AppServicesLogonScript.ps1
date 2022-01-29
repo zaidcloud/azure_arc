@@ -2,7 +2,7 @@ Start-Transcript -Path C:\Temp\AppServicesLogonScript.log
 
 $Env:TempDir = "C:\Temp"
 $Env:TempLogsDir = "C:\Temp\Logs"
-$connectedClusterName = $env:capiArcDataClusterName
+$connectedClusterName = $env:capiArcAppSvcClusterName
 $ArcAppSvcExtensionVersion = "0.11.1"
 
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
@@ -25,33 +25,15 @@ az account set --subscription $env:subscriptionId
 Write-Host "`n"
 Write-Host "Creating Azure Public IP resource to be used by the Azure Arc app service"
 Write-Host "`n"
-az network public-ip create --resource-group $env:resourceGroup --name "Arc-App-PIP" --sku STANDARD
-$staticIp = $(az network public-ip show --resource-group $env:resourceGroup --name "Arc-App-PIP" --output tsv --query ipAddress)
-
-# Registering Azure Arc providers
-Write-Host "`n"
-Write-Host "Registering Azure Arc providers, hold tight..."
-Write-Host "`n"
-az provider register --namespace Microsoft.Kubernetes --wait
-az provider register --namespace Microsoft.KubernetesConfiguration --wait
-az provider register --namespace Microsoft.ExtendedLocation --wait
-az provider register --namespace Microsoft.Web --wait
-
-az provider show --namespace Microsoft.Kubernetes -o table
-Write-Host "`n"
-az provider show --namespace Microsoft.KubernetesConfiguration -o table
-Write-Host "`n"
-az provider show --namespace Microsoft.ExtendedLocation -o table
-Write-Host "`n"
-az provider show --namespace Microsoft.Web -o table
-Write-Host "`n"
+az network public-ip create --resource-group $env:resourceGroup --name "Arc-App-Kube-PIP" --sku STANDARD
+$staticIp = $(az network public-ip show --resource-group $env:resourceGroup --name "Arc-App-Kube-PIP" --output tsv --query ipAddress)
 
 # Adding Azure Arc CLI extensions
 Write-Host "Adding Azure Arc CLI extensions"
 Write-Host "`n"
-az extension add --name "connectedk8s" -y
-az extension add --name "k8s-configuration" -y
-az extension add --name "k8s-extension" -y
+# az extension add --name "connectedk8s" -y
+# az extension add --name "k8s-configuration" -y
+# az extension add --name "k8s-extension" -y
 az extension add --name "customlocation" -y
 az extension add --name "appservice-kube" -y
 # az extension add --yes --source "https://aka.ms/appsvc/appservice_kube-latest-py2.py3-none-any.whl"
@@ -77,9 +59,6 @@ azcopy cp --check-md5 FailIfDifferentOrMissing $sourceFile  "$Env:TempLogsDir\in
 Write-Host "`n"
 Write-Host "Checking kubernetes nodes"
 kubectl get nodes
-Write-Host "`n"
-
-Write-Host "Onboarding the cluster as an Azure Arc enabled Kubernetes cluster"
 Write-Host "`n"
 
 # Localize kubeconfig
