@@ -4,6 +4,10 @@ $Env:TempDir = "C:\Temp"
 $Env:TempLogsDir = "C:\Temp\Logs"
 $connectedClusterName = $Env:capiArcAppSvcClusterName
 $ArcAppSvcExtensionVersion = "0.11.1"
+$storageClassName = "managed-premium"
+$namespace="appservices"
+$extensionName = "arc-app-services"
+$apiVersion = "2020-07-01-preview"
 
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
@@ -26,23 +30,18 @@ az config set extension.use_dynamic_install=yes_without_prompt
 Write-Host "`n"
 az -v
 
-# Creating Azure Public IP resource to be used by the Azure Arc app service
+# Creating Azure Public IP resource to be used by the Azure Arc app service Kubernetes environment
 Write-Host "`n"
-Write-Host "Creating Azure Public IP resource to be used by the Azure Arc app service"
+Write-Host "Creating Azure Public IP resource to be used by the Azure Arc app service Kubernetes environment"
 Write-Host "`n"
 az network public-ip create --resource-group $Env:resourceGroup --name "Arc-App-Kube-PIP" --sku STANDARD
 $staticIp = $(az network public-ip show --resource-group $Env:resourceGroup --name "Arc-App-Kube-PIP" --output tsv --query ipAddress)
 
-# Adding Azure Arc CLI extensions
-Write-Host "Adding Azure Arc CLI extensions"
+# Installing Azure Arc CLI extensions
+Write-Host "Installing Azure Arc CLI extensions"
 Write-Host "`n"
-# az extension add --name "connectedk8s" -y
-# az extension add --name "k8s-configuration" -y
-# az extension add --name "k8s-extension" -y
 az extension add --name "customlocation" -y
 az extension add --name "appservice-kube" -y
-# az extension add --yes --source "https://aka.ms/appsvc/appservice_kube-latest-py2.py3-none-any.whl"
-# az extension add --yes --source "https://aka.ms/logicapp-latest-py2.py3-none-any.whl"
 
 Write-Host "`n"
 az -v
@@ -63,6 +62,7 @@ azcopy cp --check-md5 FailIfDifferentOrMissing $sourceFile  "$Env:TempLogsDir\in
 
 Write-Host "`n"
 Write-Host "Checking kubernetes nodes"
+Write-Host "`n"
 kubectl get nodes
 Write-Host "`n"
 
@@ -77,9 +77,6 @@ $kubectlMonShell = Start-Process -PassThru PowerShell {for (0 -lt 1) {kubectl ge
 Write-Host "Deploying Azure App Service Kubernetes environment"
 Write-Host "`n"
 
-$namespace="appservices"
-$extensionName = "arc-app-services"
-$apiVersion = "2020-07-01-preview"
 $kubeEnvironmentName=$connectedClusterName + -join ((48..57) + (97..122) | Get-Random -Count 4 | ForEach-Object {[char]$_})
 $workspaceId = $(az resource show --resource-group $Env:resourceGroup --name $Env:logAnalyticsWorkspaceName --resource-type "Microsoft.OperationalInsights/workspaces" --query properties.customerId -o tsv)
 $workspaceKey = $(az monitor log-analytics workspace get-shared-keys --resource-group $Env:resourceGroup --workspace-name $Env:logAnalyticsWorkspaceName --query primarySharedKey -o tsv)
