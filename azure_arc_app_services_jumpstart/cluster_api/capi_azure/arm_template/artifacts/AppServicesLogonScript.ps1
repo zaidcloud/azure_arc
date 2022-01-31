@@ -33,9 +33,9 @@ az -v
 # Creating Azure Public IP resource to be used by the Azure Arc app service Kubernetes environment
 Write-Host "`n"
 Write-Host "Creating Azure Public IP resource to be used by the Azure Arc app service Kubernetes environment"
-Write-Host "`n"
-az network public-ip create --resource-group $Env:resourceGroup --name "Arc-App-Kube-PIP" --sku STANDARD
-$staticIp = $(az network public-ip show --resource-group $Env:resourceGroup --name "Arc-App-Kube-PIP" --output tsv --query ipAddress)
+# Write-Host "`n"
+# az network public-ip create --resource-group $Env:resourceGroup --name "Arc-App-Kube-PIP" --sku STANDARD
+# $staticIp = $(az network public-ip show --resource-group $Env:resourceGroup --name "Arc-App-Kube-PIP" --output tsv --query ipAddress)
 
 # Installing Azure Arc CLI extensions
 Write-Host "Installing Azure Arc CLI extensions"
@@ -133,7 +133,7 @@ Write-Host "`n"
 $connectedClusterId = az connectedk8s show --name $connectedClusterName --resource-group $Env:resourceGroup --query id -o tsv
 $extensionId = az k8s-extension show --name $extensionName --cluster-type connectedClusters --cluster-name $connectedClusterName --resource-group $Env:resourceGroup --query id -o tsv
 $customLocationId = $(az customlocation create --name 'jumpstart-cl' --resource-group $Env:resourceGroup --namespace appservices --host-resource-id $connectedClusterId --cluster-extension-ids $extensionId --kubeconfig "C:\Users\$Env:USERNAME\.kube\config" --query id -o tsv)
-az appservice kube create --resource-group $Env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId --static-ip "$staticIp" --location $Env:azureLocation --output none
+az appservice kube create --resource-group $Env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId --location $Env:azureLocation --output none
 
 Do {
    Write-Host "Waiting for kube environment to become available. Hold tight, this might take a few minutes..."
