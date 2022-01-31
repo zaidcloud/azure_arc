@@ -3,7 +3,7 @@ Start-Transcript -Path C:\Temp\AppServicesLogonScript.log
 $Env:TempDir = "C:\Temp"
 $Env:TempLogsDir = "C:\Temp\Logs"
 $connectedClusterName = $Env:capiArcAppSvcClusterName
-$ArcAppSvcExtensionVersion = "0.11.1"
+$ArcAppSvcExtensionVersion = "0.11.0"
 $storageClassName = "managed-premium"
 $namespace="appservices"
 $extensionName = "arc-app-services"
