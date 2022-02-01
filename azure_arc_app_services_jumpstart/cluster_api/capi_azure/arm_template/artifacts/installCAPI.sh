@@ -89,8 +89,8 @@ export AZURE_SUBSCRIPTION_ID=$subscriptionId
 export AZURE_TENANT_ID=$SPN_TENANT_ID
 export AZURE_CLIENT_ID=$SPN_CLIENT_ID
 export AZURE_CLIENT_SECRET=$SPN_CLIENT_SECRET
-export AZURE_CONTROL_PLANE_MACHINE_TYPE="Standard_D4s_v3"
-export AZURE_NODE_MACHINE_TYPE="Standard_D8s_v3"
+export AZURE_CONTROL_PLANE_MACHINE_TYPE="Standard_D4s_v4"
+export AZURE_NODE_MACHINE_TYPE="Standard_D8s_v4"
 
 # Base64 encode the variables - Do not change!
 export AZURE_SUBSCRIPTION_ID_B64="$(echo -n "$subscriptionId" | base64 | tr -d '\n')"
