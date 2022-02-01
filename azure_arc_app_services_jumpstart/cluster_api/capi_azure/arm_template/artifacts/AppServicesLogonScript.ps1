@@ -143,25 +143,25 @@ Do {
    } while ($kubeEnvironmentNameStatus -eq "Nope")
 
 
-# if ( $Env:deployAppService -eq $true )
-# {
-#     & "C:\Temp\deployAppService.ps1"
-# }
+if ( $Env:deployAppService -eq $true )
+{
+    & "C:\Temp\deployAppService.ps1"
+}
 
-# if ( $Env:deployFunction -eq $true )
-# {
-#     & "C:\Temp\deployFunction.ps1"
-# }
+if ( $Env:deployFunction -eq $true )
+{
+    & "C:\Temp\deployFunction.ps1"
+}
 
-# if ( $Env:deployLogicApp -eq $true )
-# {
-#     & "C:\Temp\deployLogicApp.ps1"
-# }
+if ( $Env:deployLogicApp -eq $true )
+{
+    & "C:\Temp\deployLogicApp.ps1"
+}
 
-# if ( $Env:deployApiMgmt -eq $true )
-# {
-#     & "C:\Temp\deployApiMgmt.ps1"
-# }
+if ( $Env:deployApiMgmt -eq $true )
+{
+    & "C:\Temp\deployApiMgmt.ps1"
+}
 
 
 # # Deploying Azure Defender Kubernetes extension instance
