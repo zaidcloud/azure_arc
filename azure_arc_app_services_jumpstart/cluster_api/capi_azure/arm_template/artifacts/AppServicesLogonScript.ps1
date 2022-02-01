@@ -7,7 +7,6 @@ $ArcAppSvcExtensionVersion = "0.12.0"
 $storageClassName = "managed-premium"
 $namespaceName="appservices"
 $extensionName = "arc-app-services"
-$apiVersion = "2020-07-01-preview"
 
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
@@ -72,7 +71,7 @@ $kubectlMonShell = Start-Process -PassThru PowerShell {for (0 -lt 1) {kubectl ge
 Write-Host "Deploying Azure App Service Kubernetes environment. Hold tight, this might take a few minutes..."
 Write-Host "`n"
 
-$kubeEnvironmentName=$connectedClusterName + -join ((48..57) + (97..122) | Get-Random -Count 4 | ForEach-Object {[char]$_})
+$kubeEnvironmentName=$connectedClusterName
 $workspaceId = $(az resource show --resource-group $Env:resourceGroup --name $Env:logAnalyticsWorkspaceName --resource-type "Microsoft.OperationalInsights/workspaces" --query properties.customerId -o tsv)
 $workspaceKey = $(az monitor log-analytics workspace get-shared-keys --resource-group $Env:resourceGroup --workspace-name $Env:logAnalyticsWorkspaceName --query primarySharedKey -o tsv)
 $logAnalyticsWorkspaceIdEnc = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($workspaceId))
@@ -108,22 +107,21 @@ $extensionId=$(az k8s-extension show `
    --query id `
    --output tsv)
 
-# az resource wait --ids $extensionId --custom "properties.installState!='Pending'" --api-version $apiVersion
 
 Do {
-   Write-Host "Waiting for Azure Arc-enabled app services extension to install. Hold tight, this might take a few minutes..."
+   Write-Host "Waiting for Azure Arc-enabled app services extension to install. Hold tight, this might take a few minutes...(45s sleeping loop)"
    Start-Sleep -Seconds 45
    $extensionIdStatus = $(if(az resource show --ids $extensionId | Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
    } while ($extensionIdStatus -eq "Nope")
 
 Do {
-   Write-Host "Waiting for build service to become available. Hold tight, this might take a few minutes..."
-   Start-Sleep -Seconds 20
+   Write-Host "Waiting for build service to become available. Hold tight, this might take a few minutes...(30s sleeping loop)"
+   Start-Sleep -Seconds 30
    $buildService = $(if(kubectl get pods -n appservices | Select-String "k8se-build-service" | Select-String "Running" -Quiet){"Ready!"}Else{"Nope"})
    } while ($buildService -eq "Nope")
 
 Do {
-   Write-Host "Waiting for log-processor to become available. Hold tight, this might take a few minutes..."
+   Write-Host "Waiting for log-processor to become available. Hold tight, this might take a few minutes...(30s sleeping loop)"
    Start-Sleep -Seconds 30
    $logProcessorStatus = $(if(kubectl describe daemonset ($extensionName + "-k8se-log-processor") -n appservices | Select-String "Pods Status:  4 Running" -Quiet){"Ready!"}Else{"Nope"})
    } while ($logProcessorStatus -eq "Nope")
@@ -133,14 +131,16 @@ Write-Host "Deploying App Service Kubernetes Environment. Hold tight, this might
 Write-Host "`n"
 $connectedClusterId = az connectedk8s show --name $connectedClusterName --resource-group $Env:resourceGroup --query id -o tsv
 $extensionId = az k8s-extension show --name $extensionName --cluster-type connectedClusters --cluster-name $connectedClusterName --resource-group $Env:resourceGroup --query id -o tsv
+# $customLocationId = az customlocation show --name 'jumpstart-cl' --resource-group $Env:resourceGroup --query id -o tsv
 $customLocationId = $(az customlocation create --name 'jumpstart-cl' --resource-group $Env:resourceGroup --namespace $namespaceName --host-resource-id $connectedClusterId --cluster-extension-ids $extensionId --kubeconfig "C:\Users\$Env:USERNAME\.kube\config" --query id -o tsv)
+Start-Sleep -Seconds 30
 az appservice kube create --resource-group $Env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId --output none
 
-# Do {
-#    Write-Host "Waiting for kube environment to become available. Hold tight, this might take a few minutes..."
-#    Start-Sleep -Seconds 30
-#    $kubeEnvironmentNameStatus = $(if(az appservice kube show --resource-group $Env:resourceGroup --name $kubeEnvironmentName | Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
-#    } while ($kubeEnvironmentNameStatus -eq "Nope")
+Do {
+   Write-Host "Waiting for kube environment to become available. Hold tight, this might take a few minutes...(30s sleeping loop)"
+   Start-Sleep -Seconds 30
+   $kubeEnvironmentNameStatus = $(if(az appservice kube show --resource-group $Env:resourceGroup --name $kubeEnvironmentName --only-show-errors| Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
+   } while ($kubeEnvironmentNameStatus -eq "Nope")
 
 
 # if ( $Env:deployAppService -eq $true )
