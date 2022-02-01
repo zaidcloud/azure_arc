@@ -5,7 +5,7 @@ $Env:TempLogsDir = "C:\Temp\Logs"
 $connectedClusterName = $Env:capiArcAppSvcClusterName
 $ArcAppSvcExtensionVersion = "0.11.1"
 $storageClassName = "managed-premium"
-$namespace="appservices"
+$namespaceName="appservices"
 $extensionName = "arc-app-services"
 $apiVersion = "2020-07-01-preview"
 
@@ -30,16 +30,11 @@ az config set extension.use_dynamic_install=yes_without_prompt
 Write-Host "`n"
 az -v
 
-# Creating Azure Public IP resource to be used by the Azure Arc app service Kubernetes environment
-Write-Host "`n"
-Write-Host "Creating Azure Public IP resource to be used by the Azure Arc app service Kubernetes environment"
-# Write-Host "`n"
-# az network public-ip create --resource-group $Env:resourceGroup --name "Arc-App-Kube-PIP" --sku STANDARD
-# $staticIp = $(az network public-ip show --resource-group $Env:resourceGroup --name "Arc-App-Kube-PIP" --output tsv --query ipAddress)
-
 # Installing Azure Arc CLI extensions
 Write-Host "Installing Azure Arc CLI extensions"
 Write-Host "`n"
+az extension add --name "connectedk8s" -y
+az extension add --name "k8s-extension" -y
 az extension add --name "customlocation" -y
 az extension add --name "appservice-kube" -y
 
@@ -74,7 +69,7 @@ Start-Sleep -Seconds 10
 $kubectlMonShell = Start-Process -PassThru PowerShell {for (0 -lt 1) {kubectl get pod -n appservices; Start-Sleep -Seconds 5; Clear-Host }}
 
 # Deploying Azure App environment
-Write-Host "Deploying Azure App Service Kubernetes environment"
+Write-Host "Deploying Azure App Service Kubernetes environment. Hold tight, this might take a few minutes..."
 Write-Host "`n"
 
 $kubeEnvironmentName=$connectedClusterName + -join ((48..57) + (97..122) | Get-Random -Count 4 | ForEach-Object {[char]$_})
@@ -93,14 +88,14 @@ az k8s-extension create `
    --version $ArcAppSvcExtensionVersion `
    --auto-upgrade-minor-version false `
    --scope cluster `
-   --release-namespace $namespace `
+   --release-namespace $namespaceName `
    --configuration-settings "Microsoft.CustomLocation.ServiceAccount=default" `
-   --configuration-settings "appsNamespace=${namespace}" `
+   --configuration-settings "appsNamespace=${namespaceName}" `
    --configuration-settings "clusterName=${kubeEnvironmentName}" `
    --configuration-settings "keda.enabled=true" `
    --configuration-settings "buildService.storageClassName=${storageClassName}" `
    --configuration-settings "buildService.storageAccessMode=ReadWriteOnce" `
-   --configuration-settings "customConfigMap=${namespace}/kube-environment-config" `
+   --configuration-settings "customConfigMap=${namespaceName}/kube-environment-config" `
    --configuration-settings "logProcessor.appLogs.destination=log-analytics" `
    --configuration-protected-settings "logProcessor.appLogs.logAnalyticsConfig.customerId=${logAnalyticsWorkspaceIdEnc}" `
    --configuration-protected-settings "logProcessor.appLogs.logAnalyticsConfig.sharedKey=${logAnalyticsKeyEnc}"
@@ -113,7 +108,13 @@ $extensionId=$(az k8s-extension show `
    --query id `
    --output tsv)
 
-az resource wait --ids $extensionId --custom "properties.installState!='Pending'" --api-version $apiVersion
+# az resource wait --ids $extensionId --custom "properties.installState!='Pending'" --api-version $apiVersion
+
+Do {
+   Write-Host "Waiting for Azure Arc-enabled app services extension to become available. Hold tight, this might take a few minutes..."
+   Start-Sleep -Seconds 45
+   $extensionIdStatus = $(if(az resource show --ids $extensionId | Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
+   } while ($extensionIdStatus -eq "Nope")
 
 Do {
    Write-Host "Waiting for build service to become available. Hold tight, this might take a few minutes..."
@@ -132,35 +133,35 @@ Write-Host "Deploying App Service Kubernetes Environment. Hold tight, this might
 Write-Host "`n"
 $connectedClusterId = az connectedk8s show --name $connectedClusterName --resource-group $Env:resourceGroup --query id -o tsv
 $extensionId = az k8s-extension show --name $extensionName --cluster-type connectedClusters --cluster-name $connectedClusterName --resource-group $Env:resourceGroup --query id -o tsv
-$customLocationId = $(az customlocation create --name 'jumpstart-cl' --resource-group $Env:resourceGroup --namespace appservices --host-resource-id $connectedClusterId --cluster-extension-ids $extensionId --kubeconfig "C:\Users\$Env:USERNAME\.kube\config" --query id -o tsv)
-az appservice kube create --resource-group $Env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId --location $Env:azureLocation --output none
+$customLocationId = $(az customlocation create --name 'jumpstart-cl' --resource-group $Env:resourceGroup --namespace $namespaceName --host-resource-id $connectedClusterId --cluster-extension-ids $extensionId --kubeconfig "C:\Users\$Env:USERNAME\.kube\config" --query id -o tsv)
+az appservice kube create --resource-group $Env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId --output none
 
-Do {
-   Write-Host "Waiting for kube environment to become available. Hold tight, this might take a few minutes..."
-   Start-Sleep -Seconds 15
-   $kubeEnvironmentNameStatus = $(if(az appservice kube show --resource-group $Env:resourceGroup --name $kubeEnvironmentName | Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
-   } while ($kubeEnvironmentNameStatus -eq "Nope")
+# Do {
+#    Write-Host "Waiting for kube environment to become available. Hold tight, this might take a few minutes..."
+#    Start-Sleep -Seconds 30
+#    $kubeEnvironmentNameStatus = $(if(az appservice kube show --resource-group $Env:resourceGroup --name $kubeEnvironmentName | Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
+#    } while ($kubeEnvironmentNameStatus -eq "Nope")
 
 
-if ( $Env:deployAppService -eq $true )
-{
-    & "C:\Temp\deployAppService.ps1"
-}
+# if ( $Env:deployAppService -eq $true )
+# {
+#     & "C:\Temp\deployAppService.ps1"
+# }
 
-if ( $Env:deployFunction -eq $true )
-{
-    & "C:\Temp\deployFunction.ps1"
-}
+# if ( $Env:deployFunction -eq $true )
+# {
+#     & "C:\Temp\deployFunction.ps1"
+# }
 
-if ( $Env:deployLogicApp -eq $true )
-{
-    & "C:\Temp\deployLogicApp.ps1"
-}
+# if ( $Env:deployLogicApp -eq $true )
+# {
+#     & "C:\Temp\deployLogicApp.ps1"
+# }
 
-if ( $Env:deployApiMgmt -eq $true )
-{
-    & "C:\Temp\deployApiMgmt.ps1"
-}
+# if ( $Env:deployApiMgmt -eq $true )
+# {
+#     & "C:\Temp\deployApiMgmt.ps1"
+# }
 
 
 # # Deploying Azure Defender Kubernetes extension instance
