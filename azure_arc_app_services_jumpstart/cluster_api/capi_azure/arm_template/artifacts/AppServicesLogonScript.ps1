@@ -133,8 +133,11 @@ $connectedClusterId = az connectedk8s show --name $connectedClusterName --resour
 $extensionId = az k8s-extension show --name $extensionName --cluster-type connectedClusters --cluster-name $connectedClusterName --resource-group $Env:resourceGroup --query id -o tsv
 # $customLocationId = az customlocation show --name 'jumpstart-cl' --resource-group $Env:resourceGroup --query id -o tsv
 $customLocationId = $(az customlocation create --name 'jumpstart-cl' --resource-group $Env:resourceGroup --namespace $namespaceName --host-resource-id $connectedClusterId --cluster-extension-ids $extensionId --kubeconfig "C:\Users\$Env:USERNAME\.kube\config" --query id -o tsv)
+Write-Host "`n"
+Write-Host "Waiting for 30s before creating the App Services kube environment"
+Write-Host "`n"
 Start-Sleep -Seconds 30
-az appservice kube create --resource-group $Env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId --output none
+az appservice kube create --resource-group $Env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId
 
 Do {
    Write-Host "Waiting for kube environment to become available. Hold tight, this might take a few minutes...(30s sleeping loop)"
@@ -142,7 +145,7 @@ Do {
    $kubeEnvironmentNameStatus = $(if(az appservice kube show --resource-group $Env:resourceGroup --name $kubeEnvironmentName --only-show-errors| Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
    } while ($kubeEnvironmentNameStatus -eq "Nope")
 
-
+# Deploying Azure Arc-enabled app services based on user selection   
 if ( $Env:deployAppService -eq $true )
 {
     & "C:\Temp\deployAppService.ps1"
@@ -164,9 +167,9 @@ if ( $Env:deployApiMgmt -eq $true )
 }
 
 
-# # Deploying Azure Defender Kubernetes extension instance
+# # Installing Microsoft Defender for Containers cluster extension
 # Write-Host "`n"
-# Write-Host "Create Azure Defender Kubernetes extension instance"
+# Write-Host "Installing Microsoft Defender for Containers cluster extension"
 # Write-Host "`n"
 # az k8s-extension create --name "azure-defender" --cluster-name $connectedClusterName --resource-group $Env:resourceGroup --cluster-type connectedClusters --extension-type Microsoft.AzureDefender.Kubernetes
 
