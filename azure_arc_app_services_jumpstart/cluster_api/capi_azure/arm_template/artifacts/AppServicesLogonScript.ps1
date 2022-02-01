@@ -131,7 +131,6 @@ Write-Host "Deploying App Service Kubernetes Environment. Hold tight, this might
 Write-Host "`n"
 $connectedClusterId = az connectedk8s show --name $connectedClusterName --resource-group $Env:resourceGroup --query id -o tsv
 $extensionId = az k8s-extension show --name $extensionName --cluster-type connectedClusters --cluster-name $connectedClusterName --resource-group $Env:resourceGroup --query id -o tsv
-# $customLocationId = az customlocation show --name 'jumpstart-cl' --resource-group $Env:resourceGroup --query id -o tsv
 $customLocationId = $(az customlocation create --name 'jumpstart-cl' --resource-group $Env:resourceGroup --namespace $namespaceName --host-resource-id $connectedClusterId --cluster-extension-ids $extensionId --kubeconfig "C:\Users\$Env:USERNAME\.kube\config" --query id -o tsv)
 Write-Host "`n"
 Write-Host "Waiting for 30s before creating the App Services kube environment"
