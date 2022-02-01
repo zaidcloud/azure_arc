@@ -3,7 +3,7 @@ Start-Transcript -Path C:\Temp\AppServicesLogonScript.log
 $Env:TempDir = "C:\Temp"
 $Env:TempLogsDir = "C:\Temp\Logs"
 $connectedClusterName = $Env:capiArcAppSvcClusterName
-$ArcAppSvcExtensionVersion = "0.11.1"
+$ArcAppSvcExtensionVersion = "0.12.0"
 $storageClassName = "managed-premium"
 $namespaceName="appservices"
 $extensionName = "arc-app-services"
@@ -111,7 +111,7 @@ $extensionId=$(az k8s-extension show `
 # az resource wait --ids $extensionId --custom "properties.installState!='Pending'" --api-version $apiVersion
 
 Do {
-   Write-Host "Waiting for Azure Arc-enabled app services extension to become available. Hold tight, this might take a few minutes..."
+   Write-Host "Waiting for Azure Arc-enabled app services extension to install. Hold tight, this might take a few minutes..."
    Start-Sleep -Seconds 45
    $extensionIdStatus = $(if(az resource show --ids $extensionId | Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
    } while ($extensionIdStatus -eq "Nope")
