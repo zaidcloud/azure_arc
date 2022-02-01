@@ -3,7 +3,7 @@ Start-Transcript -Path C:\Temp\AppServicesLogonScript.log
 $Env:TempDir = "C:\Temp"
 $Env:TempLogsDir = "C:\Temp\Logs"
 $connectedClusterName = $Env:capiArcAppSvcClusterName
-$ArcAppSvcExtensionVersion = "0.11.0"
+$ArcAppSvcExtensionVersion = "0.11.1"
 $storageClassName = "managed-premium"
 $namespace="appservices"
 $extensionName = "arc-app-services"
@@ -117,13 +117,13 @@ az resource wait --ids $extensionId --custom "properties.installState!='Pending'
 
 Do {
    Write-Host "Waiting for build service to become available. Hold tight, this might take a few minutes..."
-   Start-Sleep -Seconds 15
+   Start-Sleep -Seconds 20
    $buildService = $(if(kubectl get pods -n appservices | Select-String "k8se-build-service" | Select-String "Running" -Quiet){"Ready!"}Else{"Nope"})
    } while ($buildService -eq "Nope")
 
 Do {
    Write-Host "Waiting for log-processor to become available. Hold tight, this might take a few minutes..."
-   Start-Sleep -Seconds 15
+   Start-Sleep -Seconds 30
    $logProcessorStatus = $(if(kubectl describe daemonset ($extensionName + "-k8se-log-processor") -n appservices | Select-String "Pods Status:  4 Running" -Quiet){"Ready!"}Else{"Nope"})
    } while ($logProcessorStatus -eq "Nope")
 
