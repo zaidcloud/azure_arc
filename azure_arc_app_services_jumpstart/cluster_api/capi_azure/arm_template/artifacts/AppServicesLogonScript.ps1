@@ -26,8 +26,6 @@ az account set --subscription $Env:subscriptionId
 
 # Making extension install dynamic
 az config set extension.use_dynamic_install=yes_without_prompt
-Write-Host "`n"
-az -v
 
 # Installing Azure Arc CLI extensions
 Write-Host "Installing Azure Arc CLI extensions"
@@ -107,7 +105,6 @@ $extensionId=$(az k8s-extension show `
    --query id `
    --output tsv)
 
-
 Do {
    Write-Host "Waiting for Azure Arc-enabled app services extension to install. Hold tight, this might take a few minutes...(45s sleeping loop)"
    Start-Sleep -Seconds 45
@@ -126,6 +123,7 @@ Do {
    $logProcessorStatus = $(if(kubectl describe daemonset ($extensionName + "-k8se-log-processor") -n appservices | Select-String "Pods Status:  4 Running" -Quiet){"Ready!"}Else{"Nope"})
    } while ($logProcessorStatus -eq "Nope")
 
+# Deploying App Service Kubernetes Environment
 Write-Host "`n"
 Write-Host "Deploying App Service Kubernetes Environment. Hold tight, this might take a few minutes..."
 Write-Host "`n"
@@ -147,22 +145,22 @@ Do {
 # Deploying Azure Arc-enabled app services based on user selection   
 if ( $Env:deployAppService -eq $true )
 {
-    & "C:\Temp\deployAppService.ps1"
+    & "$Env:TempDir\deployAppService.ps1"
 }
 
 if ( $Env:deployFunction -eq $true )
 {
-    & "C:\Temp\deployFunction.ps1"
+    & "$Env:TempDir\deployFunction.ps1"
 }
 
 if ( $Env:deployLogicApp -eq $true )
 {
-    & "C:\Temp\deployLogicApp.ps1"
+    & "$Env:TempDir\deployLogicApp.ps1"
 }
 
 if ( $Env:deployApiMgmt -eq $true )
 {
-    & "C:\Temp\deployApiMgmt.ps1"
+    & "$Env:TempDir\deployApiMgmt.ps1"
 }
 
 
