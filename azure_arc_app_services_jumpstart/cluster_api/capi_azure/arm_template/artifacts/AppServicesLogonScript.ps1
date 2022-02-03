@@ -166,11 +166,11 @@ if ( $Env:deployApiMgmt -eq $true )
 }
 
 
-# # Installing Microsoft Defender for Containers cluster extension
-# Write-Host "`n"
-# Write-Host "Installing Microsoft Defender for Containers cluster extension"
-# Write-Host "`n"
-# az k8s-extension create --name "azure-defender" --cluster-name $connectedClusterName --resource-group $Env:resourceGroup --cluster-type connectedClusters --extension-type Microsoft.AzureDefender.Kubernetes
+# Installing Microsoft Defender for Containers cluster extension
+Write-Host "`n"
+Write-Host "Installing Microsoft Defender for Containers cluster extension"
+Write-Host "`n"
+az k8s-extension create --name "azure-defender" --cluster-name $connectedClusterName --resource-group $Env:resourceGroup --cluster-type connectedClusters --extension-type Microsoft.AzureDefender.Kubernetes
 
 # Changing to Client VM wallpaper
 $imgPath="C:\Temp\wallpaper.png"
