@@ -156,7 +156,7 @@ Do {
     Do {
     Write-Host "Waiting for log-processor to become available. Hold tight, this might take a few minutes...(30s sleeping loop)"
     Start-Sleep -Seconds 30
-    $logProcessorStatus = $(if(kubectl describe daemonset ($extensionName + "-k8se-log-processor") -n appservices | Select-String "Pods Status:  4 Running" -Quiet){"Ready!"}Else{"Nope"})
+    $logProcessorStatus = $(if(kubectl describe daemonset ($extensionName + "-k8se-log-processor") -n appservices | Select-String "Pods Status:  3 Running" -Quiet){"Ready!"}Else{"Nope"})
     } while ($logProcessorStatus -eq "Nope")
 
 # Deploying App Service Kubernetes Environment

@@ -26,9 +26,6 @@
         "logAnalyticsWorkspaceName": {
             "value": "<your unique Log Analytics workspace name>"
         },
-        "kubernetesVersion": {
-            "value": "1.19.11"
-        },
         "dnsPrefix": {
             "value": "arcappsvc"
         },
