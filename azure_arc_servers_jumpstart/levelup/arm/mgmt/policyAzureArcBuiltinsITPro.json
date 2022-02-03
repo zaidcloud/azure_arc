@@ -13,7 +13,7 @@
             "metadata": {
                 "description": "Name of your log analytics workspace"
             }
-        }
+        },
         "policies": {
             "type": "array",
             "defaultValue": [
