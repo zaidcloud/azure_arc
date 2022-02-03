@@ -78,7 +78,7 @@ catch {
 
 Write-Host "Chocolatey Apps Specified"
 
-$appsToInstall = $using:chocolateyAppList -split "," | ForEach-Object { "$($_.Trim())" }
+$appsToInstall = $chocolateyAppList -split "," | ForEach-Object { "$($_.Trim())" }
 
 foreach ($app in $appsToInstall)
 {
