@@ -40,13 +40,6 @@ Write-Host "Checking kubernetes nodes"
 Write-Host "`n"
 kubectl get nodes
 
-# # Creating Azure Public IP resource to be used by the Azure Arc app service
-# Write-Host "`n"
-# Write-Host "Creating Azure Public IP resource to be used by the Azure Arc app service"
-# Write-Host "`n"
-# az network public-ip create --resource-group $aksResourceGroupMC --name "Arc-AppSvc-PIP" --sku STANDARD
-# $staticIp = $(az network public-ip show --resource-group $aksResourceGroupMC --name "Arc-AppSvc-PIP" --output tsv --query ipAddress)
-
 # Registering Azure Arc providers
 Write-Host "`n"
 Write-Host "Registering Azure Arc providers, hold tight..."
@@ -170,7 +163,7 @@ $customLocationId = $(az customlocation create --name 'jumpstart-cl' --resource-
 # Write-Host "Waiting for 30s before creating the App Services kube environment"
 # Write-Host "`n"
 # Start-Sleep -Seconds 30
-az appservice kube create --resource-group $Env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId --static-ip "$staticIp" --location $Env:azureLocation --output none 
+az appservice kube create --resource-group $Env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId --location $Env:azureLocation --output none 
 
 Do {
     Write-Host "Waiting for kube environment to become available. Hold tight, this might take a few minutes...(30s sleeping loop)"
