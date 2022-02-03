@@ -6,6 +6,7 @@ $ArcAppSvcExtensionVersion = "0.12.0"
 $storageClassName = "default"
 $namespaceName="appservices"
 $extensionName = "arc-app-services"
+$aksNodeVMSize = "Standard_D4s_v4"
 
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
@@ -20,8 +21,10 @@ az aks create --resource-group $Env:resourceGroup `
               --location $Env:azureLocation `
               --kubernetes-version $Env:kubernetesVersion `
               --dns-name-prefix $Env:dnsPrefix `
+              --node-vm-size $aksNodeVMSize `
               --enable-aad `
               --enable-azure-rbac `
+              --enable-managed-identity `
               --generate-ssh-keys `
               --tags "Project=jumpstart_azure_arc_app_services" `
               --enable-addons monitoring
@@ -138,11 +141,9 @@ $extensionId=$(az k8s-extension show `
     --query id `
     --output tsv)
 
-# az resource wait --ids $extensionId --api-version 2020-07-01-preview --custom "properties.installState!='Pending'"
-
 Do {
-    Write-Host "Waiting for Azure Arc-enabled app services extension to install. Hold tight, this might take a few minutes...(45s sleeping loop)"
-    Start-Sleep -Seconds 45
+    Write-Host "Waiting for Azure Arc-enabled app services extension to install. Hold tight, this might take a few minutes...(60s sleeping loop)"
+    Start-Sleep -Seconds 60
     $extensionIdStatus = $(if(az resource show --ids $extensionId | Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
     } while ($extensionIdStatus -eq "Nope")
 
@@ -165,13 +166,17 @@ Write-Host "`n"
 $connectedClusterId = az connectedk8s show --name $Env:clusterName --resource-group $Env:resourceGroup --query id -o tsv
 $extensionId = az k8s-extension show --name $extensionName --cluster-type connectedClusters --cluster-name $Env:clusterName --resource-group $Env:resourceGroup --query id -o tsv
 $customLocationId = $(az customlocation create --name 'jumpstart-cl' --resource-group $Env:resourceGroup --namespace appservices --host-resource-id $connectedClusterId --cluster-extension-ids $extensionId --kubeconfig "C:\Users\$Env:USERNAME\.kube\config" --query id -o tsv)
+# Write-Host "`n"
+# Write-Host "Waiting for 30s before creating the App Services kube environment"
+# Write-Host "`n"
+# Start-Sleep -Seconds 30
 az appservice kube create --resource-group $Env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId --static-ip "$staticIp" --location $Env:azureLocation --output none 
 
 Do {
-   Write-Host "Waiting for kube environment to become available. Hold tight, this might take a few minutes..."
-   Start-Sleep -Seconds 15
-   $kubeEnvironmentNameStatus = $(if(az appservice kube show --resource-group $Env:resourceGroup --name $kubeEnvironmentName | Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
-   } while ($kubeEnvironmentNameStatus -eq "Nope")
+    Write-Host "Waiting for kube environment to become available. Hold tight, this might take a few minutes...(30s sleeping loop)"
+    Start-Sleep -Seconds 30
+    $kubeEnvironmentNameStatus = $(if(az appservice kube show --resource-group $Env:resourceGroup --name $kubeEnvironmentName | Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
+    } while ($kubeEnvironmentNameStatus -eq "Nope")
 
 if ( $Env:deployAppService -eq $true )
 {
@@ -193,6 +198,12 @@ if ( $Env:deployLogicApp -eq $true )
 {
     & "$Env:TempDir\deployLogicApp.ps1"
 }
+
+# Installing Microsoft Defender for Containers cluster extension
+Write-Host "`n"
+Write-Host "Installing Microsoft Defender for Containers cluster extension"
+Write-Host "`n"
+az k8s-extension create --name "azure-defender" --cluster-name $Env:clusterName --resource-group $Env:resourceGroup --cluster-type connectedClusters --extension-type Microsoft.AzureDefender.Kubernetes
 
 # Changing to Client VM wallpaper
 $imgPath="$Env:TempDir\wallpaper.png"

@@ -69,7 +69,8 @@ Invoke-WebRequest ($templateBaseUrl + "artifacts/AppServicesLogonScript.ps1") -O
 Invoke-WebRequest ($templateBaseUrl + "artifacts/deployAppService.ps1") -OutFile "C:\Temp\deployAppService.ps1"  
 Invoke-WebRequest ($templateBaseUrl + "artifacts/deployFunction.ps1") -OutFile "C:\Temp\deployFunction.ps1" 
 Invoke-WebRequest ($templateBaseUrl + "artifacts/deployApiMgmt.ps1") -OutFile "C:\Temp\deployApiMgmt.ps1" 
-Invoke-WebRequest ($templateBaseUrl + "artifacts/deployLogicApp.ps1") -OutFile "C:\Temp\deployLogicApp.ps1" 
+Invoke-WebRequest ($templateBaseUrl + "artifacts/deployLogicApp.ps1") -OutFile "C:\Temp\deployLogicApp.ps1"
+Invoke-WebRequest "https://raw.githubusercontent.com/microsoft/azure_arc/main/img/jumpstart_wallpaper.png" -OutFile "C:\Temp\wallpaper.png"
 
 # Installing tools
 workflow ClientTools_01
@@ -88,13 +89,13 @@ workflow ClientTools_01
                                 choco config get cacheLocation
                             }catch{
                                 Write-Output "Chocolatey not detected, trying to install now"
-                                iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+                                Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
                             }
                         }
                         if ([string]::IsNullOrWhiteSpace($using:chocolateyAppList) -eq $false){   
                             Write-Host "Chocolatey Apps Specified"  
                             
-                            $appsToInstall = $using:chocolateyAppList -split "," | foreach { "$($_.Trim())" }
+                            $appsToInstall = $using:chocolateyAppList -split "," | ForEach-Object { "$($_.Trim())" }
                         
                             foreach ($app in $appsToInstall)
                             {
@@ -103,7 +104,6 @@ workflow ClientTools_01
                             }
                         }                        
                     }
-                    Invoke-WebRequest "https://raw.githubusercontent.com/microsoft/azure_arc/main/img/jumpstart_wallpaper.png" -OutFile "C:\Temp\wallpaper.png"
                 }
         }
 

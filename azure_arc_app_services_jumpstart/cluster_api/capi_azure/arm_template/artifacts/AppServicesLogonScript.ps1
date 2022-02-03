@@ -106,8 +106,8 @@ $extensionId=$(az k8s-extension show `
    --output tsv)
 
 Do {
-   Write-Host "Waiting for Azure Arc-enabled app services extension to install. Hold tight, this might take a few minutes...(45s sleeping loop)"
-   Start-Sleep -Seconds 45
+   Write-Host "Waiting for Azure Arc-enabled app services extension to install. Hold tight, this might take a few minutes...(60s sleeping loop)"
+   Start-Sleep -Seconds 60
    $extensionIdStatus = $(if(az resource show --ids $extensionId | Select-String '"provisioningState": "Succeeded"' -Quiet){"Ready!"}Else{"Nope"})
    } while ($extensionIdStatus -eq "Nope")
 
@@ -162,13 +162,6 @@ if ( $Env:deployApiMgmt -eq $true )
 {
     & "$Env:TempDir\deployApiMgmt.ps1"
 }
-
-
-# Installing Microsoft Defender for Containers cluster extension
-Write-Host "`n"
-Write-Host "Installing Microsoft Defender for Containers cluster extension"
-Write-Host "`n"
-az k8s-extension create --name "azure-defender" --cluster-name $connectedClusterName --resource-group $Env:resourceGroup --cluster-type connectedClusters --extension-type Microsoft.AzureDefender.Kubernetes
 
 # Changing to Client VM wallpaper
 $imgPath="C:\Temp\wallpaper.png"

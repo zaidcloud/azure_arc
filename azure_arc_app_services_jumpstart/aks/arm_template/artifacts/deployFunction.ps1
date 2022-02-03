@@ -26,13 +26,13 @@ $functionAppName = "JumpstartFunction-" + -join ((48..57) + (97..122) | Get-Rand
 az functionapp create --resource-group $env:resourceGroup --name $functionAppName --custom-location $customLocationId --storage-account $storageAccountName --functions-version 3 --runtime dotnet
 
 Do {
-    Write-Host "Waiting for Azure Function application to become available. Hold tight, this might take a few minutes..."
-    Start-Sleep -Seconds 15
+    Write-Host "Waiting for Azure Function application to become available. Hold tight, this might take a few minutes...(30s sleeping loop)"
+    Start-Sleep -Seconds 30
     $buildService = $(if(kubectl get pods -n appservices | Select-String $functionAppName | Select-String "Running" -Quiet){"Ready!"}Else{"Nope"})
     } while ($buildService -eq "Nope")
     
 Do {
-    Write-Host "Waiting for log-processor to become available. Hold tight, this might take a few minutes..."
+    Write-Host "Waiting for log-processor to become available. Hold tight, this might take a few minutes...(45s sleeping loop)"
     Start-Sleep -Seconds 45
     $logProcessorStatus = $(if(kubectl describe daemonset ($extensionName + "-k8se-log-processor") -n appservices | Select-String "Pods Status:  4 Running" -Quiet){"Ready!"}Else{"Nope"})
     } while ($logProcessorStatus -eq "Nope")
@@ -76,7 +76,7 @@ $env:AZURE_STORAGE_CONNECTION_STRING = $string
 
 # Publishing the Azure Function application to Azure
 Write-Host "`n"
-Write-Host "Publishing the Azure Function application to Azure"
+Write-Host "Publishing the Azure Function application to Azure. Hold tight, this might take a few minutes.."
 Write-Host "`n"
 func azure functionapp publish $functionAppName | Out-File C:\Temp\funcPublish.txt
 Start-Sleep -Seconds 60

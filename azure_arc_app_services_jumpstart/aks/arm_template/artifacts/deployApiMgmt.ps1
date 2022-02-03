@@ -1,9 +1,9 @@
 Start-Transcript -Path C:\Temp\deployApiMgmt.log
 
 # Login using SP
-$userPassword = ConvertTo-SecureString -String $env:spnClientSecret -AsPlainText -Force
-$pscredential = New-Object -TypeName System.Management.Automation.PSCredential($env:spnClientId, $userPassword)
-Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant $env:spntenantId
+$userPassword = ConvertTo-SecureString -String $Env:spnClientSecret -AsPlainText -Force
+$pscredential = New-Object -TypeName System.Management.Automation.PSCredential($Env:spnClientId, $userPassword)
+Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant $Env:spntenantId
 
 # Create an API Management Service
 function New-RandomName {
@@ -16,17 +16,17 @@ $APIName = ( $Prefix + '-' + $APIRandomName).ToLower()
 
 
 Write-Host "Creating Azure API Management instance. Hold tight, this might take an hour..."
-New-AzApiManagement -Name $APIName -ResourceGroupName $env:resourceGroup -Location $env:azureLocation -Organization $APIName -AdminEmail $env:adminEmail
+New-AzApiManagement -Name $APIName -ResourceGroupName $Env:resourceGroup -Location $Env:azureLocation -Organization $APIName -AdminEmail $Env:adminEmail
 
   Do {
     Write-Host "Checking if API Management is active."
     Start-Sleep -Seconds 10
-    $apiMgmtStatus = $(if(Get-AzApiManagement -Name $APIName -ResourceGroupName $env:resourceGroup | Select-Object "ProvisioningState" | Select-String "Succeeded" -Quiet){"Ready!"}Else{"Nope"})
+    $apiMgmtStatus = $(if(Get-AzApiManagement -Name $APIName -ResourceGroupName $Env:resourceGroup | Select-Object "ProvisioningState" | Select-String "Succeeded" -Quiet){"Ready!"}Else{"Nope"})
     } while ($apiMgmtStatus -eq "Nope")
     
 # Create a Gateway instance
 Write-Host "Creating Azure API Management Gateway"
-$apimContext = New-AzApiManagementContext -ResourceGroupName $env:resourceGroup -ServiceName $APIName
+$apimContext = New-AzApiManagementContext -ResourceGroupName $Env:resourceGroup -ServiceName $APIName
 $location = New-AzApiManagementResourceLocationObject -Name "n1" -City "c1" -District "d1" -CountryOrRegion "r1"
 New-AzApiManagementGateway -Context $apimContext -GatewayId $APIName -Description "ArcAPIMgmt" -LocationData $location
 
@@ -54,15 +54,15 @@ $Body = @{
 
 $json = $Body | ConvertTo-Json
 # Invoke the REST API and retrieve token
-$restUri = "https://management.azure.com/subscriptions/$env:subscriptionId/resourceGroups/$env:resourceGroup/providers/Microsoft.ApiManagement/service/$APIName/gateways/$APIName/generateToken?api-version=2021-01-01-preview"
+$restUri = "https://management.azure.com/subscriptions/$Env:subscriptionId/resourceGroups/$Env:resourceGroup/providers/Microsoft.ApiManagement/service/$APIName/gateways/$APIName/generateToken?api-version=2021-01-01-preview"
 $tokenAPI =  Invoke-RestMethod -Uri $restUri -Body $json -Method Post -Headers $authHeader
 $token =  "GatewayKey " + $tokenAPI.value
-$endpoint="https://$APIName.management.azure-api.net/subscriptions/$env:subscriptionId/resourceGroups/$env:resourceGroup/providers/Microsoft.ApiManagement/service/$APIName?api-version=2021-01-01-preview"
+$endpoint="https://$APIName.management.azure-api.net/subscriptions/$Env:subscriptionId/resourceGroups/$Env:resourceGroup/providers/Microsoft.ApiManagement/service/$APIName?api-version=2021-01-01-preview"
 
 # Deploy API Management gateway extension
 Write-Host "Deploying Azure API Management Gateway Extension"
-az k8s-extension create --cluster-type connectedClusters --cluster-name $env:clusterName `
-  --resource-group $env:resourceGroup --name apimgmt --extension-type Microsoft.ApiManagement.Gateway `
+az k8s-extension create --cluster-type connectedClusters --cluster-name $Env:clusterName `
+  --resource-group $Env:resourceGroup --name apimgmt --extension-type Microsoft.ApiManagement.Gateway `
   --scope namespace --target-namespace apimgmt `
   --configuration-settings gateway.endpoint=$endpoint `
   --configuration-protected-settings gateway.authKey=$token `
