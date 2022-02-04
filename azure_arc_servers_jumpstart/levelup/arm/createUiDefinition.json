@@ -94,7 +94,7 @@
 						"name": "winAdminPassword",
 						"type": "Microsoft.Compute.CredentialsCombo",
 						"label": {
-							"password": "Password",
+							"password": "Windows Admin Password",
 							"confirmPassword": "Confirm password"
 						},
 						"toolTip": {
