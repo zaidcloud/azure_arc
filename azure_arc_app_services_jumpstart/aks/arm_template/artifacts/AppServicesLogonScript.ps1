@@ -12,6 +12,18 @@ $kubernetesVersion = "1.22.4"
 
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
+function Start-Sleep($seconds) {
+    $doneDT = (Get-Date).AddSeconds($seconds)
+    while($doneDT -gt (Get-Date)) {
+        $secondsLeft = $doneDT.Subtract((Get-Date)).TotalSeconds
+        $percent = ($seconds - $secondsLeft) / $seconds * 100
+        Write-Progress -Activity "Sleeping" -Status "Sleeping..." -SecondsRemaining $secondsLeft -PercentComplete $percent
+        [System.Threading.Thread]::Sleep(500)
+    }
+    if ($percent -lt 1) {$progressBarPercent = 1 } else { $progressBarPercent = $percent }
+    Write-Progress -Activity "Sleeping" -Status "Sleeping...." -SecondsRemaining $secondsLeft -PercentComplete $progressBarPercent
+}
+
 az login --service-principal --username $Env:spnClientId --password $Env:spnClientSecret --tenant $Env:spnTenantId
 Write-Host "`n"
 
@@ -137,6 +149,20 @@ $extensionId=$(az k8s-extension show `
     --query id `
     --output tsv)
 
+# function Start-Sleep($seconds) {
+#     $doneDT = (Get-Date).AddSeconds($seconds)
+#     while($doneDT -gt (Get-Date)) {
+#         $secondsLeft = $doneDT.Subtract((Get-Date)).TotalSeconds
+#         $percent = ($seconds - $secondsLeft) / $seconds * 100
+#         Write-Progress -Activity "Sleeping" -Status "Waiting for Azure Arc-enabled app services extension to install. Sleeping for 10 minutes..." -SecondsRemaining $secondsLeft -PercentComplete $percent
+#         [System.Threading.Thread]::Sleep(500)
+#     }
+#     if ($percent -lt 1) {$progressBarPercent = 1 } else { $progressBarPercent = $percent }
+#     Write-Progress -Activity "Sleeping" -Status "Waiting for Azure Arc-enabled app services extension to install. Sleeping for 10 minutes..." -SecondsRemaining $secondsLeft -PercentComplete $progressBarPercent
+# }
+
+# Start-Sleep -seconds 600
+
 Do {
     Write-Host "Waiting for Azure Arc-enabled app services extension to install. Hold tight, this might take a few minutes...(60s sleeping loop)"
     Start-Sleep -Seconds 60
@@ -162,10 +188,6 @@ Write-Host "`n"
 $connectedClusterId = az connectedk8s show --name $Env:clusterName --resource-group $Env:resourceGroup --query id -o tsv
 $extensionId = az k8s-extension show --name $extensionName --cluster-type connectedClusters --cluster-name $Env:clusterName --resource-group $Env:resourceGroup --query id -o tsv
 $customLocationId = $(az customlocation create --name 'jumpstart-cl' --resource-group $Env:resourceGroup --namespace appservices --host-resource-id $connectedClusterId --cluster-extension-ids $extensionId --kubeconfig "C:\Users\$Env:USERNAME\.kube\config" --query id -o tsv)
-# Write-Host "`n"
-# Write-Host "Waiting for 30s before creating the App Services kube environment"
-# Write-Host "`n"
-# Start-Sleep -Seconds 30
 az appservice kube create --resource-group $Env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId --location $Env:azureLocation --output none 
 
 Do {
@@ -194,12 +216,6 @@ if ( $Env:deployLogicApp -eq $true )
 {
     & "$Env:TempDir\deployLogicApp.ps1"
 }
-
-# Installing Microsoft Defender for Containers cluster extension
-Write-Host "`n"
-Write-Host "Installing Microsoft Defender for Containers cluster extension"
-Write-Host "`n"
-az k8s-extension create --name "azure-defender" --cluster-name $Env:clusterName --resource-group $Env:resourceGroup --cluster-type connectedClusters --extension-type Microsoft.AzureDefender.Kubernetes
 
 # Changing to Client VM wallpaper
 $imgPath="$Env:TempDir\wallpaper.png"
