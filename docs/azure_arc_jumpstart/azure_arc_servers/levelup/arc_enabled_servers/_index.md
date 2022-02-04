@@ -1,12 +1,4 @@
----
-type: docs
-title: "Azure Arc-enabled Servers"
-linkTitle: "Azure Arc-enabled Servers"
-weight: 1
-description: >
----
-
-## Azure Arc-enabled Servers LevelUp Training
+## Azure Arc-enabled servers LevelUp Training
 
 ![LevelUp Deployment Diagram](levelup-diagram.png)
 
@@ -28,7 +20,7 @@ However, **for demo purposes only**, the below guide will allow you to use and o
 
 * Create Azure service principal (SP).
 
-    To be able to complete the scenario and its related automation, Azure service principal assigned with the “Contributor” role is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
+    To be able to complete the scenario and its related automation, Azure service principal assigned with the “Contributor” role on the subscription is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
 
     ```shell
     az login
@@ -55,23 +47,6 @@ However, **for demo purposes only**, the below guide will allow you to use and o
     ```
 
     > **Note: It is optional, but highly recommended, to scope the SP to a specific [Azure subscription](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest).**
-
-* Azure Arc-enabled servers depends on the following Azure resource providers in your subscription in order to use this service. Registration is an asynchronous process, and registration may take approximately 10 minutes.
-
-  * Microsoft.HybridCompute
-  * Microsoft.GuestConfiguration
-
-      ```shell
-      az provider register --namespace 'Microsoft.HybridCompute'
-      az provider register --namespace 'Microsoft.GuestConfiguration'
-      ```
-
-      You can monitor the registration process with the following commands:
-
-      ```shell
-      az provider show --namespace 'Microsoft.HybridCompute'
-      az provider show --namespace 'Microsoft.GuestConfiguration'
-      ```
 
 ## Deploy the Template from the Azure Portal
 
