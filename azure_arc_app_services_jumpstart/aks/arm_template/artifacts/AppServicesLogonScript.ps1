@@ -6,8 +6,9 @@ $ArcAppSvcExtensionVersion = "0.12.0"
 $storageClassName = "default"
 $namespaceName="appservices"
 $extensionName = "arc-app-services"
-$aksNodeVMSize = "Standard_D4s_v4"
+$aksNodeVMSize = "Standard_D8s_v4"
 $aksNodeCount = 3
+$kubernetesVersion = 1.22.4
 
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
@@ -20,7 +21,7 @@ Write-Host "`n"
 az aks create --resource-group $Env:resourceGroup `
               --name $Env:clusterName `
               --location $Env:azureLocation `
-              --kubernetes-version $Env:kubernetesVersion `
+              --kubernetes-version $kubernetesVersion `
               --dns-name-prefix $Env:dnsPrefix `
               --node-vm-size $aksNodeVMSize `
               --node-count $aksNodeCount `
@@ -151,7 +152,7 @@ Do {
     Do {
     Write-Host "Waiting for log-processor to become available. Hold tight, this might take a few minutes...(30s sleeping loop)"
     Start-Sleep -Seconds 30
-    $logProcessorStatus = $(if(kubectl describe daemonset ($extensionName + "-k8se-log-processor") -n appservices | Select-String "Pods Status:  4 Running" -Quiet){"Ready!"}Else{"Nope"})
+    $logProcessorStatus = $(if(kubectl describe daemonset ($extensionName + "-k8se-log-processor") -n appservices | Select-String "Pods Status:  3 Running" -Quiet){"Ready!"}Else{"Nope"})
     } while ($logProcessorStatus -eq "Nope")
 
 # Deploying App Service Kubernetes Environment
