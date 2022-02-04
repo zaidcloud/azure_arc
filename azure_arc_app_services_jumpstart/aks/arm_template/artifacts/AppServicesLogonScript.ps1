@@ -8,7 +8,7 @@ $namespaceName="appservices"
 $extensionName = "arc-app-services"
 $aksNodeVMSize = "Standard_D8s_v4"
 $aksNodeCount = 3
-$kubernetesVersion = 1.22.4
+$kubernetesVersion = "1.22.4"
 
 Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
