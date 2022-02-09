@@ -491,7 +491,7 @@ In the case of a failed deployment, pointing to a failure in either the _ubuntuR
 
       ![Screenshot showing login and the message of the day](./login_motd.png)
 
-- From the screenshot below, looking at _ArcBox-CAPI-MGMT_ virtual machines CAPI installation log using the `cat jumpstart_logs/installCAPI.log` command, we can see the _az login_ command failed due to bad service principal credentials.
+- From the screenshot below, looking at _ArcBox-CAPI-MGMT_ virtual machine CAPI installation log using the `cat jumpstart_logs/installCAPI.log` command, we can see the _az login_ command failed due to bad service principal credentials.
 
   ![Screenshot showing cat command for showing installation log](./cat_command.png)
 
