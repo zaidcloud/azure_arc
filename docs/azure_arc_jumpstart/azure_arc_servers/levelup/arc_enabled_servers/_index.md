@@ -1,4 +1,4 @@
-## Azure Arc-enabled servers LevelUp Training
+# Azure Arc-enabled servers LevelUp Training
 
 ![LevelUp Deployment Diagram](levelup-diagram.png)
 
