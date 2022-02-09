@@ -52,10 +52,21 @@ However, **for demo purposes only**, the below guide will allow you to use and o
 
 1. Click the button below to deploy the LevelUp ArcBox template via the Azure Portal:
 
-    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Farc-levelup-deploy%2Fazure_arc_servers_jumpstart%2Flevelup%2Farm%2Fazuredeploy.json)
+    [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Farc-levelup-deploy%2Fazure_arc_servers_jumpstart%2Flevelup%2Farm%2Fazuredeploy.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Farc-levelup-deploy%2Fazure_arc_servers_jumpstart%2Flevelup%2Farm%2FcreateUiDefinition.json)
 
 2. Provide the required parameters, and deploy the template:
 
     ![LevelUp Deployment Parameters](portal-deployment.png)
 
     > **Note: Please make sure that the GitHub account and branch match the field highlighted in red.**
+
+## Post Deployment Notes
+
+The nested VM's that are deployed onto the Hyper-V have the following default login credentials:
+
+  * Windows Server (2019/2022)
+    * Username: `Administrator`
+    * Password: `ArcDemo123!!`
+  * Linux (Ubuntu/CentOS)
+    * Username: `arcdemo`
+    * Password: `ArcDemo123!!`
