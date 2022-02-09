@@ -54,19 +54,49 @@ However, **for demo purposes only**, the below guide will allow you to use and o
 
     [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Farc-levelup-deploy%2Fazure_arc_servers_jumpstart%2Flevelup%2Farm%2Fazuredeploy.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Farc-levelup-deploy%2Fazure_arc_servers_jumpstart%2Flevelup%2Farm%2FcreateUiDefinition.json)
 
-2. Provide the required parameters, and deploy the template:
+2. Choose a target subscription, region, resource group, and region. Click **next**:
 
-    ![LevelUp Deployment Parameters](portal-deployment.png)
+    ![LevelUp Deployment Step 1](portal-deployment-01.png)
 
-    > **Note: Please make sure that the GitHub account and branch match the field highlighted in red.**
+3. Fill in your IP from [icanhazip.com](http://www.icanhazip.com), the corresponding fields from the Service Principal creation step above, and the Windows VM login credentials. Click **next**:
+
+    ![LevelUp Deployment Step 2](portal-deployment-02.png)
+
+4. Review the deployment details, then click **create** to begin the deployment:
+
+    ![LevelUp Deployment Step 3](portal-deployment-03.png)
+
+5. Once the deployment has finished, click **go to resource group***:
+
+    ![LevelUp Deployment Complete](deployment-complete.png)
+
+6. Select the **ArcBox-Client** virtual machine:
+
+    ![LevelUp ArcBox VM](arcbox-vm.png)
+
+7. Copy the **public ip** by clicking the copy icon to the right of it:
+
+    ![LevelUp ArcBox Public IP](copy-public-ip.png)
+
+8. Paste the copied public ip into a Remote Desktop window, and click **connect**:
+
+    ![LevelUp ArcBox RDP](remote-desktop.png)
+
+9. Watch and wait for the post-deployment automation script to finish:
+
+    ![LevelUp ArcBox Post-Deployment](post-deployment-scripts.png)
+
+10. Once the scripts have completed, you should have 2 Linux and 2 Windows VM's, which can be found in **Hyper-V Manager** on the desktop:
+
+    ![LevelUp ArcBox Hyper-V](hyper-v-manager.png)
 
 ## Post Deployment Notes
 
 The nested VM's that are deployed onto the Hyper-V have the following default login credentials:
 
-  * Windows Server (2019/2022)
-    * Username: `Administrator`
-    * Password: `ArcDemo123!!`
-  * Linux (Ubuntu/CentOS)
-    * Username: `arcdemo`
-    * Password: `ArcDemo123!!`
+* Windows Server (2019/2022)
+  * Username: `Administrator`
+  * Password: `ArcDemo123!!`
+* Linux (Ubuntu/CentOS)
+  * Username: `arcdemo`
+  * Password: `ArcDemo123!!`
