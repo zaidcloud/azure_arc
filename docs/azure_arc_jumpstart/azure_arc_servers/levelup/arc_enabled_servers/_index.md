@@ -90,9 +90,9 @@ However, **for demo purposes only**, the below guide will allow you to use and o
 
     ![LevelUp ArcBox Hyper-V](hyper-v-manager.png)
 
-## Post Deployment Notes
+## Required Credentials
 
-The nested VM's that are deployed onto the Hyper-V have the following default login credentials:
+Use the below credentials for logging into the nested Hyper-V virtual machines:
 
 * Windows Server (2019/2022)
   * Username: `Administrator`
