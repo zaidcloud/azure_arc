@@ -441,7 +441,7 @@ Occasionally deployments of ArcBox may fail at various stages. Common reasons fo
 - Invalid SSH public key provided in _azuredeploy.parameters.json_ file.
   - An example SSH public key is shown here. Note that the public key includes "ssh-rsa" at the beginning. The entire value should be included in your _azuredeploy.parameters.json_ file.
 
-  ![Screenshot showing SSH public key example](./ssh_example.png)
+      ![Screenshot showing SSH public key example](./ssh_example.png)
 
 - Not enough vCPU quota available in your target Azure region - check vCPU quota and ensure you have at least 52 available. See the [prerequisites](#prerequisites) section for more details.
 - Target Azure region does not support all required Azure services - ensure you are running ArcBox in one of the supported regions listed in the above section "ArcBox Azure Region Compatibility".
