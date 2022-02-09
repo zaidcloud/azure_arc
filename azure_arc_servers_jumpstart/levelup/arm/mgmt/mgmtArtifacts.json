@@ -196,29 +196,6 @@
       "properties": {
         "resourceId": "[resourceId('Microsoft.Automation/automationAccounts', variables('automationAccountName'))]"
       }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-10-01",
-      "name": "policyDeployment",
-      "dependsOn": [
-        "[concat(parameters('workspaceName'))]"
-      ],
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('policyTemplate')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "azureLocation": {
-            "value": "[parameters('location')]"
-          },
-          "logAnalyticsWorkspace": {
-            "value": "[parameters('workspaceName')]"
-          }
-        }
-      }
     }
   ]
 }
