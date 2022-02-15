@@ -28,33 +28,53 @@ However, **for demo purposes only**, the below guide will allow you to use and o
 
 * Create Azure service principal (SP).
 
-    To be able to complete the scenario and its related automation, Azure service principal assigned with the “Contributor” role on the subscription is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
+  You will need `Microsoft.Authorization/roleAssignments/write` permission on the target subscription in order to successfully assign the appropriate permissions to the Service Principal used in the automation. Azure built-in roles which contain this permission are as follows:
 
-    ```shell
-    az login
-    az account set --subscription "<Subscription Id>"
-    az ad sp create-for-rbac -n "<Unique SP Name>" --role contributor
-    ```
+  * [Owner](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#owner)
+  * [User Access Administrator](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#user-access-administrator)
+  * [Co-Administrator](https://docs.microsoft.com/en-us/azure/role-based-access-control/classic-administrators)
 
-    For example:
+  For additional information on assigning a user as a Subscription administrator, click [here](https://docs.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal-subscription-admin)
 
-    ```shell
-    az ad sp create-for-rbac -n "http://AzureArcLevelUp" --role contributor
-    ```
+  To be able to complete the scenario and its related automation, Azure service principal assigned with the “Contributor” role on the subscription is required. To create it, login to your Azure account run the below command (this can also be done in [Azure Cloud Shell](https://shell.azure.com/)).
 
-    Output should look like this:
+  ```shell
+  az login
+  az account set --subscription "<Subscription Id>"
+  az ad sp create-for-rbac -n "<Unique SP Name>" --role contributor
+  ```
 
-    ```json
-    {
-        "appId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-        "displayName": "AzureArcLevelUp",
-        "name": "http://AzureArcLevelUp",
-        "password": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-        "tenant": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    }
-    ```
+  For example:
 
-    > **Note: It is optional, but highly recommended, to scope the SP to a specific [Azure subscription](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest).**
+  ```shell
+  az ad sp create-for-rbac -n "http://AzureArcLevelUp" --role contributor
+  ```
+
+  Output should look like this:
+
+  ```json
+  {
+      "appId": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "displayName": "AzureArcLevelUp",
+      "name": "http://AzureArcLevelUp",
+      "password": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+      "tenant": "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  }
+  ```
+
+  > **Note: It is optional, but highly recommended, to scope the SP to a specific [Azure subscription](https://docs.microsoft.com/en-us/cli/azure/ad/sp?view=azure-cli-latest).**
+
+## ArcBox Azure Region Compatibility
+
+ArcBox must be deployed to one of the following regions. **Deploying ArcBox outside of these regions may result in unexpected results or deployment errors.**
+
+* East US
+* East US 2
+* West US 2
+* North Europe
+* France Central
+* UK South
+* Southeast Asia
 
 ## Deploy the Template from the Azure Portal
 
@@ -70,7 +90,7 @@ However, **for demo purposes only**, the below guide will allow you to use and o
 
     ![LevelUp Deployment Step 2](portal-deployment-02.png)
 
-    > Note: If [icanhazip.com](http://icanhazip.com) isn't working properly for you, you can also try [whatismyip](http://whatismyip.com).com or [ipinfo.io/ip](http://ipinfo.io/ip)
+    > Note: If [icanhazip.com](http://icanhazip.com) isn't working properly for you, you can also try [whatismyip.com](http://whatismyip.com) or [ipinfo.io/ip](http://ipinfo.io/ip)
 
 4. Review the deployment details, then click **create** to begin the deployment:
 
