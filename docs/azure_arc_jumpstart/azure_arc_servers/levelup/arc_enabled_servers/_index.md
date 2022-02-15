@@ -66,7 +66,7 @@ However, **for demo purposes only**, the below guide will allow you to use and o
 
 ## ArcBox Azure Region Compatibility
 
-ArcBox must be deployed to one of the following regions.
+ArcBox must be deployed to one of the following regions:
 > **Deploying ArcBox outside of these regions may result in unexpected results or deployment errors.**
 
 * East US
@@ -90,6 +90,8 @@ ArcBox must be deployed to one of the following regions.
 3. Fill in your IP from [icanhazip.com](http://www.icanhazip.com), the corresponding fields from the Service Principal creation step above, and the Windows VM login credentials. Click **next**:
 
     ![LevelUp Deployment Step 2](portal-deployment-02.png)
+
+    > Please make sure to select a **unique** value for the Log Analytics Workspace Name (e.g. it doesn't overlap any existing Log Analytics Workspace within the target Resource Group)
 
     > Note: If [icanhazip.com](http://icanhazip.com) isn't working properly for you, you can also try [whatismyip.com](http://whatismyip.com) or [ipinfo.io/ip](http://ipinfo.io/ip)
 
