@@ -66,7 +66,8 @@ However, **for demo purposes only**, the below guide will allow you to use and o
 
 ## ArcBox Azure Region Compatibility
 
-ArcBox must be deployed to one of the following regions. **Deploying ArcBox outside of these regions may result in unexpected results or deployment errors.**
+ArcBox must be deployed to one of the following regions.
+> **Deploying ArcBox outside of these regions may result in unexpected results or deployment errors.**
 
 * East US
 * East US 2
