@@ -67,14 +67,6 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
 
 ## Prerequisites
 
-- **ArcBox for IT Pros requires 16 DSv4-series vCPUs** when deploying with default parameters such as VM series/size. Ensure you have sufficient vCPU quota available in your Azure subscription and the region where you plan to deploy ArcBox. You can use the below Az CLI command to check your vCPU utilization.
-
-  ```shell
-  az vm list-usage --location <your location> --output table
-  ```
-
-  ![Screenshot showing az vm list-usage](./azvmlistusage.png)
-
 - [Install or update Azure CLI to version 2.15.0 and above](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). Use the below command to check your current installed version.
 
   ```shell
@@ -82,6 +74,26 @@ ArcBox uses an advanced automation flow to deploy and configure all necessary re
   ```
 
 - Login to AZ CLI using the ```az login``` command.
+
+- Ensure that you have selected the correct subscription you want to deploy ArcBox to by using the ```az account list --query "[?isDefault]"``` command. If you need to adjust the active subscription used by Az CLI, follow [this guidance](https://docs.microsoft.com/en-us/cli/azure/manage-azure-subscriptions-azure-cli#change-the-active-subscription).
+
+- ArcBox must be deployed to one of the following regions. **Deploying ArcBox outside of these regions may result in unexpected results or deployment errors.**
+
+  - East US
+  - East US 2
+  - West US 2
+  - North Europe
+  - France Central
+  - UK South
+  - Southeast Asia
+
+- **ArcBox for IT Pros requires 16 DSv4-series vCPUs** when deploying with default parameters such as VM series/size. Ensure you have sufficient vCPU quota available in your Azure subscription and the region where you plan to deploy ArcBox. You can use the below Az CLI command to check your vCPU utilization.
+
+  ```shell
+  az vm list-usage --location <your location> --output table
+  ```
+
+  ![Screenshot showing az vm list-usage](./azvmlistusage.png)
 
 - Register necessary Azure resource providers by running the following commands.
 
