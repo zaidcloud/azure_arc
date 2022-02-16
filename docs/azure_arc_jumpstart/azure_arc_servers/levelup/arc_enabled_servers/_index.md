@@ -83,7 +83,7 @@ ArcBox must be deployed to one of the following regions:
 
     [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Farc-levelup-deploy%2Fazure_arc_servers_jumpstart%2Flevelup%2Farm%2Fazuredeploy.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2Fazure_arc%2Farc-levelup-deploy%2Fazure_arc_servers_jumpstart%2Flevelup%2Farm%2FcreateUiDefinition.json)
 
-2. Choose a target subscription, region, resource group, and region. Click **next**:
+2. Choose a target subscription, region, resource group (or create a new one), and region. Click **next**:
 
     ![LevelUp Deployment Step 1](portal-deployment-01.png)
 
