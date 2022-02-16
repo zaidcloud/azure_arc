@@ -107,11 +107,11 @@ ArcBox must be deployed to one of the following regions:
 
     ![LevelUp ArcBox VM](arcbox-vm.png)
 
-7. Copy the **public ip** by clicking the copy icon to the right of it:
+7. Copy the **Public IP** by clicking the copy icon to the right of it:
 
     ![LevelUp ArcBox Public IP](copy-public-ip.png)
 
-8. Paste the copied public ip into a Remote Desktop window, and click **connect**:
+8. Paste the copied **Public IP** into a Remote Desktop window, and click **Connect**:
 
     ![LevelUp ArcBox RDP](remote-desktop.png)
 
@@ -122,6 +122,10 @@ ArcBox must be deployed to one of the following regions:
 10. Once the scripts have completed, you should have 2 Linux and 2 Windows VM's, which can be found in **Hyper-V Manager** on the desktop:
 
     ![LevelUp ArcBox Hyper-V](hyper-v-manager.png)
+
+11. Back in the Resource Group view, you can see that two of the Hyper-V VM's (CentOS & Win2K19) have already been onboarded to Azure Arc on your behalf:
+
+    ![LevelUp ArcBox Arc Onboarded VMs](onboarded-vms.png)
 
 ## Required Credentials
 
